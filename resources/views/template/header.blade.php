@@ -100,6 +100,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="{{ url('/suratktu') }}">
+                                            <span class="sub-item">Surat Keterangan Tempat Usaha</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="components/gridsystem.html">
                                             <span class="sub-item">Grid System</span>
                                         </a>
