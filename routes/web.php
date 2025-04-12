@@ -12,6 +12,7 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
+use App\Http\Controllers\SuratKtuController;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -39,10 +40,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/pengguna', PenggunaController::class);
     Route::resource('/penduduk', PendudukController::class);
     Route::resource('/kk', KKController::class);
+    Route::resource('/suratktu', SuratKtuController::class);
     Route::resource('/suratktm', SuratKtmController::class);
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);
+    Route::get('/suratktu/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktu.export.pdf');
     Route::get('/suratktm/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktm.export.pdf');
     Route::post('/kk/importkk', [KKController::class, 'importKK'])->name('kk.importkk');
     Route::post('/kk/export', [KKController::class, 'export'])->name('kk.export');
