@@ -89,12 +89,16 @@
                                             enctype="multipart/form-data" style="display: inline;">
                                             @csrf
 
-                                            <input type="file" name="file" required accept=".xlsx, .xls, .csv"
-                                                style="display: inline-block; width: auto;"
-                                                class="form-control-file mb-2">
-                                            <button type="submit" class="btn btn-primary mb-3">
-                                                <i class="fas fa-file-upload"></i> Import KK
-                                            </button>
+                                            <div class="form-group">
+                                                <input type="file" name="file" required accept=".xlsx, .xls, .csv"
+                                                    style="display: inline-block; width: auto;"
+                                                    class="form-control-file mb-2">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary mb-3">
+                                                    <i class="fas fa-file-upload"></i> Import KK
+                                                </button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
