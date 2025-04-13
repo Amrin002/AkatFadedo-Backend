@@ -57,8 +57,13 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="status_kawin">Status Kawin</label>
-                                                <input type="text" class="form-control" id="status_kawin"
-                                                    name="status_kawin" value="{{ old('status_kawin') }}" required>
+                                                <select class="form-control" id="status_kawin" name="status_kawin"
+                                                    required>
+                                                    <option value="">Pilih Status Kawin</option>
+                                                    <option value="belum_kawin">Belum Kawin</option>
+                                                    <option value="sudah_kawin">Sudah Kawin</option>
+                                                    <option value="cerai">Cerai</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="kewarganegaraan">Kewarganegaraan</label>
@@ -116,10 +121,10 @@
                                             <td>{{ $row->alamat }}</td>
                                             <td>
                                                 <span
-                                                    class="badge 
-                                                    @if ($row->status == 'On Progress') bg-warning 
-                                                    @elseif($row->status == 'Approve') bg-success 
-                                                    @elseif($row->status == 'Cancel') bg-secondary 
+                                                    class="badge
+                                                    @if ($row->status == 'On Progress') bg-warning
+                                                    @elseif($row->status == 'Approve') bg-success
+                                                    @elseif($row->status == 'Cancel') bg-secondary
                                                     @else bg-danger @endif">
                                                     {{ $row->status }}
                                                 </span>
@@ -243,9 +248,18 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Status Kawin</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="status_kawin" value="{{ $row->status_kawin }}"
+                                                                <select class="form-control" name="status"
                                                                     required>
+                                                                    <option value="belum_kawin"
+                                                                        {{ $row->status_kawin == 'belum_kawin' ? 'selected' : '' }}>
+                                                                        Belum Kawin</option>
+                                                                    <option value="sudah_kawin"
+                                                                        {{ $row->status_kawin == 'sudah_kawin' ? 'selected' : '' }}>
+                                                                        Sudah Kawin</option>
+                                                                    <option value="cerai"
+                                                                        {{ $row->status_kawin == 'cerai' ? 'selected' : '' }}>
+                                                                        Cerai</option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Kewarganegaraan</label>

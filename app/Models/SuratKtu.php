@@ -14,6 +14,7 @@ class SuratKtu extends Model
         'nama_usaha',
         'alamat_usaha',
         'jenis_usaha',
+        'pemilik_usaha',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
