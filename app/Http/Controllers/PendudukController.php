@@ -22,8 +22,7 @@ class PendudukController extends Controller
         $user = $request->user();
 
         // Mengambil semua pengguna tanpa filter devisi atau staf
-        $penduduk = Penduduk::whereNull('deleted_at')
-            ->whereNotIn('nama_lengkap', ['Admin'])
+        $penduduk = Penduduk::whereNotIn('nama_lengkap', ['Admin'])
             ->orderBy('no_kk')
             ->orderByRaw("FIELD(status_keluarga, 'Kepala Keluarga', 'Istri', 'Anak', 'Lainnya')")
             ->orderBy('nama_lengkap')
