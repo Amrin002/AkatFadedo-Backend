@@ -3,27 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
-class SuratKtu extends Model
+class SuratDomisili extends Model
 {
-    //use HasFactory, SoftDeletes;
+    //
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'surat_ktus';
+    protected $table = 'surat_domisilis';
     protected $fillable = [
         'no_surat',
-        'nama_usaha',
-        'alamat_usaha',
-        'jenis_usaha',
-        'pemilik_usaha',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
         'jenis_kelamin',
+        'status_kawin',
         'kewarganegaraan',
         'pekerjaan',
         'alamat',
-        'npwp',
+        'surat_keluar',
         'keterangan',
         'status',
         'user_id'
@@ -38,3 +37,4 @@ class SuratKtu extends Model
         return $this->belongsTo(User::class);
     }
 }
+
