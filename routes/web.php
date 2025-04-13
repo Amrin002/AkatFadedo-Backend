@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
+use App\Http\Controllers\SuratDomisiliController;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -42,11 +43,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/kk', KKController::class);
     Route::resource('/suratktu', SuratKtuController::class);
     Route::resource('/suratktm', SuratKtmController::class);
+    Route::resource('/suratdomisili', SuratDomisiliController::class);
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);
-    Route::get('/suratktu/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktu.export.pdf');
+    Route::get('/suratktu/export/pdf/{id}', [SuratKtuController::class, 'exportPdf'])->name('suratktu.export.pdf');
     Route::get('/suratktm/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktm.export.pdf');
+    Route::get('/suratdomisili/export/pdf/{id}', [SuratDomisiliController::class, 'exportPdf'])->name('suratdomisili.export.pdf');
     Route::post('/kk/importkk', [KKController::class, 'importKK'])->name('kk.importkk');
     Route::post('/kk/export', [KKController::class, 'export'])->name('kk.export');
     Route::post('/penduduk/import', [PendudukController::class, 'importPenduduk'])->name('penduduk.import');

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>Halaman Surat Keterangan Orang Tua Tidak Mampu</h3>
+                <h3>Halaman Surat Keterangan Tempat Usaha</h3>
 
                 <div class="card">
                     <div class="card-header">
@@ -12,25 +12,44 @@
                     </div>
 
                     <div class="card-body">
-                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambahSuratKTM">
+                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambahSuratKTU">
                             <i class="fas fa-plus-circle"></i> Tambah Surat
                         </button>
 
-                        {{-- Modal Tambah Surat KTM --}}
-                        <div class="modal fade" id="modalTambahSuratKTM" tabindex="-1" role="dialog"
-                            aria-labelledby="modalTambahSuratKTMLbl" aria-hidden="true">
+                        {{-- Modal Tambah Surat KTU --}}
+                        <div class="modal fade" id="modalTambahSuratKTU" tabindex="-1" role="dialog"
+                            aria-labelledby="modalTambahSuratKTULbl" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalTambahSuratKTMLbl">Tambah Surat Keterangan Tidak
-                                            Mampu</h5>
+                                        <h5 class="modal-title" id="modalTambahSuratKTULbl">Tambah Surat Keterangan Tempat Usaha</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('suratktm.store') }}" method="POST">
+                                        <form action="{{ route('suratktu.store') }}" method="POST">
                                             @csrf
+                                            <div class="form-group">
+                                                <label for="nama_usaha">Nama Usaha</label>
+                                                <input type="text" class="form-control" id="nama_usaha"
+                                                    name="nama_usaha" value="{{ old('nama_usaha') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="alamat_usaha">Alamat Usaha</label>
+                                                <input type="text" class="form-control" id="alamat_usaha"
+                                                    name="alamat_usaha" value="{{ old('alamat_usaha') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jenis_usaha">Jenis Usaha</label>
+                                                <input type="text" class="form-control" id="jenis_usaha"
+                                                    name="jenis_usaha" value="{{ old('jenis_usaha') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pemilik_usaha">Pemilik Usaha</label>
+                                                <input type="text" class="form-control" id="pemilik_usaha"
+                                                    name="pemilik_usaha" value="{{ old('pemilik_usaha') }}" required>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="nama">Nama</label>
                                                 <input type="text" class="form-control" id="nama" name="nama"
@@ -56,23 +75,22 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="status_kawin">Status Kawin</label>
-                                                <select class="form-control" id="status_kawin" name="status_kawin"
-                                                    required>
-                                                    <option value="">Pilih Status Kawin</option>
-                                                    <option value="belum_kawin">Belum Kawin</option>
-                                                    <option value="sudah_kawin">Sudah Kawin</option>
-                                                    <option value="cerai">Cerai</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="kewarganegaraan">Kewarganegaraan</label>
                                                 <input type="text" class="form-control" id="kewarganegaraan"
                                                     name="kewarganegaraan" value="{{ old('kewarganegaraan') }}" required>
                                             </div>
                                             <div class="form-group">
+                                                <label for="pekerjaan">Pekerjaan</label>
+                                                <input type="text" class="form-control" id="pekerjaan"
+                                                    name="pekerjaan" value="{{ old('pekerjaan') }}" required>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="alamat">Alamat</label>
                                                 <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nama_usaha">NPWP</label>
+                                                <input type="text" class="form-control" id="npwp" name="npwp" value="{{ old('npwp') }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="keterangan">Keterangan</label>
@@ -86,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- End Modal Tambah Surat KTM --}}
+                        {{-- End Modal Tambah Surat KTU --}}
 
                         {{-- Tabel Data --}}
                         <div class="table-responsive">
@@ -95,29 +113,38 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Surat</th>
+                                        <th>Nama Usaha</th>
+                                        <th>Alamat Usaha</th>
+                                        <th>Jenis Usaha</th>
+                                        <th>Pemilik Usaha</th>
                                         <th>Nama</th>
                                         <th>Tempat Lahir</th>
                                         <th>Tanggal Lahir</th>
                                         <th>Jenis Kelamin</th>
-                                        <th>Status Kawin</th>
                                         <th>Kewarganegaraan</th>
+                                        <th>Pekerjaan</th>
                                         <th>Alamat</th>
+                                        <th>NPWP</th>
                                         <th>Status</th>
                                         <th>Keterangan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($suratKtm as $row)
+                                    @foreach ($suratKtu as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->no_surat }}</td>
+                                            <td>{{ $row->nama_usaha }}</td>
+                                            <td>{{ $row->alamat_usaha }}</td>
+                                            <td>{{ $row->jenis_usaha }}</td>
+                                            <td>{{ $row->pemilik_usaha }}</td>
                                             <td>{{ $row->nama }}</td>
                                             <td>{{ $row->tempat_lahir }}</td>
                                             <td>{{ $row->tanggal_lahir }}</td>
                                             <td>{{ $row->jenis_kelamin }}</td>
-                                            <td>{{ $row->status_kawin }}</td>
                                             <td>{{ $row->kewarganegaraan }}</td>
+                                            <td>{{ $row->pekerjaan }}</td>
                                             <td>{{ $row->alamat }}</td>
                                             <td>
                                                 <span
@@ -137,7 +164,7 @@
                                                         <i class="fas fa-edit"></i> Edit
                                                     </button>
 
-                                                    <form action="{{ route('suratktm.destroy', $row->id) }}"
+                                                    <form action="{{ route('suratktu.destroy', $row->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -148,7 +175,7 @@
                                                         </button>
                                                     </form>
                                                 </div>
-                                                <form action="{{ route('suratktm.export.pdf', $row->id) }}"
+                                                <form action="{{ route('suratktu.export.pdf', $row->id) }}"
                                                     method="GET">
                                                     <button type="submit" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-file-pdf"></i> Export
@@ -181,7 +208,7 @@
                                                                 data-dismiss="modal">
                                                                 Batal
                                                             </button>
-                                                            <form action="{{ route('suratktm.destroy', $row->id) }}"
+                                                            <form action="{{ route('suratktu.destroy', $row->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -200,7 +227,7 @@
                                         <div class="modal fade" id="editModal{{ $row->id }}" tabindex="-1"
                                             aria-labelledby="editModalLabel{{ $row->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <form action="{{ route('suratktm.update', $row->id) }}" method="POST">
+                                                <form action="{{ route('suratktu.update', $row->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-content">
@@ -216,6 +243,26 @@
                                                                 <label>Nomor Surat</label>
                                                                 <input type="text" class="form-control"
                                                                     name="no_surat" value="{{ $row->no_surat }}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Nama Usaha</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="nama_usaha" value="{{ $row->nama_usaha }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Alamat Usaha</label>
+                                                                <input type="text" class="form-control" name="alamat_usaha"
+                                                                    value="{{ $row->alamat_usaha }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Jenis Usaha</label>
+                                                                <input type="text" class="form-control" name="Jenis Usaha"
+                                                                    value="{{ $row->jenis_usaha }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Pemilik Usaha</label>
+                                                                <input type="text" class="form-control" name="pemilik_usaha"
+                                                                    value="{{ $row->pemilik_usaha }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama</label>
@@ -247,30 +294,25 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Status Kawin</label>
-                                                                <select class="form-control" name="status_kawin"
-                                                                    required>
-                                                                    <option value="belum_kawin"
-                                                                        {{ $row->status_kawin == 'belum_kawin' ? 'selected' : '' }}>
-                                                                        Belum Kawin</option>
-                                                                    <option value="sudah_kawin"
-                                                                        {{ $row->status_kawin == 'sudah_kawin' ? 'selected' : '' }}>
-                                                                        Sudah Kawin</option>
-                                                                    <option value="cerai"
-                                                                        {{ $row->status_kawin == 'cerai' ? 'selected' : '' }}>
-                                                                        Cerai</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label>Kewarganegaraan</label>
                                                                 <input type="text" class="form-control"
                                                                     name="kewarganegaraan"
                                                                     value="{{ $row->kewarganegaraan }}" required>
                                                             </div>
                                                             <div class="form-group">
+                                                                <label>Pekerjaan</label>
+                                                                <input type="text" class="form-control" name="pekerjaan"
+                                                                    value="{{ $row->pekerjaan }}" required>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label>Alamat</label>
                                                                 <input type="text" class="form-control" name="alamat"
                                                                     value="{{ $row->alamat }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>NPWP</label>
+                                                                <input type="text" class="form-control" name="npwp"
+                                                                    value="{{ $row->npwp }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Keterangan</label>

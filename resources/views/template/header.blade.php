@@ -105,8 +105,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="components/gridsystem.html">
-                                            <span class="sub-item">Grid System</span>
+                                        <a href="{{ url('/suratdomisili') }}">
+                                            <span class="sub-item">Surat Domisili</span>
                                         </a>
                                     </li>
                                     <li>
