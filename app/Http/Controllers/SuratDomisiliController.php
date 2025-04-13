@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratKtu;
+use App\Models\SuratDomisili;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SuratKtuController extends Controller
+class SuratDomisiliController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +17,13 @@ class SuratKtuController extends Controller
     {
         //
         $title = 'Halaman Pengguna';
-        $halaman = 'Surat Keterang Tempat Usaha';
+        $halaman = 'Surat Domisili';
         $user = $request->user();
 
-        $suratKtu = DB::table('surat_ktus')->whereNull('deleted_at')->get();
-        return view('suratktu.index', compact('title', 'halaman', 'user', 'suratKtu'));
+        $suratDomisili = DB::table('surat_domisilis')->whereNull('deleted_at')->get();
+        return view('suratdomisili.index', compact('title', 'halaman', 'user', 'suratDomisili'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -39,62 +40,54 @@ class SuratKtuController extends Controller
         //
         $request->validate([
             'no_surat' => 'nullable|string|max:100',
-            'nama_usaha' => 'required|string|max:255',
-            'alamat_usaha' => 'required|string|max:255',
-            'jenis_usaha' => 'required|string|max:20',
-            'pemilik_usaha' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:laki,perempuan',
+            'status_kawin' => 'required|in:belum_kawin,sudah_kawin,cerai',
             'kewarganegaraan' => 'required|string|max:255',
-            'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
-            'npwp' => 'required|string|max:20',
+            'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
             'status' => 'nullable|in: On Progress,Approve,Cancel',
         ]);
 
-        SuratKtu::create([
+        SuratDomisili::create([
             'no_surat' => $request->no_surat,
-            'nama_usaha' => $request->nama_usaha,
-            'alamat_usaha' => $request->alamat_usaha,
-            'jenis_usaha' => $request->jenis_usaha,
-            'pemilik_usaha' => $request->pemilik_usaha,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
+            'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
-            'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'npwp' => $request->npwp,
+            'surat_keluar'=> $request->surat_keluar,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
 
-        return redirect()->route('suratktu.index')->with('success', "Surat Keterangan Tempat Usaha Berhasil di Tambahkan");
+        return redirect()->route('suratdomisili.index')->with('success', "Surat Domisili Berhasil di Tambahkan");
     }
 
     public function exportPdf($id)
     {
-        $surat = SuratKtu::findOrFail($id);
+        $surat = SuratDomisili::findOrFail($id);
 
         if ($surat->status !== 'Approve') {
-            return redirect()->route('suratktu.index')
+            return redirect()->route('suratdomisili.index')
                 ->withErrors(['export_error' => 'Surat belum di-Approve dan tidak bisa diexport.']);
         }
 
         $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
 
-        return Pdf::loadView('suratktu.pdf', compact('surat', 'tanggal_dikeluarkan'))
-            ->download('surat-ktu-' . $surat->nama . '.pdf');
+        return Pdf::loadView('suratdomisili.pdf', compact('surat', 'tanggal_dikeluarkan'))
+            ->download('surat-domisili-' . $surat->nama . '.pdf');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(SuratKtu $suratKtu)
+    public function show(SuratDomisili $suratDomisili)
     {
         //
     }
@@ -102,7 +95,7 @@ class SuratKtuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SuratKtu $suratKtu)
+    public function edit(SuratDomisili $suratDomisili)
     {
         //
 
@@ -116,46 +109,38 @@ class SuratKtuController extends Controller
         //
         $request->validate([
             'no_surat' => 'nullable|string|max:100',
-            'nama_usaha' => 'required|string|max:255',
-            'alamat_usaha' => 'required|string|max:255',
-            'jenis_usaha' => 'required|string|max:20',
-            'pemilik_usaha' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:laki,perempuan',
+            'status_kawin' => 'required|in:belum_kawin,sudah_kawin,cerai',
             'kewarganegaraan' => 'required|string|max:255',
-            'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
-            'npwp' => 'required|string|max:20',
+            'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'status' => 'nullable|in: On Progress,Approve,Cancel',
+            'status' => 'nullable|in:On Progress,Approve,Cancel',
         ]);
         // Validasi tambahan: jika status ingin di-Approve tapi no_surat kosong
         if ($request->status === 'Approve' && empty($request->no_surat)) {
-            return redirect()->route('suratktu.index')
+            return redirect()->route('suratdomisili.index')
                 ->withErrors(['no_surat_required' => 'Tidak dapat mengubah status Approve surat tanpa nomor surat.']);
         }
-        $suratKtu = SuratKtu::findOrFail($id);
-        $suratKtu->update([
+        $suratDomisili = SuratDomisili::findOrFail($id);
+        $suratDomisili->update([
             'no_surat' => $request->no_surat,
-            'nama_usaha' => $request->nama_usaha,
-            'alamat_usaha' => $request->alamat_usaha,
-            'jenis_usaha' => $request->jenis_usaha,
-            'pemilik_usaha' => $request->pemilik_usaha,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
+            'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
-            'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'npwp' => $request->npwp,
+            'surat_keluar'=> $request->surat_keluar,
             'keterangan' => $request->keterangan,
             'status' => $request->status,
         ]);
 
-        return redirect()->route('suratktu.index')->with('success', 'Surat Keterangan Tempat Usaha berhasil di ubah');
+        return redirect()->route('suratdomisili.index')->with('success', 'Surat Domisili berhasil di ubah');
     }
 
     /**
@@ -164,8 +149,8 @@ class SuratKtuController extends Controller
     public function destroy(string $id)
     {
         //
-        $suratKtu = SuratKtu::findOrFail($id);
-        $suratKtu->delete();
-        return redirect()->route('suratktu.index')->with('success', 'Surat Keterangan Tempat Usaha berhasil di hapus');
+        $suratDomisili = SuratDomisili::findOrFail($id);
+        $suratDomisili->delete();
+        return redirect()->route('suratdomisili.index')->with('success', 'Surat Domisili berhasil di hapus');
     }
 }
