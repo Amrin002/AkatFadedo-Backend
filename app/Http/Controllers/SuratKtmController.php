@@ -20,7 +20,7 @@ class SuratKtmController extends Controller
         $halaman = 'Surat Keterang Orang Tua Tidak Mampu';
         $user = $request->user();
 
-        $suratKtm = DB::table('surat_ktms')->get();
+        $suratKtm = DB::table('surat_ktms')->whereNull('deleted_at')->get();
         return view('suratktm.index', compact('title', 'halaman', 'user', 'suratKtm'));
     }
 

@@ -45,7 +45,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);
-    Route::get('/suratktu/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktu.export.pdf');
+    Route::get('/suratktu/export/pdf/{id}', [SuratKtuController::class, 'exportPdf'])->name('suratktu.export.pdf');
     Route::get('/suratktm/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktm.export.pdf');
     Route::post('/kk/importkk', [KKController::class, 'importKK'])->name('kk.importkk');
     Route::post('/kk/export', [KKController::class, 'export'])->name('kk.export');

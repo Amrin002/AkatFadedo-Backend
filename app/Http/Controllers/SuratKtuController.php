@@ -20,7 +20,7 @@ class SuratKtuController extends Controller
         $halaman = 'Surat Keterang Tempat Usaha';
         $user = $request->user();
 
-        $suratKtu = DB::table('surat_ktus')->get();
+        $suratKtu = DB::table('surat_ktus')->whereNull('deleted_at')->get();
         return view('suratktu.index', compact('title', 'halaman', 'user', 'suratKtu'));
     }
     /**
