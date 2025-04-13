@@ -248,7 +248,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Status Kawin</label>
-                                                                <select class="form-control" name="status"
+                                                                <select class="form-control" name="status_kawin"
                                                                     required>
                                                                     <option value="belum_kawin"
                                                                         {{ $row->status_kawin == 'belum_kawin' ? 'selected' : '' }}>
