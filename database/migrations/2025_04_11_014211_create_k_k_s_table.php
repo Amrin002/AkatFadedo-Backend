@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kk', callback: function (Blueprint $table) {
+        Schema::create('kk',  function (Blueprint $table) {
             $table->string('no_kk')->primary()->unique();
             $table->string('dusun');
             $table->string('rt');
@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kabupaten');
             $table->string('provinsi');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

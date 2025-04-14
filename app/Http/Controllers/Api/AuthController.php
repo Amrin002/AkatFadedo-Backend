@@ -16,10 +16,9 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string',
             'nik' => 'required|string|unique:users|max:20',
-            'no_telp' => 'required|string|unique:users|max:15',
+            'no_telp' => 'nullable|string|unique:users|max:15',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         // Simpan foto jika ada
@@ -36,7 +35,7 @@ class AuthController extends Controller
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => $request->role ?? 'user',
             'image' => $photoPath,
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;

@@ -57,12 +57,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="status_kawin">Status Kawin</label>
-                                                <select class="form-control" id="status_kawin" name="status_kawin"
-                                                    required>
+                                                <select class="form-control" id="status_kawin" name="status_kawin" required>
                                                     <option value="">Pilih Status Kawin</option>
-                                                    <option value="belum_kawin">Belum Kawin</option>
-                                                    <option value="sudah_kawin">Sudah Kawin</option>
-                                                    <option value="cerai">Cerai</option>
+                                                    <option value="Belum kawin">Belum Kawin</option>
+                                                    <option value="Sudah kawin">Sudah Kawin</option>
+                                                    <option value="Cerai">Cerai</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -248,16 +247,15 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Status Kawin</label>
-                                                                <select class="form-control" name="status_kawin"
-                                                                    required>
-                                                                    <option value="belum_kawin"
-                                                                        {{ $row->status_kawin == 'belum_kawin' ? 'selected' : '' }}>
+                                                                <select class="form-control" name="status_kawin" required>
+                                                                    <option value="Belum kawin"
+                                                                        {{ $row->status_kawin == 'Belum kawin' ? 'selected' : '' }}>
                                                                         Belum Kawin</option>
-                                                                    <option value="sudah_kawin"
-                                                                        {{ $row->status_kawin == 'sudah_kawin' ? 'selected' : '' }}>
+                                                                    <option value="Sudah kawin"
+                                                                        {{ $row->status_kawin == 'Sudah kawin' ? 'selected' : '' }}>
                                                                         Sudah Kawin</option>
-                                                                    <option value="cerai"
-                                                                        {{ $row->status_kawin == 'cerai' ? 'selected' : '' }}>
+                                                                    <option value="Cerai"
+                                                                        {{ $row->status_kawin == 'Cerai' ? 'selected' : '' }}>
                                                                         Cerai</option>
                                                                 </select>
                                                             </div>
@@ -279,9 +277,9 @@
                                                             <div class="form-group">
                                                                 <label>Status</label>
                                                                 <select class="form-control" name="status" required>
-                                                                    <option value="Pending"
-                                                                        {{ $row->status == 'Pending' ? 'selected' : '' }}>
-                                                                        Pending</option>
+                                                                    <option value="On Progress"
+                                                                        {{ $row->status == 'On Progress' ? 'selected' : '' }}>
+                                                                        On Progress</option>
                                                                     <option value="Approve"
                                                                         {{ $row->status == 'Approve' ? 'selected' : '' }}>
                                                                         Approve</option>

@@ -23,7 +23,7 @@
                                 <i class="fas fa-file-excel"></i> Export ke Excel
                             </button>
                         </form>
-                        {{-- Modal Tambah KK --}}
+                        {{-- Modal Tambah Penduduk --}}
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
@@ -245,12 +245,16 @@
                                             enctype="multipart/form-data" style="display: inline;">
                                             @csrf
 
-                                            <input type="file" name="file" required accept=".xlsx, .xls, .csv"
-                                                style="display: inline-block; width: auto;"
-                                                class="form-control-file mb-2">
-                                            <button type="submit" class="btn btn-primary mb-3">
-                                                <i class="fas fa-file-upload"></i> Import Penduduk
-                                            </button>
+                                            <div class="form-group">
+                                                <input type="file" name="file" required accept=".xlsx, .xls, .csv"
+                                                    style="display: inline-block; width: auto;"
+                                                    class="form-control-file mb-2">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary mb-3">
+                                                    <i class="fas fa-file-upload"></i> Import Penduduk
+                                                </button>
+                                            </div>
                                         </form>
 
                                     </div>

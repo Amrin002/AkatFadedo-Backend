@@ -3,10 +3,13 @@
 use App\Exports\KKExport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\GaleriDesaController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
@@ -55,4 +58,22 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/penduduk/import', [PendudukController::class, 'importPenduduk'])->name('penduduk.import');
     Route::post('/penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
 });
+Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.request');
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.email');
+
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.reset');
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.update');
+
+Route::get('send-email', [MailController::class, 'sendMail']);
+
 require __DIR__ . '/auth.php';

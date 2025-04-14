@@ -22,8 +22,7 @@ class KKController extends Controller
         $user = $request->user();
 
         // Hanya mengambil data yang belum dihapus (soft delete)
-        $kk = KK::whereNull('deleted_at')
-            ->whereNotIn('desa', ['admin']) // Sembunyikan berdasarkan nama kepala keluarga
+        $kk = KK::whereNotIn('desa', ['admin']) // Sembunyikan berdasarkan nama kepala keluarga
             ->orderByDesc('no_kk')
             ->get();
 
