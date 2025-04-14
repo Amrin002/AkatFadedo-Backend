@@ -146,6 +146,7 @@
                                             <td>{{ $row->kewarganegaraan }}</td>
                                             <td>{{ $row->pekerjaan }}</td>
                                             <td>{{ $row->alamat }}</td>
+                                            <td>{{ $row->npwp }}</td>
                                             <td>
                                                 <span
                                                     class="badge
