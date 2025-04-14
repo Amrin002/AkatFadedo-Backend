@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\SuratKtm;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SuratKtmController extends Controller
 {
@@ -44,7 +46,7 @@ class SuratKtmController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:laki,perempuan',
-            'status_kawin' => 'required|in:belum_kawin,sudah_kawin,cerai',
+            'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
             'kewarganegaraan' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
@@ -105,24 +107,32 @@ class SuratKtmController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate([
-            'no_surat' => 'nullable|string|max:100',
-            'nama' => 'required|string|max:255',
-            'tempat_lahir' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:laki,perempuan',
-            'status_kawin' => 'required|in:belum_kawin,sudah_kawin,cerai',
-            'kewarganegaraan' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'keterangan' => 'nullable|string',
-            'status' => 'nullable|in:On Progress,Approve,Cancel',
-        ]);
+
+        try {
+            $request->validate([
+                'no_surat' => 'nullable|string|max:100',
+                'nama' => 'required|string|max:255',
+                'tempat_lahir' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:laki,perempuan',
+                'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
+                'kewarganegaraan' => 'required|string|max:255',
+                'alamat' => 'required|string|max:255',
+                'keterangan' => 'nullable|string',
+                'status' => 'nullable|in:On Progress,Approve,Cancel',
+            ]);
+        } catch (Exception $e) {
+            Log::error("Gagal Ubah Data");
+        }
+
         // Validasi tambahan: jika status ingin di-Approve tapi no_surat kosong
         if ($request->status === 'Approve' && empty($request->no_surat)) {
             return redirect()->route('suratktm.index')
                 ->withErrors(['no_surat_required' => 'Tidak dapat mengubah status Approve surat tanpa nomor surat.']);
         }
+        // dd($response);
         $suratKtm = SuratKtm::findOrFail($id);
+
         $suratKtm->update([
             'no_surat' => $request->no_surat,
             'nama' => $request->nama,
