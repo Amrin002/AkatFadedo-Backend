@@ -76,7 +76,7 @@
             margin-bottom: 10px;
         }
 
-        < !DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Surat Keterangan Tidak Mampu</title><style>body {
+        <style>body {
             font-family: 'Times New Roman', Times, serif;
             line-height: 1.6;
         }
@@ -222,7 +222,7 @@
 
 </html>
 
-{{-- 
+{{--
 saya simpan logo di public/admin/assets/img/logo_sbt.png tapi tidak bisa tampil di pdf
 saya harus simpannya dimana?
 </style>
