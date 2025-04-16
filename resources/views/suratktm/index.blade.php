@@ -51,8 +51,8 @@
                                                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
                                                     required>
                                                     <option value="">Pilih Jenis Kelamin</option>
-                                                    <option value="laki">Laki-laki</option>
-                                                    <option value="perempuan">Perempuan</option>
+                                                    <option value="Laki-laki">Laki-laki</option>
+                                                    <option value="Perempuan">Perempuan</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -237,11 +237,11 @@
                                                                 <label>Jenis Kelamin</label>
                                                                 <select class="form-control" name="jenis_kelamin"
                                                                     required>
-                                                                    <option value="laki"
-                                                                        {{ $row->jenis_kelamin == 'laki' ? 'selected' : '' }}>
+                                                                    <option value="Laki-laki"
+                                                                        {{ $row->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
                                                                         Laki-laki</option>
-                                                                    <option value="perempuan"
-                                                                        {{ $row->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>
+                                                                    <option value="Perempuan"
+                                                                        {{ $row->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                         Perempuan</option>
                                                                 </select>
                                                             </div>
