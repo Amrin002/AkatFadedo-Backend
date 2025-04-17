@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>Halaman Surat Keterangan Orang Tua Tidak Mampu</h3>
+                <h3>Halaman Surat Lainnya</h3>
 
                 <div class="card">
                     <div class="card-header">
@@ -12,24 +12,23 @@
                     </div>
 
                     <div class="card-body">
-                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambahSuratKTM">
+                        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambahSuratLAINNYA">
                             <i class="fas fa-plus-circle"></i> Tambah Surat
                         </button>
 
-                        {{-- Modal Tambah Surat KTM --}}
-                        <div class="modal fade" id="modalTambahSuratKTM" tabindex="-1" role="dialog"
-                            aria-labelledby="modalTambahSuratKTMLbl" aria-hidden="true">
+                        {{-- Modal Tambah Surat Lainnya --}}
+                        <div class="modal fade" id="modalTambahSuratLAINNYA" tabindex="-1" role="dialog"
+                            aria-labelledby="modalTambahSuratLAINNYAbl" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalTambahSuratKTMLbl">Tambah Surat Keterangan Tidak
-                                            Mampu</h5>
+                                        <h5 class="modal-title" id="modalTambahSuratLAINNYALbl">Tambah Surat</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('suratktm.store') }}" method="POST">
+                                        <form action="{{ route('suratlainnya.store') }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
                                                 <label for="nama">Nama</label>
@@ -37,45 +36,12 @@
                                                     value="{{ old('nama') }}" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="tempat_lahir">Tempat Lahir</label>
-                                                <input type="text" class="form-control" id="tempat_lahir"
-                                                    name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" class="form-control" id="tanggal_lahir"
-                                                    name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
-                                                    required>
-                                                    <option value="">Pilih Jenis Kelamin</option>
-                                                    <option value="Laki-laki">Laki-laki</option>
-                                                    <option value="Perempuan">Perempuan</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="status_kawin">Status Kawin</label>
-                                                <select class="form-control" id="status_kawin" name="status_kawin" required>
-                                                    <option value="">Pilih Status Kawin</option>
-                                                    <option value="Belum kawin">Belum Kawin</option>
-                                                    <option value="Sudah kawin">Sudah Kawin</option>
-                                                    <option value="Cerai">Cerai</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="kewarganegaraan">Kewarganegaraan</label>
-                                                <input type="text" class="form-control" id="kewarganegaraan"
-                                                    name="kewarganegaraan" value="{{ old('kewarganegaraan') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="alamat">Alamat</label>
-                                                <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="keterangan">Keterangan</label>
                                                 <textarea class="form-control" id="keterangan" name="keterangan">{{ old('keterangan') }}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="file">File "PDF/DOCX", Size Max = 3Mb</label>
+                                                <input type="file" class="form-control" id="file" name="file" required>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -85,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- End Modal Tambah Surat KTM --}}
+                        {{-- End Modal Tambah Surat Lainnya --}}
 
                         {{-- Tabel Data --}}
                         <div class="table-responsive">
@@ -93,42 +59,30 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>No Surat</th>
                                         <th>Nama</th>
-                                        <th>Tempat Lahir</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Status Kawin</th>
-                                        <th>Kewarganegaraan</th>
-                                        <th>Alamat</th>
-                                        <th>Status</th>
                                         <th>Keterangan</th>
+                                        <th>File</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($suratKtm as $row)
+                                    @foreach ($suratLainnya as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $row->no_surat }}</td>
                                             <td>{{ $row->nama }}</td>
-                                            <td>{{ $row->tempat_lahir }}</td>
-                                            <td>{{ $row->tanggal_lahir }}</td>
-                                            <td>{{ $row->jenis_kelamin }}</td>
-                                            <td>{{ $row->status_kawin }}</td>
-                                            <td>{{ $row->kewarganegaraan }}</td>
-                                            <td>{{ $row->alamat }}</td>
+                                            <td>{{ $row->keterangan }}</td>
+                                            <td>{{ basename($row->file) }}</td>
                                             <td>
                                                 <span
                                                     class="badge
                                                     @if ($row->status == 'On Progress') bg-warning
                                                     @elseif($row->status == 'Approve') bg-success
-                                                    @elseif($row->status == 'Cancel') bg-danger
+                                                    @elseif($row->status == 'Cancel') bg-secondary
                                                     @else bg-danger @endif">
                                                     {{ $row->status }}
                                                 </span>
                                             </td>
-                                            <td>{{ $row->keterangan }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <button type="button" class="btn btn-warning btn-sm"
@@ -136,7 +90,7 @@
                                                         <i class="fas fa-edit"></i> Edit
                                                     </button>
 
-                                                    <form action="{{ route('suratktm.destroy', $row->id) }}"
+                                                    <form action="{{ route('suratlainnya.destroy', $row->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -147,12 +101,6 @@
                                                         </button>
                                                     </form>
                                                 </div>
-                                                <form action="{{ route('suratktm.export.pdf', $row->id) }}"
-                                                    method="GET">
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-file-pdf"></i> Export
-                                                    </button>
-                                                </form>
 
 
                                             </td>
@@ -180,7 +128,7 @@
                                                                 data-dismiss="modal">
                                                                 Batal
                                                             </button>
-                                                            <form action="{{ route('suratktm.destroy', $row->id) }}"
+                                                            <form action="{{ route('suratlainnya.destroy', $row->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -199,7 +147,7 @@
                                         <div class="modal fade" id="editModal{{ $row->id }}" tabindex="-1"
                                             aria-labelledby="editModalLabel{{ $row->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <form action="{{ route('suratktm.update', $row->id) }}" method="POST">
+                                                <form action="{{ route('suratlainnya.update', $row->id) }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-content">
@@ -212,67 +160,18 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label>Nomor Surat</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="no_surat" value="{{ $row->no_surat }}">
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label>Nama</label>
                                                                 <input type="text" class="form-control" name="nama"
                                                                     value="{{ $row->nama }}" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Tempat Lahir</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="tempat_lahir" value="{{ $row->tempat_lahir }}"
-                                                                    required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Tanggal Lahir</label>
-                                                                <input type="date" class="form-control"
-                                                                    name="tanggal_lahir"
-                                                                    value="{{ $row->tanggal_lahir }}" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Jenis Kelamin</label>
-                                                                <select class="form-control" name="jenis_kelamin"
-                                                                    required>
-                                                                    <option value="Laki-laki"
-                                                                        {{ $row->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
-                                                                        Laki-laki</option>
-                                                                    <option value="Perempuan"
-                                                                        {{ $row->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
-                                                                        Perempuan</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Status Kawin</label>
-                                                                <select class="form-control" name="status_kawin" required>
-                                                                    <option value="Belum kawin"
-                                                                        {{ $row->status_kawin == 'Belum kawin' ? 'selected' : '' }}>
-                                                                        Belum Kawin</option>
-                                                                    <option value="Sudah kawin"
-                                                                        {{ $row->status_kawin == 'Sudah kawin' ? 'selected' : '' }}>
-                                                                        Sudah Kawin</option>
-                                                                    <option value="Cerai"
-                                                                        {{ $row->status_kawin == 'Cerai' ? 'selected' : '' }}>
-                                                                        Cerai</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Kewarganegaraan</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="kewarganegaraan"
-                                                                    value="{{ $row->kewarganegaraan }}" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Alamat</label>
-                                                                <input type="text" class="form-control" name="alamat"
-                                                                    value="{{ $row->alamat }}" required>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label>Keterangan</label>
                                                                 <textarea class="form-control" name="keterangan">{{ $row->keterangan }}</textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>File "PDF/DOCX", Size Max = 3Mb</label>
+                                                                <input type="file" class="form-control" name="file">
+                                                                <small>File saat ini: <a href="{{ asset('storage/' . $row->file) }}" target="_blank">{{ $row->file }}</a></small>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Status</label>

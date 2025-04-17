@@ -17,7 +17,6 @@ use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
-use App\Http\Controllers\BeritaController;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -48,6 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/suratktu', SuratKtuController::class);
     Route::resource('/suratktm', SuratKtmController::class);
     Route::resource('/suratdomisili', SuratDomisiliController::class);
+    Route::resource('/suratlainnya', SuratLainnyaController::class);
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);

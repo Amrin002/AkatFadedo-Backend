@@ -43,13 +43,13 @@ class SuratDomisiliController extends Controller
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:laki,perempuan',
-            'status_kawin' => 'required|in:belum_kawin,sudah_kawin,cerai',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'status_kawin' => 'required|in:Belum kawin,Sudah kawin, Cerai',
             'kewarganegaraan' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'status' => 'nullable|in: On Progress,Approve,Cancel',
+            'status' => 'nullable|in:On Progress,Approve,Cancel',
         ]);
 
         SuratDomisili::create([
@@ -112,8 +112,8 @@ class SuratDomisiliController extends Controller
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:laki,perempuan',
-            'status_kawin' => 'required|in:belum_kawin,sudah_kawin,cerai',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
             'kewarganegaraan' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'surat_keluar'=> 'required|string|max:255',

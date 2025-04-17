@@ -11,20 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_ktms', function (Blueprint $table) {
+        Schema::create('surat_lainnyas', function (Blueprint $table) {
             $table->id();
-            $table->string('no_surat')->nullable()->unique();
             $table->string('nama');
-            $table->string('tempat_lahir');
-            $table->string('tanggal_lahir');
-            $table->string('jenis_kelamin');
-            $table->string('status_kawin');
-            $table->string('kewarganegaraan');
-            $table->string('alamat');
             $table->text('keterangan')->nullable();
+            $table->string('file');
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_ktms');
+        Schema::dropIfExists('surat_lainnyas');
     }
 };

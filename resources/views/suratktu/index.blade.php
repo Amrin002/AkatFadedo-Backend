@@ -31,26 +31,6 @@
                                         <form action="{{ route('suratktu.store') }}" method="POST">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="nama_usaha">Nama Usaha</label>
-                                                <input type="text" class="form-control" id="nama_usaha"
-                                                    name="nama_usaha" value="{{ old('nama_usaha') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="alamat_usaha">Alamat Usaha</label>
-                                                <input type="text" class="form-control" id="alamat_usaha"
-                                                    name="alamat_usaha" value="{{ old('alamat_usaha') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jenis_usaha">Jenis Usaha</label>
-                                                <input type="text" class="form-control" id="jenis_usaha"
-                                                    name="jenis_usaha" value="{{ old('jenis_usaha') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="pemilik_usaha">Pemilik Usaha</label>
-                                                <input type="text" class="form-control" id="pemilik_usaha"
-                                                    name="pemilik_usaha" value="{{ old('pemilik_usaha') }}" required>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="nama">Nama</label>
                                                 <input type="text" class="form-control" id="nama" name="nama"
                                                     value="{{ old('nama') }}" required>
@@ -70,14 +50,19 @@
                                                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
                                                     required>
                                                     <option value="">Pilih Jenis Kelamin</option>
-                                                    <option value="laki">Laki-laki</option>
-                                                    <option value="perempuan">Perempuan</option>
+                                                    <option value="Laki-laki">Laki-laki</option>
+                                                    <option value="Perempuan">Perempuan</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="kewarganegaraan">Kewarganegaraan</label>
                                                 <input type="text" class="form-control" id="kewarganegaraan"
                                                     name="kewarganegaraan" value="{{ old('kewarganegaraan') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="agama">Agama</label>
+                                                <input type="text" class="form-control" id="agama"
+                                                    name="agama" value="{{ old('agama') }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="pekerjaan">Pekerjaan</label>
@@ -89,8 +74,24 @@
                                                 <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="nama_usaha">NPWP</label>
-                                                <input type="text" class="form-control" id="npwp" name="npwp" value="{{ old('npwp') }}" required>
+                                                <label for="nama_usaha">Nama Usaha</label>
+                                                <input type="text" class="form-control" id="nama_usaha"
+                                                    name="nama_usaha" value="{{ old('nama_usaha') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jenis_usaha">Jenis Usaha</label>
+                                                <input type="text" class="form-control" id="jenis_usaha"
+                                                    name="jenis_usaha" value="{{ old('jenis_usaha') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="alamat_usaha">Alamat Usaha</label>
+                                                <input type="text" class="form-control" id="alamat_usaha"
+                                                    name="alamat_usaha" value="{{ old('alamat_usaha') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pemilik_usaha">Pemilik Usaha</label>
+                                                <input type="text" class="form-control" id="pemilik_usaha"
+                                                    name="pemilik_usaha" value="{{ old('pemilik_usaha') }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="keterangan">Keterangan</label>
@@ -113,18 +114,18 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Surat</th>
-                                        <th>Nama Usaha</th>
-                                        <th>Alamat Usaha</th>
-                                        <th>Jenis Usaha</th>
-                                        <th>Pemilik Usaha</th>
                                         <th>Nama</th>
                                         <th>Tempat Lahir</th>
                                         <th>Tanggal Lahir</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Kewarganegaraan</th>
+                                        <th>Agama</th>
                                         <th>Pekerjaan</th>
                                         <th>Alamat</th>
-                                        <th>NPWP</th>
+                                        <th>Nama Usaha</th>
+                                        <th>Jenis Usaha</th>
+                                        <th>Alamat Usaha</th>
+                                        <th>Pemilik Usaha</th>
                                         <th>Status</th>
                                         <th>Keterangan</th>
                                         <th>Action</th>
@@ -135,23 +136,24 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->no_surat }}</td>
-                                            <td>{{ $row->nama_usaha }}</td>
-                                            <td>{{ $row->alamat_usaha }}</td>
-                                            <td>{{ $row->jenis_usaha }}</td>
-                                            <td>{{ $row->pemilik_usaha }}</td>
                                             <td>{{ $row->nama }}</td>
                                             <td>{{ $row->tempat_lahir }}</td>
                                             <td>{{ $row->tanggal_lahir }}</td>
                                             <td>{{ $row->jenis_kelamin }}</td>
                                             <td>{{ $row->kewarganegaraan }}</td>
+                                            <td>{{ $row->agama }}</td>
                                             <td>{{ $row->pekerjaan }}</td>
                                             <td>{{ $row->alamat }}</td>
+                                            <td>{{ $row->nama_usaha }}</td>
+                                            <td>{{ $row->jenis_usaha }}</td>
+                                            <td>{{ $row->alamat_usaha }}</td>
+                                            <td>{{ $row->pemilik_usaha }}</td>
                                             <td>
                                                 <span
                                                     class="badge
                                                     @if ($row->status == 'On Progress') bg-warning
                                                     @elseif($row->status == 'Approve') bg-success
-                                                    @elseif($row->status == 'Cancel') bg-secondary
+                                                    @elseif($row->status == 'Cancel') bg-danger
                                                     @else bg-danger @endif">
                                                     {{ $row->status }}
                                                 </span>
@@ -245,26 +247,6 @@
                                                                     name="no_surat" value="{{ $row->no_surat }}">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Nama Usaha</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="nama_usaha" value="{{ $row->nama_usaha }}" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Alamat Usaha</label>
-                                                                <input type="text" class="form-control" name="alamat_usaha"
-                                                                    value="{{ $row->alamat_usaha }}" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Jenis Usaha</label>
-                                                                <input type="text" class="form-control" name="Jenis Usaha"
-                                                                    value="{{ $row->jenis_usaha }}" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Pemilik Usaha</label>
-                                                                <input type="text" class="form-control" name="pemilik_usaha"
-                                                                    value="{{ $row->pemilik_usaha }}" required>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label>Nama</label>
                                                                 <input type="text" class="form-control" name="nama"
                                                                     value="{{ $row->nama }}" required>
@@ -285,11 +267,11 @@
                                                                 <label>Jenis Kelamin</label>
                                                                 <select class="form-control" name="jenis_kelamin"
                                                                     required>
-                                                                    <option value="laki"
-                                                                        {{ $row->jenis_kelamin == 'laki' ? 'selected' : '' }}>
+                                                                    <option value="Laki-laki"
+                                                                        {{ $row->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
                                                                         Laki-laki</option>
-                                                                    <option value="perempuan"
-                                                                        {{ $row->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>
+                                                                    <option value="Perempuan"
+                                                                        {{ $row->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
                                                                         Perempuan</option>
                                                                 </select>
                                                             </div>
@@ -298,6 +280,12 @@
                                                                 <input type="text" class="form-control"
                                                                     name="kewarganegaraan"
                                                                     value="{{ $row->kewarganegaraan }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Agama</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="agama"
+                                                                    value="{{ $row->agama }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Pekerjaan</label>
@@ -310,9 +298,24 @@
                                                                     value="{{ $row->alamat }}" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>NPWP</label>
-                                                                <input type="text" class="form-control" name="npwp"
-                                                                    value="{{ $row->npwp }}" required>
+                                                                <label>Nama Usaha</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="nama_usaha" value="{{ $row->nama_usaha }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Jenis Usaha</label>
+                                                                <input type="text" class="form-control" name="jenis_usaha"
+                                                                    value="{{ $row->jenis_usaha }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Alamat Usaha</label>
+                                                                <input type="text" class="form-control" name="alamat_usaha"
+                                                                    value="{{ $row->alamat_usaha }}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Pemilik Usaha</label>
+                                                                <input type="text" class="form-control" name="pemilik_usaha"
+                                                                    value="{{ $row->pemilik_usaha }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Keterangan</label>
@@ -321,9 +324,9 @@
                                                             <div class="form-group">
                                                                 <label>Status</label>
                                                                 <select class="form-control" name="status" required>
-                                                                    <option value="Pending"
-                                                                        {{ $row->status == 'Pending' ? 'selected' : '' }}>
-                                                                        Pending</option>
+                                                                    <option value="On Progress"
+                                                                        {{ $row->status == 'On Progress' ? 'selected' : '' }}>
+                                                                        On Progress</option>
                                                                     <option value="Approve"
                                                                         {{ $row->status == 'Approve' ? 'selected' : '' }}>
                                                                         Approve</option>

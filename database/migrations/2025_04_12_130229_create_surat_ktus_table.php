@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('surat_ktus', function (Blueprint $table) {
             $table->id();
-            $table->string('no_surat')->nullable();
-            $table->string('nama_usaha');
-            $table->string('alamat_usaha');
-            $table->string('jenis_usaha');
-            $table->string('pemilik_usaha');
+            $table->string('no_surat')->nullable()->unique();
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->string('tanggal_lahir');
             $table->string('jenis_kelamin');
             $table->string('kewarganegaraan');
+            $table->string('agama');
             $table->string('pekerjaan');
             $table->string('alamat');
-            $table->string('npwp');
+            $table->string('nama_usaha');
+            $table->string('jenis_usaha');
+            $table->string('alamat_usaha');
+            $table->string('pemilik_usaha');
             $table->text('keterangan')->nullable();
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);
             $table->unsignedBigInteger('user_id')->nullable();
