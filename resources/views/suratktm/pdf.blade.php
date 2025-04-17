@@ -210,8 +210,6 @@
         <div class="mt-4">
             <p>Dikeluarkan di: Fadedu</p>
             <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
-
-            <br><br>
             <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
             <br><br><br>
             <p class="nama"><strong>AHMAD BUGIS</strong></p>
