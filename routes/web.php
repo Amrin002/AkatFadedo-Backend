@@ -18,6 +18,10 @@ use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\BeritaController;
+>>>>>>> 9b4c7009b9ef51573dfbf0a2039992a3ec04db2a
 use App\Http\Controllers\SuratLainnyaController;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;

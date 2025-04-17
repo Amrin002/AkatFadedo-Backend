@@ -87,31 +87,26 @@
                                 <p>Surat</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="base">
-                                <ul class="nav nav-collapse ">
-                                    {{-- <li class="nav-item  {{ request()->is('kk') ? 'active' : '' }}">
-                                        <a href="{{ url('/kk') }}">
-                                            <span class="sub-item">KK</span>
-                                        </a>
-                                    </li> --}}
-                                    <li>
+                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratlainnya*') ? 'show' : '' }}" id="base">
+                                <ul class="nav nav-collapse">
+                                    <li class="nav-item {{ request()->is('suratktm*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratktm') }}">
-                                            <span class="sub-item">Surat Keterangan Tidak Mampu</span>
+                                            <span class="sub-item"><p>Surat Keterangan Tidak Mampu</p></span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('suratktu*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratktu') }}">
-                                            <span class="sub-item">Surat Keterangan Tempat Usaha</span>
+                                            <span class="sub-item"><p>Surat Keterangan Tempat Usaha</p></span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('suratdomisili*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratdomisili') }}">
-                                            <span class="sub-item">Surat Domisili</span>
+                                            <span class="sub-item"><p>Surat Domisili</p></span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('suratlainnya*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratlainnya') }}">
-                                            <span class="sub-item">Surat Lainnya</span>
+                                            <span class="sub-item"><p>Surat Lainnya</p></span>
                                         </a>
                                     </li>
                                 </ul>
