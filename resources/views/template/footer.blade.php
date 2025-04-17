@@ -215,7 +215,7 @@
         });
     });
 </script>
-{{-- 
+{{--
 JS Cropp Image --}}
 {{-- <script>
     document.getElementById("image").addEventListener("change", function(event) {
@@ -516,6 +516,27 @@ JS Cropp Image --}}
             title: 'Sukses!',
             text: "{{ session('success') }}",
             icon: 'success',
+            confirmButtonText: 'Oke'
+        });
+    </script>
+@endif
+
+{{-- Error Input File --}}
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            title: 'Gagal!',
+            html: `{!! implode('<br>', $errors->all()) !!}`,
+            icon: 'error',
+            confirmButtonText: 'Oke'
+        });
+    </script>
+@elseif (session('error'))
+    <script>
+        Swal.fire({
+            title: 'Gagal!',
+            text: "{{ session('error') }}",
+            icon: 'error',
             confirmButtonText: 'Oke'
         });
     </script>
