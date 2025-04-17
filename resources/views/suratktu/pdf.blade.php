@@ -157,9 +157,7 @@
         </tr>
     </table>
 
-    <p class="mt-2">
-        Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
-    </p>
+    <br>Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
 
     <div class="signature">
 

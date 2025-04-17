@@ -99,9 +99,7 @@
 
     <p class="mt-4">
         Kepala Pemerintah Negeri Akat Fadedu, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
-    </p>
-    <p class="mt-4">
-        Dengan ini menerangkan bahwa:
+        <br>Dengan ini menerangkan bahwa:
     </p>
 
     <table class="data-surat">
@@ -138,10 +136,7 @@
     <p class="mt-2">
         Bahwa yang bersangkutan di atas benar Warga Masyarakat Negeri Akat Fadedu yang berdomisili
         di Negeri Akat Fadedu, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
-    </p>
-
-    <p class="mt-2">
-        Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
+        <br>Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
 
     <div class="signature">

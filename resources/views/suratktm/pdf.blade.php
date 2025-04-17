@@ -200,10 +200,7 @@
 
     <p class="mt-2">
         Bahwa yang bersangkutan benar berasal dari keluarga yang berpenghasilan tidak tetap (keluarga tidak mampu).
-    </p>
-
-    <p class="mt-2">
-        Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
+        <br>Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
     <div class="signature">
 
