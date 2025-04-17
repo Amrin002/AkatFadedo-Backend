@@ -110,9 +110,12 @@ class AuthController extends Controller
 
         $user = User::where('nik', $request->nik)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'nik' => ['Invalid credentials'],
-            ]);
+            return response()->json([
+                'message' => 'Invalid credentials',
+                'errors' => [
+                    'nik' => ['Invalid credentials']
+                ]
+            ], 401); // Gunakan 401 untuk error login
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -131,16 +134,6 @@ class AuthController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
-    // public function show($id)
-    // {
-    //     $user = User::find($id);
-
-    //     if (!$user) {
-    //         return response()->json(['message' => 'User not found'], 404);
-    //     }
-
-    //     return response()->json($user);
-    // }
 
     public function index(Request $request)
     {
