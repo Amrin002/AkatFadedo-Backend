@@ -116,10 +116,6 @@
             <td>: {{ strtoupper($surat->jenis_kelamin) }}</td>
         </tr>
         <tr>
-            <td>Status Kawin</td>
-            <td>: {{ strtoupper($surat->status_kawin) }}</td>
-        </tr>
-        <tr>
             <td>Kewarganegaraan</td>
             <td>: {{ strtoupper($surat->kewarganegaraan) }}</td>
         </tr>
@@ -149,7 +145,7 @@
         </tr>
         <tr>
             <td>Jenis Usaha</td>
-            <td>: <div class="bold">&quot;{{ strtoupper($surat->jenis_usaha) }}&quot;</div></td>
+            <td>: <span class="bold">"{{ strtoupper($surat->jenis_usaha) }}"</span></td>
         </tr>
         <tr>
             <td>Alamat Tempat Usaha</td>
