@@ -17,6 +17,8 @@ use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\SuratLainnyaController;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
