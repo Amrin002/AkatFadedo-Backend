@@ -156,7 +156,7 @@
         <div class="kop-text bold">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
             KECAMATAN SERAM TIMUR<br>
-            NEGERI ADMINISTRATIF AKAT FADEDO<br>
+            NEGERI ADMINISTRATIF AKAT FADEDU<br>
             Jln. Kumbang
         </div>
     </div>
@@ -208,7 +208,7 @@
     <div class="signature">
 
         <div class="mt-4">
-            <p>Dikeluarkan di: Fadedo</p>
+            <p>Dikeluarkan di: Fadedu</p>
             <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
 
             <br><br>
