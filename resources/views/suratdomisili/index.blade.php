@@ -129,7 +129,7 @@
                                                     class="badge
                                                     @if ($row->status == 'On Progress') bg-warning
                                                     @elseif($row->status == 'Approve') bg-success
-                                                    @elseif($row->status == 'Cancel') bg-secondary
+                                                    @elseif($row->status == 'Cancel') bg-danger
                                                     @else bg-danger @endif">
                                                     {{ $row->status }}
                                                 </span>
@@ -253,7 +253,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Status Kawin</label>
-                                                                <select class="form-control" name="status"
+                                                                <select class="form-control" name="status_kawin"
                                                                     required>
                                                                     <option value="Belum kawin"
                                                                         {{ $row->status_kawin == 'Belum kawin' ? 'selected' : '' }}>
@@ -289,9 +289,9 @@
                                                             <div class="form-group">
                                                                 <label>Status</label>
                                                                 <select class="form-control" name="status" required>
-                                                                    <option value="Pending"
-                                                                        {{ $row->status == 'Pending' ? 'selected' : '' }}>
-                                                                        Pending</option>
+                                                                    <option value="On Progress"
+                                                                        {{ $row->status == 'On Progress' ? 'selected' : '' }}>
+                                                                        On Progress</option>
                                                                     <option value="Approve"
                                                                         {{ $row->status == 'Approve' ? 'selected' : '' }}>
                                                                         Approve</option>

@@ -123,7 +123,7 @@
                                                     class="badge
                                                     @if ($row->status == 'On Progress') bg-warning
                                                     @elseif($row->status == 'Approve') bg-success
-                                                    @elseif($row->status == 'Cancel') bg-secondary
+                                                    @elseif($row->status == 'Cancel') bg-danger
                                                     @else bg-danger @endif">
                                                     {{ $row->status }}
                                                 </span>

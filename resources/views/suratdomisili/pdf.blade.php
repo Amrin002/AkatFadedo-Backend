@@ -3,80 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Surat Keterangan Tidak Mampu</title>
+    <title>Surat Keterangan Domisili</title>
     <style>
         body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-        }
-
-        .kop-surat {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            position: relative;
-        }
-
-        .kop-surat img {
-            width: 80px;
-            height: auto;
-        }
-
-        .kop-text {
-            text-align: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            line-height: 1.2;
-        }
-
-
-        .bold {
-            font-weight: bold;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .mt-4 {
-            margin-top: 0.5rem;
-        }
-
-        .mt-2 {
-            margin-top: 1rem;
-        }
-
-        .signature {
-            margin-left: 70%;
-
-        }
-
-        .signature .nama {
-            text-align: center;
-        }
-
-        .data-surat {
-            margin-left: 10%;
-        }
-
-        table {
-            width: 100%;
-            max-width: 600px;
-        }
-
-        td {
-            vertical-align: top;
-            padding: 2px 5px;
-        }
-
-        hr {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        <style>body {
             font-family: 'Times New Roman', Times, serif;
             line-height: 1.6;
         }
@@ -151,7 +80,7 @@
 
 <body>
 
-    <div class="kop-surat">
+    <div class="kop-surat mt-2">
         <img src="{{ public_path('admin/assets/img/logo_sbt.png') }}" alt="Logo SBT" width="80">
         <div class="kop-text bold">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
@@ -164,12 +93,16 @@
     <hr>
 
     <div class="center mt-2 bold">
-        SURAT KETERANGAN TIDAK MAMPU<br>
+        SURAT KETERANGAN DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-4">Kepala Pemerintah Negeri Administratif Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian
-        Timur, menerangkan bahwa:</p>
+    <p class="mt-4">
+        Kepala Pemerintah Negeri Akat Fadedu, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
+    </p>
+    <p class="mt-4">
+        Dengan ini menerangkan bahwa:
+    </p>
 
     <table class="data-surat">
         <tr>
@@ -193,18 +126,24 @@
             <td>: {{ strtoupper($surat->kewarganegaraan) }}</td>
         </tr>
         <tr>
+            <td>Pekerjaan</td>
+            <td>: {{ strtoupper($surat->pekerjaan) }}</td>
+        </tr>
+        <tr>
             <td>Alamat</td>
             <td>: {{ strtoupper($surat->alamat) }}</td>
         </tr>
     </table>
 
     <p class="mt-2">
-        Bahwa yang bersangkutan benar berasal dari keluarga yang berpenghasilan tidak tetap (keluarga tidak mampu).
+        Bahwa yang bersangkutan di atas benar Warga Masyarakat Negeri Akat Fadedu yang berdomisili
+        di Negeri Akat Fadedu, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
     </p>
 
     <p class="mt-2">
         Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
+
     <div class="signature">
 
         <div class="mt-4">

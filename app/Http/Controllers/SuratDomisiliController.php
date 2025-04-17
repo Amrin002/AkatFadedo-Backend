@@ -49,7 +49,7 @@ class SuratDomisiliController extends Controller
             'alamat' => 'required|string|max:255',
             'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'status' => 'nullable|in: On Progress,Approve,Cancel',
+            'status' => 'nullable|in:On Progress,Approve,Cancel',
         ]);
 
         SuratDomisili::create([
