@@ -143,8 +143,8 @@
         }
 
         hr {
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 7px;
+            margin-bottom: 7px;
         }
     </style>
 </head>
@@ -208,7 +208,7 @@
             <p>Dikeluarkan di: Fadedu</p>
             <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
             <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-            <br><br><br>
+            <br><br>
             <p class="nama"><strong>AHMAD BUGIS</strong></p>
         </div>
     </div>
