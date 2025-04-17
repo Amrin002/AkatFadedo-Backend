@@ -42,7 +42,7 @@ class SuratKtuController extends Controller
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:laki,perempuan',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'kewarganegaraan' => 'required|string|max:255',
             'agama'=> 'required|string|max:20',
             'pekerjaan' => 'required|string|max:20',
@@ -119,7 +119,7 @@ class SuratKtuController extends Controller
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:laki,perempuan',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'kewarganegaraan' => 'required|string|max:255',
             'agama'=> 'required|string|max:20',
             'pekerjaan' => 'required|string|max:20',
@@ -129,7 +129,7 @@ class SuratKtuController extends Controller
             'alamat_usaha' => 'required|string|max:255',
             'pemilik_usaha' => 'required|string|max:50',
             'keterangan' => 'nullable|string',
-            'status' => 'nullable|in: On Progress,Approve,Cancel',
+            'status' => 'nullable|in:On Progress,Approve,Cancel',
         ]);
         // Validasi tambahan: jika status ingin di-Approve tapi no_surat kosong
         if ($request->status === 'Approve' && empty($request->no_surat)) {
