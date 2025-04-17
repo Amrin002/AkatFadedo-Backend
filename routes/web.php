@@ -1,11 +1,10 @@
 <?php
 
-use App\Exports\KKExport;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\GaleriDesaController;
 use App\Http\Controllers\KKController;
@@ -18,13 +17,9 @@ use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\BeritaController;
->>>>>>> 9b4c7009b9ef51573dfbf0a2039992a3ec04db2a
 use App\Http\Controllers\SuratLainnyaController;
-use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
