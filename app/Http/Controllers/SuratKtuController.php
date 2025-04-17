@@ -38,6 +38,7 @@ class SuratKtuController extends Controller
     {
         //
         $request->validate([
+            'no_surat' => 'nullable|string|max:100',
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
@@ -46,7 +47,6 @@ class SuratKtuController extends Controller
             'agama'=> 'required|string|max:20',
             'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
-            'no_surat' => 'nullable|string|max:100',
             'nama_usaha' => 'required|string|max:255',
             'jenis_usaha' => 'required|string|max:20',
             'alamat_usaha' => 'required|string|max:255',
@@ -56,6 +56,7 @@ class SuratKtuController extends Controller
         ]);
 
         SuratKtu::create([
+            'no_surat' => $request->no_surat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -64,7 +65,6 @@ class SuratKtuController extends Controller
             'agama'=> $request->agama,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'no_surat' => $request->no_surat,
             'nama_usaha' => $request->nama_usaha,
             'jenis_usaha' => $request->jenis_usaha,
             'alamat_usaha' => $request->alamat_usaha,
@@ -115,6 +115,7 @@ class SuratKtuController extends Controller
     {
         //
         $request->validate([
+            'no_surat' => 'nullable|string|max:100',
             'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
@@ -123,7 +124,6 @@ class SuratKtuController extends Controller
             'agama'=> 'required|string|max:20',
             'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
-            'no_surat' => 'nullable|string|max:100',
             'nama_usaha' => 'required|string|max:255',
             'jenis_usaha' => 'required|string|max:20',
             'alamat_usaha' => 'required|string|max:255',

@@ -11,6 +11,7 @@ class SuratKtu extends Model
 
     protected $table = 'surat_ktus';
     protected $fillable = [
+        'no_surat',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
@@ -19,7 +20,6 @@ class SuratKtu extends Model
         'agama',
         'pekerjaan',
         'alamat',
-        'no_surat',
         'nama_usaha',
         'jenis_usaha',
         'alamat_usaha',

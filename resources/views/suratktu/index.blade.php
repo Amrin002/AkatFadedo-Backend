@@ -304,7 +304,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Jenis Usaha</label>
-                                                                <input type="text" class="form-control" name="Jenis Usaha"
+                                                                <input type="text" class="form-control" name="jenis_usaha"
                                                                     value="{{ $row->jenis_usaha }}" required>
                                                             </div>
                                                             <div class="form-group">
