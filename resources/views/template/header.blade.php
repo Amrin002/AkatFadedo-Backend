@@ -117,15 +117,15 @@
                                 </ul>
                             </div>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarLayouts">
                                 <a href="{{ url('/berita') }}">
-                                <i class="fas fa-newspaper"></i>
-                                <p>Berita</p>
-                                <span class="caret"></span>
-                            </a>
-                            {{-- <div class="collapse" id="sidebarLayouts">
+                                    <i class="fas fa-newspaper"></i>
+                                    <p>Berita</p>
+                                    <span class="caret"></span>
+                                </a>
+                                {{-- <div class="collapse" id="sidebarLayouts">
                                 <ul class="nav nav-collapse">
                                     <li>
                                         <a href="sidebar-style-2.html">
