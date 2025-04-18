@@ -10,6 +10,8 @@ use App\Http\Controllers\GaleriDesaController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\SuratLainnyaController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
