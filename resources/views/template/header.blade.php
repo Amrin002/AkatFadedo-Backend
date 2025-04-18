@@ -87,40 +87,48 @@
                                 <p>Surat</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratlainnya*') ? 'show' : '' }}" id="base">
+                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratlainnya*') ? 'show' : '' }}"
+                                id="base">
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item {{ request()->is('suratktm*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratktm') }}">
-                                            <span class="sub-item"><p>Surat Keterangan Tidak Mampu</p></span>
+                                            <span class="sub-item">
+                                                <p>Surat Keterangan Tidak Mampu</p>
+                                            </span>
                                         </a>
                                     </li>
                                     <li class="nav-item {{ request()->is('suratktu*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratktu') }}">
-                                            <span class="sub-item"><p>Surat Keterangan Tempat Usaha</p></span>
+                                            <span class="sub-item">
+                                                <p>Surat Keterangan Tempat Usaha</p>
+                                            </span>
                                         </a>
                                     </li>
                                     <li class="nav-item {{ request()->is('suratdomisili*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratdomisili') }}">
-                                            <span class="sub-item"><p>Surat Domisili</p></span>
+                                            <span class="sub-item">
+                                                <p>Surat Domisili</p>
+                                            </span>
                                         </a>
                                     </li>
                                     <li class="nav-item {{ request()->is('suratlainnya*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratlainnya') }}">
-                                            <span class="sub-item"><p>Surat Lainnya</p></span>
+                                            <span class="sub-item">
+                                                <p>Surat Lainnya</p>
+                                            </span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                                <a href="{{ url('/berita') }}">
-                                    <i class="fas fa-newspaper"></i>
-                                    <p>Berita</p>
-                                    <span class="caret"></span>
-                                </a>
-                                {{-- <div class="collapse" id="sidebarLayouts">
+                        <li class="nav-item {{ request()->is('berita*') ? 'active' : '' }}">
+                            <a href="{{ url('/berita') }}">
+                                <i class="fas fa-newspaper"></i>
+                                <p>Berita</p>
+
+                            </a>
+                            {{-- <div class="collapse" id="sidebarLayouts">
                                 <ul class="nav nav-collapse">
                                     <li>
                                         <a href="sidebar-style-2.html">
@@ -141,58 +149,9 @@
                                 <p>Laporan / Keluhan</p>
                                 {{-- <span class="caret"></span> --}}
                             </a>
-                            {{-- <div class="collapse" id="forms">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="forms/forms.html">
-                                            <span class="sub-item">Basic Form</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> --}}
+
                         </li>
-                        {{-- <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#tables">
-                                <i class="fas fa-table"></i>
-                                <p>Tables</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="tables">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="tables/tables.html">
-                                            <span class="sub-item">Basic Table</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="tables/datatables.html">
-                                            <span class="sub-item">Datatables</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> --}}
-                        {{-- <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <p>Maps</p> --}}
-                        {{-- <span class="caret"></span> --}}
-                        {{-- </a>
-                            <div class="collapse" id="maps">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="maps/googlemaps.html">
-                                            <span class="sub-item">Google Maps</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="maps/jsvectormap.html">
-                                            <span class="sub-item">Jsvectormap</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> --}}
+
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#charts">
                                 <i class="fas fa-globe"></i>
@@ -202,19 +161,19 @@
                             <div class="collapse {{ request()->is('fasilitas*') || request()->is('struktur*') || request()->is('galeri*') ? 'show' : '' }}"
                                 id="charts">
                                 <ul class="nav nav-collapse">
-                                    <li nav-item>
+                                    <li class="nav-item {{ request()->is('fasilitas*') ? 'active' : '' }}">
                                         <a href="{{ url('/fasilitas') }}">
                                             <span class="sub-item">
                                                 <p>Kelola Fasilitas</p>
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('struktur*') ? 'active' : '' }}">
                                         <a href="{{ url('/struktur') }}">
                                             <span class="sub-item">Struktur Desa</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('galeri*') ? 'active' : '' }}">
                                         <a href="{{ url('/galeri') }}">
                                             <span class="sub-item">Galeri Desa</span>
                                         </a>
