@@ -119,7 +119,7 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                            {{-- <a data-bs-toggle="collapse" href="#sidebarLayouts"> --}}
                                 <a href="{{ url('/berita') }}">
                                 <i class="fas fa-newspaper"></i>
                                 <p>Berita</p>
@@ -140,20 +140,22 @@
                             </div> --}}
                         </li>
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#forms">
+                            <a data-bs-toggle="collapse" href="#keluhanmenu">
                                 <i class="fas fa-file-alt"></i>
                                 <p>Laporan / Keluhan</p>
-                                {{-- <span class="caret"></span> --}}
+                                <span class="caret"></span>
                             </a>
-                            {{-- <div class="collapse" id="forms">
+                            <div class="collapse {{ request()->is('keluhan*') ? 'show' : '' }}"  id="keluhanmenu">
                                 <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="forms/forms.html">
-                                            <span class="sub-item">Basic Form</span>
+                                    <li nav-item>
+                                        <a href="{{url('/keluhan')}}">
+                                            <span class="sub-item">
+                                                <p>Kelola Keluhan</p>
+                                            </span>
                                         </a>
                                     </li>
                                 </ul>
-                            </div> --}}
+                            </div>
                         </li>
                         {{-- <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#tables">
@@ -240,13 +242,13 @@
                             </a>
                         </li> --}}
                         <li class="nav-item ">
-                            <a data-bs-toggle="collapse" href="#forms">
+                            <a data-bs-toggle="collapse" href="#pendudukmenu">
                                 <i class="fas fa-users"></i>
                                 <p>Data Penduduk</p>
                                 <span class="caret"></span>
                             </a>
                             <div class="collapse  {{ request()->is('kk*') || request()->is('penduduk*') ? 'show' : '' }}"
-                                id="forms">
+                                id="pendudukmenu">
 
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item  {{ request()->is('kk*') ? 'active' : '' }}">

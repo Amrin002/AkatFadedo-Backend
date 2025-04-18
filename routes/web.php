@@ -19,8 +19,8 @@ use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
-use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\SuratLainnyaController;
+use App\Http\Controllers\KeluhanController;
+
 
 
 // Route::get('/', function () {
@@ -55,6 +55,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);
     Route::resource('/berita', BeritaController::class);
+    Route::resource('keluhan', KeluhanController::class);
     Route::get('/suratktu/export/pdf/{id}', [SuratKtuController::class, 'exportPdf'])->name('suratktu.export.pdf');
     Route::get('/suratktm/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktm.export.pdf');
     Route::get('/suratdomisili/export/pdf/{id}', [SuratDomisiliController::class, 'exportPdf'])->name('suratdomisili.export.pdf');
@@ -62,6 +63,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/kk/export', [KKController::class, 'export'])->name('kk.export');
     Route::post('/penduduk/import', [PendudukController::class, 'importPenduduk'])->name('penduduk.import');
     Route::post('/penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
+    Route::post('keluhan/{keluhan}/tanggapi', [KeluhanController::class, 'tanggapi'])->name('keluhan.tanggapi');
 });
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
