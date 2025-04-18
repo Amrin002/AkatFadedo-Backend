@@ -123,7 +123,6 @@
                                 <a href="{{ url('/berita') }}">
                                 <i class="fas fa-newspaper"></i>
                                 <p>Berita</p>
-                                {{-- <span class="caret"></span> --}}
                             </a>
                             {{-- <div class="collapse" id="sidebarLayouts">
                                 <ul class="nav nav-collapse">

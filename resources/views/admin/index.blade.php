@@ -1,68 +1,92 @@
 @extends('template.main')
 @section('title', $title)
 @section('content')
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><b>Dashboard Admin</b></h1>
+    <div class="container">
+        <div class="page-inner">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"><b>Dashboard Admin</b></h1>
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-4">
-            @php
-                $cards = [
-                    [
-                        'title' => 'Kepala Keluarga',
-                        'count' => $jumlahkk,
-                        'icon' => 'fas fa-home',
-                        'bg' => 'primary',
-                        'route' => url('/kk'),
-                    ],
-                    [
-                        'title' => 'Penduduk',
-                        'count' => $jmlpenduduk,
-                        'icon' => 'fas fa-users',
-                        'bg' => 'danger',
-                        'route' => url('/penduduk'),
-                    ],
-                    [
-                        'title' => 'Perempuan',
-                        'count' => $perempuan,
-                        'icon' => 'fas fa-venus',
-                        'bg' => 'success',
-                        'route' => url('/penduduk'),
-                    ],
-                    [
-                        'title' => 'Laki-Laki',
-                        'count' => $laki,
-                        'icon' => 'fas fa-mars',
-                        'bg' => 'warning',
-                        'route' => url('/penduduk'),
-                    ],
-                    [
-                        'title' => 'Total User',
-                        'count' => $totalUser,
-                        'icon' => 'fas fa-user-alt',
-                        'bg' => 'info',
-                        'route' => url('/pengguna'),
-                    ],
-                ];
-            @endphp
+            <div class="row mt-4">
+                @php
+                    $cards = [
+                        [
+                            'title' => 'Kepala Keluarga',
+                            'count' => $jumlahkk,
+                            'icon' => 'fas fa-home',
+                            'bg' => 'primary',
+                            'route' => url('/kk'),
+                        ],
+                        [
+                            'title' => 'Penduduk',
+                            'count' => $jmlpenduduk,
+                            'icon' => 'fas fa-users',
+                            'bg' => 'danger',
+                            'route' => url('/penduduk'),
+                        ],
+                        [
+                            'title' => 'Perempuan',
+                            'count' => $perempuan,
+                            'icon' => 'fas fa-venus',
+                            'bg' => 'success',
+                            'route' => url('/penduduk'),
+                        ],
+                        [
+                            'title' => 'Laki-Laki',
+                            'count' => $laki,
+                            'icon' => 'fas fa-mars',
+                            'bg' => 'warning',
+                            'route' => url('/penduduk'),
+                        ],
+                        [
+                            'title' => 'Total User',
+                            'count' => $totalUser,
+                            'icon' => 'fas fa-user-alt',
+                            'bg' => 'info',
+                            'route' => url('/pengguna'),
+                        ],
+                    ];
+                @endphp
 
-            @foreach ($cards as $card)
-                <div class="col-md-3">
-                    <div class="card text-white bg-{{ $card['bg'] }} mb-3">
-                        <div class="card-body text-center">
-                            <i class="{{ $card['icon'] }} fa-2x"></i>
-                            <h5 class="card-title mt-2">{{ $card['title'] }}</h5>
-                            <p class="card-text display-6">{{ $card['count'] }}</p>
-                            <a href="{{ $card['route'] }}" class="btn btn-light btn-sm">
-                                <i class="fas fa-arrow-right"></i> Lihat Detail
-                            </a>
+                @foreach ($cards as $card)
+                    {{-- <div class="col-md-3">
+                        <div class="card text-white bg-{{ $card['bg'] }} mb-3">
+                            <div class="card-body text-center">
+                                <i class="{{ $card['icon'] }} fa-2x"></i>
+                                <h5 class="card-title mt-2">{{ $card['title'] }}</h5>
+                                <p class="card-text display-6">{{ $card['count'] }}</p>
+                                <a href="{{ $card['route'] }}" class="btn btn-light btn-sm">
+                                    <i class="fas fa-arrow-right"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+                    </div> --}}
+                    {{-- new card --}}
+                    <div class="col-sm-6 col-md-3">
+                        <div class="card card-stats card-{{ $card['bg'] }} card-round">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center">
+                                            <i class="fas fa-{{ $card['icon'] }}"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-stats">
+                                        <div class="numbers">
+                                            <a href="{{ $card['route'] }}">
+                                                <p class="card-category">{{ $card['title'] }}</p>
+                                                <h4 class="card-title">{{ $card['count'] }}</h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection

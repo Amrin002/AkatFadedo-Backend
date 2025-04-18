@@ -25,6 +25,9 @@
         </div> --}}
     </div>
 </footer>
+{{-- End main-panel --}}
+</div>
+{{-- End wrapper --}}
 </div>
 
 <!-- Custom template | don't include it in your project! -->

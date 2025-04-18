@@ -1,6 +1,6 @@
 <?php
 
-use App\Exports\KKExport;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -19,8 +19,9 @@ use App\Http\Controllers\StrukturDesaController;
 use App\Http\Controllers\SuratKtmController;
 use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
-use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\SuratLainnyaController;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
