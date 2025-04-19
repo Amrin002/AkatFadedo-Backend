@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('konten');
             $table->string('gambar')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke tabel users
+            $table->date('tanggal_berita')->nullable();
             $table->timestamps();
         });
     }

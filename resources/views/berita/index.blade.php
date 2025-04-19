@@ -53,52 +53,51 @@
                                 </div>
                             </div>
 
-                            {{-- Table data berita --}}
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
+                        {{-- Table data berita --}}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Gambar</th>
+                                        <th scope="col">Judul</th>
+                                        <th scope="col">Konten</th>
+                                        <th scope="col">Penulis</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($berita as $row)
                                         <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Gambar</th>
-                                            <th scope="col">Judul</th>
-                                            <th scope="col">Konten</th>
-                                            <th scope="col">Penulis</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($berita as $row)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    @if ($row->gambar)
-                                                        <img src="{{ Storage::url($row->gambar) }}" width="100">
-                                                    @else
-                                                        <p>Tidak ada gambar</p>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $row->judul }}</td>
-                                                <td>{{ Str::limit($row->konten, 50) }}</td>
-                                                <td>{{ $row->user->name ?? 'Admin' }}</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <button type="button" class="btn btn-warning btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#editBeritaModal{{ $row->id }}">
-                                                            <i class="fas fa-edit"></i> Edit
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                @if ($row->gambar)
+                                                <img src="{{ Storage::url($row->gambar) }}" width="100">
+                                                @else
+                                                    <p>Tidak ada gambar</p>
+                                                @endif
+                                            </td>
+                                            <td>{{ $row->judul }}</td>
+                                            <td>{{ Str::limit($row->konten, 50) }}</td>
+                                            <td>{{ $row->user->name ?? 'Admin' }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <button type="button" class="btn btn-warning btn-sm"
+                                                        data-toggle="modal" data-target="#editBeritaModal{{ $row->id }}">
+                                                        <i class="fas fa-edit"></i> Edit
+                                                    </button>
+                                                    <form action="{{ route('berita.destroy', $row->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" data-toggle="modal"
+                                                            data-target="#deleteBeritaModal{{ $row->id }}"
+                                                            class="btn btn-danger btn-sm">
+                                                            <i class="fas fa-trash"></i> Hapus
                                                         </button>
-                                                        <form action="{{ route('berita.destroy', $row->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" data-toggle="modal"
-                                                                data-target="#deleteBeritaModal{{ $row->id }}"
-                                                                class="btn btn-danger btn-sm">
-                                                                <i class="fas fa-trash"></i> Hapus
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
+                                                    </form>
+                                                </div>
+                                            </td>
 
                                                 <!-- Modal Konfirmasi Hapus -->
                                                 <div class="modal fade" id="deleteBeritaModal{{ $row->id }}"
