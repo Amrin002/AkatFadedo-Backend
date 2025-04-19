@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('keterangan')->nullable();
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
