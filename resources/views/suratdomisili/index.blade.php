@@ -77,10 +77,6 @@
                                                     <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surat_keluar">Surat Keluar</label>
-                                                    <textarea class="form-control" id="surat_keluar" name="surat_keluar" required>{{ old('surat_keluar') }}</textarea>
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="keterangan">Keterangan</label>
                                                     <textarea class="form-control" id="keterangan" name="keterangan">{{ old('keterangan') }}</textarea>
                                                 </div>
@@ -108,7 +104,6 @@
                                             <th>Status Kawin</th>
                                             <th>Kewarganegaraan</th>
                                             <th>Alamat</th>
-                                            <th>Surat Keluar</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
                                             <th>Action</th>
@@ -126,7 +121,6 @@
                                                 <td>{{ $row->status_kawin }}</td>
                                                 <td>{{ $row->kewarganegaraan }}</td>
                                                 <td>{{ $row->alamat }}</td>
-                                                <td>{{ $row->surat_keluar }}</td>
                                                 <td>
                                                     <span
                                                         class="badge
@@ -285,12 +279,6 @@
                                                                     <input type="text" class="form-control"
                                                                         name="alamat" value="{{ $row->alamat }}"
                                                                         required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Surat Keluar</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="surat_keluar"
-                                                                        value="{{ $row->surat_keluar }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Keterangan</label>

@@ -22,7 +22,6 @@ class SuratDomisili extends Model
         'kewarganegaraan',
         'pekerjaan',
         'alamat',
-        'surat_keluar',
         'keterangan',
         'status',
         'user_id'

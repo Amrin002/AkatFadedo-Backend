@@ -50,7 +50,6 @@ class SuratDomisiliController extends Controller
             'status_kawin' => 'required|in:Belum kawin,Sudah kawin, Cerai',
             'kewarganegaraan' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
             'status' => 'nullable|in:On Progress,Approve,Cancel',
         ]);
@@ -64,7 +63,6 @@ class SuratDomisiliController extends Controller
             'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
             'alamat' => $request->alamat,
-            'surat_keluar'=> $request->surat_keluar,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
@@ -119,7 +117,6 @@ class SuratDomisiliController extends Controller
             'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
             'kewarganegaraan' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
             'status' => 'nullable|in:On Progress,Approve,Cancel',
         ]);
@@ -138,7 +135,6 @@ class SuratDomisiliController extends Controller
             'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
             'alamat' => $request->alamat,
-            'surat_keluar'=> $request->surat_keluar,
             'keterangan' => $request->keterangan,
             'status' => $request->status,
         ]);
