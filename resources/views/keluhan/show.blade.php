@@ -1,6 +1,6 @@
 @extends('template.main')
 @section('content')
-<div class="container mt-4">
+<div>
     <h3>{{ $keluhan->judul }}</h3>
     <p>{{ $keluhan->isi }}</p>
 

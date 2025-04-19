@@ -11,7 +11,7 @@ class Berita extends Model
     use HasFactory;
 
     protected $fillable = ['judul', 'konten', 'gambar', 'user_id'];
-
+    public $timestamps = true;
     // Fungsi untuk mendapatkan URL gambar
     public function getGambarUrlAttribute()
     {

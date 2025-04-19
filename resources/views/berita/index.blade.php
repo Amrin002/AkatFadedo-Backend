@@ -60,7 +60,9 @@
                                         <th scope="col">Judul</th>
                                         <th scope="col">Konten</th>
                                         <th scope="col">Penulis</th>
+                                        <th scope="col">Tanggal Di buat</th>
                                         <th scope="col">Action</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,6 +79,9 @@
                                             <td>{{ $row->judul }}</td>
                                             <td>{{ Str::limit($row->konten, 50) }}</td>
                                             <td>{{ $row->user->name ?? 'Admin' }}</td>
+                                            <td>{{ $row->created_at->format('d - m - Y') }}</td>
+
+
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <button type="button" class="btn btn-warning btn-sm"

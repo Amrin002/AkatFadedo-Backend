@@ -1,7 +1,65 @@
 @extends('template.main')
 @section('content')
-<div class="container mt-4">
+
+<div class="container">
     <h3>Daftar Keluhan</h3>
+
+    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahKeluhanModal">
+        <i class="fas fa-plus-circle"></i> Tambah Keluhan
+    </button>
+
+    <!-- Modal Tambah Keluhan -->
+    <div class="modal fade" id="tambahKeluhanModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="{{ route('keluhan.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Form Tambah Keluhan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="judul">Judul Keluhan</label>
+                            <input type="text" name="judul" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="isi">Isi Keluhan</label>
+                            <textarea name="isi" class="form-control" rows="4" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Kirim Keluhan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
+
 
     <form method="GET" class="mb-3">
         <select name="status" class="form-control w-25 d-inline">
