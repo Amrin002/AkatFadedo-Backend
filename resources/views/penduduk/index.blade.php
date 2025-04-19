@@ -293,7 +293,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table id="data-penduduk" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>

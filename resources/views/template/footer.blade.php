@@ -30,69 +30,6 @@
 {{-- End wrapper --}}
 </div>
 
-<!-- Custom template | don't include it in your project! -->
-{{-- belum sekarang untuk dipake --}}
-{{-- <div class="custom-template">
-    <div class="title">Settings</div>
-    <div class="custom-content">
-        <div class="switcher">
-            <div class="switch-block">
-                <h4>Logo Header</h4>
-                <div class="btnSwitch">
-                    <button type="button" class="selected changeLogoHeaderColor" data-color="dark"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="blue"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
-                    <br />
-                    <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
-                    <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
-                </div>
-            </div>
-            <div class="switch-block">
-                <h4>Navbar Header</h4>
-                <div class="btnSwitch">
-                    <button type="button" class="changeTopBarColor" data-color="dark"></button>
-                    <button type="button" class="changeTopBarColor" data-color="blue"></button>
-                    <button type="button" class="changeTopBarColor" data-color="purple"></button>
-                    <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
-                    <button type="button" class="changeTopBarColor" data-color="green"></button>
-                    <button type="button" class="changeTopBarColor" data-color="orange"></button>
-                    <button type="button" class="changeTopBarColor" data-color="red"></button>
-                    <button type="button" class="selected changeTopBarColor" data-color="white"></button>
-                    <br />
-                    <button type="button" class="changeTopBarColor" data-color="dark2"></button>
-                    <button type="button" class="changeTopBarColor" data-color="blue2"></button>
-                    <button type="button" class="changeTopBarColor" data-color="purple2"></button>
-                    <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
-                    <button type="button" class="changeTopBarColor" data-color="green2"></button>
-                    <button type="button" class="changeTopBarColor" data-color="orange2"></button>
-                    <button type="button" class="changeTopBarColor" data-color="red2"></button>
-                </div>
-            </div>
-            <div class="switch-block">
-                <h4>Sidebar</h4>
-                <div class="btnSwitch">
-                    <button type="button" class="changeSideBarColor" data-color="white"></button>
-                    <button type="button" class="selected changeSideBarColor" data-color="dark"></button>
-                    <button type="button" class="changeSideBarColor" data-color="dark2"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="custom-toggle">
-        <i class="icon-settings"></i>
-    </div>
-</div> --}}
-<!-- End Custom template -->
 </div>
 <!--   Core JS Files   -->
 <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
@@ -127,9 +64,7 @@
 <!-- Kaiadmin JS -->
 <script src="{{ asset('admin/assets/js/kaiadmin.min.js') }}"></script>
 
-<!-- Kaiadmin DEMO methods, don't include it in your project! -->
-<script src="{{ asset('admin/assets/js/setting-demo.js') }}"></script>
-<script src="{{ asset('admin/assets/js/demo.js') }}"></script>
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
@@ -218,102 +153,6 @@
         });
     });
 </script>
-{{--
-JS Cropp Image --}}
-{{-- <script>
-    document.getElementById("image").addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.src = e.target.result;
-            img.onload = function() {
-                // Buat canvas untuk cropping
-                const canvas = document.createElement("canvas");
-                const ctx = canvas.getContext("2d");
-
-                // Set ukuran crop 600x600
-                canvas.width = 600;
-                canvas.height = 600;
-
-                // Ambil area tengah dari gambar
-                const minSize = Math.min(img.width, img.height);
-                const sx = (img.width - minSize) / 2;
-                const sy = (img.height - minSize) / 2;
-
-                ctx.drawImage(img, sx, sy, minSize, minSize, 0, 0, 600, 600);
-
-                // Konversi ke Blob (JPEG)
-                canvas.toBlob(function(blob) {
-                    const croppedFile = new File([blob], "cropped.jpg", {
-                        type: "image/jpeg"
-                    });
-
-                    // Buat form data baru untuk mengganti input file
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(croppedFile);
-                    document.getElementById("image").files = dataTransfer.files;
-
-                    // Tampilkan preview
-                    const preview = document.getElementById("previewProfil");
-                    preview.src = URL.createObjectURL(blob);
-                    preview.style.display = "block";
-                }, "image/jpeg");
-            };
-        };
-        reader.readAsDataURL(file);
-    });
-</script> --}}
-{{-- JS Crop Image Edit modal --}}
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll("[id^='edit_image_']").forEach(input => {
-            input.addEventListener("change", function(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = function() {
-                        const canvas = document.createElement("canvas");
-                        const ctx = canvas.getContext("2d");
-
-                        canvas.width = 600;
-                        canvas.height = 600;
-
-                        const minSize = Math.min(img.width, img.height);
-                        const sx = (img.width - minSize) / 2;
-                        const sy = (img.height - minSize) / 2;
-
-                        ctx.drawImage(img, sx, sy, minSize, minSize, 0, 0, 600, 600);
-
-                        canvas.toBlob(function(blob) {
-                            const croppedFile = new File([blob],
-                                "cropped.jpg", {
-                                    type: "image/jpeg"
-                                });
-
-                            const dataTransfer = new DataTransfer();
-                            dataTransfer.items.add(croppedFile);
-                            event.target.files = dataTransfer.files;
-
-                            // Update preview berdasarkan ID input
-                            const previewId = event.target.id.replace(
-                                "edit_image_", "edit_previewProfil_");
-                            const preview = document.getElementById(previewId);
-                            preview.src = URL.createObjectURL(blob);
-                        }, "image/jpeg");
-                    };
-                };
-                reader.readAsDataURL(file);
-            });
-        });
-    });
-</script> --}}
 
 {{-- Script Sturuktur Desa --}}
 <script>
@@ -457,14 +296,6 @@ JS Cropp Image --}}
         });
     });
 </script>
-{{-- @if ($errors->has('nik'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var errorModal = new bootstrap.Modal(document.getElementById('nikErrorModal'));
-            errorModal.show();
-        });
-    </script>
-@endif --}}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -564,9 +395,12 @@ JS Cropp Image --}}
         });
     });
 </script> --}}
-
-
-
+{{-- Data Tables --}}
+<script>
+    $(document).ready(function() {
+        $("#data-penduduk").DataTable({});
+    });
+</script>
 </body>
 
 </html>
