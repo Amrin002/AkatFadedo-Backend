@@ -73,6 +73,12 @@
                                                         required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="pekerjaan">Pekerjaan</label>
+                                                    <input type="text" class="form-control" id="pekerjaan"
+                                                        name="pekerjaan" value="{{ old('pekerjaan') }}"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="alamat">Alamat</label>
                                                     <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
                                                 </div>
