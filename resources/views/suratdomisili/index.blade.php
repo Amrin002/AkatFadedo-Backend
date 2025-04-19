@@ -103,6 +103,7 @@
                                             <th>Jenis Kelamin</th>
                                             <th>Status Kawin</th>
                                             <th>Kewarganegaraan</th>
+                                            <th>pekerjaan</th>
                                             <th>Alamat</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
@@ -120,6 +121,7 @@
                                                 <td>{{ $row->jenis_kelamin }}</td>
                                                 <td>{{ $row->status_kawin }}</td>
                                                 <td>{{ $row->kewarganegaraan }}</td>
+                                                <td>{{ $row->pekerjaan }}</td>
                                                 <td>{{ $row->alamat }}</td>
                                                 <td>
                                                     <span
@@ -273,6 +275,12 @@
                                                                     <input type="text" class="form-control"
                                                                         name="kewarganegaraan"
                                                                         value="{{ $row->kewarganegaraan }}" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Pekerjaan</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="pekerjaan"
+                                                                        value="{{ $row->pekerjaan }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Alamat</label>
