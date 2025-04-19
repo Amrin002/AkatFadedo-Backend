@@ -1,6 +1,6 @@
 @extends('template.main')
 @section('content')
-<div class="container mt-4">
+<div>
     <h3>Kirim Keluhan Baru</h3>
 
     <form action="{{ route('keluhan.store') }}" method="POST">

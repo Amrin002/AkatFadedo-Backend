@@ -29,6 +29,8 @@ class BeritaController extends Controller
         'judul' => 'required|string|max:255',
         'konten' => 'required',
         'gambar' => 'image|mimes:jpeg,png,jpg|max:2048',
+        'tanggal_berita' => now(),
+
     ]);
 
     $gambarPath = null;
