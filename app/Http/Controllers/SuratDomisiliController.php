@@ -20,7 +20,10 @@ class SuratDomisiliController extends Controller
         $halaman = 'Surat Domisili';
         $user = $request->user();
 
-        $suratDomisili = DB::table('surat_domisilis')->whereNull('deleted_at')->get();
+        $suratDomisili = DB::table('surat_domisilis')
+        ->whereNull('deleted_at')
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('suratdomisili.index', compact('title', 'halaman', 'user', 'suratDomisili'));
     }
 

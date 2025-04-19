@@ -22,7 +22,10 @@ class SuratLainnyaController extends Controller
         $halaman = 'Surat Keterang Orang Tua Tidak Mampu';
         $user = $request->user();
 
-        $suratLainnya = SuratLainnya::all();
+        $suratLainnya = DB::table('surat_lainnyas')
+        ->whereNull('deleted_at')
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('suratlainnya.index', compact('title', 'halaman', 'user', 'suratLainnya'));
     }
 
@@ -42,7 +45,7 @@ class SuratLainnyaController extends Controller
         Log::info('Masuk ke fungsi store SuratLainnya');
 
         if (!$request->hasFile('file')) {
-            return back()->with('error', 'File terlalu besar atau gagal diupload.');
+            return back()->with('error', 'Ukuran file yang anda masukan terlalu berar!');
         }
 
         $request->validate([
@@ -94,7 +97,7 @@ class SuratLainnyaController extends Controller
     Log::info("ID yang diterima untuk update: ", ['id' => $id]);
 
     if (!$request->hasFile('file')) {
-        return back()->with('error', 'File terlalu besar atau gagal diupload.');
+        return back()->with('error', 'Ukuran file yang anda masukan terlalu berar!');
     }
 
     // Validasi input
