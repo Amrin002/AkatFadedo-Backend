@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('keterangan')->nullable();
             $table->string('file');
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);
+            $table->date('tanggal_berita')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
