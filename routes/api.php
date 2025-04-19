@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\PasswordResetApiController;
+use App\Http\Controllers\Api\SuratKtmApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/update/{id}', [AuthController::class, 'update']);
     Route::get('/users', [AuthController::class, 'index']);
+
+    // Surat KTM API
+    Route::prefix('suratktm')->group(function () {
+        Route::get('/{id}/export', [SuratKtmApiController::class, 'exportPdf']);
+        Route::get('/', [SuratKtmApiController::class, 'index']);
+        Route::post('/', [SuratKtmApiController::class, 'store']);
+        Route::get('/{id}', [SuratKtmApiController::class, 'show']);
+        Route::put('/{id}', [SuratKtmApiController::class, 'update']);
+        Route::delete('/{id}', [SuratKtmApiController::class, 'destroy']);
+    });
 });
