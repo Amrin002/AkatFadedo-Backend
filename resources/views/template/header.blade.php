@@ -97,21 +97,21 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('suratktu*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratktu') }}">
                                             <span class="sub-item">
                                                 <p>Surat Keterangan Tempat Usaha</p>
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('suratdomisili*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratdomisili') }}">
                                             <span class="sub-item">
                                                 <p>Surat Domisili</p>
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav-item {{ request()->is('suratlainnya*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratlainnya') }}">
                                             <span class="sub-item">
                                                 <p>Surat Lainnya</p>
