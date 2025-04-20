@@ -7,6 +7,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SuratDomisiliController extends Controller
 {
@@ -21,9 +22,9 @@ class SuratDomisiliController extends Controller
         $user = $request->user();
 
         $suratDomisili = DB::table('surat_domisilis')
-        ->whereNull('deleted_at')
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->whereNull('deleted_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('suratdomisili.index', compact('title', 'halaman', 'user', 'suratDomisili'));
     }
 
@@ -49,6 +50,7 @@ class SuratDomisiliController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'status_kawin' => 'required|in:Belum kawin,Sudah kawin, Cerai',
             'kewarganegaraan' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:225',
             'alamat' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
             'status' => 'nullable|in:On Progress,Approve,Cancel',
@@ -62,6 +64,7 @@ class SuratDomisiliController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
+            'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
@@ -105,42 +108,82 @@ class SuratDomisiliController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    private function getRomawi($bulan)
+    {
+        $romawi = [
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII'
+        ];
+        return $romawi[intval($bulan)];
+    }
+
     public function update(Request $request, $id)
     {
-        //
-        $request->validate([
-            'no_surat' => 'nullable|string|max:100',
-            'nama' => 'required|string|max:255',
-            'tempat_lahir' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
-            'kewarganegaraan' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'keterangan' => 'nullable|string',
-            'status' => 'nullable|in:On Progress,Approve,Cancel',
-        ]);
-        // Validasi tambahan: jika status ingin di-Approve tapi no_surat kosong
-        if ($request->status === 'Approve' && empty($request->no_surat)) {
-            return redirect()->route('suratdomisili.index')
-                ->withErrors(['no_surat_required' => 'Tidak dapat mengubah status Approve surat tanpa nomor surat.']);
+        try {
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'tempat_lahir' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+                'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
+                'kewarganegaraan' => 'required|string|max:255',
+                'pekerjaan' => 'required|string|max:225',
+                'alamat' => 'required|string|max:255',
+                'keterangan' => 'nullable|string',
+                'status' => 'nullable|in:On Progress,Approve,Cancel',
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Gagal Validasi Data Domisili: " . $e->getMessage());
+            return redirect()->back()->withErrors(['validasi_error' => 'Terjadi kesalahan saat memvalidasi data.']);
         }
-        $suratDomisili = SuratDomisili::findOrFail($id);
-        $suratDomisili->update([
-            'no_surat' => $request->no_surat,
+
+        $surat = SuratDomisili::findOrFail($id);
+        $statusBaru = $request->status;
+        $noSurat = $surat->no_surat;
+
+        // Auto generate nomor surat jika status = Approve dan no_surat kosong
+        if ($statusBaru === 'Approve' && empty($noSurat)) {
+            $count = SuratDomisili::where('status', 'Approve')
+                ->whereYear('created_at', now()->year)
+                ->count() + 1;
+
+            $bulanRomawi = $this->getRomawi(now()->month);
+            $tahun = now()->year;
+            $jenisSurat = 'SKD';
+            $kodeNegeri = 'NA-AF';
+
+            $noSurat = sprintf('%02d / %s / %s / %s / %d', $count, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+        }
+        if ($statusBaru === 'Cancel') {
+            $noSurat = null;
+        }
+        $surat->update([
+            'no_surat' => $noSurat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
+            'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
             'keterangan' => $request->keterangan,
-            'status' => $request->status,
+            'status' => $statusBaru,
         ]);
 
-        return redirect()->route('suratdomisili.index')->with('success', 'Surat Domisili berhasil di ubah');
+        return redirect()->route('suratdomisili.index')->with('success', 'Surat Domisili berhasil diubah');
     }
+
 
     /**
      * Remove the specified resource from storage.

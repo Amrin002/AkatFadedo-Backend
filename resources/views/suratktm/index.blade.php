@@ -218,11 +218,11 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="form-group">
+                                                                {{-- <div class="form-group">
                                                                     <label>Nomor Surat</label>
                                                                     <input type="text" class="form-control"
                                                                         name="no_surat" value="{{ $row->no_surat }}">
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="form-group">
                                                                     <label>Nama</label>
                                                                     <input type="text" class="form-control"

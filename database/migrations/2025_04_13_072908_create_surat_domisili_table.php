@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('status_kawin');
             $table->string('kewarganegaraan');
+            $table->string('pekerjaan');
             $table->string('alamat');
-            $table->string('surat_keluar');
             $table->text('keterangan')->nullable();
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);
             $table->unsignedBigInteger('user_id')->nullable();

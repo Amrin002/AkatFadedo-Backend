@@ -75,9 +75,9 @@
                                                 <div class="form-group">
                                                     <label for="pekerjaan">Pekerjaan</label>
                                                     <input type="text" class="form-control" id="pekerjaan"
-                                                        name="pekerjaan" value="{{ old('pekerjaan') }}"
-                                                        required>
+                                                        name="pekerjaan" value="{{ old('pekerjaan') }}" required>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label for="alamat">Alamat</label>
                                                     <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
@@ -109,7 +109,7 @@
                                             <th>Jenis Kelamin</th>
                                             <th>Status Kawin</th>
                                             <th>Kewarganegaraan</th>
-                                            <th>pekerjaan</th>
+                                            <th>Pekerjaan</th>
                                             <th>Alamat</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
@@ -226,11 +226,11 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="form-group">
+                                                                {{-- <div class="form-group">
                                                                     <label>Nomor Surat</label>
                                                                     <input type="text" class="form-control"
                                                                         name="no_surat" value="{{ $row->no_surat }}">
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="form-group">
                                                                     <label>Nama</label>
                                                                     <input type="text" class="form-control"
@@ -285,8 +285,8 @@
                                                                 <div class="form-group">
                                                                     <label>Pekerjaan</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="pekerjaan"
-                                                                        value="{{ $row->pekerjaan }}" required>
+                                                                        name="pekerjaan" value="{{ $row->pekerjaan }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Alamat</label>

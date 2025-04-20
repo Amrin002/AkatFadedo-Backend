@@ -23,9 +23,9 @@ class SuratKtmController extends Controller
         $user = $request->user();
 
         $suratKtm = DB::table('surat_ktms')
-        ->whereNull('deleted_at')
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->whereNull('deleted_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('suratktm.index', compact('title', 'halaman', 'user', 'suratKtm'));
     }
 
@@ -84,7 +84,7 @@ class SuratKtmController extends Controller
         $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
 
         $response = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan'))
-        ->download('surat-ktm-' . $surat->nama . '.pdf');
+            ->download('surat-ktm-' . $surat->nama . '.pdf');
 
         return ($response);
     }
@@ -109,13 +109,29 @@ class SuratKtmController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    private function getRomawi($bulan)
+    {
+        $romawi = [
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII'
+        ];
+        return $romawi[intval($bulan)];
+    }
+
     public function update(Request $request, $id)
     {
-        //
-
         try {
             $request->validate([
-                'no_surat' => 'nullable|string|max:100',
                 'nama' => 'required|string|max:255',
                 'tempat_lahir' => 'required|string|max:255',
                 'tanggal_lahir' => 'required|date',
@@ -127,19 +143,36 @@ class SuratKtmController extends Controller
                 'status' => 'nullable|in:On Progress,Approve,Cancel',
             ]);
         } catch (Exception $e) {
-            Log::error("Gagal Ubah Data");
+            Log::error("Gagal Ubah Data: " . $e->getMessage());
         }
 
-        // Validasi tambahan: jika status ingin di-Approve tapi no_surat kosong
-        if ($request->status === 'Approve' && empty($request->no_surat)) {
-            return redirect()->route('suratktm.index')
-                ->withErrors(['no_surat_required' => 'Tidak dapat mengubah status Approve surat tanpa nomor surat.']);
-        }
-        // dd($response);
         $suratKtm = SuratKtm::findOrFail($id);
 
+        // Cek status baru
+        $statusBaru = $request->status;
+
+        // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
+        $noSurat = $suratKtm->no_surat;
+        if ($statusBaru === 'Approve' && empty($noSurat)) {
+            $count = SuratKtm::where('status', 'Approve')
+                ->whereYear('created_at', now()->year)
+                ->count() + 1;
+
+            $bulanRomawi = $this->getRomawi(now()->month);
+            $tahun = now()->year;
+            $jenisSurat = 'SKTM';
+            $kodeNegeri = 'NA-AF';
+
+            $noSurat = sprintf('%02d / %s / %s / %s / %d', $count, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+        }
+        // Jika status diubah menjadi Cancel, hapus no_surat
+        if ($statusBaru === 'Cancel') {
+            $noSurat = null;
+        }
+
+
         $suratKtm->update([
-            'no_surat' => $request->no_surat,
+            'no_surat' => $noSurat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -148,7 +181,7 @@ class SuratKtmController extends Controller
             'kewarganegaraan' => $request->kewarganegaraan,
             'alamat' => $request->alamat,
             'keterangan' => $request->keterangan,
-            'status' => $request->status,
+            'status' => $statusBaru,
         ]);
 
         return redirect()->route('suratktm.index')->with('success', 'Surat Keterangan Tidak Mampu berhasil di ubah');

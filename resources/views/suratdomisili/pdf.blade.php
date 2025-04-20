@@ -88,9 +88,10 @@
             NEGERI ADMINISTRATIF AKAT FADEDU<br>
             Jln. Kumbang
         </div>
+        <hr>
     </div>
 
-    <hr>
+
 
     <div class="center mt-2 bold">
         SURAT KETERANGAN DOMISILI<br>
