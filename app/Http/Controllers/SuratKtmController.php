@@ -153,19 +153,21 @@ class SuratKtmController extends Controller
 
         // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
         $noSurat = $suratKtm->no_surat;
+
+        // Jika status diubah jadi Approve, dan no_surat masih kosong
         if ($statusBaru === 'Approve' && empty($noSurat)) {
-            $count = SuratKtm::where('status', 'Approve')
-                ->whereYear('created_at', now()->year)
-                ->count() + 1;
+            $nomorManual = $request->input('nomor_manual');
 
-            $bulanRomawi = $this->getRomawi(now()->month);
-            $tahun = now()->year;
-            $jenisSurat = 'SKTM';
-            $kodeNegeri = 'NA-AF';
+            // Jika admin isi nomor manual
+            if ($nomorManual) {
+                $bulanRomawi = $this->getRomawi(now()->month);
+                $tahun = now()->year;
+                $jenisSurat = 'SKTM';
+                $kodeNegeri = 'NA-AF';
 
-            $noSurat = sprintf('%02d / %s / %s / %s / %d', $count, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+                $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+            }
         }
-        // Jika status diubah menjadi Cancel, hapus no_surat
         if ($statusBaru === 'Cancel') {
             $noSurat = null;
         }
