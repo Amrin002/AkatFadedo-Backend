@@ -14,6 +14,7 @@ class SuratDomisili extends Model
     protected $table = 'surat_domisilis';
     protected $fillable = [
         'no_surat',
+        'type_surat',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
@@ -36,4 +37,3 @@ class SuratDomisili extends Model
         return $this->belongsTo(User::class);
     }
 }
-

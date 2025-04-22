@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('surat_ktus', function (Blueprint $table) {
             $table->id();
             $table->string('no_surat')->nullable()->unique();
+            $table->string('type_surat')->default('sktu');
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->string('tanggal_lahir');

@@ -39,8 +39,8 @@ class SuratDomisiliApiController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'status_kawin' => 'required|in:Belum kawin,Sudah kawin, Cerai',
             'kewarganegaraan' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:225',
             'alamat' => 'required|string|max:255',
-            'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -60,8 +60,8 @@ class SuratDomisiliApiController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
+            'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'surat_keluar'=> $request->surat_keluar,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
@@ -100,8 +100,8 @@ class SuratDomisiliApiController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'status_kawin' => 'required|in:Belum kawin,Sudah kawin, Cerai',
             'kewarganegaraan' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:225',
             'alamat' => 'required|string|max:255',
-            'surat_keluar'=> 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -120,9 +120,10 @@ class SuratDomisiliApiController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
+            'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'surat_keluar' => $request->surat_keluar,
             'keterangan' => $request->keterangan,
+
         ]);
 
         return response()->json([

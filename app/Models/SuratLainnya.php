@@ -12,6 +12,7 @@ class SuratLainnya extends Model
 
     protected $table = 'surat_lainnyas';
     protected $fillable = [
+        'type_surat',
         'nama',
         'keterangan',
         'file',

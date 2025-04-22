@@ -14,6 +14,7 @@ class SuratKtm extends Model
     protected $table = 'surat_ktms';
     protected $fillable = [
         'no_surat',
+        'type_surat',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
