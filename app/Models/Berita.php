@@ -22,4 +22,9 @@ class Berita extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getTanggalAttribute()
+    {
+    return \Carbon\Carbon::parse($this->created_at)->format('d-m-Y');
+    }
 }

@@ -143,13 +143,10 @@
                                 </ul>
                             </div> --}}
                         </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#keluhanmenu">
-                                <i class="fas fa-file-alt"></i>
-                                <p>Laporan / Keluhan</p>
-                                {{-- <span class="caret"></span> --}}
-                            </a>
-                        </li>
+                        <li class="nav-item {{ request()->is('keluhan*') ? 'active' : '' }}">
+                            <a href="{{ url('/keluhan') }}">
+                                <i class="fas fa-newspaper"></i>
+                                <p>Keluhan</p></a>
 
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#charts">

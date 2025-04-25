@@ -56,6 +56,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/galeri', GaleriDesaController::class);
     Route::resource('/berita', BeritaController::class);
     Route::resource('/keluhan', KeluhanController::class);
+    Route::delete('/keluhan/{keluhan}', [KeluhanController::class, 'destroy'])->name('keluhan.destroy');
     Route::get('/suratktu/export/pdf/{id}', [SuratKtuController::class, 'exportPdf'])->name('suratktu.export.pdf');
     Route::get('/suratktm/export/pdf/{id}', [SuratKtmController::class, 'exportPdf'])->name('suratktm.export.pdf');
     Route::get('/suratdomisili/export/pdf/{id}', [SuratDomisiliController::class, 'exportPdf'])->name('suratdomisili.export.pdf');

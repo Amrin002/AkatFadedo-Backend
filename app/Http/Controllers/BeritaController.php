@@ -54,26 +54,36 @@ class BeritaController extends Controller
         return view('berita.edit', compact('berita'));
     }
 
-    public function update(Request $request, Berita $berita)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        if ($request->hasFile('gambar')) {
-            Storage::delete($berita->gambar);
-            $berita->gambar = $request->file('gambar')->store('berita');
-        }
-
-        $berita->update([
+    
+        // Temukan data berita berdasarkan ID
+        $berita = Berita::findOrFail($id);
+    
+        $data = [
             'judul' => $request->judul,
             'konten' => $request->konten,
-        ]);
-
+        ];
+    
+        // Jika ada file gambar baru, hapus yang lama lalu simpan yang baru
+        if ($request->hasFile('gambar')) {
+            if ($berita->gambar && Storage::disk('public')->exists($berita->gambar)) {
+                Storage::disk('public')->delete($berita->gambar);
+            }
+    
+            $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+        }
+    
+        $berita->update($data);
+    
         return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui!');
     }
+
 
     public function destroy(string $id)
     {

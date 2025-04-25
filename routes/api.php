@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PasswordResetApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
+use App\Http\Controllers\Api\BeritaApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +71,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', [SuratDomisiliApiController::class, 'update']);
         Route::delete('/{id}', [SuratDomisiliApiController::class, 'destroy']);
     });
+
 });
+
+// Berita API
+
+Route::get('/berita', [BeritaApiController::class, 'index']);
+Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
+
+
 
 
