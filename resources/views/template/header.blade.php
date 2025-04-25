@@ -87,7 +87,7 @@
                                 <p>Surat</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratlainnya*') ? 'show' : '' }}"
+                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratpindah*') || request()->is('suratlainnya*') ? 'show' : '' }}"
                                 id="base">
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item {{ request()->is('suratktm*') ? 'active' : '' }}">

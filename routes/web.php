@@ -21,6 +21,7 @@ use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
 use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
+use App\Models\SuratPindah;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/suratktu', SuratKtuController::class);
     Route::resource('/suratktm', SuratKtmController::class);
     Route::resource('/suratdomisili', SuratDomisiliController::class);
+    Route::resource('/suratpindah', SuratPindahController::class);
     Route::resource('/suratlainnya', SuratLainnyaController::class);
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
