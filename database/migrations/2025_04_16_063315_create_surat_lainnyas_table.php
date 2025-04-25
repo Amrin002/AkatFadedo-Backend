@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('surat_lainnyas', function (Blueprint $table) {
             $table->id();
+            $table->string('type_surat')->default('surat_lainnya');
             $table->string('nama');
             $table->text('keterangan')->nullable();
             $table->string('file');

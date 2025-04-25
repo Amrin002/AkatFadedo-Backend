@@ -63,4 +63,12 @@ public function tanggapi(Keluhan $keluhan)
     return redirect()->back()->with('success', 'Keluhan telah ditandai sebagai diproses.');
 }
 
+public function destroy(string $id)
+{
+    $keluhan = keluhan::findOrFail($id);
+    $keluhan -> delete();
+    return redirect()->route('keluhan.index')->with('succes', 'Keluhan berhasil dihapus!');
+}
+
+
 }

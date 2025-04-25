@@ -92,9 +92,56 @@
                             <button class="btn btn-sm btn-outline-primary">Tanggapi</button>
                         </form>
                     @endif
+                    @if (auth()->user()->role == 'admin')
+                    <form action="{{ route('keluhan.destroy', $item->id) }}" method="POST" class="mt-2"
+                        onsubmit="return confirm('Yakin ingin menghapus keluhan ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <!-- Tombol Hapus -->
+                        <button type="button" class="btn btn-sm btn-outline-danger mt-2" data-toggle="modal"
+                        data-target="#hapusKeluhanModal{{ $item->id }}">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                        </button>
+
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>
+        <!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="hapusKeluhanModal{{ $item->id }}" tabindex="-1"
+    aria-labelledby="hapusKeluhanLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-danger">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="hapusKeluhanLabel{{ $item->id }}">
+                    Konfirmasi Hapus
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Anda yakin ingin menghapus keluhan <strong>"{{ $item->judul }}"</strong>?
+                Tindakan ini tidak dapat dibatalkan.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Batal
+                </button>
+                <form action="{{ route('keluhan.destroy', $item->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        Ya, Hapus
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
     @endforeach
 
     @if ($keluhan->isEmpty())
