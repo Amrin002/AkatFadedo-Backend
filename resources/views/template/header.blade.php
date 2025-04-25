@@ -111,6 +111,13 @@
                                             </span>
                                         </a>
                                     </li>
+                                    <li class="nav-item {{ request()->is('suratpindah*') ? 'active' : '' }}">
+                                        <a href="{{ url('/suratpindah') }}">
+                                            <span class="sub-item">
+                                                <p>Surat Pindah</p>
+                                            </span>
+                                        </a>
+                                    </li>
                                     <li class="nav-item {{ request()->is('suratlainnya*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratlainnya') }}">
                                             <span class="sub-item">
@@ -143,11 +150,10 @@
                                 </ul>
                             </div> --}}
                         </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#keluhanmenu">
-                                <i class="fas fa-file-alt"></i>
+                        <li class="nav-item {{ request()->is('keluhan*') ? 'active' : '' }}">
+                            <a href="{{ url('/keluhan') }}">
+                                <i class="fas fa-newspaper"></i>
                                 <p>Laporan / Keluhan</p>
-                                {{-- <span class="caret"></span> --}}
                             </a>
                         </li>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\PasswordResetApiController;
+use App\Http\Controllers\Api\SuratPindahApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
@@ -69,6 +70,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [SuratDomisiliApiController::class, 'show']);
         Route::put('/{id}', [SuratDomisiliApiController::class, 'update']);
         Route::delete('/{id}', [SuratDomisiliApiController::class, 'destroy']);
+    });
+
+    // Surat Pindah API
+    Route::prefix('suratpindah')->group(function () {
+        Route::get('/{id}/export', [SuratPindahApiController::class, 'exportPdf']);
+        Route::get('/', [SuratPindahApiController::class, 'index']);
+        Route::post('/', [SuratPindahApiController::class, 'store']);
+        Route::get('/{id}', [SuratPindahApiController::class, 'show']);
+        Route::put('/{id}', [SuratPindahApiController::class, 'update']);
+        Route::delete('/{id}', [SuratPindahApiController::class, 'destroy']);
     });
 });
 
