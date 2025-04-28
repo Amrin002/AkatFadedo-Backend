@@ -33,6 +33,8 @@ Route::post('/reset-password', [PasswordResetApiController::class, 'reset']);
 Route::post('/send-otp', [PasswordResetApiController::class, 'sendOtp']);
 Route::post('/reset-password/otp', [PasswordResetApiController::class, 'resetWithOtp']);
 
+Route::get('/download/suratktm/{id}/{token}', [SuratKtmApiController::class, 'downloadPdf'])
+    ->name('suratktm.download');
 
 
 
@@ -49,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [SuratKtmApiController::class, 'show']);
         Route::put('/{id}', [SuratKtmApiController::class, 'update']);
         Route::delete('/{id}', [SuratKtmApiController::class, 'destroy']);
+        Route::get('/{id}/get-download-url', [SuratKtmApiController::class, 'getDownloadUrl']); // Add this line
     });
 
     // Surat KTU API
@@ -71,5 +74,3 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [SuratDomisiliApiController::class, 'destroy']);
     });
 });
-
-
