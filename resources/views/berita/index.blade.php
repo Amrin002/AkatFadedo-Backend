@@ -61,6 +61,7 @@
                                         <th scope="col">Judul</th>
                                         <th scope="col">Konten</th>
                                         <th scope="col">Penulis</th>
+                                        <th scope="col">Tanggal Di Buat</th>
                                         <th scope="col">Action</th>
 
                                     </tr>
@@ -79,6 +80,8 @@
                                             <td>{{ $row->judul }}</td>
                                             <td>{{ Str::limit($row->konten, 50) }}</td>
                                             <td>{{ $row->user->name ?? 'Admin' }}</td>
+                                            <td>{{ $row->created_at->format('d - m - Y') }}</td>
+
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <button type="button" class="btn btn-warning btn-sm"
@@ -167,8 +170,14 @@
                                                                     <label for="gambar">Gambar (Opsional)</label>
                                                                     <input type="file" class="form-control"
                                                                         id="gambar{{ $row->id }}" name="gambar">
+                                                                
+                                                                    {{-- Tambahkan ini untuk menampilkan gambar lama --}}
+                                                                    @if ($row->gambar)
+                                                                        <p class="mt-2">Gambar saat ini:</p>
+                                                                        <img src="{{ asset('storage/' . $row->gambar) }}" width="100">
+                                                                    @endif
                                                                 </div>
-
+                                                                
                                                                 <div class="form-group">
                                                                     <button type="submit"
                                                                         class="btn btn-primary">Simpan</button>
