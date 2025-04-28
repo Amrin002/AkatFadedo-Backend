@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
 use App\Http\Controllers\Api\BeritaApiController;
+use App\Http\Controllers\ApiKeluhanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -84,5 +85,7 @@ Route::get('/berita', [BeritaApiController::class, 'index']);
 Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
 
 
+// Keluhan API
 
+Route::apiResource('keluhan', ApiKeluhanController::class);
 
