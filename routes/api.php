@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\PasswordResetApiController;
+use App\Http\Controllers\Api\SuratPindahApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
 use App\Http\Controllers\Api\BeritaApiController;
-use App\Http\Controllers\ApiKeluhanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +35,8 @@ Route::post('/reset-password', [PasswordResetApiController::class, 'reset']);
 Route::post('/send-otp', [PasswordResetApiController::class, 'sendOtp']);
 Route::post('/reset-password/otp', [PasswordResetApiController::class, 'resetWithOtp']);
 
+Route::get('/download/suratktm/{id}/{token}', [SuratKtmApiController::class, 'downloadPdf'])
+    ->name('suratktm.download');
 
 
 
@@ -51,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [SuratKtmApiController::class, 'show']);
         Route::put('/{id}', [SuratKtmApiController::class, 'update']);
         Route::delete('/{id}', [SuratKtmApiController::class, 'destroy']);
+        Route::get('/{id}/get-download-url', [SuratKtmApiController::class, 'getDownloadUrl']); // Add this line
     });
 
     // Surat KTU API
@@ -80,9 +83,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/berita', [BeritaApiController::class, 'index']);
 Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
 
-// Keluhan API
-
-Route::apiResource('keluhan', ApiKeluhanController::class);
 
 
 

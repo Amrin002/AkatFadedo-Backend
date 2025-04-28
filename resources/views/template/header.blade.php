@@ -87,7 +87,7 @@
                                 <p>Surat</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratlainnya*') ? 'show' : '' }}"
+                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratpindah*') || request()->is('suratlainnya*') ? 'show' : '' }}"
                                 id="base">
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item {{ request()->is('suratktm*') ? 'active' : '' }}">
@@ -108,6 +108,13 @@
                                         <a href="{{ url('/suratdomisili') }}">
                                             <span class="sub-item">
                                                 <p>Surat Domisili</p>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item {{ request()->is('suratpindah*') ? 'active' : '' }}">
+                                        <a href="{{ url('/suratpindah') }}">
+                                            <span class="sub-item">
+                                                <p>Surat Pindah</p>
                                             </span>
                                         </a>
                                     </li>
@@ -143,10 +150,13 @@
                                 </ul>
                             </div> --}}
                         </li>
-                        <li class="nav-item {{ request()->is('keluhan*') ? 'active' : '' }}">
-                            <a href="{{ url('/keluhan') }}">
-                                <i class="fas fa-newspaper"></i>
-                                <p>Keluhan</p></a>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#keluhanmenu">
+                                <i class="fas fa-file-alt"></i>
+                                <p>Laporan / Keluhan</p>
+                                {{-- <span class="caret"></span> --}}
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#charts">
