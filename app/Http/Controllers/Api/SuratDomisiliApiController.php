@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\URL;
 
 class SuratDomisiliApiController extends Controller
 {
@@ -192,6 +193,58 @@ class SuratDomisiliApiController extends Controller
 
         return $pdf->download('surat-domisili-' . $surat->nama . '.pdf');
     }
+
+    public function getDownloadUrl(Request $request, $id)
+    {
+        $user = $request->user();
+        $surat = SuratDomisili::find($id);
+
+        if (!$surat || $surat->user_id !== $user->id || $surat->status !== 'Approve') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak dapat membuat URL download',
+            ], 403);
+        }
+
+        // Generate a signed URL that expires in 5 minutes
+        $url = URL::temporarySignedRoute(
+            'suratdomisili.download',
+            now()->addMinutes(5),
+            ['id' => $id, 'token' => $user->id]
+        );
+
+        return response()->json([
+            'success' => true,
+            'download_url' => $url
+        ]);
+    }
+
+    public function downloadPdf(Request $request, $id, $token)
+    {
+        // Verifikasi tanda tangan
+        if (!$request->hasValidSignature()) {
+            abort(401, 'URL tidak valid atau sudah kadaluarsa');
+        }
+
+        // Verifikasi bahwa token cocok dengan user ID pemilik
+        $surat = SuratDomisili::find($id);
+        if (!$surat || $surat->user_id != $token || $surat->status !== 'Approve') {
+            abort(403, 'Akses ditolak');
+        }
+
+        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $pdf = Pdf::loadView('suratdomisili.pdf', compact('surat', 'tanggal_dikeluarkan'));
+
+        // Set headers untuk pengunduhan PDF
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="SuratDOMISILI_' . $id . '.pdf"',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ];
+    }
+
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
