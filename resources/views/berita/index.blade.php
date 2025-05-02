@@ -170,14 +170,15 @@
                                                                     <label for="gambar">Gambar (Opsional)</label>
                                                                     <input type="file" class="form-control"
                                                                         id="gambar{{ $row->id }}" name="gambar">
-                                                                
+
                                                                     {{-- Tambahkan ini untuk menampilkan gambar lama --}}
                                                                     @if ($row->gambar)
                                                                         <p class="mt-2">Gambar saat ini:</p>
-                                                                        <img src="{{ asset('storage/' . $row->gambar) }}" width="100">
+                                                                        <img src="{{ asset('storage/' . $row->gambar) }}"
+                                                                            width="100">
                                                                     @endif
                                                                 </div>
-                                                                
+
                                                                 <div class="form-group">
                                                                     <button type="submit"
                                                                         class="btn btn-primary">Simpan</button>

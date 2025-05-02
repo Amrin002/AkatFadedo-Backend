@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Berita;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BeritaApiController extends Controller
@@ -12,9 +13,15 @@ class BeritaApiController extends Controller
     // Ambil semua berita
     public function index()
     {
-        $beritas = Berita::orderBy('created_at', 'desc')->get();
-        return response()->json($beritas);
+        $beritas = Berita::with('user')->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'success' => true,
+            'messsage' => 'Berita Berhasil diambil',
+            'data' => $beritas
+        ]);
     }
+
 
     // Tambah berita
     public function store(Request $request)
@@ -44,15 +51,22 @@ class BeritaApiController extends Controller
     }
 
     // Detail berita
-    public function show($id)
+    public function show(string $id)
     {
-        $berita = Berita::find($id);
+        $berita = Berita::with('user')->find($id);
+        // $berita = DB::table('berita')
+        //     ->join('user' . 'user_id', 'berita' . 'user_id')
+        //     ->find($id);
 
         if (!$berita) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
-        return response()->json($berita);
+        return response()->json([
+            'success' => true,
+            'messsage' => 'Detail Berita Ditemukan',
+            'data' => $berita
+        ]);
     }
 
     // // Update berita

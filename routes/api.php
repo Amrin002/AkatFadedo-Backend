@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Api\BeritaApiController;
 use App\Http\Controllers\Api\PasswordResetApiController;
 use App\Http\Controllers\Api\SuratPindahApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
@@ -37,7 +38,8 @@ Route::post('/reset-password/otp', [PasswordResetApiController::class, 'resetWit
 Route::get('/download/suratktm/{id}/{token}', [SuratKtmApiController::class, 'downloadPdf'])
     ->name('suratktm.download');
 
-
+Route::get('/berita', [BeritaApiController::class, 'index']);        // ambil semua berita
+Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
