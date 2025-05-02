@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\URL;
+
 
 class SuratKtuApiController extends Controller
 {
@@ -207,6 +209,62 @@ class SuratKtuApiController extends Controller
         $pdf = Pdf::loadView('suratktu.pdf', compact('surat', 'tanggal_dikeluarkan'));
 
         return $pdf->download('surat-ktu-' . $surat->nama . '.pdf');
+    }
+
+    public function getDownloadUrl(Request $request, $id)
+    {
+        $user = $request->user();
+        $surat = SuratKtu::find($id);
+
+        if (!$surat || $surat->user_id !== $user->id || $surat->status !== 'Approve') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak dapat membuat URL download',
+            ], 403);
+        }
+
+        // Generate a signed URL that expires in 5 minutes
+        $url = URL::temporarySignedRoute(
+            'suratktm.download',
+            now()->addMinutes(5),
+            ['id' => $id, 'token' => $user->id]
+        );
+
+        return response()->json([
+            'success' => true,
+            'download_url' => $url
+        ]);
+    }
+
+    public function downloadPdf(Request $request, $id, $token)
+    {
+        // Verifikasi tanda tangan
+        if (!$request->hasValidSignature()) {
+            abort(401, 'URL tidak valid atau sudah kadaluarsa');
+        }
+
+        // Verifikasi bahwa token cocok dengan user ID pemilik
+        $surat = SuratKtu::find($id);
+        if (!$surat || $surat->user_id != $token || $surat->status !== 'Approve') {
+            abort(403, 'Akses ditolak');
+        }
+
+        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $pdf = Pdf::loadView('suratktu.pdf', compact('surat', 'tanggal_dikeluarkan'));
+
+        // Set headers untuk pengunduhan PDF
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="SuratKTU_' . $id . '.pdf"',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ];
+
+        // Menggunakan stream untuk menghindari masalah dengan file besar
+        return response()->stream(function () use ($pdf) {
+            echo $pdf->output();
+        }, 200, $headers);
     }
 
     public function destroy(Request $request, $id)

@@ -124,7 +124,6 @@
                 <div class="row gy-4">
                     <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
                         <img src={{ asset('landing/assets/img/about.jpg') }} class="img-fluid" alt="">
-                        <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
                     </div>
                     <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
                         <h3>Sejarah dan Profil Desa</h3>
@@ -433,15 +432,16 @@
                     <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up"
                         data-aos-delay="200">
                         <h3>Fasilitas dan Potensi Desa</h3>
-                        <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                            temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi</p>
+                        <p style="text-align: justify">Desa kami memiliki beragam fasilitas serta potensi unggulan yang mendukung kesejahteraan
+                            dan kemajuan masyarakat. Dari sektor pertanian hingga pariwisata, setiap bidang dikelola
+                            secara berkelanjutan untuk menciptakan desa yang mandiri dan sejahtera.</p>
 
                         <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
                             <i class="fa-solid fa-hand-holding-medical flex-shrink-0"></i>
                             <div>
                                 <h4><a href="" class="stretched-link">Pertanian dan Perkebunan</a></h4>
-                                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-                                    occaecati cupiditate non provident</p>
+                                <p style="text-align: justify">Desa memiliki lahan pertanian dan perkebunan yang subur, menjadi sumber utama mata
+                                    pencaharian masyarakat dan mendukung ketahanan pangan lokal.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
@@ -449,8 +449,8 @@
                             <i class="fa-solid fa-suitcase-medical flex-shrink-0"></i>
                             <div>
                                 <h4><a href="" class="stretched-link">Perikanan dan Peternakan</a></h4>
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                                    voluptatum deleniti atque</p>
+                                <p style="text-align: justify">Potensi perikanan dan peternakan dikembangkan melalui budidaya ikan, ternak sapi,
+                                    kambing, dan unggas untuk memenuhi kebutuhan konsumsi serta meningkatkan ekonomi warga.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
@@ -458,8 +458,8 @@
                             <i class="fa-solid fa-staff-snake flex-shrink-0"></i>
                             <div>
                                 <h4><a href="" class="stretched-link">UMKM dan Ekonomi Kreatif</a></h4>
-                                <p>Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut
-                                    deserunt minus aut eligendi omnis</p>
+                                <p style="text-align: justify">Warga desa diberdayakan melalui usaha mikro, kecil, dan menengah (UMKM), serta ekonomi
+                                    kreatif seperti kerajinan tangan, kuliner, dan produk lokal khas desa.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
@@ -467,8 +467,8 @@
                             <i class="fa-solid fa-lungs flex-shrink-0"></i>
                             <div>
                                 <h4><a href="" class="stretched-link">Pariwisata</a></h4>
-                                <p>Est voluptatem labore deleniti quis a delectus et. Saepe dolorem libero sit non
-                                    aspernatur odit amet. Et eligendi</p>
+                                <p style="text-align: justify">Desa memiliki potensi wisata alam, budaya, dan sejarah yang menarik, menjadi destinasi
+                                    alternatif bagi wisatawan dan mendukung ekonomi berbasis masyarakat.</p>
                             </div>
                         </div><!-- End Icon Box -->
 
@@ -490,7 +490,7 @@
 
             <div class="container">
 
-                <div class="row gy-4">
+                <div class="row justify-content-center text-center row gy-4">
 
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-item  position-relative">
@@ -559,7 +559,7 @@
                         </div>
                     </div><!-- End Service Item -->
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                         <div class="service-item position-relative">
                             <div class="icon">
                                 <i class="fas fa-cloud-upload-alt"></i>
@@ -571,7 +571,7 @@
                                 akses kapan saja.</p>
                             <a href="#" class="stretched-link"></a>
                         </div>
-                    </div><!-- End Service Item -->
+                    </div><!-- End Service Item --> --}}
 
                 </div>
 
@@ -842,8 +842,19 @@
                                 <h3>Jena Karlis</h3>
                                 <h4>Store Owner</h4>
                             </div>
+<<<<<<< HEAD
                         </div>
                     </div><!-- End testimonial item -->
+=======
+                        </div><!-- End testimonial item -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <img src="{{ asset('landing/assets/img/gallery/musdus.jpg') }}" class="testimonial-img"
+                                    alt="">
+                                <h3>Musyawarah Dusun</h3>
+ </div>
+                        </div><!-- End testimonial item -->
+>>>>>>> d4fe05ee17435ff13198d588579fcb5a4dbabf61
 
                     <!-- End testimonial item -->
 
@@ -1111,12 +1122,12 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Kontak</h2>
+                <h2>Lokasi</h2>
                 <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit
                 </p>
             </div><!-- End Section Title -->
 
-            <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="mx-2 mb-5" data-aos="fade-up" data-aos-delay="200">
                 <iframe style="border:0; width: 100%; height: 370px;"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1442.3112557462064!2d130.71061032854638!3d-3.8241932616395586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d40810037fec673%3A0x4407ad62fb3b89d6!2sKantor%20Desa%20Akat%20Fadedo!5e1!3m2!1sid!2sid!4v1738774423050!5m2!1sid!2sid"
                     style="border:0;" allowfullscreen="" loading="lazy"
@@ -1124,7 +1135,7 @@
                 {{-- <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
             </div><!-- End Google Maps -->
 
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
+            {{-- <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row gy-4">
                     <div class="col-lg-6 ">
@@ -1200,7 +1211,7 @@
 
                 </div>
 
-            </div>
+            </div> --}}
 
         </section><!-- /Contact Section -->
 

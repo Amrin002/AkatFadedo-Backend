@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\SuratPindahApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
+use App\Http\Controllers\Api\BeritaApiController;
+use App\Http\Controllers\ApiKeluhanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -77,13 +79,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [SuratDomisiliApiController::class, 'destroy']);
     });
 
-    // Surat Pindah API
-    Route::prefix('suratpindah')->group(function () {
-        Route::get('/{id}/export', [SuratPindahApiController::class, 'exportPdf']);
-        Route::get('/', [SuratPindahApiController::class, 'index']);
-        Route::post('/', [SuratPindahApiController::class, 'store']);
-        Route::get('/{id}', [SuratPindahApiController::class, 'show']);
-        Route::put('/{id}', [SuratPindahApiController::class, 'update']);
-        Route::delete('/{id}', [SuratPindahApiController::class, 'destroy']);
-    });
 });
+
+// Berita API
+
+Route::get('/berita', [BeritaApiController::class, 'index']);
+Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
+
+
+// Keluhan API
+
+Route::apiResource('keluhan', ApiKeluhanController::class);
+
