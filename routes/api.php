@@ -41,6 +41,10 @@ Route::get('/download/suratktm/{id}/{token}', [SuratKtmApiController::class, 'do
     ->name('suratktm.download');
 Route::get('/download/suratdomisili/{id}/{token}', [SuratDomisiliApiController::class, 'downloadPdf'])
     ->name('suratdomisili.download');
+Route::get('/download/suratktu/{id}/{token}', [SuratKtuApiController::class, 'downloadPdf'])
+    ->name('suratktu.download');
+Route::get('/download/suratpindah/{id}/{token}', [SuratPindahApiController::class, 'downloadPdf'])
+    ->name('suratpindah.download');
 
 Route::get('/berita', [BeritaApiController::class, 'index']);        // ambil semua berita
 Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
@@ -69,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [SuratKtuApiController::class, 'show']);
         Route::put('/{id}', [SuratKtuApiController::class, 'update']);
         Route::delete('/{id}', [SuratKtuApiController::class, 'destroy']);
+        Route::get('/{id}/get-download-url', [SuratKtuApiController::class, 'getDownloadUrl']);
     });
 
     // Surat Domisili API
@@ -79,13 +84,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [SuratDomisiliApiController::class, 'show']);
         Route::put('/{id}', [SuratDomisiliApiController::class, 'update']);
         Route::delete('/{id}', [SuratDomisiliApiController::class, 'destroy']);
+        Route::get('/{id}/get-download-url', [SuratDomisiliApiController::class, 'getDownloadUrl']); // Add this line
+    });
+    Route::prefix('suratpindah')->group(function () {
+        Route::get('/{id}/export', [SuratPindahApiController::class, 'exportPdf']);
+        Route::get('/', [SuratPindahApiController::class, 'index']);
+        Route::post('/', [SuratPindahApiController::class, 'store']);
+        Route::get('/{id}', [SuratPindahApiController::class, 'show']);
+        Route::put('/{id}', [SuratPindahApiController::class, 'update']);
+        Route::delete('/{id}', [SuratPindahApiController::class, 'destroy']);
+        Route::get('/{id}/get-download-url', [SuratPindahApiController::class, 'getDownloadUrl']); // Add this line
     });
 });
 
-// Berita API
 
-Route::get('/berita', [BeritaApiController::class, 'index']);
-Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
 
 
 // Keluhan API

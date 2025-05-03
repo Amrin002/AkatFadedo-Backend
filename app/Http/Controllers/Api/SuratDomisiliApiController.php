@@ -243,8 +243,12 @@ class SuratDomisiliApiController extends Controller
             'Pragma' => 'no-cache',
             'Expires' => '0',
         ];
-    }
 
+        // Tambahkan return statement untuk mengirim PDF
+        return response()->stream(function () use ($pdf) {
+            echo $pdf->output();
+        }, 200, $headers);
+    }
     public function destroy(Request $request, $id)
     {
         $user = $request->user();

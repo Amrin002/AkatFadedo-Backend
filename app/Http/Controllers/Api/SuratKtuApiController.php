@@ -40,7 +40,7 @@ class SuratKtuApiController extends Controller
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'kewarganegaraan' => 'required|string|max:255',
-            'agama'=> 'required|string|max:20',
+            'agama' => 'required|string|max:20',
             'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
             'nama_usaha' => 'required|string|max:255',
@@ -65,7 +65,7 @@ class SuratKtuApiController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'kewarganegaraan' => $request->kewarganegaraan,
-            'agama'=> $request->agama,
+            'agama' => $request->agama,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
             'nama_usaha' => $request->nama_usaha,
@@ -109,7 +109,7 @@ class SuratKtuApiController extends Controller
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'kewarganegaraan' => 'required|string|max:255',
-            'agama'=> 'required|string|max:20',
+            'agama' => 'required|string|max:20',
             'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
             'nama_usaha' => 'required|string|max:255',
@@ -134,7 +134,7 @@ class SuratKtuApiController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'kewarganegaraan' => $request->kewarganegaraan,
-            'agama'=> $request->agama,
+            'agama' => $request->agama,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
             'nama_usaha' => $request->nama_usaha,
@@ -225,7 +225,7 @@ class SuratKtuApiController extends Controller
 
         // Generate a signed URL that expires in 5 minutes
         $url = URL::temporarySignedRoute(
-            'suratktm.download',
+            'suratktu.download',
             now()->addMinutes(5),
             ['id' => $id, 'token' => $user->id]
         );
@@ -294,5 +294,4 @@ class SuratKtuApiController extends Controller
             'message' => 'Surat berhasil dihapus',
         ]);
     }
-
 }
