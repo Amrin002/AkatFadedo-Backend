@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\SuratPindahApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
-use App\Http\Controllers\Api\BeritaApiController;
+
 use App\Http\Controllers\ApiKeluhanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +39,8 @@ Route::post('/reset-password/otp', [PasswordResetApiController::class, 'resetWit
 
 Route::get('/download/suratktm/{id}/{token}', [SuratKtmApiController::class, 'downloadPdf'])
     ->name('suratktm.download');
+Route::get('/download/suratdomisili/{id}/{token}', [SuratDomisiliApiController::class, 'downloadPdf'])
+    ->name('suratdomisili.download');
 
 Route::get('/berita', [BeritaApiController::class, 'index']);        // ambil semua berita
 Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
@@ -78,7 +80,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', [SuratDomisiliApiController::class, 'update']);
         Route::delete('/{id}', [SuratDomisiliApiController::class, 'destroy']);
     });
-
 });
 
 // Berita API
@@ -90,4 +91,3 @@ Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
 // Keluhan API
 
 Route::apiResource('keluhan', ApiKeluhanController::class);
-

@@ -41,7 +41,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="gambar">Gambar</label>
-                                                    <input type="file" class="form-control" id="gambar" name="gambar">
+                                                    <input type="file" class="form-control" id="gambar"
+                                                        name="gambar">
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -57,127 +58,6 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-<<<<<<< HEAD
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>
-                                                @if ($row->gambar)
-                                                    <img src="{{ Storage::url($row->gambar) }}" width="100">
-                                                @else
-                                                    <p>Tidak ada gambar</p>
-                                                @endif
-                                            </td>
-                                            <td>{{ $row->judul }}</td>
-                                            <td>{{ Str::limit($row->konten, 50) }}</td>
-                                            <td>{{ $row->user->name ?? 'Admin' }}</td>
-                                            <td>{{ $row->created_at->format('d - m - Y') }}</td>
-
-                                            <td>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <button type="button" class="btn btn-warning btn-sm"
-                                                        data-toggle="modal"
-                                                        data-target="#editBeritaModal{{ $row->id }}">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                    </button>
-                                                    <form action="{{ route('berita.destroy', $row->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" data-toggle="modal"
-                                                            data-target="#deleteBeritaModal{{ $row->id }}"
-                                                            class="btn btn-danger btn-sm">
-                                                            <i class="fas fa-trash"></i> Hapus
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-
-                                            <!-- Modal Konfirmasi Hapus -->
-                                            <div class="modal fade" id="deleteBeritaModal{{ $row->id }}"
-                                                tabindex="-1" aria-labelledby="deleteBeritaModalLabel{{ $row->id }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah Anda yakin ingin menghapus
-                                                            <strong>{{ $row->judul }}</strong>?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Batal</button>
-                                                            <form action="{{ route('berita.destroy', $row->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">
-                                                                    Ya, Hapus
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal Edit Berita -->
-                                            <div class="modal fade" id="editBeritaModal{{ $row->id }}"
-                                                tabindex="-1" role="dialog"
-                                                aria-labelledby="editBeritaModalTitle{{ $row->id }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Edit Data Berita</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form action="{{ route('berita.update', $row->id) }}"
-                                                                method="POST" enctype="multipart/form-data">
-                                                                @csrf
-                                                                @method('PUT')
-
-                                                                <div class="form-group">
-                                                                    <label for="judul">Judul</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="judul{{ $row->id }}" name="judul"
-                                                                        value="{{ $row->judul }}" required>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="konten">Konten</label>
-                                                                    <textarea class="form-control" id="konten{{ $row->id }}" name="konten" rows="3" required>{{ $row->konten }}</textarea>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="gambar">Gambar (Opsional)</label>
-                                                                    <input type="file" class="form-control"
-                                                                        id="gambar{{ $row->id }}" name="gambar">
-
-                                                                    {{-- Tambahkan ini untuk menampilkan gambar lama --}}
-                                                                    @if ($row->gambar)
-                                                                        <p class="mt-2">Gambar saat ini:</p>
-                                                                        <img src="{{ asset('storage/' . $row->gambar) }}"
-                                                                            width="100">
-                                                                    @endif
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Simpan</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-=======
                                             <th scope="col">No</th>
                                             <th scope="col">Gambar</th>
                                             <th scope="col">Judul</th>
@@ -185,7 +65,6 @@
                                             <th scope="col">Penulis</th>
                                             <th scope="col">Tanggal Di Buat</th>
                                             <th scope="col">Action</th>
->>>>>>> d4fe05ee17435ff13198d588579fcb5a4dbabf61
 
                                         </tr>
                                     </thead>
@@ -212,7 +91,8 @@
                                                             data-target="#editBeritaModal{{ $row->id }}">
                                                             <i class="fas fa-edit"></i> Edit
                                                         </button>
-                                                        <form action="{{ route('berita.destroy', $row->id) }}" method="POST">
+                                                        <form action="{{ route('berita.destroy', $row->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="button" data-toggle="modal"
@@ -226,7 +106,8 @@
 
                                                 <!-- Modal Konfirmasi Hapus -->
                                                 <div class="modal fade" id="deleteBeritaModal{{ $row->id }}"
-                                                    tabindex="-1" aria-labelledby="deleteBeritaModalLabel{{ $row->id }}"
+                                                    tabindex="-1"
+                                                    aria-labelledby="deleteBeritaModalLabel{{ $row->id }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -266,8 +147,8 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Edit Data Berita</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
@@ -292,12 +173,14 @@
                                                                     <div class="form-group">
                                                                         <label for="gambar">Gambar (Opsional)</label>
                                                                         <input type="file" class="form-control"
-                                                                            id="gambar{{ $row->id }}" name="gambar">
+                                                                            id="gambar{{ $row->id }}"
+                                                                            name="gambar">
 
                                                                         {{-- Tambahkan ini untuk menampilkan gambar lama --}}
                                                                         @if ($row->gambar)
                                                                             <p class="mt-2">Gambar saat ini:</p>
-                                                                            <img src="{{ asset('storage/' . $row->gambar) }}" width="100">
+                                                                            <img src="{{ asset('storage/' . $row->gambar) }}"
+                                                                                width="100">
                                                                         @endif
                                                                     </div>
 
