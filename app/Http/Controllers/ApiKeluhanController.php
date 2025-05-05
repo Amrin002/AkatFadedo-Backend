@@ -3,23 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keluhan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApiKeluhanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Tampilkan semua keluhan
     public function index()
     {
         $keluhan = Keluhan::with('user')->latest()->get();
         return response()->json($keluhan);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Tambah keluhan baru
     public function store(Request $request)
     {
         $request->validate([
@@ -40,17 +36,13 @@ class ApiKeluhanController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Tampilkan detail 1 keluhan
     public function show(Keluhan $keluhan)
     {
         return response()->json($keluhan);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Update keluhan
     public function update(Request $request, Keluhan $keluhan)
     {
         $request->validate([
@@ -67,9 +59,7 @@ class ApiKeluhanController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Hapus keluhan
     public function destroy(Keluhan $keluhan)
     {
         $keluhan->delete();

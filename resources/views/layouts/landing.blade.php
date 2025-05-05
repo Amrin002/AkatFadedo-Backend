@@ -133,7 +133,7 @@
           </div>
         </div> --}}
 
-                <div class="col-lg-2 col-md-3 footer-links">
+                {{-- <div class="col-lg-2 col-md-3 footer-links">
                     <h4>Useful Links</h4>
                     <ul>
                         <li><a href="#">Home</a></li>
@@ -178,7 +178,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> --}}
 
         <div class="container copyright text-center mt-4">
             <p>© <span>Copyright</span> <strong class="px-1 sitename">Local Class Techonology</strong> <span>All Rights
