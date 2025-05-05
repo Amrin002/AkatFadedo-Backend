@@ -213,7 +213,7 @@
     <script src="{{ asset('landing/assets/js/main.js') }}"></script>
 
 
-    {{-- 
+    {{--
   <script>
     $(function() {
       var data = {
@@ -231,9 +231,9 @@
             ]}
         ]
       };
-  
+
       console.log("OrgChart is loading...");
-  
+
       if ($.fn.orgchart) {
         $('#chart-container').orgchart({
           'data' : data,
