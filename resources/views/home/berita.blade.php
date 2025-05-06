@@ -29,23 +29,21 @@
         <div class="col-lg-4">
             <h5 class="fw-semibold mb-3">Berita Terbaru</h5>
             @foreach($berita_terbaru as $item)
+            <a href="{{ route('home.berita', $item->slug) }}" class="text-dark text-decoration-none">
                 <div class="d-flex mb-3">
                     <img src="{{ asset('storage/' . $item->gambar) }}"
                          alt=""
                          class="me-2"
                          style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
                     <div>
-                        <a href="{{ route('home.berita', $item->slug) }}" class="text-dark text-decoration-none">
+                        
                             <strong>{{ \Illuminate\Support\Str::limit($item->judul, 45) }}</strong>
                         </a>
                         <br>
-                        
                         <small class="text-muted">
                             <i class="far fa-calendar-alt me-1"></i> {{ $berita->created_at->format('d F Y') }}
-                            <br>
                             <i class="fas fa-eye me-1"></i> Dilihat {{ $berita->views ?? 0 }} kali
                         </small>
-                       
                     </div>
                 </div>
             @endforeach

@@ -150,8 +150,8 @@
                                 </ul>
                             </div> --}}
                         </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#keluhanmenu">
+                        <li class="nav-item {{ request()->is('keluhan*') ? 'active' : '' }}">
+                            <a href="{{ url('/keluhan') }}">
                                 <i class="fas fa-file-alt"></i>
                                 <p>Laporan / Keluhan</p>
                                 {{-- <span class="caret"></span> --}}
