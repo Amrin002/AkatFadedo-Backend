@@ -844,10 +844,8 @@
                                 <h3>Jena Karlis</h3>
                                 <h4>Store Owner</h4>
                             </div>
-<<<<<<< HEAD
                         </div>
                     </div><!-- End testimonial item -->
-=======
                         </div><!-- End testimonial item -->
                         <div class="swiper-slide">
                             <div class="testimonial-item">
@@ -856,7 +854,6 @@
                                 <h3>Musyawarah Dusun</h3>
  </div>
                         </div><!-- End testimonial item -->
->>>>>>> d4fe05ee17435ff13198d588579fcb5a4dbabf61
 
                     <!-- End testimonial item -->
 

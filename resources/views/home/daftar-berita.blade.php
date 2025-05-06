@@ -2,11 +2,12 @@
 
 @section('content')
 <main class="container py-5">
-    <h2 class="mb-4 text-center fw-bold">Berita Desa</h2>
+    <h2 class="mb-4 text-center fw-bold">Berita Desa Akat Fadedo</h2>
     <div class="row">
         @forelse ($berita as $item)
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm border-0">
+                <a href="{{ route('berita.show', $item->slug) }}" class="text-dark text-decoration-none" >
                 <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top" alt="{{ $item->judul }}" style="height: 200px; object-fit: cover;">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-semibold">{{ \Illuminate\Support\Str::limit($item->judul, 60) }}</h5>
@@ -16,11 +17,11 @@
                             <i class="fas fa-user"></i> {{ $item->user->name ?? 'Administrator' }}<br>
                             <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }} kali
                         </small>
-                        <a href="{{ route('berita.show', $item->slug) }}" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
+                    </a>
                     </div>
                 </div>
                 <div class="card-footer bg-white border-0 text-end">
-                    <span class="badge bg-danger text-white">{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</span>
+                    <span class="badge bg-info text-white">{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</span>
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@ class LandingPageController extends Controller
         session()->put($sessionKey, true);
     }
 
-    $berita_terbaru = Berita::latest()->take(5)->get();
+    $berita_terbaru = Berita::latest()->take(8)->get();
 
     return view('home.berita', compact('berita', 'berita_terbaru'));
     }

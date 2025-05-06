@@ -5,6 +5,11 @@
     <div class="row">
         {{-- KONTEN UTAMA --}}
         <div class="col-lg-8">
+            <div class="text-left my-4">
+                <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
+                    <i class="fas fa-newspaper me-1"></i>Berita Desa Akat Fadedo
+                </a>
+            </div>
             <h2 class="fw-bold mb-2">{{ $berita->judul }}</h2>
 
             <div class="d-flex align-items-center text-muted mb-3" style="font-size: 0.9rem;">
@@ -34,16 +39,20 @@
                     <img src="{{ asset('storage/' . $item->gambar) }}"
                          alt=""
                          class="me-2"
-                         style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
+                         style="width: 100px; height: 80px; object-fit: cover; border-radius: 5px;">
                     <div>
                         
-                            <strong>{{ \Illuminate\Support\Str::limit($item->judul, 45) }}</strong>
+                        <p class="mb-1">
+                            <strong class="fs-6">{{ \Illuminate\Support\Str::limit($item->judul, 45) }}</strong>
+                        
+                        
                         </a>
                         <br>
                         <small class="text-muted">
                             <i class="far fa-calendar-alt me-1"></i> {{ $berita->created_at->format('d F Y') }}
                             <i class="fas fa-eye me-1"></i> Dilihat {{ $berita->views ?? 0 }} kali
                         </small>
+                    </p>
                     </div>
                 </div>
             @endforeach
