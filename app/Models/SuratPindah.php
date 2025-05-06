@@ -23,6 +23,13 @@ class SuratPindah extends Model
         'alamat',
         'kecamatan',
         'kabupaten',
+        'desa_pindah',
+        "rt",
+        "rw",
+        "jalan",
+        'kecamatan_pindah',
+        'kabupaten_pindah',
+        'provinsi',
         'keterangan',
         'status',
         'user_id'

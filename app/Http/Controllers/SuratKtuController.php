@@ -139,7 +139,6 @@ class SuratKtuController extends Controller
     {
         try {
             $request->validate([
-                'no_surat' => 'nullable|string|max:100',
                 'nama' => 'required|string|max:255',
                 'tempat_lahir' => 'required|string|max:255',
                 'tanggal_lahir' => 'required|date',
@@ -160,27 +159,33 @@ class SuratKtuController extends Controller
         }
 
         $suratKtu = SuratKtu::findOrFail($id);
+
+        // Cek status baru
         $statusBaru = $request->status;
+
+        // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
         $noSurat = $suratKtu->no_surat;
 
-        // Auto-generate nomor surat jika status Approve dan belum ada no_surat
+        // Jika status diubah jadi Approve, dan no_surat masih kosong
         if ($statusBaru === 'Approve' && empty($noSurat)) {
-            $count = SuratKtu::where('status', 'Approve')
-                ->whereYear('created_at', now()->year)
-                ->count() + 1;
+            $nomorManual = $request->input('nomor_manual');
 
-            $bulanRomawi = $this->getRomawi(now()->month);
-            $tahun = now()->year;
-            $jenisSurat = 'SKTU';
-            $kodeDesa = 'NA-AF'; // Ganti sesuai kode desamu
+            // Jika admin isi nomor manual
+            if ($nomorManual) {
+                $bulanRomawi = $this->getRomawi(now()->month);
+                $tahun = now()->year;
+                $jenisSurat = 'SKTU';
+                $kodeNegeri = 'NA-AF';
 
-            $noSurat = sprintf('%02d / %s / %s / %s / %d', $count, $jenisSurat, $kodeDesa, $bulanRomawi, $tahun);
+                $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+            }
         }
         if ($statusBaru === 'Cancel') {
             $noSurat = null;
         }
 
         $suratKtu->update([
+            'no_surat' => $noSurat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -189,7 +194,6 @@ class SuratKtuController extends Controller
             'agama' => $request->agama,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'no_surat' => $noSurat,
             'nama_usaha' => $request->nama_usaha,
             'jenis_usaha' => $request->jenis_usaha,
             'alamat_usaha' => $request->alamat_usaha,

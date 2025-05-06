@@ -54,6 +54,13 @@ class SuratPindahController extends Controller
             'alamat' => 'required|string|max:255',
             'kecamatan'=> 'required|string|max:255',
             'kabupaten'=> 'required|string|max:255',
+            'desa_pindah' => 'required|string|max:255',
+            'rt' => 'nullable|string|max:20',
+            'rw' => 'nullable|string|max:20',
+            'jalan' => 'nullable|string|max:255',
+            'kecamatan_pindah' => 'nullable|string|max:255',
+            'kabupaten_pindah' => 'nullable|string|max:255',
+            'provinsi' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
             'status' => 'nullable|in: On Progress,Approve,Cancel',
         ]);
@@ -70,6 +77,13 @@ class SuratPindahController extends Controller
             'alamat' => $request->alamat,
             'kecamatan'=> $request->kecamatan,
             'kabupaten'=> $request->kabupaten,
+            'desa_pindah'=> $request->desa_pindah,
+            'rt'=> $request->rt,
+            'rw'=> $request->rw,
+            'jalan'=> $request->jalan,
+            'kecamatan_pindah'=> $request->kecamatan_pindah,
+            'kabupaten_pindah'=> $request->kabupaten_pindah,
+            'provinsi'=> $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
@@ -146,6 +160,13 @@ class SuratPindahController extends Controller
                 'alamat' => 'required|string|max:255',
                 'kecamatan'=> 'required|string|max:255',
                 'kabupaten'=> 'required|string|max:255',
+                'desa_pindah' => 'required|string|max:255',
+                'rt' => 'nullable|string|max:20',
+                'rw' => 'nullable|string|max:20',
+                'jalan' => 'nullable|string|max:255',
+                'kecamatan_pindah' => 'nullable|string|max:255',
+                'kabupaten_pindah' => 'nullable|string|max:255',
+                'provinsi' => 'required|string|max:255',
                 'keterangan' => 'nullable|string',
                 'status' => 'nullable|in:On Progress,Approve,Cancel',
             ]);
@@ -160,36 +181,44 @@ class SuratPindahController extends Controller
 
         // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
         $noSurat = $suratPindah->no_surat;
+
+        // Jika status diubah jadi Approve, dan no_surat masih kosong
         if ($statusBaru === 'Approve' && empty($noSurat)) {
-            $count = SuratPindah::where('status', 'Approve')
-                ->whereYear('created_at', now()->year)
-                ->count() + 1;
+            $nomorManual = $request->input('nomor_manual');
 
-            $bulanRomawi = $this->getRomawi(now()->month);
-            $tahun = now()->year;
-            $jenisSurat = 'SKPD';
-            $kodeNegeri = 'NA-AF';
+            // Jika admin isi nomor manual
+            if ($nomorManual) {
+                $bulanRomawi = $this->getRomawi(now()->month);
+                $tahun = now()->year;
+                $jenisSurat = 'SKPD';
+                $kodeNegeri = 'NA-AF';
 
-            $noSurat = sprintf('%02d / %s / %s / %s / %d', $count, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+                $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+            }
         }
-        // Jika status diubah menjadi Cancel, hapus no_surat
         if ($statusBaru === 'Cancel') {
             $noSurat = null;
         }
 
-
         $suratPindah->update([
-            'no_surat' => $request->no_surat,
+            'no_surat' => $noSurat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'sttus_kawin'=> $request->status_kawin,
+            'status_kawin'=> $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
             'kecamatan'=> $request->kecamatan,
             'kabupaten'=> $request->kabupaten,
+            'desa_pindah'=> $request->desa_pindah,
+            'rt'=> $request->rt,
+            'rw'=> $request->rw,
+            'jalan'=> $request->jalan,
+            'kecamatan_pindah'=> $request->kecamatan_pindah,
+            'kabupaten_pindah'=> $request->kabupaten_pindah,
+            'provinsi'=> $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
         ]);
