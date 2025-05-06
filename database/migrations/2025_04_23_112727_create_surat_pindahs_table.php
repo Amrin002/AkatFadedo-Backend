@@ -25,11 +25,11 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kabupaten');
             $table->string('desa_pindah');
-            $table->string('rt')->nullable();
-            $table->string('rw')->nullable();
-            $table->string('jalan')->nullable();
-            $table->string('kecamatan_pindah')->nullable();
-            $table->string('kabupaten_pindah')->nullable();
+            $table->string('rt');
+            $table->string('rw');
+            $table->string('jalan');
+            $table->string('kecamatan_pindah');
+            $table->string('kabupaten_pindah');
             $table->string('provinsi');
             $table->text('keterangan')->nullable();
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);

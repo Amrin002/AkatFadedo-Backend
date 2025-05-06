@@ -55,14 +55,14 @@ class SuratPindahController extends Controller
             'kecamatan'=> 'required|string|max:255',
             'kabupaten'=> 'required|string|max:255',
             'desa_pindah' => 'required|string|max:255',
-            'rt' => 'nullable|string|max:20',
-            'rw' => 'nullable|string|max:20',
-            'jalan' => 'nullable|string|max:255',
-            'kecamatan_pindah' => 'nullable|string|max:255',
-            'kabupaten_pindah' => 'nullable|string|max:255',
+            'rt' => 'required|string|max:20',
+            'rw' => 'required|string|max:20',
+            'jalan' => 'required|string|max:255',
+            'kecamatan_pindah' => 'required|string|max:255',
+            'kabupaten_pindah' => 'required|string|max:255',
             'provinsi' => 'required|string|max:255',
-            'keterangan' => 'nullable|string',
-            'status' => 'nullable|in: On Progress,Approve,Cancel',
+            'keterangan' => 'required|string',
+            'status' => 'required|in: On Progress,Approve,Cancel',
         ]);
 
         SuratPindah::create([
@@ -161,14 +161,14 @@ class SuratPindahController extends Controller
                 'kecamatan'=> 'required|string|max:255',
                 'kabupaten'=> 'required|string|max:255',
                 'desa_pindah' => 'required|string|max:255',
-                'rt' => 'nullable|string|max:20',
-                'rw' => 'nullable|string|max:20',
-                'jalan' => 'nullable|string|max:255',
-                'kecamatan_pindah' => 'nullable|string|max:255',
-                'kabupaten_pindah' => 'nullable|string|max:255',
+                'rt' => 'required|string|max:20',
+                'rw' => 'required|string|max:20',
+                'jalan' => 'required|string|max:255',
+                'kecamatan_pindah' => 'required|string|max:255',
+                'kabupaten_pindah' => 'required|string|max:255',
                 'provinsi' => 'required|string|max:255',
-                'keterangan' => 'nullable|string',
-                'status' => 'nullable|in:On Progress,Approve,Cancel',
+                'keterangan' => 'required|string',
+                'status' => 'required|in:On Progress,Approve,Cancel',
             ]);
         } catch (Exception $e) {
             Log::error("Gagal Ubah Data: " . $e->getMessage());
