@@ -44,6 +44,13 @@ class SuratPindahApiController extends Controller
             'alamat' => 'required|string|max:255',
             'kecamatan'=> 'required|string|max:255',
             'kabupaten'=> 'required|string|max:255',
+            'desa_pindah' => 'required|string|max:255',
+            'rt' => 'nullable|string|max:20',
+            'rw' => 'nullable|string|max:20',
+            'jalan' => 'nullable|string|max:255',
+            'kecamatan_pindah' => 'nullable|string|max:255',
+            'kabupaten_pindah' => 'nullable|string|max:255',
+            'provinsi' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -67,6 +74,13 @@ class SuratPindahApiController extends Controller
             'alamat' => $request->alamat,
             'kecamatan'=> $request->kecamatan,
             'kabupaten'=> $request->kabupaten,
+            'desa_pindah'=> $request->desa_pindah,
+            'rt'=> $request->rt,
+            'rw'=> $request->rw,
+            'jalan'=> $request->jalan,
+            'kecamatan_pindah'=> $request->kecamatan_pindah,
+            'kabupaten_pindah'=> $request->kabupaten_pindah,
+            'provinsi'=> $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);

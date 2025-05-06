@@ -368,7 +368,7 @@
                                                                 <div class="form-group">
                                                                     <label for="kecamatan_pindah">Kecamatan Pindah</label>
                                                                     <input type="text" class="form-control" id="kecamatan_pindah"
-                                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah') }}" required>
+                                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah', $row->desa_pindah) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kabupaten_pindah">Kabupaten Pindah</label>

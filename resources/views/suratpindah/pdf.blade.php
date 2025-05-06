@@ -11,7 +11,7 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12pt;
+            font-size: 11pt;
             margin: 0;
             padding: 1cm;
             line-height: 1.4;
@@ -135,7 +135,7 @@
     <table class="data-surat">
         <tr><td width="200">Desa</td><td>: {{ strtoupper($surat->desa_pindah) }}</td></tr>
         <tr><td>RT/RW</td><td>: {{ str_pad($surat->rt, 2, '0', STR_PAD_LEFT) }}/{{ str_pad($surat->rw, 2, '0', STR_PAD_LEFT) }}</td></tr>
-        <tr><td>Jalan</td><td>: {{ strtoupper($surat->alamat_usaha) }}</td></tr>
+        <tr><td>Jalan</td><td>: {{ strtoupper($surat->jalan) }}</td></tr>
         <tr><td>Kecamatan</td><td>: {{ strtoupper($surat->kecamatan_pindah) }}</td></tr>
         <tr><td>Kabupaten</td><td>: {{ strtoupper($surat->kabupaten_pindah) }}</td></tr>
         <tr><td>Provinsi</td><td>: {{ strtoupper($surat->provinsi) }}</td></tr>
