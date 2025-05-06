@@ -150,13 +150,11 @@
                                 </ul>
                             </div> --}}
                         </li>
-
                         <li class="nav-item {{ request()->is('keluhan*') ? 'active' : '' }}">
                             <a href="{{ url('/keluhan') }}">
-                                <span class="sub-item">
-                                    <i class="fas fa-file-alt"></i>
-                                    <p>Keluhan</p>
-                                </span>
+                                <i class="fas fa-file-alt"></i>
+                                <p>Laporan / Keluhan</p>
+                                {{-- <span class="caret"></span> --}}
                             </a>
                         </li>
 

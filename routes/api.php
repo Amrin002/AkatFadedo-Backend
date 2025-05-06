@@ -7,8 +7,7 @@ use App\Http\Controllers\Api\SuratPindahApiController;
 use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
-
-use App\Http\Controllers\ApiKeluhanController;
+use App\Http\Controllers\Api\ApiKeluhanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +47,7 @@ Route::get('/download/suratpindah/{id}/{token}', [SuratPindahApiController::clas
 
 Route::get('/berita', [BeritaApiController::class, 'index']);        // ambil semua berita
 Route::get('/berita/{id}', [BeritaApiController::class, 'show']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -95,11 +95,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [SuratPindahApiController::class, 'destroy']);
         Route::get('/{id}/get-download-url', [SuratPindahApiController::class, 'getDownloadUrl']); // Add this line
     });
+
+    // Keluhan API
+
+    Route::apiResource('keluhan', ApiKeluhanController::class);
 });
 
 
 
 
-// Keluhan API
 
-Route::apiResource('keluhan', ApiKeluhanController::class);

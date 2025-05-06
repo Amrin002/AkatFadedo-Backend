@@ -37,6 +37,11 @@ use App\Models\SuratPindah;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
+// Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');
+// routes/web.php
+Route::get('/daftar-berita', [LandingPageController::class, 'semua'])->name('home.daftar-berita');
+Route::get('/berita/{slug}', [LandingPageController::class, 'show'])->name('home.berita');
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');

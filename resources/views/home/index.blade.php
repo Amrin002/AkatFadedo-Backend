@@ -523,7 +523,7 @@
                             <div class="icon">
                                 <i class="fas fa-newspaper"></i>
                             </div>
-                            <a href="#" class="stretched-link">
+                            <a href="/berita-desa" class="stretched-link">
                                 <h3>Berita dan Informasi</h3>
                             </a>
                             <p>Menyediakan berita terbaru dan informasi seputar kegiatan serta kebijakan desa yang perlu
@@ -578,6 +578,8 @@
             </div>
 
         </section><!-- /Services Section -->
+
+      
 
         <!-- Appointment Section -->
         {{-- <section id="appointment" class="appointment section light-background">
@@ -744,11 +746,11 @@
 
         {{-- <section id="testimonials" class="testimonials section">
 
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-            <h2>Galeri</h2>
-            <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-        </div><!-- End Section Title -->
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Galeri</h2>
+                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+            </div><!-- End Section Title -->
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -842,10 +844,8 @@
                                 <h3>Jena Karlis</h3>
                                 <h4>Store Owner</h4>
                             </div>
-<<<<<<< HEAD
                         </div>
                     </div><!-- End testimonial item -->
-=======
                         </div><!-- End testimonial item -->
                         <div class="swiper-slide">
                             <div class="testimonial-item">
@@ -854,7 +854,6 @@
                                 <h3>Musyawarah Dusun</h3>
  </div>
                         </div><!-- End testimonial item -->
->>>>>>> d4fe05ee17435ff13198d588579fcb5a4dbabf61
 
                     <!-- End testimonial item -->
 
@@ -868,6 +867,57 @@
         <!-- /Galeri -->
         <!-- Galeri Section -->
         {{-- di uncoment kalau sudah selesai --}}
+
+        {{-- berita --}}
+
+        <section id="testimonials" class="=testimonials section">
+            <<div class="container section-title" data-aos="fade-up">
+                <h2>Berita Desa</h2>
+                <p>Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari desa.</p>
+            </div>
+
+            <div class="container mt-3">
+                {{-- <h2 class="text-info font-weight-bold fs-1 mb-2">Berita Desa</h2>
+                <p class="mb-4">Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa.</p> --}}
+            
+                <div class="row">
+                    @forelse ($berita as $item)
+                        <div class="col-md-4 mb-4">
+                            <a href="{{ route('berita.show', $item->slug) }}" style="text-decoration: none; color: inherit;">
+                            <div class="card shadow-sm h-100">
+                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top" style="height: 220px; object-fit: cover;" alt="...">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ \Illuminate\Support\Str::limit($item->judul, 60) }}</h5>
+                                    <p class="card-text text-muted mb-2">
+                                        {!! \Illuminate\Support\Str::limit(strip_tags($item->konten), 120) !!}
+                                    </p>
+                                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-user"></i> {{ $item->user->name ?? 'Administrator' }}<br>
+                                            <i class="fas fa-clock"></i> {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}<br>
+                                            <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }} kali
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <div class="alert alert-info">Belum ada berita yang tersedia.</div>
+                        </div>
+                       
+                        
+                    @endforelse
+                    <div class="text-end my-4">
+                        <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
+                            <i class="fas fa-file-alt"></i> LIHAT BERITA LEBIH BANYAK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="testimonials" class="testimonials section">
 
             <!-- Section Title -->

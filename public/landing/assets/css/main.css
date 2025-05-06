@@ -1977,6 +1977,49 @@ section,
   color: var(--accent-color);
 }
 
+.lihat-berita-link {
+  display: inline-block;
+  font-weight: bold;
+  color: #222;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.lihat-berita-link i {
+  margin-right: 5px;
+}
+
+.lihat-berita-link:hover {
+  color: #0dcaf0; /* warna merah desa kersik */
+  text-decoration: underline;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.badge {
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.page-link {
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.page-item.active .page-link {
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  color: #fff;
+}
+
+
+
+
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/

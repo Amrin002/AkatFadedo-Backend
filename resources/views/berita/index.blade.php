@@ -15,43 +15,42 @@
                                 <i class="fas fa-plus-circle"></i> Tambah Berita
                             </button>
 
-                            <!-- Modal Tambah Berita -->
-                            <div class="modal fade" id="tambahBeritaModal" tabindex="-1" role="dialog"
-                                aria-labelledby="tambahBeritaModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Data Berita</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('berita.store') }}" method="POST"
-                                                enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="judul">Judul</label>
-                                                    <input type="text" class="form-control" id="judul" name="judul"
-                                                        value="{{ old('judul') }}" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="konten">Konten</label>
-                                                    <textarea class="form-control" id="konten" name="konten" rows="3" required>{{ old('konten') }}</textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="gambar">Gambar</label>
-                                                    <input type="file" class="form-control" id="gambar"
-                                                        name="gambar">
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                        <!-- Modal Tambah Berita -->
+                        <div class="modal fade" id="tambahBeritaModal" tabindex="-1" role="dialog"
+                            aria-labelledby="tambahBeritaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Tambah Data Berita</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('berita.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="judul">Judul</label>
+                                                <input type="text" class="form-control" id="judul" name="judul"
+                                                    value="{{ old('judul') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="konten">Konten</label>
+                                                <textarea class="form-control" id="konten" name="konten" rows="3" required>{{ old('konten') }}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="gambar">Gambar</label>
+                                                <input type="file" class="form-control" id="gambar" name="gambar">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
                             {{-- Table data berita --}}
                             <div class="table-responsive">

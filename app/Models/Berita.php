@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class Berita extends Model
@@ -27,4 +28,14 @@ class Berita extends Model
     {
     return \Carbon\Carbon::parse($this->created_at)->format('d-m-Y');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($berita) {
+            $berita->slug = Str::slug($berita->judul) . '-' . Str::random(5);
+        });
+    }
+
 }
