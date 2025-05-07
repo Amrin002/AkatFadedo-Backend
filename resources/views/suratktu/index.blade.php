@@ -247,7 +247,12 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-
+                                                                <div class="form-group">
+                                                                    <label for="nomor_manual">Nomor Surat (manual)</label>
+                                                                    <input type="number" name="nomor_manual"
+                                                                        class="form-control"
+                                                                        placeholder="Masukkan nomor surat (misal: 101)">
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label>Nama</label>
                                                                     <input type="text" class="form-control"

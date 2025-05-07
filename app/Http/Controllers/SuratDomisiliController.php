@@ -148,25 +148,30 @@ class SuratDomisiliController extends Controller
         }
 
         $surat = SuratDomisili::findOrFail($id);
+        // Cek status baru
         $statusBaru = $request->status;
+
+        // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
         $noSurat = $surat->no_surat;
 
-        // Auto generate nomor surat jika status = Approve dan no_surat kosong
+        // Jika status diubah jadi Approve, dan no_surat masih kosong
         if ($statusBaru === 'Approve' && empty($noSurat)) {
-            $count = SuratDomisili::where('status', 'Approve')
-                ->whereYear('created_at', now()->year)
-                ->count() + 1;
+            $nomorManual = $request->input('nomor_manual');
 
-            $bulanRomawi = $this->getRomawi(now()->month);
-            $tahun = now()->year;
-            $jenisSurat = 'SKD';
-            $kodeNegeri = 'NA-AF';
+            // Jika admin isi nomor manual
+            if ($nomorManual) {
+                $bulanRomawi = $this->getRomawi(now()->month);
+                $tahun = now()->year;
+                $jenisSurat = 'SKD';
+                $kodeNegeri = 'NA-AF';
 
-            $noSurat = sprintf('%02d / %s / %s / %s / %d', $count, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+                $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
+            }
         }
         if ($statusBaru === 'Cancel') {
             $noSurat = null;
         }
+
         $surat->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,

@@ -24,6 +24,13 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('kecamatan');
             $table->string('kabupaten');
+            $table->string('desa_pindah');
+            $table->string('rt');
+            $table->string('rw');
+            $table->string('jalan');
+            $table->string('kecamatan_pindah');
+            $table->string('kabupaten_pindah');
+            $table->string('provinsi');
             $table->text('keterangan')->nullable();
             $table->enum('status', ['On Progress', 'Approve', 'Cancel']);
             $table->unsignedBigInteger('user_id')->nullable();

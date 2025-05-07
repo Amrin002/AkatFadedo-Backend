@@ -44,7 +44,14 @@ class SuratPindahApiController extends Controller
             'alamat' => 'required|string|max:255',
             'kecamatan'=> 'required|string|max:255',
             'kabupaten'=> 'required|string|max:255',
-            'keterangan' => 'nullable|string',
+            'desa_pindah' => 'required|string|max:255',
+            'rt' => 'required|string|max:20',
+            'rw' => 'required|string|max:20',
+            'jalan' => 'required|string|max:255',
+            'kecamatan_pindah' => 'required|string|max:255',
+            'kabupaten_pindah' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'keterangan' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -67,6 +74,13 @@ class SuratPindahApiController extends Controller
             'alamat' => $request->alamat,
             'kecamatan'=> $request->kecamatan,
             'kabupaten'=> $request->kabupaten,
+            'desa_pindah'=> $request->desa_pindah,
+            'rt'=> $request->rt,
+            'rw'=> $request->rw,
+            'jalan'=> $request->jalan,
+            'kecamatan_pindah'=> $request->kecamatan_pindah,
+            'kabupaten_pindah'=> $request->kabupaten_pindah,
+            'provinsi'=> $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
@@ -74,6 +88,82 @@ class SuratPindahApiController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Surat berhasil diajukan',
+            'data' => $surat
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = $request->user();
+        $surat = SuratPindah::find($id);
+
+        if (!$surat) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Surat tidak ditemukan',
+            ], 404);
+        }
+
+        if ($surat->user_id !== $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda tidak memiliki izin untuk mengubah surat ini',
+            ], 403);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
+            'kewarganegaraan' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:20',
+            'alamat' => 'required|string|max:255',
+            'kecamatan'=> 'required|string|max:255',
+            'kabupaten'=> 'required|string|max:255',
+            'desa_pindah' => 'required|string|max:255',
+            'rt' => 'required|string|max:20',
+            'rw' => 'required|string|max:20',
+            'jalan' => 'required|string|max:255',
+            'kecamatan_pindah' => 'required|string|max:255',
+            'kabupaten_pindah' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'keterangan' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $surat->update([
+            'nama' => $request->nama,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'status_kawin' => $request->status_kawin,
+            'kewarganegaraan' => $request->kewarganegaraan,
+            'pekerjaan'=> $request->pekerjaan,
+            'alamat' => $request->alamat,
+            'kecamatan'=> $request->kecamatan,
+            'kabupaten'=> $request->kabupaten,
+            'desa_pindah'=> $request->desa_pindah,
+            'rt'=> $request->rt,
+            'rw'=> $request->rw,
+            'jalan'=> $request->jalan,
+            'kecamatan_pindah'=> $request->kecamatan_pindah,
+            'kabupaten_pindah'=> $request->kabupaten_pindah,
+            'provinsi'=> $request->provinsi,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data surat berhasil diperbarui',
             'data' => $surat
         ]);
     }

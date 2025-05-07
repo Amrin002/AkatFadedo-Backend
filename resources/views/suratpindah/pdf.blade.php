@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Surat Keterangan Tempat Usaha</title>
+    <title>Surat Keterangan Tempat Pindah Domisili</title>
     <style>
         @page {
             size: A4;
@@ -105,13 +105,15 @@
     <hr>
 
     <div class="center mt-2 bold">
-        SURAT KETERANGAN TEMPAT USAHA<br>
+        SURAT KETERANGAN PINDAH DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
     <p class="mt-2">
-        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedu,
-        Kecamatan Seram Timur, Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
+        Kepala Pemerintah Negeri Administratif Akat Fadedu, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
+    </p>
+    <p>
+        Dengan ini menerangkan bahwa :
     </p>
 
     <table class="data-surat">
@@ -119,21 +121,24 @@
         <tr><td>Tempat/Tgl Lahir</td><td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td></tr>
         <tr><td>Jenis Kelamin</td><td>: {{ strtoupper($surat->jenis_kelamin) }}</td></tr>
         <tr><td>Kewarganegaraan</td><td>: {{ strtoupper($surat->kewarganegaraan) }}</td></tr>
-        <tr><td>Agama</td><td>: {{ strtoupper($surat->agama) }}</td></tr>
         <tr><td>Pekerjaan</td><td>: {{ strtoupper($surat->pekerjaan) }}</td></tr>
+        <tr><td>Kecamatan</td><td>: {{ strtoupper($surat->kecamatan) }}</td></tr>
+        <tr><td>Kabupaten</td><td>: {{ strtoupper($surat->kabupaten) }}</td></tr>
         <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
     <p class="mt-2">
-        Berdasarkan Register Penduduk, benar yang bersangkutan adalah warga Negeri Akat Fadedu yang
-        berdomisili di Dusun Akat Fadedu serta membuka/mempunyai usaha sebagai berikut:
+        Bahwa yang bersangkutan di atas benar warga Masyarakat Negeri Administratif Akat Fadedu yang berdomisili di Negeri Administratif Akat FADEDU
+        Kecamatan Seram Timur, Kabupaten Seram Bagian Timur. Dan saat ini telah berpindah alamat ke :
     </p>
 
     <table class="data-surat">
-        <tr><td width="200">Nama Tempat Usaha</td><td>: {{ strtoupper($surat->nama_usaha) }}</td></tr>
-        <tr><td>Jenis Usaha</td><td>: <span class="bold">"{{ strtoupper($surat->jenis_usaha) }}"</span></td></tr>
-        <tr><td>Alamat Tempat Usaha</td><td>: {{ strtoupper($surat->alamat_usaha) }}</td></tr>
-        <tr><td>Pemilik Tempat Usaha</td><td>: {{ strtoupper($surat->pemilik_usaha) }}</td></tr>
+        <tr><td width="200">Desa</td><td>: {{ strtoupper($surat->desa_pindah) }}</td></tr>
+        <tr><td>RT/RW</td><td>: {{ str_pad($surat->rt, 2, '0', STR_PAD_LEFT) }}/{{ str_pad($surat->rw, 2, '0', STR_PAD_LEFT) }}</td></tr>
+        <tr><td>Jalan</td><td>: {{ strtoupper($surat->jalan) }}</td></tr>
+        <tr><td>Kecamatan</td><td>: {{ strtoupper($surat->kecamatan_pindah) }}</td></tr>
+        <tr><td>Kabupaten</td><td>: {{ strtoupper($surat->kabupaten_pindah) }}</td></tr>
+        <tr><td>Provinsi</td><td>: {{ strtoupper($surat->provinsi) }}</td></tr>
     </table>
 
     <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
