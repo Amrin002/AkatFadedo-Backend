@@ -20,8 +20,13 @@ class ApiKeluhanController extends Controller
             ->latest()
             ->get();
 
-        return response()->json($keluhan);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Daftar keluhan berhasil diambil',
+            'data' => $keluhan
+        ], 200);
     }
+
 
     // Tambah keluhan baru
     public function store(Request $request)
@@ -58,12 +63,18 @@ class ApiKeluhanController extends Controller
 
         if ($keluhan->user_id !== $userId) {
             return response()->json([
-                'message' => 'Keluhan tidak ditemukan untuk pengguna ini'
+                'status' => 'error',
+                'message' => 'Keluhan tidak ditemukan atau bukan milik pengguna ini'
             ], 403);
         }
 
-        return response()->json($keluhan);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Detail keluhan berhasil diambil',
+            'data' => $keluhan
+        ], 200);
     }
+
 
     // Update keluhan
     public function update(Request $request, Keluhan $keluhan)
