@@ -579,7 +579,7 @@
 
         </section><!-- /Services Section -->
 
-      
+
 
         <!-- Appointment Section -->
         {{-- <section id="appointment" class="appointment section light-background">
@@ -794,7 +794,7 @@
                         <div class="testimonial-item">
                             <img src="{{ asset('landing/assets/img/gallery/musdus.jpg') }}" class="testimonial-img"
                                 alt="">
-                            <h3>Musyawarah Dusun</h3> 
+                            <h3>Musyawarah Dusun</h3>
 </div>
                     </div><!-- End testimonial item -->
 
@@ -879,7 +879,7 @@
             <div class="container mt-3">
                 {{-- <h2 class="text-info font-weight-bold fs-1 mb-2">Berita Desa</h2>
                 <p class="mb-4">Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa.</p> --}}
-            
+
                 <div class="row">
                     @forelse ($berita as $item)
                         <div class="col-md-4 mb-4">
@@ -906,8 +906,8 @@
                         <div class="col-12">
                             <div class="alert alert-info">Belum ada berita yang tersedia.</div>
                         </div>
-                       
-                        
+
+
                     @endforelse
                     <div class="text-end my-4">
                         <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
@@ -1173,7 +1173,9 @@
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Lokasi</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit
+                <p>Temukan lokasi Desa Akat Fadedo di peta berikut.
+                     Silakan kunjungi jika ada keperluan atau ingin mengetahui
+                     lebih dekat tentang desa kami.
                 </p>
             </div><!-- End Section Title -->
 

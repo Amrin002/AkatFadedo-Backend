@@ -97,7 +97,7 @@
         <div class="kop-text">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
             KECAMATAN SERAM TIMUR<br>
-            NEGERI ADMINISTRATIF AKAT FADEDU<br>
+            NEGERI ADMINISTRATIF AKAT FADEDO<br>
             Jln. Kumbang
         </div>
     </div>
@@ -110,7 +110,7 @@
     </div>
 
     <p class="mt-2">
-        Kepala Pemerintah Negeri Administratif Akat Fadedu, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
+        Kepala Pemerintah Negeri Administratif Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
     </p>
     <p>
         Dengan ini menerangkan bahwa :
@@ -128,7 +128,7 @@
     </table>
 
     <p class="mt-2">
-        Bahwa yang bersangkutan di atas benar warga Masyarakat Negeri Administratif Akat Fadedu yang berdomisili di Negeri Administratif Akat FADEDU
+        Bahwa yang bersangkutan di atas benar warga Masyarakat Negeri Administratif Akat Fadedo yang berdomisili di Negeri Administratif Akat Fadedo
         Kecamatan Seram Timur, Kabupaten Seram Bagian Timur. Dan saat ini telah berpindah alamat ke :
     </p>
 
@@ -144,7 +144,7 @@
     <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
 
     <div class="signature mt-4">
-        <p>Dikeluarkan di: Fadedu</p>
+        <p>Dikeluarkan di: Fadedo</p>
         <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
         <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
     </div>
