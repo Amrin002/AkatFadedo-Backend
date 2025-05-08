@@ -98,8 +98,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Keluhan API
 
-    Route::apiResource('keluhan', ApiKeluhanController::class);
+    Route::prefix('keluhan')->group(function () {
+        Route::get('/', [ApiKeluhanController::class, 'index']);
+        Route::post('/', [ApiKeluhanController::class, 'store']);
+        Route::get('/{keluhan}', [ApiKeluhanController::class, 'show']);
+        Route::put('/{keluhan}', [ApiKeluhanController::class, 'update']);
+        Route::delete('/{keluhan}', [ApiKeluhanController::class, 'destroy']);
+    });
 });
+
+
 
 
 

@@ -9,13 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->user();
+        $title = 'Daftar Berita';
         $berita = Berita::latest()->get();
-        return view('berita.index', [
-            'berita' => $berita,
-            'title' => 'Daftar Berita' // Kirim variabel $title ke view
-        ]);
+        // return view('berita.index', [
+        //     'berita' => $berita,
+        //     'title' => 'Daftar Berita' // Kirim variabel $title ke view
+        // ]);
+        return view('berita.index', compact('user', 'berita', 'title',));
     }
 
     public function create()

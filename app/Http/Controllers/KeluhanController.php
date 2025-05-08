@@ -11,19 +11,22 @@ class KeluhanController extends Controller
 {
     public function index(Request $request)
 {
+    $title = 'Daftar keluhan';
     $status = $request->get('status');
     $query = Keluhan::with('user')->latest();
 
     if ($status) {
         $query->where('status', $status);
     }
+    $user = $request->user();
 
     $keluhan = $query->get();
-    return view('keluhan.index', [
-        'keluhan' => $keluhan,
-        'status' => $status,
-        'title' => 'Daftar Keluhan'
-    ]);
+    // return view('keluhan.index', [
+    //     'keluhan' => $keluhan,
+    //     'status' => $status,
+    //     'title' => 'Daftar Keluhan'
+    // ]);
+    return view('keluhan.index', compact('keluhan', 'status', 'query', 'user', 'title'));
 }
 
 public function create()

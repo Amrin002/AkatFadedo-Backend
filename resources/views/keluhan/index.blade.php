@@ -7,7 +7,7 @@
             <div class="col">
                 <h3>Daftar Keluhan</h3>
 
-                <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahKeluhanModal">
+                <button class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahKeluhanModal">
                     <i class="fas fa-plus-circle"></i> Tambah Keluhan
                 </button>
 
