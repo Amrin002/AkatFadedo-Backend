@@ -42,7 +42,9 @@ Route::get('/', [LandingPageController::class, 'index'])->name('home');
 Route::get('/daftar-berita', [LandingPageController::class, 'semua'])->name('home.daftar-berita');
 Route::get('/berita/{slug}', [LandingPageController::class, 'show'])->name('home.berita');
 
-
+// Tambahkan di bagian route publik (di luar middleware admin)
+Route::get('/verifikasi/{token}', [App\Http\Controllers\SuratVerifikasiController::class, 'verifikasi'])
+    ->name('verifikasi.surat');
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
     // Route::resource('dashboard', AdminController::class,);

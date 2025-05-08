@@ -36,7 +36,7 @@ class Penduduk extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'id');
+        return $this->hasOne(User::class, 'penduduk_id', 'id');
     }
 
     /**

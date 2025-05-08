@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,39 +15,86 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'nik' => 'required|string|unique:users|max:20',
-            'no_telp' => 'nullable|string|unique:users|max:15',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:8',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-        // Simpan foto jika ada
-        $photoPath = null;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = now()->format('YmdHis') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $photoPath = $image->storeAs('profile_photos', $filename, 'public');
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'nik' => 'required|string|unique:users|max:20',
+                'no_telp' => 'nullable|string|unique:users|max:15',
+                'email' => 'required|string|email|unique:users',
+                'password' => 'required|string|min:8',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            $penduduk = Penduduk::where('nik', $request->nik)->first();
+            // Tambahkan pengecekan eksplisit
+            if (!$penduduk) {
+                return response()->json([
+                    'message' => 'NIK tidak ditemukan dalam data penduduk'
+                ], 422);
+            }
+
+            if (
+                User::where('nik', $request->nik)->exists() ||
+                User::where('email', $request->email)->exists() ||
+                ($request->no_telp && User::where('no_telp', $request->no_telp)->exists())
+            ) {
+                $errors = [];
+
+                if (User::where('nik', $request->nik)->exists()) {
+                    $errors['nik'] = ['NIK sudah digunakan'];
+                }
+
+                if (User::where('email', $request->email)->exists()) {
+                    $errors['email'] = ['Email sudah digunakan'];
+                }
+
+                if ($request->no_telp && User::where('no_telp', $request->no_telp)->exists()) {
+                    $errors['no_telp'] = ['Nomor telepon sudah digunakan'];
+                }
+
+                return response()->json([
+                    'message' => 'Data sudah terdaftar',
+                    'errors' => $errors
+                ], 409);
+            }
+
+            // Simpan foto jika ada
+            $photoPath = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $filename = now()->format('YmdHis') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $photoPath = $image->storeAs('profile_photos', $filename, 'public');
+            }
+
+            $user = User::create([
+                'name' => $request->name,
+                'nik' => $request->nik,
+                'penduduk_id' => optional($penduduk)->id,
+                'no_telp' => $request->no_telp,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role ?? 'user',
+                'image' => $photoPath,
+            ]);
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'User berhasil register',
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ], 201); // Gunakan status 201 Created
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validasi gagal',
+                'errors' => $e->errors()
+            ], 422); // Status 422 untuk validasi gagal
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Terjadi kesalahan',
+                'error' => $e->getMessage()
+            ], 500); // Status 500 untuk kesalahan server
         }
-
-        $user = User::create([
-            'name' => $request->name,
-            'nik' => $request->nik,
-            'no_telp' => $request->no_telp,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role ?? 'user',
-            'image' => $photoPath,
-        ]);
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'User berhasil register',
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user
-        ]);
     }
     public function update(Request $request, $id)
     {
