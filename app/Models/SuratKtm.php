@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\VerifikasiSurat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SuratKtm extends Model
 {
     //
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, VerifikasiSurat;
 
     protected $table = 'surat_ktms';
     protected $fillable = [
@@ -22,6 +23,9 @@ class SuratKtm extends Model
         'status_kawin',
         'kewarganegaraan',
         'alamat',
+        'qr_code',
+        'verifikasi_token',
+        'tanggal_terbit',
         'keterangan',
         'status',
         'user_id'
@@ -34,5 +38,10 @@ class SuratKtm extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    // Define default type for verification
+    public function getTypeSuratAttribute()
+    {
+        return 'Surat Keterangan Tidak Mampu';
     }
 }

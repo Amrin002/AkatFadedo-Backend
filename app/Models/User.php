@@ -25,7 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'image'
+        'image',
+        'penduduk_id'
     ];
 
     /**
@@ -49,5 +50,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class, 'penduduk_id', 'id');
     }
 }

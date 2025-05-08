@@ -208,7 +208,11 @@
             <p>Dikeluarkan di: Fadedo</p>
             <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
             <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-            <br><br>
+            {{-- Tambahkan QR Code di sini --}}
+            @if ($surat->qr_code)
+                <img src="{{ public_path($surat->qr_code) }}" alt="QR Code Verifikasi" class="qr-code"
+                    style="width: 100px; height: 100px;">
+            @endif
             <p class="nama"><strong>AHMAD BUGIS</strong></p>
         </div>
     </div>
