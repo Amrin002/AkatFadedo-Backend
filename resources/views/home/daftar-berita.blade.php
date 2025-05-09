@@ -4,6 +4,11 @@
 <main class="container py-5">
     <h2 class="mb-4 text-center fw-bold">Berita Desa Akat Fadedo</h2>
     <div class="row">
+        <div class="text-left my-4">
+            <a href="{{ route('home') }}" class="lihat-berita-link">
+                <i class="fas fa-home me-1"></i>Home
+            </a>
+        </div>
         @forelse ($berita as $item)
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm border-0">

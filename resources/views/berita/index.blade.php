@@ -40,8 +40,13 @@
                                                 <textarea class="form-control" id="konten" name="konten" rows="3" required>{{ old('konten') }}</textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="gambar">Gambar</label>
-                                                <input type="file" class="form-control" id="gambar" name="gambar">
+                                                <label for="imageGaleri">Foto berita</label>
+                                                <input type="file" class="form-control-file galeri-image"
+                                                    id="imageGaleri" name="image" accept="image/png, image/jpeg"
+                                                    data-target="previewGaleri">
+                                                <!-- Preview Image -->
+                                                <img id="previewGaleri" src="" alt="Preview Foto"
+                                                    class="img-thumbnail mt-2" width="100" style="display: none;">
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Simpan</button>

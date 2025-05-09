@@ -17,7 +17,7 @@ class LandingPageController extends Controller
         //
         $jumlahPenduduk = Penduduk::where('nama_lengkap', '!=', 'Admin')->count();
         $fasilitas = FasilitasDesa::first();
-        $strukturDesa = StrukturDesa::all();
+        $strukturDesa = StrukturDesa::latest()->take(6)->get();
         $galeri = DB::table('galeri_desas')->get();
         $berita = Berita::latest()->take(6)->get();
         $title = 'Berita Desa'; // definisikan variabel $title
@@ -45,6 +45,13 @@ class LandingPageController extends Controller
     {
         $berita = Berita::latest()->paginate(6); // Sesuaikan jumlah per halaman
         return view('home.daftar-berita', compact('berita'));
+    }
+
+    public function galeri()  
+    {
+        $strukturDesa = StrukturDesa::all();
+        return view('home.daftar-struktur-desa', compact('strukturDesa'));
+
     }
 
 

@@ -74,7 +74,7 @@
 
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="#hero" class="active">Beranda</a></li>
+                        <li><a href="#hero">Beranda</a></li>
                         <li><a href="#about">Profil Desa</a></li>
                         <li><a href="#services">Layanan</a></li>
                         {{-- <li><a href="#departments">Struktur Pemerintahan</a></li> --}}

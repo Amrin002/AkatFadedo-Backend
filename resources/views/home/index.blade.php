@@ -66,7 +66,7 @@
                     <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
                         <div class="service-item position-relative">
                             <div class="icon"><i class="fas fa-info-circle icon"></i></div>
-                            <h4><a href="" class="stretched-link">Berita Desa</a></h4>
+                            <h4><a href="#newspapers" class="stretched-link">Berita Desa</a></h4>
                             <p>Ikuti kabar terbaru dan peristiwa penting di desa. </p>
                         </div>
                     </div><!-- End Service Item -->
@@ -150,10 +150,67 @@
                         </p>
                     </div>
                 </div>
-
+                <div id="struktur-desa" class="doctors section light-background">
+                    <div class="container" data-aos="fade-up">
+                        <h2>Struktur Organisasi Desa</h2>
+                        <p>Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan.</p>
+                    </div>
+        
+                    <div class="container">
+                        <div class="row gy-4">
+                            @foreach ($strukturDesa as $anggota)
+                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                                    data-aos-delay="100">
+                                    <div class="team-member">
+                                        <div class="member-img">
+                                            <img src="{{ asset('storage/' . $anggota->image) }}" class="img-fluid"
+                                                alt="{{ $anggota->nama }}" width="600" height="600">
+                                            <div class="social">
+                                                @if ($anggota->twitter)
+                                                    <a href="{{ $anggota->twitter }}"><i class="bi bi-twitter-x"></i></a>
+                                                @endif
+                                                @if ($anggota->facebook)
+                                                    <a href="{{ $anggota->facebook }}"><i class="bi bi-facebook"></i></a>
+                                                @endif
+                                                @if ($anggota->instagram)
+                                                    <a href="{{ $anggota->instagram }}"><i class="bi bi-instagram"></i></a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="member-info text-center">
+                                            <h4 class="mb-1">{{ $anggota->nama }}</h4>
+                                            <span class="text-muted">{{ $anggota->posisi }}</span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="text-end my-4">
+                                <a href="{{ route('home.daftar-sturktur-desa') }}" class="lihat-berita-link">
+                                    <i class="fas fa-file-alt"></i> LIHAT STURUK DESA LEBIH BANYAK
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             {{-- Tutup Sejarah Dan Profil Desa --}}
+            <div class="container" data-aos="fade-up">
+                <h2>Peta Desa</h2>
+                <p>Menampilkan Peta Lokasi Desa Akat Fadedo
+                </p>
+            </div><!-- End Section Title -->
+
+            <div class="mx-5 mb-8" data-aos="fade-up" data-aos-delay="200">
+                <iframe style="border:0; width: 100%; height: 370px;"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1442.3112557462064!2d130.71061032854638!3d-3.8241932616395586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d40810037fec673%3A0x4407ad62fb3b89d6!2sKantor%20Desa%20Akat%20Fadedo!5e1!3m2!1sid!2sid!4v1738774423050!5m2!1sid!2sid"
+                    style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                {{-- <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+            </div><!-- End Google Maps -->
         </section><!-- /About Section -->
+        
+        
 
         <!-- Stats Section -->
         {{-- di uncoment kalau sudah selesai --}}
@@ -382,7 +439,7 @@
         <!-- Struktur Organisasi Section -->
 
         {{-- di uncoment kalau sudah selesai --}}
-        <section id="struktur-desa" class="doctors section light-background">
+        {{-- <section id="struktur-desa" class="doctors section light-background">
             <div class="container section-title" data-aos="fade-up">
                 <h2>Struktur Organisasi Desa</h2>
                 <p>Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan.</p>
@@ -418,7 +475,7 @@
                     @endforeach
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         <!-- Features Section -->
         <section id="features" class="features section">
@@ -518,7 +575,7 @@
                         </div>
                     </div><!-- End Service Item -->
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                         <div class="service-item position-relative">
                             <div class="icon">
                                 <i class="fas fa-newspaper"></i>
@@ -529,7 +586,7 @@
                             <p>Menyediakan berita terbaru dan informasi seputar kegiatan serta kebijakan desa yang perlu
                                 diketahui masyarakat.</p>
                         </div>
-                    </div><!-- End Service Item -->
+                    </div><!-- End Service Item --> --}}
 
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
                         <div class="service-item position-relative">
@@ -545,7 +602,7 @@
                         </div>
                     </div><!-- End Service Item -->
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
                         <div class="service-item position-relative">
                             <div class="icon">
                                 <i class="fas fa-users"></i>
@@ -557,7 +614,7 @@
                                 desa.</p>
                             <a href="#" class="stretched-link"></a>
                         </div>
-                    </div><!-- End Service Item -->
+                    </div><!-- End Service Item --> --}}
 
                     {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                         <div class="service-item position-relative">
@@ -870,7 +927,7 @@
 
         {{-- berita --}}
 
-        <section id="testimonials" class="=testimonials section">
+        <section id="newspapers" class="=newspapers section">
             <<div class="container section-title" data-aos="fade-up">
                 <h2>Berita Desa</h2>
                 <p>Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari desa.</p>
@@ -1171,19 +1228,7 @@
         <section id="contact" class="contact section">
 
             <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Lokasi</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit
-                </p>
-            </div><!-- End Section Title -->
-
-            <div class="mx-2 mb-5" data-aos="fade-up" data-aos-delay="200">
-                <iframe style="border:0; width: 100%; height: 370px;"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1442.3112557462064!2d130.71061032854638!3d-3.8241932616395586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d40810037fec673%3A0x4407ad62fb3b89d6!2sKantor%20Desa%20Akat%20Fadedo!5e1!3m2!1sid!2sid!4v1738774423050!5m2!1sid!2sid"
-                    style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                {{-- <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
-            </div><!-- End Google Maps -->
+            
 
             {{-- <div class="container" data-aos="fade-up" data-aos-delay="100">
 
