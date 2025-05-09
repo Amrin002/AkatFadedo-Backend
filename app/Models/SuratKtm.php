@@ -5,12 +5,11 @@ namespace App\Models;
 use App\VerifikasiSurat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SuratKtm extends Model
 {
     //
-    use HasFactory, SoftDeletes, VerifikasiSurat;
+    use HasFactory, VerifikasiSurat;
 
     protected $table = 'surat_ktms';
     protected $fillable = [

@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\VerifikasiSurat;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SuratDomisili extends Model
 {
     //
-    use HasFactory, SoftDeletes;
+    use HasFactory, VerifikasiSurat;
 
     protected $table = 'surat_domisilis';
     protected $fillable = [
@@ -23,6 +23,9 @@ class SuratDomisili extends Model
         'kewarganegaraan',
         'pekerjaan',
         'alamat',
+        'qr_code',
+        'verifikasi_token',
+        'tanggal_terbit',
         'keterangan',
         'status',
         'user_id'
@@ -35,5 +38,10 @@ class SuratDomisili extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getTypeSuratAttribute()
+    {
+        return 'Surat Keterangan Domisili';
     }
 }

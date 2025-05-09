@@ -100,9 +100,13 @@ class SuratPindahController extends Controller
                 ->withErrors(['export_error' => 'Surat belum di-Approve dan tidak bisa diexport.']);
         }
 
-        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $tanggal_dikeluarkan = $surat->tanggal_terbit
+            ? Carbon::parse($surat->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y')
+            : Carbon::now()->locale('id')->isoFormat('D MMMM Y');
 
-        $response = Pdf::loadView('suratpindah.pdf', compact('surat', 'tanggal_dikeluarkan'))
+        // Tambahkan URL verifikasi
+        $verifikasiUrl = route('verifikasi.surat', $surat->verifikasi_token);
+        $response = Pdf::loadView('suratpindah.pdf', compact('surat', 'tanggal_dikeluarkan', 'verifikasiUrl'))
             ->download('surat-pindah-' . $surat->nama . '.pdf');
 
         return ($response);
@@ -200,6 +204,16 @@ class SuratPindahController extends Controller
             $noSurat = null;
         }
 
+        // Always assign verifikasi_token and tanggal_terbit if status becomes Approve
+        if ($statusBaru === 'Approve') {
+            if (empty($suratPindah->verifikasi_token)) {
+                $suratPindah->verifikasi_token = \Illuminate\Support\Str::uuid(); // Token unik
+            }
+
+            // Always set tanggal_terbit to current date if status is Approve
+            $suratPindah->tanggal_terbit = now();
+        }
+
         $suratPindah->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,
@@ -221,7 +235,19 @@ class SuratPindahController extends Controller
             'provinsi'=> $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
+            'verifikasi_token' => $suratPindah->verifikasi_token,
+            'tanggal_terbit' => $suratPindah->tanggal_terbit,
         ]);
+
+        // Generate QR code for approved documents
+        if ($statusBaru === 'Approve') {
+            // Generate verifikasi token and QR code
+            $suratPindah->generateVerifikasiToken()
+                ->buatQrCode();
+
+            // Get verification URL
+            $verifikasiUrl = route('verifikasi.surat', $suratPindah->verifikasi_token);
+        }
 
         return redirect()->route('suratpindah.index')->with('success', 'Surat Keteranan Pindah Domisili berhasil di ubah');
     }

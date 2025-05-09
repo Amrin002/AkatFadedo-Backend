@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\VerifikasiSurat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SuratPindah extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, VerifikasiSurat;
 
     protected $table = 'surat_pindahs';
     protected $fillable = [
@@ -30,6 +30,9 @@ class SuratPindah extends Model
         'kecamatan_pindah',
         'kabupaten_pindah',
         'provinsi',
+        'qr_code',
+        'verifikasi_token',
+        'tanggal_terbit',
         'keterangan',
         'status',
         'user_id'
@@ -42,5 +45,10 @@ class SuratPindah extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getTypeSuratAttribute()
+    {
+        return 'Surat Keterangan Pindah Domisili';
     }
 }

@@ -90,10 +90,16 @@ class SuratKtuController extends Controller
                 ->withErrors(['export_error' => 'Surat belum di-Approve dan tidak bisa diexport.']);
         }
 
-        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $tanggal_dikeluarkan = $surat->tanggal_terbit
+            ? Carbon::parse($surat->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y')
+            : Carbon::now()->locale('id')->isoFormat('D MMMM Y');
 
-        return Pdf::loadView('suratktu.pdf', compact('surat', 'tanggal_dikeluarkan'))
+        // Tambahkan URL verifikasi
+        $verifikasiUrl = route('verifikasi.surat', $surat->verifikasi_token);
+        $response = Pdf::loadView('suratktu.pdf', compact('surat', 'tanggal_dikeluarkan', 'verifikasiUrl'))
             ->download('surat-ktu-' . $surat->nama . '.pdf');
+
+        return ($response);
     }
 
     /**
@@ -184,6 +190,16 @@ class SuratKtuController extends Controller
             $noSurat = null;
         }
 
+        // Always assign verifikasi_token and tanggal_terbit if status becomes Approve
+        if ($statusBaru === 'Approve') {
+            if (empty($suratKtu->verifikasi_token)) {
+                $suratKtu->verifikasi_token = \Illuminate\Support\Str::uuid(); // Token unik
+            }
+
+            // Always set tanggal_terbit to current date if status is Approve
+            $suratKtu->tanggal_terbit = now();
+        }
+
         $suratKtu->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,
@@ -200,7 +216,19 @@ class SuratKtuController extends Controller
             'pemilik_usaha' => $request->pemilik_usaha,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
+            'verifikasi_token' => $suratKtu->verifikasi_token,
+            'tanggal_terbit' => $suratKtu->tanggal_terbit,
         ]);
+
+        // Generate QR code for approved documents
+        if ($statusBaru === 'Approve') {
+            // Generate verifikasi token and QR code
+            $suratKtu->generateVerifikasiToken()
+                ->buatQrCode();
+
+            // Get verification URL
+            $verifikasiUrl = route('verifikasi.surat', $suratKtu->verifikasi_token);
+        }
 
         return redirect()->route('suratktu.index')->with('success', 'Surat Keterangan Tempat Usaha berhasil diubah');
     }
