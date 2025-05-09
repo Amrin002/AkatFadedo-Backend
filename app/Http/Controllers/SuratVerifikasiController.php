@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SuratDomisili;
 use App\Models\SuratKtm;
+use App\Models\SuratPindah;
+use App\Models\SuratKtu;
 use App\Models\SuratVerifikasi;
 use Illuminate\Http\Request;
 
@@ -16,6 +19,9 @@ class SuratVerifikasiController extends Controller
         // Coba verifikasi untuk berbagai model surat
         $modelClasses = [
             SuratKtm::class,
+            SuratPindah::class,
+            SuratKtu::class,
+            SuratDomisili::class,
             // Tambahkan model surat lain di sini nanti
         ];
 

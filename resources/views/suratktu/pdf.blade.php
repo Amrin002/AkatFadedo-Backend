@@ -138,13 +138,23 @@
 
     <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
 
-    <div class="signature mt-4">
-        <p>Dikeluarkan di: Fadedo</p>
-        <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
-        <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-    </div>
+    <div class="signature">
 
-    <div class="nama">AHMAD BUGIS</div>
+        <div class="mt-4">
+            <p>Dikeluarkan di: Fadedo</p>
+            <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
+            <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
+            {{-- Tambahkan QR Code di sini --}}
+            @if ($surat->qr_code)
+            <img
+                src="{{ $surat->qr_code ? public_path($surat->qr_code) : public_path('images/qrcode_place.png') }}"
+                alt="QR Code Verifikasi"
+                class="qr-code"
+                style="width: 100px; height: 100px;">
+            @endif
+            <p class="nama"><strong>AHMAD BUGIS</strong></p>
+        </div>
+    </div>
 
 </body>
 </html>

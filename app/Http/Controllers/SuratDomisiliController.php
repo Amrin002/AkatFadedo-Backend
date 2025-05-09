@@ -82,10 +82,16 @@ class SuratDomisiliController extends Controller
                 ->withErrors(['export_error' => 'Surat belum di-Approve dan tidak bisa diexport.']);
         }
 
-        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $tanggal_dikeluarkan = $surat->tanggal_terbit
+            ? Carbon::parse($surat->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y')
+            : Carbon::now()->locale('id')->isoFormat('D MMMM Y');
 
-        return Pdf::loadView('suratdomisili.pdf', compact('surat', 'tanggal_dikeluarkan'))
+        // Tambahkan URL verifikasi
+        $verifikasiUrl = route('verifikasi.surat', $surat->verifikasi_token);
+        $response = Pdf::loadView('suratdomisili.pdf', compact('surat', 'tanggal_dikeluarkan', 'verifikasiUrl'))
             ->download('surat-domisili-' . $surat->nama . '.pdf');
+
+        return ($response);
     }
 
     /**
@@ -147,12 +153,12 @@ class SuratDomisiliController extends Controller
             return redirect()->back()->withErrors(['validasi_error' => 'Terjadi kesalahan saat memvalidasi data.']);
         }
 
-        $surat = SuratDomisili::findOrFail($id);
+        $suratDomisili = SuratDomisili::findOrFail($id);
         // Cek status baru
         $statusBaru = $request->status;
 
         // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
-        $noSurat = $surat->no_surat;
+        $noSurat = $suratDomisili->no_surat;
 
         // Jika status diubah jadi Approve, dan no_surat masih kosong
         if ($statusBaru === 'Approve' && empty($noSurat)) {
@@ -172,7 +178,17 @@ class SuratDomisiliController extends Controller
             $noSurat = null;
         }
 
-        $surat->update([
+        // Always assign verifikasi_token and tanggal_terbit if status becomes Approve
+        if ($statusBaru === 'Approve') {
+            if (empty($suratDomisili->verifikasi_token)) {
+                $suratDomisili->verifikasi_token = \Illuminate\Support\Str::uuid(); // Token unik
+            }
+
+            // Always set tanggal_terbit to current date if status is Approve
+            $suratDomisili->tanggal_terbit = now();
+        }
+
+        $suratDomisili->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
@@ -184,7 +200,19 @@ class SuratDomisiliController extends Controller
             'alamat' => $request->alamat,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
+            'verifikasi_token' => $suratDomisili->verifikasi_token,
+            'tanggal_terbit' => $suratDomisili->tanggal_terbit,
         ]);
+
+        // Generate QR code for approved documents
+        if ($statusBaru === 'Approve') {
+            // Generate verifikasi token and QR code
+            $suratDomisili->generateVerifikasiToken()
+                ->buatQrCode();
+
+            // Get verification URL
+            $verifikasiUrl = route('verifikasi.surat', $suratDomisili->verifikasi_token);
+        }
 
         return redirect()->route('suratdomisili.index')->with('success', 'Surat Domisili berhasil diubah');
     }
