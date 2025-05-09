@@ -636,7 +636,7 @@
 
         </section><!-- /Services Section -->
 
-      
+
 
         <!-- Appointment Section -->
         {{-- <section id="appointment" class="appointment section light-background">
@@ -851,7 +851,7 @@
                         <div class="testimonial-item">
                             <img src="{{ asset('landing/assets/img/gallery/musdus.jpg') }}" class="testimonial-img"
                                 alt="">
-                            <h3>Musyawarah Dusun</h3> 
+                            <h3>Musyawarah Dusun</h3>
 </div>
                     </div><!-- End testimonial item -->
 
@@ -936,7 +936,7 @@
             <div class="container mt-3">
                 {{-- <h2 class="text-info font-weight-bold fs-1 mb-2">Berita Desa</h2>
                 <p class="mb-4">Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa.</p> --}}
-            
+
                 <div class="row">
                     @forelse ($berita as $item)
                         <div class="col-md-4 mb-4">
@@ -963,8 +963,8 @@
                         <div class="col-12">
                             <div class="alert alert-info">Belum ada berita yang tersedia.</div>
                         </div>
-                       
-                        
+
+
                     @endforelse
                     <div class="text-end my-4">
                         <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
@@ -1228,7 +1228,21 @@
         <section id="contact" class="contact section">
 
             <!-- Section Title -->
-            
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Lokasi</h2>
+                <p>Temukan lokasi Desa Akat Fadedo di peta berikut.
+                     Silakan kunjungi jika ada keperluan atau ingin mengetahui
+                     lebih dekat tentang desa kami.
+                </p>
+            </div><!-- End Section Title -->
+
+            <div class="mx-2 mb-5" data-aos="fade-up" data-aos-delay="200">
+                <iframe style="border:0; width: 100%; height: 370px;"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1442.3112557462064!2d130.71061032854638!3d-3.8241932616395586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d40810037fec673%3A0x4407ad62fb3b89d6!2sKantor%20Desa%20Akat%20Fadedo!5e1!3m2!1sid!2sid!4v1738774423050!5m2!1sid!2sid"
+                    style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                {{-- <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+            </div><!-- End Google Maps -->
 
             {{-- <div class="container" data-aos="fade-up" data-aos-delay="100">
 

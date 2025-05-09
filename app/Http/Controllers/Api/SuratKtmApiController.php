@@ -183,8 +183,14 @@ class SuratKtmApiController extends Controller
             ], 403);
         }
 
-        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
-        $pdf = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan'));
+        $tanggal_dikeluarkan = $surat->tanggal_terbit
+            ? Carbon::parse($surat->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y')
+            : Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+
+        // Tambahkan URL verifikasi
+        $verifikasiUrl = route('verifikasi.surat', $surat->verifikasi_token);
+
+        $pdf = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan', 'verifikasiUrl'));
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();
@@ -231,8 +237,14 @@ class SuratKtmApiController extends Controller
             abort(403, 'Akses ditolak');
         }
 
-        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
-        $pdf = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan'));
+        $tanggal_dikeluarkan = $surat->tanggal_terbit
+            ? Carbon::parse($surat->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y')
+            : Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+
+        // Tambahkan URL verifikasi
+        $verifikasiUrl = route('verifikasi.surat', $surat->verifikasi_token);
+
+        $pdf = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan', 'verifikasiUrl'));
 
         // Set headers untuk pengunduhan PDF
         $headers = [

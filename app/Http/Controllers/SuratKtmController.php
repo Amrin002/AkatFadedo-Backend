@@ -81,9 +81,13 @@ class SuratKtmController extends Controller
                 ->withErrors(['export_error' => 'Surat belum di-Approve dan tidak bisa diexport.']);
         }
 
-        $tanggal_dikeluarkan = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $tanggal_dikeluarkan = $surat->tanggal_terbit
+            ? Carbon::parse($surat->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y')
+            : Carbon::now()->locale('id')->isoFormat('D MMMM Y');
 
-        $response = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan'))
+        // Tambahkan URL verifikasi
+        $verifikasiUrl = route('verifikasi.surat', $surat->verifikasi_token);
+        $response = Pdf::loadView('suratktm.pdf', compact('surat', 'tanggal_dikeluarkan', 'verifikasiUrl'))
             ->download('surat-ktm-' . $surat->nama . '.pdf');
 
         return ($response);
@@ -168,10 +172,20 @@ class SuratKtmController extends Controller
                 $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
             }
         }
+
         if ($statusBaru === 'Cancel') {
             $noSurat = null;
         }
 
+        // Always assign verifikasi_token and tanggal_terbit if status becomes Approve
+        if ($statusBaru === 'Approve') {
+            if (empty($suratKtm->verifikasi_token)) {
+                $suratKtm->verifikasi_token = \Illuminate\Support\Str::uuid(); // Token unik
+            }
+
+            // Always set tanggal_terbit to current date if status is Approve
+            $suratKtm->tanggal_terbit = now();
+        }
 
         $suratKtm->update([
             'no_surat' => $noSurat,
@@ -184,11 +198,22 @@ class SuratKtmController extends Controller
             'alamat' => $request->alamat,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
+            'verifikasi_token' => $suratKtm->verifikasi_token,
+            'tanggal_terbit' => $suratKtm->tanggal_terbit,
         ]);
+
+        // Generate QR code for approved documents
+        if ($statusBaru === 'Approve') {
+            // Generate verifikasi token and QR code
+            $suratKtm->generateVerifikasiToken()
+                ->buatQrCode();
+
+            // Get verification URL
+            $verifikasiUrl = route('verifikasi.surat', $suratKtm->verifikasi_token);
+        }
 
         return redirect()->route('suratktm.index')->with('success', 'Surat Keterangan Tidak Mampu berhasil di ubah');
     }
-
     /**
      * Remove the specified resource from storage.
      */
