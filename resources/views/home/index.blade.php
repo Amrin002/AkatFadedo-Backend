@@ -155,7 +155,7 @@
                     </div>
                 </div>
                 <div id="struktur-desa" class="doctors section light-background">
-                    <div class="container" data-aos="fade-up">
+                    <div class="container section-title" data-aos="fade-up">
                         <h2>Struktur Organisasi Desa</h2>
                         <p>Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan.</p>
                     </div>
