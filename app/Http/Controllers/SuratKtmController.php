@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class SuratKtmController extends Controller
 {
@@ -148,45 +149,55 @@ class SuratKtmController extends Controller
             ]);
         } catch (Exception $e) {
             Log::error("Gagal Ubah Data: " . $e->getMessage());
+            return redirect()->back()->withErrors(['validation_error' => $e->getMessage()])->withInput();
         }
 
         $suratKtm = SuratKtm::findOrFail($id);
-
-        // Cek status baru
+        $oldStatus = $suratKtm->status;
         $statusBaru = $request->status;
 
-        // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
+        // Default values
         $noSurat = $suratKtm->no_surat;
+        $verifikasiToken = $suratKtm->verifikasi_token;
+        $tanggalTerbit = $suratKtm->tanggal_terbit;
+        $qrCode = $suratKtm->qr_code;
 
-        // Jika status diubah jadi Approve, dan no_surat masih kosong
-        if ($statusBaru === 'Approve' && empty($noSurat)) {
-            $nomorManual = $request->input('nomor_manual');
-
-            // Jika admin isi nomor manual
-            if ($nomorManual) {
-                $bulanRomawi = $this->getRomawi(now()->month);
-                $tahun = now()->year;
-                $jenisSurat = 'SKTM';
-                $kodeNegeri = 'NA-AF';
-
-                $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
-            }
-        }
-
-        if ($statusBaru === 'Cancel') {
-            $noSurat = null;
-        }
-
-        // Always assign verifikasi_token and tanggal_terbit if status becomes Approve
+        // Handle status changes
         if ($statusBaru === 'Approve') {
-            if (empty($suratKtm->verifikasi_token)) {
-                $suratKtm->verifikasi_token = \Illuminate\Support\Str::uuid(); // Token unik
-            }
+            // If changing to Approve
+            if ($oldStatus !== 'Approve') {
+                // Generate new verification token for new approvals or re-approvals
+                $verifikasiToken = Str::uuid();
+                $tanggalTerbit = now();
 
-            // Always set tanggal_terbit to current date if status is Approve
-            $suratKtm->tanggal_terbit = now();
+                // Generate number if empty
+                if (empty($noSurat)) {
+                    $nomorManual = $request->input('nomor_manual');
+
+                    if ($nomorManual) {
+                        $bulanRomawi = $this->getRomawi(now()->month);
+                        $tahun = now()->year;
+                        $jenisSurat = 'SKTM';
+                        $kodeNegeri = 'NA-AF';
+
+                        $noSurat = sprintf(
+                            '%02d / %s / %s / %s / %d',
+                            $nomorManual,
+                            $jenisSurat,
+                            $kodeNegeri,
+                            $bulanRomawi,
+                            $tahun
+                        );
+                    }
+                }
+            }
+        } elseif ($statusBaru === 'Cancel') {
+            // If canceling, invalidate verification data but keep history
+            $noSurat = null;
+            // We keep the verifikasi_token to track history but mark as invalid in verifikasi method
         }
 
+        // Update the document
         $suratKtm->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,
@@ -198,21 +209,23 @@ class SuratKtmController extends Controller
             'alamat' => $request->alamat,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
-            'verifikasi_token' => $suratKtm->verifikasi_token,
-            'tanggal_terbit' => $suratKtm->tanggal_terbit,
+            'verifikasi_token' => $verifikasiToken,
+            'tanggal_terbit' => $tanggalTerbit,
         ]);
 
-        // Generate QR code for approved documents
-        if ($statusBaru === 'Approve') {
-            // Generate verifikasi token and QR code
-            $suratKtm->generateVerifikasiToken()
-                ->buatQrCode();
-
-            // Get verification URL
-            $verifikasiUrl = route('verifikasi.surat', $suratKtm->verifikasi_token);
+        // Generate QR code only for approved documents
+        if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
+            try {
+                // Generate QR code
+                $suratKtm->buatQrCode();
+            } catch (Exception $e) {
+                Log::error("Gagal membuat QR Code: " . $e->getMessage());
+                // Continue without failing the whole operation
+            }
         }
 
-        return redirect()->route('suratktm.index')->with('success', 'Surat Keterangan Tidak Mampu berhasil di ubah');
+        return redirect()->route('suratktm.index')
+            ->with('success', 'Surat Keterangan Tidak Mampu berhasil di ubah');
     }
     /**
      * Remove the specified resource from storage.

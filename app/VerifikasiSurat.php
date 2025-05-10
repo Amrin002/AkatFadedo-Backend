@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\SuratVerifikasi;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -49,39 +50,57 @@ trait VerifikasiSurat
 
     public static function verifikasi($token)
     {
-        // Cari surat dengan token yang diberikan
+        // Find document with given token
+        $model = self::class;
+
+        // Check if the model has verifikasi_token column
+        if (!in_array('verifikasi_token', (new $model)->getFillable())) {
+            Log::error("Model {$model} does not have verifikasi_token column");
+            return null;
+        }
+
+        // Find the document
         $surat = self::where('verifikasi_token', $token)->first();
 
-        // Jika surat tidak ditemukan, kembalikan null
+        // If document not found, return null
         if (!$surat) {
             return null;
         }
 
-        // Pastikan tanggal_terbit tidak null
-        $tanggalTerbit = $surat->tanggal_terbit ?? now();
+        // Get document number
+        $nomorSurat = $surat->no_surat ?? $surat->nomor_surat ?? null;
 
-        // Cek nomor surat
-        $nomorSurat = $surat->no_surat ?? $surat->nomor_surat;
+        // Create verification result
+        $verifikasi = new SuratVerifikasi();
+        $verifikasi->type_surat = class_basename(self::class);
+        $verifikasi->nama_pemohon = $surat->nama ?? 'Tidak Diketahui';
+        $verifikasi->nomor_surat = $nomorSurat;
+        $verifikasi->tanggal_terbit = $surat->tanggal_terbit ?? now();
+        $verifikasi->nama_pejabat = 'Nama Pejabat';
+        $verifikasi->nip = 'NIP 123321123';
+        $verifikasi->jabatan = 'Pejabat Desa';
 
-        // Cek apakah verifikasi untuk nomor surat ini sudah ada
-        $existingVerifikasi = SuratVerifikasi::where('nomor_surat', $nomorSurat)->first();
+        // Set status based on document status
+        if ($surat->status === 'Approve' && !empty($nomorSurat)) {
+            $verifikasi->status = 'TERVERIFIKASI';
 
-        if ($existingVerifikasi) {
-            // Jika sudah ada verifikasi dengan nomor surat yang sama, kembalikan yang sudah ada
-            return $existingVerifikasi;
+            // Check if verification record already exists for this document number
+            $existingVerifikasi = SuratVerifikasi::where('nomor_surat', $nomorSurat)->first();
+
+            if (!$existingVerifikasi) {
+                // Save new verification record
+                $verifikasi->save();
+            } else {
+                // Return existing record with updated status
+                $existingVerifikasi->status = 'TERVERIFIKASI';
+                $existingVerifikasi->save();
+                return $existingVerifikasi;
+            }
+        } else {
+            // Document is not approved or has no number, mark as not valid
+            $verifikasi->status = 'TIDAK VALID';
+            // Don't save to database, just return for display
         }
-
-        // Buat record verifikasi baru jika belum ada
-        $verifikasi = SuratVerifikasi::create([
-            'type_surat' => $surat->type_surat ?? class_basename(self::class),
-            'nama_pemohon' => $surat->nama ?? 'Tidak Diketahui',
-            'nomor_surat' => $nomorSurat,
-            'tanggal_terbit' => $tanggalTerbit,
-            'nama_pejabat' => 'Nama Pejabat',
-            'nip' => 'NIP 123321123',
-            'jabatan' => 'Pejabat Desa',
-            'status' => 'TERVERIFIKASI'
-        ]);
 
         return $verifikasi;
     }
