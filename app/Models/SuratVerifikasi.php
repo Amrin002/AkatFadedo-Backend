@@ -22,6 +22,12 @@ class SuratVerifikasi extends Model
     protected $dates = [
         'tanggal_terbit'
     ];
+    // Define which attributes should be cast to native types
+    protected $casts = [
+        'tanggal_terbit' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
     // Ensure this is unique
     public static function boot()
     {
@@ -43,8 +49,7 @@ class SuratVerifikasi extends Model
     }
     public function setStatusAttribute($value)
     {
-        $allowedStatuses = ['TERVERIFIKASI', 'TIDAK VALID'];
-
+        $allowedStatuses = ['TERVERIFIKASI', 'TIDAK VALID', 'Approve', 'Cancel', 'OnProggres'];
         $this->attributes['status'] = in_array(strtoupper($value), $allowedStatuses)
             ? strtoupper($value)
             : 'TERVERIFIKASI';

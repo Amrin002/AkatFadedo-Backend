@@ -157,6 +157,12 @@
                                 {{-- <span class="caret"></span> --}}
                             </a>
                         </li>
+                        <li class="nav-item {{ request()->is('verifikasi*') ? 'active' : '' }}">
+                            <a href="{{ route('verifikasi.index') }}">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Riwayat Verifikasi Surat</p>
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#charts">

@@ -48,6 +48,8 @@ Route::get('/verifikasi/{token}', [App\Http\Controllers\SuratVerifikasiControlle
     ->name('verifikasi.surat');
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
+    Route::get('/verifikasi', [App\Http\Controllers\SuratVerifikasiController::class, 'index'])
+        ->name('verifikasi.index');
     // Route::resource('dashboard', AdminController::class,);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

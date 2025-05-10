@@ -136,11 +136,11 @@
         <tr><td>Pemilik Tempat Usaha</td><td>: {{ strtoupper($surat->pemilik_usaha) }}</td></tr>
     </table>
 
-    <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
+    <p class="mt-1">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
 
     <div class="signature">
 
-        <div class="mt-4">
+        <div class="mt-2">
             <p>Dikeluarkan di: Fadedo</p>
             <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
             <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
