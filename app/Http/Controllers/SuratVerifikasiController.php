@@ -74,6 +74,35 @@ class SuratVerifikasiController extends Controller
 
         $suratVerifikasi = $query->orderBy('created_at', 'desc')->get();
 
+        // Tambahkan token untuk setiap surat
+        $suratVerifikasi->transform(function ($item) {
+            $modelMap = [
+                'SKTM' => SuratKtm::class,
+                'SKTU' => SuratKtu::class,
+                'DOMISILI' => SuratDomisili::class,
+                'PINDAH' => SuratPindah::class
+            ];
+
+            $token = 'Tidak ada';
+            try {
+                if (isset($modelMap[$item->type_surat])) {
+                    $surat = $modelMap[$item->type_surat]
+                        ::where('no_surat', $item->nomor_surat)
+                        ->orWhere('nomor_surat', $item->nomor_surat)
+                        ->first();
+
+                    $token = $surat ? $surat->verifikasi_token : 'Tidak ada';
+                }
+            } catch (\Exception $e) {
+                Log::error('Error fetching verification token: ' . $e->getMessage());
+                $token = 'Error';
+            }
+
+            // Tambahkan token ke item
+            $item->verifikasi_token = $token;
+            return $item;
+        });
+
         // Ensure dates are Carbon instances
         $suratVerifikasi->transform(function ($item) {
             // Convert tanggal_terbit to Carbon if it's not already
@@ -99,7 +128,6 @@ class SuratVerifikasiController extends Controller
 
         return view('verifikasi.index', compact('suratVerifikasi', 'title'));
     }
-
 
     /**
      * Show the form for creating a new resource.

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\SuratKtm;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
@@ -57,7 +59,7 @@ class SuratKtmController extends Controller
             'status' => 'nullable|in: On Progress,Approve,Cancel',
         ]);
 
-        SuratKtm::create([
+        $surat = SuratKtm::create([
             'no_surat' => $request->no_surat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
@@ -69,6 +71,24 @@ class SuratKtmController extends Controller
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
+        // Kirim notifikasi ke semua admin
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+            Notification::createNotification(
+                $admin->id,
+                'surat_ktm',
+                "Pengajuan surat KTM oleh {$surat->nama}",
+                $surat->id,
+                SuratKtm::class,
+                [
+                    'nama' => $surat->nama,
+                    'jenis_kelamin' => $surat->jenis_kelamin,
+                    'tanggal_lahir' => $surat->tanggal_lahir,
+                ]
+            );
+        }
+
 
         return redirect()->route('suratktm.index')->with('success', "Surat Keterangan Tidak Mampu Berhasil di Tambahkan");
     }

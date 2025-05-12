@@ -51,6 +51,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
     public function penduduk()
     {
         return $this->belongsTo(Penduduk::class, 'penduduk_id', 'id');

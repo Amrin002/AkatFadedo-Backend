@@ -136,7 +136,7 @@
                                             <th scope="col">Tanggal Terbit</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Tanggal Verifikasi</th>
-                                            <th scope="col">QR Code</th>
+                                            {{-- <th scope="col">QR Code</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -167,38 +167,9 @@
                                                         {{ $row->created_at }}
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    @php
-                                                        $qrCodePath = null;
-                                                        // Determine which QR code file to use based on letter type
-                                                        if ($row->type_surat == 'SKTM') {
-                                                            $qrCodePath =
-                                                                'storage/qrcodes/SuratKtm_' . $row->id . '.svg';
-                                                        } elseif ($row->type_surat == 'SKTU') {
-                                                            $qrCodePath =
-                                                                'storage/qrcodes/SuratKtu_' . $row->id . '.svg';
-                                                        } elseif ($row->type_surat == 'DOMISILI') {
-                                                            $qrCodePath =
-                                                                'storage/qrcodes/SuratDomisili_' . $row->id . '.svg';
-                                                        } elseif ($row->type_surat == 'PINDAH') {
-                                                            $qrCodePath =
-                                                                'storage/qrcodes/SuratPindah_' . $row->id . '.svg';
-                                                        }
-                                                    @endphp
-
-                                                    @if (file_exists(public_path($qrCodePath)))
-                                                        <a href="{{ route('verifikasi.surat', ['token' => $row->verifikasi_token ?? $row->id]) }}"
-                                                            target="_blank">
-                                                            <img src="{{ asset($qrCodePath) }}" alt="QR Code"
-                                                                style="width: 80px; height: 80px;">
-                                                        </a>
-                                                    @else
-                                                        <a href="{{ route('verifikasi.surat', ['token' => $row->verifikasi_token ?? $row->id]) }}"
-                                                            class="btn btn-info btn-sm" target="_blank">
-                                                            <i class="fas fa-qrcode"></i> Scan QR
-                                                        </a>
-                                                    @endif
-                                                </td>
+                                                {{-- <td>
+                                                    {{ $row->verifikasi_token }}
+                                                </td> --}}
                                             </tr>
                                         @endforeach
 

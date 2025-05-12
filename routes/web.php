@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
 use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
+use App\Http\Controllers\NotificationsController;
 use App\Models\SuratPindah;
 
 // Route::get('/', function () {
@@ -50,6 +52,31 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
     Route::get('/verifikasi', [App\Http\Controllers\SuratVerifikasiController::class, 'index'])
         ->name('verifikasi.index');
+
+    // Notifications
+    // Get unread notifications
+    Route::get('/notifications/unread', [NotificationController::class, 'getUnreadNotifications'])
+        ->name('notifications.unread');
+    Route::post('/notifications/{notificationId}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.mark-read');
+
+    // Mark a specific notification as read
+    Route::get('/notifications/{notificationId}/read-link', [NotificationController::class, 'markAsReadFromBlade'])
+        ->name('notifications.mark-read-link');
+
+
+    // Mark all notifications as read
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])
+        ->name('notifications.mark-all-read');
+    // Untuk link dari Blade (GET)
+    Route::get('/notifications/{notificationId}/read-link', [NotificationController::class, 'markAsReadFromBlade'])
+        ->name('notifications.mark-read-link');
+
+
+    Route::get('/notifications/mark-all-read-link', [NotificationController::class, 'markAllAsReadFromBlade'])
+        ->name('notifications.mark-all-read-link');
+
+
     // Route::resource('dashboard', AdminController::class,);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

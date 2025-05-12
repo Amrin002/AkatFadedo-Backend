@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
+use App\Models\Notifications;
 use App\Models\SuratKtm;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 
 class SuratKtmApiController extends Controller
@@ -27,7 +31,28 @@ class SuratKtmApiController extends Controller
             'data' => $surat
         ]);
     }
+    private function createSuratKtmNotification(SuratKtm $suratKtm)
+    {
+        // Assuming you want to notify admin users or specific roles
+        $user = User::where('role', 'admin')->get();
 
+
+        foreach ($user as $users) {
+            Notification::createNotification(
+                $users->id,
+                'surat_ktm_api',
+                "{$suratKtm->nama} Mengajukan Surat Keterangan Tidak Mampu baru dari Aplikasi Layanan Desa",
+                $suratKtm->id,
+                SuratKtm::class,
+                [
+                    'nama' => $suratKtm->nama,
+                    'alamat' => $suratKtm->alamat,
+                    'submitted_via' => 'api'
+                ]
+            );
+        }
+        Log::info('Admin users found: ' . $user->pluck('id')->implode(', '));
+    }
     // POST /api/surat-ktm
     public function store(Request $request)
     {
@@ -64,7 +89,7 @@ class SuratKtmApiController extends Controller
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
-
+        $this->createSuratKtmNotification($surat);
         return response()->json([
             'success' => true,
             'message' => 'Surat berhasil diajukan',
