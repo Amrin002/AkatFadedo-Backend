@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\Notification;
+use Illuminate\Support\Str;
+use App\Models\User;
 
 class SuratKtuController extends Controller
 {
@@ -28,6 +31,7 @@ class SuratKtuController extends Controller
             ->get();
         return view('suratktu.index', compact('title', 'halaman', 'user', 'suratKtu'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -60,7 +64,7 @@ class SuratKtuController extends Controller
             'status' => 'nullable|in: On Progress,Approve,Cancel',
         ]);
 
-        SuratKtu::create([
+        $surat = SuratKtu::create([
             'no_surat' => $request->no_surat,
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
@@ -78,6 +82,23 @@ class SuratKtuController extends Controller
             'status' => 'On Progress',
         ]);
 
+        // Kirim notifikasi ke semua admin
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+            Notification::createNotification(
+                $admin->id,
+                'surat_ktu',
+                "Pengajuan surat KTU oleh {$surat->nama}",
+                $surat->id,
+                SuratKtu::class,
+                [
+                    'nama' => $surat->nama,
+                    'jenis_kelamin' => $surat->jenis_kelamin,
+                    'tanggal_lahir' => $surat->tanggal_lahir,
+                ]
+            );
+        }
         return redirect()->route('suratktu.index')->with('success', "Surat Keterangan Tempat Usaha Berhasil di Tambahkan");
     }
 
@@ -165,39 +186,48 @@ class SuratKtuController extends Controller
         }
 
         $suratKtu = SuratKtu::findOrFail($id);
-
-        // Cek status baru
+        $oldStatus = $suratKtu->status;
         $statusBaru = $request->status;
 
-        // Jika status diubah menjadi Approve dan no_surat masih kosong, generate otomatis
+        // Default values
         $noSurat = $suratKtu->no_surat;
+        $verifikasiToken = $suratKtu->verifikasi_token;
+        $tanggalTerbit = $suratKtu->tanggal_terbit;
+        $qrCode = $suratKtu->qr_code;
 
-        // Jika status diubah jadi Approve, dan no_surat masih kosong
-        if ($statusBaru === 'Approve' && empty($noSurat)) {
-            $nomorManual = $request->input('nomor_manual');
-
-            // Jika admin isi nomor manual
-            if ($nomorManual) {
-                $bulanRomawi = $this->getRomawi(now()->month);
-                $tahun = now()->year;
-                $jenisSurat = 'SKTU';
-                $kodeNegeri = 'NA-AF';
-
-                $noSurat = sprintf('%02d / %s / %s / %s / %d', $nomorManual, $jenisSurat, $kodeNegeri, $bulanRomawi, $tahun);
-            }
-        }
-        if ($statusBaru === 'Cancel') {
-            $noSurat = null;
-        }
-
-        // Always assign verifikasi_token and tanggal_terbit if status becomes Approve
+        // Handle status changes
         if ($statusBaru === 'Approve') {
-            if (empty($suratKtu->verifikasi_token)) {
-                $suratKtu->verifikasi_token = \Illuminate\Support\Str::uuid(); // Token unik
-            }
+            // If changing to Approve
+            if ($oldStatus !== 'Approve') {
+                // Generate new verification token for new approvals or re-approvals
+                $verifikasiToken = Str::uuid();
+                $tanggalTerbit = now();
 
-            // Always set tanggal_terbit to current date if status is Approve
-            $suratKtu->tanggal_terbit = now();
+                // Generate number if empty
+                if (empty($noSurat)) {
+                    $nomorManual = $request->input('nomor_manual');
+
+                    if ($nomorManual) {
+                        $bulanRomawi = $this->getRomawi(now()->month);
+                        $tahun = now()->year;
+                        $jenisSurat = 'SKTU';
+                        $kodeNegeri = 'NA-AF';
+
+                        $noSurat = sprintf(
+                            '%02d / %s / %s / %s / %d',
+                            $nomorManual,
+                            $jenisSurat,
+                            $kodeNegeri,
+                            $bulanRomawi,
+                            $tahun
+                        );
+                    }
+                }
+            }
+        } elseif ($statusBaru === 'Cancel') {
+            // If canceling, invalidate verification data but keep history
+            $noSurat = null;
+            // We keep the verifikasi_token to track history but mark as invalid in verifikasi method
         }
 
         $suratKtu->update([
@@ -216,21 +246,23 @@ class SuratKtuController extends Controller
             'pemilik_usaha' => $request->pemilik_usaha,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
-            'verifikasi_token' => $suratKtu->verifikasi_token,
-            'tanggal_terbit' => $suratKtu->tanggal_terbit,
+            'verifikasi_token' => $verifikasiToken,
+            'tanggal_terbit' => $tanggalTerbit,
         ]);
 
-        // Generate QR code for approved documents
-        if ($statusBaru === 'Approve') {
-            // Generate verifikasi token and QR code
-            $suratKtu->generateVerifikasiToken()
-                ->buatQrCode();
-
-            // Get verification URL
-            $verifikasiUrl = route('verifikasi.surat', $suratKtu->verifikasi_token);
+        // Generate QR code only for approved documents
+        if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
+            try {
+                // Generate QR code
+                $suratKtu->buatQrCode();
+            } catch (Exception $e) {
+                Log::error("Gagal membuat QR Code: " . $e->getMessage());
+                // Continue without failing the whole operation
+            }
         }
 
-        return redirect()->route('suratktu.index')->with('success', 'Surat Keterangan Tempat Usaha berhasil diubah');
+        return redirect()->route('suratktu.index')
+            ->with('success', 'Surat Keterangan Tempat Usaha berhasil di ubah');
     }
 
 
