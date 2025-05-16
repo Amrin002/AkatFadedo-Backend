@@ -15,4 +15,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'public/build', // Pastikan output build berada di folder yang benar
+    },
 });
