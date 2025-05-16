@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{{ $title }}</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('admin/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ secure_asset('admin/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    <script src={{ asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></script>
+    <script src={{ secure_asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></script>
     <script>
         WebFont.load({
             google: {
@@ -21,7 +21,7 @@
                     "Font Awesome 5 Brands",
                     "simple-line-icons",
                 ],
-                urls: ["{{ asset('admin/assets/css/fonts.min.css') }}"],
+                urls: ["{{ secure_asset('admin/assets/css/fonts.min.css') }}"],
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -30,14 +30,14 @@
     </script>
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/plugins.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/kaiadmin.min.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/plugins.min.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/kaiadmin.min.css') }}" />
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/demo.css') }}" />
     @php
         use App\Models\Notification;
 
@@ -60,8 +60,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="index.html" class="logo">
-                        <img src="{{ asset('admin/assets/img/Logo2.png') }}" alt="navbar brand" class="navbar-brand"
-                            height="20" />
+                        <img src="{{ secure_asset('admin/assets/img/Logo2.png') }}" alt="navbar brand"
+                            class="navbar-brand" height="20" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -312,7 +312,7 @@
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="{{ route('home') }}" class="logo">
-                            <img src={{ asset('admin/assets/img/Logo2.png') }} alt="navbar brand"
+                            <img src={{ secure_asset('admin/assets/img/Logo2.png') }} alt="navbar brand"
                                 class="navbar-brand" height="20" />
                         </a>
                         <div class="nav-toggle">
@@ -547,7 +547,7 @@
                                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="{{ asset('admin/assets/img/profile.jpg') }}" alt="..."
+                                        <img src="{{ secure_asset('admin/assets/img/profile.jpg') }}" alt="..."
                                             class="avatar-img rounded-circle" />
                                     </div>
                                     <span class="profile-username">
@@ -560,7 +560,7 @@
                                         <li>
                                             <div class="user-box">
                                                 <div class="avatar-lg">
-                                                    <img src="{{ asset('admin/assets/img/profile.jpg') }}"
+                                                    <img src="{{ secure_asset('admin/assets/img/profile.jpg') }}"
                                                         alt="image profile" class="avatar-img rounded" />
                                                 </div>
                                                 <div class="u-text">

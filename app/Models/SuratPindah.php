@@ -13,6 +13,7 @@ class SuratPindah extends Model
     protected $table = 'surat_pindahs';
     protected $fillable = [
         'no_surat',
+        'type_surat',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
