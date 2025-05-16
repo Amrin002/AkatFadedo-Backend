@@ -14,7 +14,7 @@
 
         <div class="container">
             <div class="row gy-4">
-                @foreach ($strukturDesa as $anggota)
+                @forelse ($strukturDesa as $anggota)
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                         data-aos-delay="100">
                         <div class="team-member">
@@ -40,7 +40,11 @@
                             
                         </div>
                     </div>
-                @endforeach
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada struktur-desa yang tersedia.</div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

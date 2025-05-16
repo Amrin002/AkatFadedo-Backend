@@ -6,6 +6,7 @@ use App\Models\FasilitasDesa;
 use App\Models\Penduduk;
 use App\Models\StrukturDesa;
 use App\Models\Berita;
+use App\Models\GaleriDesa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,12 +48,17 @@ class LandingPageController extends Controller
         return view('home.daftar-berita', compact('berita'));
     }
 
-    public function galeri()  
+    public function struktur()  
     {
         $strukturDesa = StrukturDesa::all();
         return view('home.daftar-struktur-desa', compact('strukturDesa'));
 
     }
 
+    public function galeri()
+    {
+         $galeri = GaleriDesa::latest()->paginate(6); // Sesuaikan jumlah per halaman
+        return view('home.daftar-galeri', compact('galeri'));
+    }
 
 }
