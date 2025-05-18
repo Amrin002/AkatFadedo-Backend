@@ -63,7 +63,7 @@
         }
 
         .signature {
-            width: 40%;
+            width: 35%;
             margin-left: auto;
             text-align: center;
         }
