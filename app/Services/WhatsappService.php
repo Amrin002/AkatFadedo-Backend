@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class WhatsappService
 {
@@ -18,6 +19,7 @@ class WhatsappService
     // Fungsi untuk mengirim pesan WhatsApp
     public function sendMessage($to, $message)
     {
+        // Mengirim pesan ke API Fonnte
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiKey
         ])
@@ -27,6 +29,16 @@ class WhatsappService
                 'body' => $message,
             ]);
 
-        return $response->json();
+        // Mengecek jika response statusnya sukses
+        if ($response->successful()) {
+            return $response->json();  // Mengembalikan response JSON dari API
+        } else {
+            // Jika ada error, log status code dan pesan errornya
+            Log::error('WhatsApp API Error:', [
+                'status' => $response->status(),
+                'error' => $response->body()
+            ]);
+            return null;  // Mengembalikan null jika API gagal
+        }
     }
 }

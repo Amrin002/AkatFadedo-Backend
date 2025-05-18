@@ -23,7 +23,9 @@ use App\Http\Controllers\SuratDomisiliController;
 use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\WhatsappController;
 use App\Models\SuratPindah;
+use Illuminate\Support\Facades\Log;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -121,5 +123,9 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->name('password.update');
 
 Route::get('send-email', [MailController::class, 'sendMail']);
+
+Route::get('/wagw', [WhatsappController::class, 'wagw'])->name('wagw');
+Route::post('/wagw/send', [WhatsappController::class, 'send'])->name('wagw.send');
+
 
 require __DIR__ . '/auth.php';
