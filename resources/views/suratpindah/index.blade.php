@@ -204,22 +204,24 @@
                                                 </td>
                                                 <td>{{ $row->keterangan }}</td>
                                                 <td>
-                                                    <div class="d-flex flex-wrap align-items-center gap-2">
-                                                        {{-- Tombol Edit --}}
-                                                        <button type="button" class="btn btn-warning btn-sm"
-                                                            data-toggle="modal" data-target="#editModal{{ $row->id }}">
-                                                            <i class="fas fa-edit"></i> Edit
-                                                        </button>
+                                                    <div class="d-flex flex-column align-items-start">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            {{-- Tombol Edit --}}
+                                                            <button type="button" class="btn btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#editModal{{ $row->id }}">
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </button>
 
-                                                        {{-- Tombol Hapus --}}
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
-                                                            <i class="fas fa-trash"></i> Hapus
-                                                        </button>
+                                                            {{-- Tombol Hapus --}}
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
+                                                                <i class="fas fa-trash"></i> Hapus
+                                                            </button>
+                                                        </div>
 
-                                                        {{-- Tombol Export --}}
-                                                        <form action="{{ route('suratpindah.export.pdf', $row->id) }}" method="GET">
-                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                        {{-- Form Export di bawah --}}
+                                                        <form action="{{ route('suratpindah.export.pdf', $row->id) }}" method="GET" class="w-100 mt-2">
+                                                            <button type="submit" class="btn btn-success btn-sm w-100">
                                                                 <i class="fas fa-file-pdf"></i> Export
                                                             </button>
                                                         </form>
