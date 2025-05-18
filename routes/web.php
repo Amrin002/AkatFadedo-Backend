@@ -124,8 +124,4 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 
 Route::get('send-email', [MailController::class, 'sendMail']);
 
-Route::get('/wagw', [WhatsappController::class, 'wagw'])->name('wagw');
-Route::post('/wagw/send', [WhatsappController::class, 'send'])->name('wagw.send');
-
-
 require __DIR__ . '/auth.php';
