@@ -39,5 +39,5 @@ Aplikasi menyediakan dua tampilan UI yang dapat dipilih sesuai preferensi penggu
 ### 🖥️ Backend (Laravel)
 1. Clone repository:
    ```sh
-   git clone https://github.com/Amrin002/AkatFadedo.git
+   git clone https://github.com/Amrin002/AkatFadedo-Backend.git
 **
