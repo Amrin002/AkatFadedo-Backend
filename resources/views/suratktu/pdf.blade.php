@@ -11,21 +11,21 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 11pt;
+            font-size: 10.5pt;
             margin: 0;
             padding: 1cm;
-            line-height: 1.5;
+            line-height: 1.2;
         }
 
         .kop-surat {
             display: flex;
             align-items: center;
             position: relative;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .kop-surat img {
-            width: 70px;
+            width: 65px;
             height: auto;
         }
 
@@ -36,58 +36,57 @@
             text-align: center;
             width: 100%;
             font-weight: bold;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         hr {
             border: 1px solid #000;
-            margin: 10px 0;
+            margin: 6px 0;
         }
 
         .center {
             text-align: center;
         }
 
-        .mt-2 {
-            margin-top: 1rem;
+        .bold {
+            font-weight: bold;
         }
 
-        .mt-4 {
-            margin-top: 2rem;
+        .mt-1 {
+            margin-top: 5px;
+        }
+
+        .mt-2 {
+            margin-top: 8px;
         }
 
         .data-surat {
             margin-left: 5%;
-            margin-top: 10px;
+            margin-top: 8px;
             width: 100%;
-            max-width: 100%;
         }
 
         table {
             width: 100%;
-            font-size: 11pt;
+            font-size: 10.5pt;
         }
 
         td {
             vertical-align: top;
-            padding: 2px 5px;
+            padding: 1px 3px;
         }
 
         .signature {
-            width: 35%;
+            width: 40%;
             margin-left: auto;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 20px;
         }
 
         .qr-code {
-            width: 100px;
-            height: 100px;
-            margin-top: 10px;
-        }
-
-        .bold {
-            font-weight: bold;
+            width: 90px;
+            height: 90px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -126,7 +125,7 @@
         <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
-    <p class="mt-2">
+    <p class="mt-1">
         Berdasarkan Register Penduduk, benar yang bersangkutan adalah warga Negeri Akat Fadedo yang
         berdomisili di Dusun Akat Fadedo serta membuka/mempunyai usaha sebagai berikut:
     </p>
@@ -138,7 +137,7 @@
         <tr><td>Pemilik Tempat Usaha</td><td>: {{ strtoupper($surat->pemilik_usaha) }}</td></tr>
     </table>
 
-    <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
+    <p class="mt-1">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
 
     <div class="signature">
         <p>Dikeluarkan di: Fadedo</p>
