@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <title>Surat Keterangan Domisili</title>
     <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
         body {
             font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
+            font-size: 10.5pt;
+            margin: 0;
+            padding: 1cm;
+            line-height: 1.3;
         }
 
         .kop-surat {
             display: flex;
             align-items: center;
-            gap: 1rem;
             position: relative;
+            margin-bottom: 5px;
         }
 
         .kop-surat img {
-            width: 80px;
+            width: 65px;
             height: auto;
         }
 
@@ -28,9 +35,14 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            line-height: 1.2;
+            font-weight: bold;
+            line-height: 1.1;
         }
 
+        hr {
+            border: 1px solid #000;
+            margin: 6px 0;
+        }
 
         .bold {
             font-weight: bold;
@@ -40,8 +52,8 @@
             text-align: center;
         }
 
-        .mt-4 {
-            margin-top: 0.5rem;
+        .mt-1 {
+            margin-top: 5px;
         }
 
         .mt-2 {
@@ -49,115 +61,88 @@
         }
 
         .signature {
-            margin-left: 70%;
-
+            width: 35%;
+            margin-left: auto;
+            text-align: center;
+            margin-top: 15px;
         }
 
-        .signature .nama {
-            text-align: center;
+        .qr-code {
+            width: 90px;
+            height: 90px;
+            margin-top: 5px;
         }
 
         .data-surat {
-            margin-left: 10%;
+            margin-left: 5%;
+            margin-top: 8px;
+            width: 100%;
         }
 
         table {
             width: 100%;
-            max-width: 600px;
+            font-size: 10.5pt;
         }
 
         td {
             vertical-align: top;
-            padding: 2px 5px;
-        }
-
-        hr {
-            margin-top: 7px;
-            margin-bottom: 7px;
+            padding: 1px 3px;
         }
     </style>
 </head>
-
 <body>
 
-    <div class="kop-surat mt-2">
-        <img src="{{ public_path('admin/assets/img/logo_sbt.png') }}" alt="Logo SBT" width="80">
-        <div class="kop-text bold">
+    <div class="kop-surat">
+        <img src="{{ public_path('admin/assets/img/logo_sbt.png') }}" alt="Logo SBT">
+        <div class="kop-text">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
             KECAMATAN SERAM TIMUR<br>
             NEGERI ADMINISTRATIF AKAT FADEDO<br>
             Jln. Kumbang
         </div>
-        <hr>
     </div>
-
-
+    <hr>
 
     <div class="center mt-2 bold">
         SURAT KETERANGAN DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-4">
+    <p class="mt-2">
         Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
-        <br>Dengan ini menerangkan bahwa:
+        Dengan ini menerangkan bahwa:
     </p>
 
     <table class="data-surat">
-        <tr>
-            <td width="200">Nama</td>
-            <td>: {{ strtoupper($surat->nama) }}</td>
-        </tr>
-        <tr>
-            <td>Tempat/Tgl Lahir</td>
-            <td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td>
-        </tr>
-        <tr>
-            <td>Jenis Kelamin</td>
-            <td>: {{ strtoupper($surat->jenis_kelamin) }}</td>
-        </tr>
-        <tr>
-            <td>Status Kawin</td>
-            <td>: {{ strtoupper($surat->status_kawin) }}</td>
-        </tr>
-        <tr>
-            <td>Kewarganegaraan</td>
-            <td>: {{ strtoupper($surat->kewarganegaraan) }}</td>
-        </tr>
-        <tr>
-            <td>Pekerjaan</td>
-            <td>: {{ strtoupper($surat->pekerjaan) }}</td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td>: {{ strtoupper($surat->alamat) }}</td>
-        </tr>
+        <tr><td width="200">Nama</td><td>: {{ strtoupper($surat->nama) }}</td></tr>
+        <tr><td>Tempat/Tgl Lahir</td><td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td></tr>
+        <tr><td>Jenis Kelamin</td><td>: {{ strtoupper($surat->jenis_kelamin) }}</td></tr>
+        <tr><td>Status Kawin</td><td>: {{ strtoupper($surat->status_kawin) }}</td></tr>
+        <tr><td>Kewarganegaraan</td><td>: {{ strtoupper($surat->kewarganegaraan) }}</td></tr>
+        <tr><td>Pekerjaan</td><td>: {{ strtoupper($surat->pekerjaan) }}</td></tr>
+        <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
-    <p class="mt-2">
+    <p class="mt-1">
         Bahwa yang bersangkutan di atas benar Warga Masyarakat Negeri Akat Fadedo yang berdomisili
         di Negeri Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
-        <br>Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
+        Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
 
     <div class="signature">
+        <p>Dikeluarkan di: Fadedo</p>
+        <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
+        <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
-        <div class="mt-4">
-            <p>Dikeluarkan di: Fadedo</p>
-            <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
-            <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-            {{-- Tambahkan QR Code di sini --}}
-            @if ($surat->qr_code)
-            <img
-                src="{{ $surat->qr_code ? public_path($surat->qr_code) : public_path('images/qrcode_place.png') }}"
-                alt="QR Code Verifikasi"
-                class="qr-code"
-                style="width: 100px; height: 100px;">
-            @endif
-            <p class="nama"><strong>AHMAD BUGIS</strong></p>
-        </div>
+        @if ($surat->qr_code)
+        <img
+            src="{{ public_path($surat->qr_code) }}"
+            alt="QR Code Verifikasi"
+            class="qr-code">
+        @endif
+
+        <p class="bold">AHMAD BUGIS</p>
     </div>
 
 </body>
-
 </html>
