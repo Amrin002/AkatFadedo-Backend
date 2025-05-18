@@ -21,7 +21,7 @@
             display: flex;
             align-items: center;
             position: relative;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .kop-surat img {
@@ -40,7 +40,7 @@
         }
 
         hr {
-            margin: 8px 0;
+            margin: 5px 0;
             border: 1px solid #000;
         }
 
@@ -53,39 +53,43 @@
         }
 
         .mt-2 {
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .mt-4 {
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .data-surat {
             margin-left: 5%;
             width: 100%;
             max-width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         table {
             width: 100%;
-            font-size: 12pt;
+            font-size: 11pt;
         }
 
         td {
             vertical-align: top;
-            padding: 2px 4px;
+            padding: 1px 4px;
         }
 
         .signature {
-            margin-left: 70% ;
+            margin-left: 70%;
             text-align: center;
         }
 
         .nama {
-            margin-left: 70% ;
+            margin-left: 70%;
             text-align: center;
             font-weight: bold;
+        }
+
+        .justify {
+            text-align: justify;
         }
     </style>
 </head>
@@ -109,10 +113,10 @@
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-2">
+    <p class="mt-2 justify">
         Kepala Pemerintah Negeri Administratif Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
     </p>
-    <p>
+    <p class="justify">
         Dengan ini menerangkan bahwa :
     </p>
 
@@ -127,9 +131,8 @@
         <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
-    <p class="mt-2">
-        Bahwa yang bersangkutan di atas benar warga Masyarakat Negeri Administratif Akat Fadedo yang berdomisili di Negeri Administratif Akat Fadedo
-        Kecamatan Seram Timur, Kabupaten Seram Bagian Timur. Dan saat ini telah berpindah alamat ke :
+    <p class="mt-2 justify">
+        Bahwa yang bersangkutan di atas benar warga Masyarakat Negeri Administratif Akat Fadedo yang berdomisili di Negeri Administratif Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur. Dan saat ini telah berpindah alamat ke :
     </p>
 
     <table class="data-surat">
@@ -141,26 +144,25 @@
         <tr><td>Provinsi</td><td>: {{ strtoupper($surat->provinsi) }}</td></tr>
     </table>
 
-    <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
+    <p class="mt-2 justify">
+        Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
+    </p>
 
-    <div class="signature">
+    <div class="signature mt-4">
+        <p>Dikeluarkan di: Fadedo</p>
+        <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
+        <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
-        <div class="mt-4">
-            <p>Dikeluarkan di: Fadedo</p>
-            <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
-            <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-            {{-- Tambahkan QR Code di sini --}}
-            @if ($surat->qr_code)
-            <img
-                src="{{ $surat->qr_code ? public_path($surat->qr_code) : public_path('images/qrcode_place.png') }}"
-                alt="QR Code Verifikasi"
-                class="qr-code"
-                style="width: 100px; height: 100px;">
-            @endif
-            <p class="nama"><strong>AHMAD BUGIS</strong></p>
-        </div>
+        @if ($surat->qr_code)
+        <img
+            src="{{ $surat->qr_code ? public_path($surat->qr_code) : public_path('images/qrcode_place.png') }}"
+            alt="QR Code Verifikasi"
+            class="qr-code"
+            style="width: 100px; height: 100px;">
+        @endif
+
+        <p class="nama">AHMAD BUGIS</p>
     </div>
 
 </body>
 </html>
-
