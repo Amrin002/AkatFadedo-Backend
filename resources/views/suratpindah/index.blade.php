@@ -204,30 +204,26 @@
                                                 </td>
                                                 <td>{{ $row->keterangan }}</td>
                                                 <td>
-                                                    <div class="d-flex align-items-center gap-2">
+                                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                                        {{-- Tombol Edit --}}
                                                         <button type="button" class="btn btn-warning btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#editModal{{ $row->id }}">
+                                                            data-toggle="modal" data-target="#editModal{{ $row->id }}">
                                                             <i class="fas fa-edit"></i> Edit
                                                         </button>
 
-                                                        <form action="{{ route('suratpindah.destroy', $row->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="btn btn-danger btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteModal{{ $row->id }}">
-                                                                <i class="fas fa-trash"></i> Hapus
+                                                        {{-- Tombol Hapus --}}
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
+                                                            <i class="fas fa-trash"></i> Hapus
+                                                        </button>
+
+                                                        {{-- Tombol Export --}}
+                                                        <form action="{{ route('suratpindah.export.pdf', $row->id) }}" method="GET">
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-file-pdf"></i> Export
                                                             </button>
                                                         </form>
                                                     </div>
-                                                    <form action="{{ route('suratpindah.export.pdf', $row->id) }}"
-                                                        method="GET">
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            <i class="fas fa-file-pdf"></i> Export
-                                                        </button>
-                                                    </form>
                                                 </td>
                                                 {{-- modal Konfirmasi Hapus --}}
                                                 <div class="modal fade" id="deleteModal{{ $row->id }}"
