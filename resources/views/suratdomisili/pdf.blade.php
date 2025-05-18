@@ -67,6 +67,10 @@
             margin-top: 15px;
         }
 
+        .isi-paragraf {
+            text-align: justify;
+        }
+
         .qr-code {
             width: 90px;
             height: 90px;
@@ -108,7 +112,7 @@
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-2">
+    <p class="mt-2 isi-paragraf">
         Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
         Dengan ini menerangkan bahwa:
     </p>
@@ -123,7 +127,7 @@
         <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
-    <p class="mt-1">
+    <p class="mt-1 isi-paragraf">
         Bahwa yang bersangkutan di atas benar Warga Masyarakat Negeri Akat Fadedo yang berdomisili
         di Negeri Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
         Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.

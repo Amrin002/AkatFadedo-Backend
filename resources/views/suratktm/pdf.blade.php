@@ -68,6 +68,10 @@
             text-align: center;
         }
 
+        .isi-paragraf {
+            text-align: justify;
+        }
+
         .qr-code {
             width: 100px;
             height: 100px;
@@ -94,7 +98,7 @@
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-4">
+    <p class="mt-4 isi-paragraf">
         Kepala Pemerintah Negeri Administratif Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur,
         menerangkan bahwa:
     </p>
@@ -126,7 +130,7 @@
         </tr>
     </table>
 
-    <p class="mt-2">
+    <p class="mt-2 isi-paragraf">
         Bahwa yang bersangkutan benar berasal dari keluarga yang berpenghasilan tidak tetap (keluarga tidak mampu).
         <br>Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
