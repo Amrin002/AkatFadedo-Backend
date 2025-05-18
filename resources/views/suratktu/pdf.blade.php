@@ -57,12 +57,12 @@
         }
 
         .mt-2 {
-            margin-top: 8px;
+            margin-top: 1rem;
         }
 
         .data-surat {
             margin-left: 5%;
-            margin-top: 8px;
+            margin-top: 9px;
             width: 100%;
         }
 
@@ -77,7 +77,7 @@
         }
 
         .signature {
-            width: 40%;
+            width: 35%;
             margin-left: auto;
             text-align: center;
             margin-top: 20px;
