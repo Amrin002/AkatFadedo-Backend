@@ -14,7 +14,7 @@
             font-size: 11pt;
             margin: 0;
             padding: 1cm;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .kop-surat {
@@ -40,51 +40,53 @@
         }
 
         hr {
-            margin: 8px 0;
             border: 1px solid #000;
+            margin: 10px 0;
         }
 
         .center {
             text-align: center;
         }
 
-        .bold {
-            font-weight: bold;
-        }
-
         .mt-2 {
-            margin-top: 10px;
+            margin-top: 1rem;
         }
 
         .mt-4 {
-            margin-top: 15px;
+            margin-top: 2rem;
         }
 
         .data-surat {
             margin-left: 5%;
+            margin-top: 10px;
             width: 100%;
             max-width: 100%;
-            margin-top: 10px;
         }
 
         table {
             width: 100%;
-            font-size: 12pt;
+            font-size: 11pt;
         }
 
         td {
             vertical-align: top;
-            padding: 2px 4px;
+            padding: 2px 5px;
         }
 
         .signature {
-            margin-left: 70% ;
+            width: 35%;
+            margin-left: auto;
             text-align: center;
+            margin-top: 2rem;
         }
 
-        .nama {
-            margin-left: 70% ;
-            text-align: center;
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        .bold {
             font-weight: bold;
         }
     </style>
@@ -110,8 +112,8 @@
     </div>
 
     <p class="mt-2">
-        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo,
-        Kecamatan Seram Timur, Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
+        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur,
+        Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
     </p>
 
     <table class="data-surat">
@@ -136,26 +138,22 @@
         <tr><td>Pemilik Tempat Usaha</td><td>: {{ strtoupper($surat->pemilik_usaha) }}</td></tr>
     </table>
 
-    <p class="mt-1">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
+    <p class="mt-2">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
 
     <div class="signature">
+        <p>Dikeluarkan di: Fadedo</p>
+        <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
+        <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
-        <div class="mt-2">
-            <p>Dikeluarkan di: Fadedo</p>
-            <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
-            <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-            {{-- Tambahkan QR Code di sini --}}
-            @if ($surat->qr_code)
-            <img
-                src="{{ $surat->qr_code ? public_path($surat->qr_code) : public_path('images/qrcode_place.png') }}"
-                alt="QR Code Verifikasi"
-                class="qr-code"
-                style="width: 100px; height: 100px;">
-            @endif
-            <p class="nama"><strong>AHMAD BUGIS</strong></p>
-        </div>
+        @if ($surat->qr_code)
+        <img
+            src="{{ public_path($surat->qr_code) }}"
+            alt="QR Code Verifikasi"
+            class="qr-code">
+        @endif
+
+        <p class="bold">AHMAD BUGIS</p>
     </div>
 
 </body>
 </html>
-
