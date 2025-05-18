@@ -68,7 +68,7 @@
 
         table {
             width: 100%;
-            font-size: 10.5pt;
+            font-size: 11pt;
         }
 
         td {
