@@ -83,6 +83,10 @@
             margin-top: 20px;
         }
 
+        .isi-paragraf {
+            text-align: justify;
+        }
+
         .qr-code {
             width: 90px;
             height: 90px;
@@ -110,7 +114,7 @@
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-2">
+    <p class="mt-2 isi-paragraf">
         Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur,
         Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
     </p>
@@ -125,7 +129,7 @@
         <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
-    <p class="mt-1">
+    <p class="mt-1 isi-paragraf">
         Berdasarkan Register Penduduk, benar yang bersangkutan adalah warga Negeri Akat Fadedo yang
         berdomisili di Dusun Akat Fadedo serta membuka/mempunyai usaha sebagai berikut:
     </p>
