@@ -57,6 +57,11 @@
                                                     name="penanggulangan" value="{{ old('penanggulangan') }}" required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="tahun">Tahun</label>
+                                                    <input type="number" class="form-control" id="tahun"
+                                                    name="tahun" value="{{ old('tahun') }}" required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="file">File "PNG/JPG/JPEG", Size Max = 2Mb</label>
                                                     <input type="file" class="form-control"
                                                     name="file" accept=".jpg,.jpeg,.png" required>
@@ -82,6 +87,7 @@
                                             <th>Bidang pembinaan Kemasyarakatan</th>
                                             <th>Bidang Pemberdayaan Kemasyarakatan</th>
                                             <th>Bidang Penanggulangan Bencana Darurat dan Mendesak</th>
+                                            <th>Tahun</th>
                                             <th>File Gambar</th>
                                             <th>Action</th>
                                         </tr>
@@ -95,6 +101,7 @@
                                                 <td>Rp. {{ number_format($row->pembinaan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->pemberdayaan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->penanggulangan, 0, ',', '.') }}</td>
+                                                <td>{{ $row->tahun }}</td>
                                                 <td>
                                                     @if($row->file && file_exists(public_path('storage/' . $row->file)))
                                                         <img src="{{ asset('storage/' . $row->file) }}" alt="Gambar APBDes" style="max-width: 100px; max-height: 100px;">
@@ -193,6 +200,10 @@
                                                                 <div class="form-group">
                                                                     <label>Bidang Penanggulangan Bencana Darurat dan Mendesak</label>
                                                                     <input type="number" class="form-control" name="penanggulangan" value="{{ $row->penanggulangan }}" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Tahun</label>
+                                                                    <input type="number" class="form-control" name="tahun" value="{{ $row->tahun }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>File "PNG/JPG/JPEG", Size Max = 2Mb</label>

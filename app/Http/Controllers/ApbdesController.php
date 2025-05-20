@@ -52,6 +52,7 @@ class ApbdesController extends Controller
             'pembinaan' => 'required|integer',
             'pemberdayaan' => 'required|integer',
             'penanggulangan' => 'required|integer',
+            'tahun' => 'required|integer',
             'file' => 'required|file|mimes:png,jpg,jpeg|max:2048',
         ],[
             'file.max' => 'Size file yang anda pilih terlalu besar!',
@@ -69,6 +70,7 @@ class ApbdesController extends Controller
         'pembinaan' => $request->pembinaan,
         'pemberdayaan' => $request->pemberdayaan,
         'penanggulangan' => $request->penanggulangan,
+        'tahun' => $request->tahun,
         'file' => $filePath, // simpan path file
         ]);
 
@@ -104,6 +106,7 @@ class ApbdesController extends Controller
             'pembinaan' => 'required|integer',
             'pemberdayaan' => 'required|integer',
             'penanggulangan' => 'required|integer',
+            'tahun' => 'required|integer',
             'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ], [
             'file.max' => 'Size file yang anda pilih terlalu besar!',
@@ -135,6 +138,7 @@ class ApbdesController extends Controller
                 'pembinaan' => $request->pembinaan,
                 'pemberdayaan' => $request->pemberdayaan,
                 'penanggulangan' => $request->penanggulangan,
+                'tahun' => $request->tahun,
                 'file' => $filePath,
             ]);
 

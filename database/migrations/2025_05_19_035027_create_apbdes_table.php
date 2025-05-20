@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('pembinaan');
             $table->integer('pemberdayaan');
             $table->integer('penanggulangan');
+            $table->integer('tahun');
             $table->string('file');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
