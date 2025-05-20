@@ -22,8 +22,10 @@ use App\Http\Controllers\SuratKtuController;
 use App\Http\Controllers\SuratDomisiliController;
 use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
+use App\Http\Controllers\ApbdesController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\WhatsappController;
+use App\Models\Apbdes;
 use App\Models\SuratPindah;
 use Illuminate\Support\Facades\Log;
 
@@ -91,6 +93,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/suratdomisili', SuratDomisiliController::class);
     Route::resource('/suratpindah', SuratPindahController::class);
     Route::resource('/suratlainnya', SuratLainnyaController::class);
+    Route::resource('/apbdes', ApbdesController::class);
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);

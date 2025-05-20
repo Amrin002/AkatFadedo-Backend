@@ -14,7 +14,7 @@
 
                         <div class="card-body">
                             <button class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambahSuratLAINNYA">
-                                <i class="fas fa-plus-circle"></i> Tambah Surat
+                                <i class="fas fa-plus-circle"></i>Tambah Surat
                             </button>
 
                             {{-- Modal Tambah Surat Lainnya --}}
@@ -42,7 +42,7 @@
                                                     <textarea class="form-control" id="keterangan" name="keterangan">{{ old('keterangan') }}</textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="file">File "PDF/DOCX", Size Max = 3Mb</label>
+                                                    <label for="file">File "PDF/DOCX", Size Max = 2Mb</label>
                                                     <input type="file" class="form-control" id="file" name="file"
                                                         required>
                                                 </div>
@@ -176,7 +176,7 @@
                                                                     <textarea class="form-control" name="keterangan">{{ $row->keterangan }}</textarea>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>File "PDF/DOCX", Size Max = 3Mb</label>
+                                                                    <label>File "PDF/DOCX", Size Max = 2Mb</label>
                                                                     <input type="file" class="form-control"
                                                                         name="file">
                                                                     <small>File saat ini: <a

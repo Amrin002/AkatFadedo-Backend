@@ -51,7 +51,7 @@ class SuratLainnyaController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'file' => 'required|file|mimes:pdf,docx|max:3072', //maximal 3mb
+            'file' => 'required|file|mimes:pdf,docx|max:2048', //maximal 2mb
             'status' => 'nullable|in:On Progress,Approve,Cancel',
         ],[
             'file.max' => 'Size file yang anda pilih terlalu besar!',
@@ -104,7 +104,7 @@ class SuratLainnyaController extends Controller
     $request->validate([
         'nama' => 'required|string|max:255',
         'keterangan' => 'nullable|string',
-        'file' => 'nullable|file|mimes:pdf,docx|max:3072',
+        'file' => 'nullable|file|mimes:pdf,docx|max:2048',
         'status' => 'nullable|in:On Progress,Approve,Cancel',
     ],[
         'file.max' => 'Size file yang anda pilih terlalu besar!',

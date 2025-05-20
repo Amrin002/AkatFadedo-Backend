@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('apbdes', function (Blueprint $table) {
             $table->id();
+            $table->integer('penyelenggaraan');
+            $table->integer('pelaksanaan');
+            $table->integer('pembinaan');
+            $table->integer('pemberdayaan');
+            $table->integer('penanggulangan');
+            $table->string('file');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
+
         });
     }
 

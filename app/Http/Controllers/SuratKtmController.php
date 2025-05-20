@@ -71,6 +71,7 @@ class SuratKtmController extends Controller
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
+
         // Kirim notifikasi ke semua admin
         $admins = User::where('role', 'admin')->get();
 
@@ -88,7 +89,6 @@ class SuratKtmController extends Controller
                 ]
             );
         }
-
 
         return redirect()->route('suratktm.index')->with('success', "Surat Keterangan Tidak Mampu Berhasil di Tambahkan");
     }

@@ -31,6 +31,7 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/kaiadmin.min.css') }}" />
     <link rel="stylesheet"
@@ -162,9 +163,9 @@
                                 </ul>
                             </div> --}}
                         </li>
-                        <li class="nav-item {{ request()->is('pengguna*') ? 'active' : '' }}">
+                        <li class="nav-item {{ request()->is('apbdes*') ? 'active' : '' }}">
                             <a href="{{ url('/apbdes') }}">
-                                <i class="fas fa-users"></i>
+                                <i class="fa-solid fa-money-check-dollar"></i>
                                 <p>APBDes</p>
                             </a>
                         </li>
