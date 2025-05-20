@@ -162,7 +162,7 @@
 
                     <div class="container">
                         <div class="row gy-4">
-                            @foreach ($strukturDesa as $anggota)
+                            @forelse ($strukturDesa as $anggota)
                                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                                     data-aos-delay="100">
                                     <div class="team-member">
@@ -189,7 +189,11 @@
 
                                     </div>
                                 </div>
-                            @endforeach
+                                @empty
+                                <div class="col-12">
+                                    <div class="alert alert-info">Belum ada struktur-desa yang tersedia.</div>
+                                </div>
+                            @endforelse
                             <div class="text-end my-4">
                                 <a href="{{ route('home.daftar-sturktur-desa') }}" class="lihat-berita-link">
                                     <i class="fas fa-file-alt"></i> LIHAT STURKTUR DESA LEBIH BANYAK
@@ -197,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                
             </div>
             {{-- Tutup Sejarah Dan Profil Desa --}}
             {{-- <div class="container" data-aos="fade-up">
@@ -431,7 +435,7 @@
         </section> --}}
 
             <!-- Features Section -->
-            <section id="features" class="features section">
+            <div id="features" class="features section">
 
                 <div class="container">
 
@@ -487,6 +491,7 @@
 
                 </div>
 
+            </div>
             </section><!-- /Features Section -->
             {{-- Tutup Profil Desa --}}
             <!-- Services Section -->
@@ -589,7 +594,7 @@
 
                 </div>
 
-            </section><!-- /Services Section -->
+            <!-- /Services Section -->
 
 
 
@@ -882,8 +887,8 @@
 
             {{-- berita --}}
 
-            <section id="newspapers" class="=newspapers section">
-                <<div class="container section-title" data-aos="fade-up">
+            <div id="newspapers" class="newspapers section">
+                <div class="container section-title" data-aos="fade-up" >
                     <h2>Berita Desa</h2>
                     <p>Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari
                         desa.</p>
@@ -933,9 +938,9 @@
                             </div>
                         </div>
                     </div>
-            </section>
+                </div>
 
-            <section id="testimonials" class="testimonials section">
+            <div id="testimonials" class="testimonials section">
 
                 <!-- Section Title -->
                 <div class="container section-title" data-aos="fade-up">
@@ -974,20 +979,30 @@
         </script>
 
                         <div class="swiper-wrapper">
-                            @foreach ($galeri as $item)
+                            @forelse ($galeri as $item)
                                 <div class="swiper-slide">
                                     <div class="testimonial-item">
                                         <img src="{{ asset('storage/' . $item->image) }}" class="testimonial-img"
                                             alt="{{ $item->nama_kegiatan }}">
-                                        <h3>{{ $item->nama_kegiatan }}</h3>
+                                        <h3 class="text-center">{{ $item->nama_kegiatan }}</h3>
                                     </div>
                                 </div><!-- End testimonial item -->
-                            @endforeach
+                                @empty
+                                <div class="col-12">
+                                    <div class="alert alert-info">Belum ada struktur-desa yang tersedia.</div>
+                                </div>
+                            @endforelse
                         </div>
                         <div class="swiper-pagination"></div>
+                        <div class="text-end my-4">
+                                <a href="{{ route('home.daftar-galeri') }}" class="lihat-berita-link">
+                                    <i class="fas fa-file-alt"></i> LIHAT GALERI LEBIH BANYAK
+                                </a>
+                            </div>
                     </div>
                 </div>
 
+            </div>
             </section><!-- /Galeri -->
 
             {{-- <!-- Pricing Section -->
@@ -1232,7 +1247,7 @@
                                     <h3>No Telp</h3>
                                     <p>+62-82223607709</p>
                                 </div>
-                            </div><!-- End Info Item -->=
+                            </div><!-- End Info Item -->
 
                             <div class="col-md-6">
                                 <div class="info-item d-flex flex-column justify-content-center align-items-center"

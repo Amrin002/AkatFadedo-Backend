@@ -46,7 +46,8 @@ Route::get('/', [LandingPageController::class, 'index'])->name('home');
 // Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');
 // routes/web.php
 Route::get('/daftar-berita', [LandingPageController::class, 'semua'])->name('home.daftar-berita');
-Route::get('/daftar-sturktur-desa', [LandingPageController::class, 'galeri'])->name('home.daftar-sturktur-desa');
+Route::get('/daftar-galeri', [LandingPageController::class, 'galeri'])->name('home.daftar-galeri');
+Route::get('/daftar-sturktur-desa', [LandingPageController::class, 'struktur'])->name('home.daftar-sturktur-desa');
 Route::get('/berita/{slug}', [LandingPageController::class, 'show'])->name('home.berita');
 
 // Tambahkan di bagian route publik (di luar middleware admin)

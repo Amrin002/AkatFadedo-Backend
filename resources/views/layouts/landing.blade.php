@@ -74,11 +74,22 @@
 
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="#hero">Beranda</a></li>
-                        <li><a href="#about">Profil Desa</a></li>
-                        <li><a href="#services">Layanan</a></li>
+                        <li>
+                          <a href="{{ Request::is('/') ? '#hero' : url('/#hero') }}"
+                            class="{{ Request::is('/') ? 'active' : '' }}">
+                            Beranda
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ Request::is('/') ? '#about' : url('/#about') }}">Profil Desa</a>
+                        </li>
+                        <li>
+                           <a href="{{ Request::is('/') ? '#services' : url('/#services') }}">Layanan</a>
+                        </li>
                         {{-- <li><a href="#departments">Struktur Pemerintahan</a></li> --}}
-                        <li><a href="#contact">Kontak</a></li>
+                        <li>
+                          <a href="{{ Request::is('/') ? '#contact' : url('/#contact') }}">Kontak</a>
+                        </li>
                         {{-- <li><a href="#doctors">Doctors</a></li>
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
