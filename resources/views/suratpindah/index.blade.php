@@ -204,30 +204,28 @@
                                                 </td>
                                                 <td>{{ $row->keterangan }}</td>
                                                 <td>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <button type="button" class="btn btn-warning btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#editModal{{ $row->id }}">
-                                                            <i class="fas fa-edit"></i> Edit
-                                                        </button>
+                                                    <div class="d-flex flex-column align-items-start">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            {{-- Tombol Edit --}}
+                                                            <button type="button" class="btn btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#editModal{{ $row->id }}">
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </button>
 
-                                                        <form action="{{ route('suratpindah.destroy', $row->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
+                                                            {{-- Tombol Hapus --}}
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteModal{{ $row->id }}">
+                                                                data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
                                                                 <i class="fas fa-trash"></i> Hapus
+                                                            </button>
+                                                        </div>
+
+                                                        {{-- Form Export di bawah --}}
+                                                        <form action="{{ route('suratpindah.export.pdf', $row->id) }}" method="GET" class="w-100 mt-2">
+                                                            <button type="submit" class="btn btn-success btn-sm w-100">
+                                                                <i class="fas fa-file-pdf"></i> Export
                                                             </button>
                                                         </form>
                                                     </div>
-                                                    <form action="{{ route('suratpindah.export.pdf', $row->id) }}"
-                                                        method="GET">
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            <i class="fas fa-file-pdf"></i> Export
-                                                        </button>
-                                                    </form>
                                                 </td>
                                                 {{-- modal Konfirmasi Hapus --}}
                                                 <div class="modal fade" id="deleteModal{{ $row->id }}"
@@ -353,27 +351,27 @@
                                                                 <div class="form-group">
                                                                     <label for="rt">RT Pindah</label>
                                                                     <input type="text" class="form-control" id="rt"
-                                                                        name="rt" value="{{ old('rt', $row->desa_pindah) }}" required>
+                                                                        name="rt" value="{{ old('rt', $row->rt) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="rw">RW Pindah</label>
                                                                     <input type="text" class="form-control" id="rw"
-                                                                        name="rw" value="{{ old('rw', $row->desa_pindah) }}" required>
+                                                                        name="rw" value="{{ old('rw', $row->rw) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="jalan">Jalan Pindah</label>
                                                                     <input type="text" class="form-control" id="jalan"
-                                                                        name="jalan" value="{{ old('jalan', $row->desa_pindah) }}" required>
+                                                                        name="jalan" value="{{ old('jalan', $row->jalan) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kecamatan_pindah">Kecamatan Pindah</label>
                                                                     <input type="text" class="form-control" id="kecamatan_pindah"
-                                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah', $row->desa_pindah) }}" required>
+                                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah', $row->kecamatan_pindah) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kabupaten_pindah">Kabupaten Pindah</label>
                                                                     <input type="text" class="form-control" id="kabupaten_pindah"
-                                                                        name="kabupaten_pindah" value="{{ old('kabupaten_pindah', $row->desa_pindah) }}" required>
+                                                                        name="kabupaten_pindah" value="{{ old('kabupaten_pindah', $row->kabupaten_pindah) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="provinsi">Provinsi Pindah</label>

@@ -11,21 +11,21 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 11pt;
+            font-size: 10.5pt;
             margin: 0;
             padding: 1cm;
-            line-height: 1.4;
+            line-height: 1.2;
         }
 
         .kop-surat {
             display: flex;
             align-items: center;
             position: relative;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .kop-surat img {
-            width: 70px;
+            width: 65px;
             height: auto;
         }
 
@@ -36,12 +36,12 @@
             text-align: center;
             width: 100%;
             font-weight: bold;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         hr {
-            margin: 8px 0;
             border: 1px solid #000;
+            margin: 6px 0;
         }
 
         .center {
@@ -52,40 +52,45 @@
             font-weight: bold;
         }
 
-        .mt-2 {
-            margin-top: 10px;
+        .mt-1 {
+            margin-top: 5px;
         }
 
-        .mt-4 {
-            margin-top: 15px;
+        .mt-2 {
+            margin-top: 1rem;
         }
 
         .data-surat {
             margin-left: 5%;
+            margin-top: 9px;
             width: 100%;
-            max-width: 100%;
-            margin-top: 10px;
         }
 
         table {
             width: 100%;
-            font-size: 12pt;
+            font-size: 11pt;
         }
 
         td {
             vertical-align: top;
-            padding: 2px 4px;
+            padding: 1px 3px;
         }
 
         .signature {
-            margin-left: 70% ;
+            width: 35%;
+            margin-left: auto;
             text-align: center;
+            margin-top: 20px;
         }
 
-        .nama {
-            margin-left: 70% ;
-            text-align: center;
-            font-weight: bold;
+        .isi-paragraf {
+            text-align: justify;
+        }
+
+        .qr-code {
+            width: 90px;
+            height: 90px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -109,9 +114,9 @@
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
-    <p class="mt-2">
-        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo,
-        Kecamatan Seram Timur, Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
+    <p class="mt-2 isi-paragraf">
+        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur,
+        Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
     </p>
 
     <table class="data-surat">
@@ -124,7 +129,7 @@
         <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
     </table>
 
-    <p class="mt-2">
+    <p class="mt-1 isi-paragraf">
         Berdasarkan Register Penduduk, benar yang bersangkutan adalah warga Negeri Akat Fadedo yang
         berdomisili di Dusun Akat Fadedo serta membuka/mempunyai usaha sebagai berikut:
     </p>
@@ -139,23 +144,19 @@
     <p class="mt-1">Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.</p>
 
     <div class="signature">
+        <p>Dikeluarkan di: Fadedo</p>
+        <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
+        <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
-        <div class="mt-2">
-            <p>Dikeluarkan di: Fadedo</p>
-            <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
-            <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
-            {{-- Tambahkan QR Code di sini --}}
-            @if ($surat->qr_code)
-            <img
-                src="{{ $surat->qr_code ? public_path($surat->qr_code) : public_path('images/qrcode_place.png') }}"
-                alt="QR Code Verifikasi"
-                class="qr-code"
-                style="width: 100px; height: 100px;">
-            @endif
-            <p class="nama"><strong>AHMAD BUGIS</strong></p>
-        </div>
+        @if ($surat->qr_code)
+        <img
+            src="{{ public_path($surat->qr_code) }}"
+            alt="QR Code Verifikasi"
+            class="qr-code">
+        @endif
+
+        <p class="bold">AHMAD BUGIS</p>
     </div>
 
 </body>
 </html>
-

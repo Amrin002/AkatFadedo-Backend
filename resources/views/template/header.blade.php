@@ -162,6 +162,12 @@
                                 </ul>
                             </div> --}}
                         </li>
+                        <li class="nav-item {{ request()->is('pengguna*') ? 'active' : '' }}">
+                            <a href="{{ url('/apbdes') }}">
+                                <i class="fas fa-users"></i>
+                                <p>APBDes</p>
+                            </a>
+                        </li>
                         <li class="nav-item {{ request()->is('keluhan*') ? 'active' : '' }}">
                             <a href="{{ url('/keluhan') }}">
                                 <i class="fas fa-file-alt"></i>
