@@ -40,6 +40,7 @@ class BeritaController extends Controller
             $gambarPath = $request->file('gambar')->store('berita', 'public');
         }
 
+        //dd($gambarPath);
         Berita::create([
             'judul' => $request->judul,
             'konten' => $request->konten,
@@ -103,6 +104,4 @@ class BeritaController extends Controller
 
         return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus!');
     }
-
-  
 }
