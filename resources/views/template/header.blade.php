@@ -81,10 +81,10 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="index.html" class="logo">
+                    <div class="logo">
                         <img src="{{ secure_asset('admin/assets/img/Logo2.png') }}" alt="navbar brand"
-                            class="navbar-brand" height="20" />
-                    </a>
+                            class="navbar-brand" height="50" />
+                    </div>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
                             <i class="gg-menu-right"></i>
