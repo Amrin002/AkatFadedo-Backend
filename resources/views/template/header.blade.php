@@ -7,6 +7,26 @@
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     <link rel="icon" href="{{ secure_asset('admin/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
 
+     <!-- Notification icons -->
+    <style>
+        .notif-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #28a745; /* warna latar hijau, sesuaikan jika perlu */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; /* jangan mengecil saat ruang terbatas */
+            margin-right: 10px;
+        }
+
+        .notif-icon i {
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+
     <!-- Fonts and icons -->
     <script src={{ secure_asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></script>
     <script>
@@ -39,6 +59,7 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ secure_asset('admin/assets/css/demo.css') }}" />
+
     @php
         use App\Models\Notification;
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Keluhan;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class KeluhanController extends Controller
@@ -41,12 +42,28 @@ public function store(Request $request)
         'isi' => 'required|string',
     ]);
 
-    Keluhan::create([
+    $keluhan = Keluhan::create([
         'judul' => $request->judul,
         'isi' => $request->isi,
-        'user_id' => Auth::id(), 
+        'user_id' => Auth::id(),
 
     ]);
+
+    // Kirim notifikasi ke semua admin
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+            Notification::createNotification(
+                $admin->id,
+                'keluhan',
+                "Pengajuan Keluhan oleh {$keluhan->user->name}",
+                $keluhan->id,
+                Keluhan::class,
+                [
+                    'judul' => $keluhan->judul,
+                ]
+            );
+        }
 
     return redirect()->route('keluhan.index')->with('success', 'Keluhan berhasil dikirim!');
 }
@@ -57,7 +74,7 @@ public function show(Keluhan $keluhan)
         'keluhan' => $keluhan,
         'title' => 'Detail Keluhan'
     ]);
-    
+
 }
 
 public function tanggapi(Keluhan $keluhan)

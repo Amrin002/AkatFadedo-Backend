@@ -42,6 +42,10 @@ use Illuminate\Support\Facades\Log;
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
+
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 // Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');
 // routes/web.php

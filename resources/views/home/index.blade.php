@@ -128,7 +128,7 @@
                     </div>
                     <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
                         <h3>Sejarah dan Profil Desa</h3>
-                        <p class="fst-italic">
+                        <p class="fst-italic" style="text-align: justify">
 
                             Akat Fadedo sudah ada sejak jaman dulu namun penghuni pertama hanya 4 keluarga dan Fadedo masih
                             kategori dusun dari Negeri Urung. (Anak Dusun Desa Urung).<br>
@@ -146,7 +146,7 @@
                             <li><i class="bi bi-check2-all"></i> <span>Muhamat T. Rumasukun (2021 - 2022).</span></li>
                             <li><i class="bi bi-check2-all"></i> <span>Ahmad Bugis (2023 - 2025).</span></li>
                         </ul>
-                        <p>
+                        <p style="text-align: justify">
                             Alhamdulillah saat ini pemekaran hingga sekarang penduduk mulai bertambah (Lihat Statistik
                             Desa). Saat ini Negeri Administratif Akat Fadedo tidak lagi ketinggalan dari desa desa yang ada
                             di SBT.<br>
@@ -201,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                
+
             </div>
             {{-- Tutup Sejarah Dan Profil Desa --}}
             {{-- <div class="container" data-aos="fade-up">
@@ -989,7 +989,7 @@
                                 </div><!-- End testimonial item -->
                                 @empty
                                 <div class="col-12">
-                                    <div class="alert alert-info">Belum ada struktur-desa yang tersedia.</div>
+                                    <div class="alert alert-info">Belum ada gambar yang tersedia.</div>
                                 </div>
                             @endforelse
                         </div>
