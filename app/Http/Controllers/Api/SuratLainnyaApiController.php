@@ -144,7 +144,6 @@ class SuratLainnyaApiController extends Controller
                 'message' => 'Surat tidak ditemukan',
             ], 404);
         }
-
         if ($surat->user_id !== $user->id) {
             return response()->json([
                 'success' => false,
