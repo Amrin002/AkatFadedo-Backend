@@ -121,90 +121,96 @@
             </div><!-- End Section Title -->
             {{-- Sejarah dan Profil Desa --}}
             <div class="container" data-aos= "fade-up">
-            <div class="container ">
-                <div class="row gy-4">
-                    <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
-                        <img src={{ asset('landing/assets/img/ProfilDesa.jpg') }} class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
-                        <h3>Sejarah dan Profil Desa</h3>
-                        <p class="fst-italic" style="text-align: justify">
+                <div class="container ">
+                    <div class="row gy-4">
+                        <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+                            <img src={{ asset('landing/assets/img/ProfilDesa.jpg') }} class="img-fluid" alt="">
+                        </div>
+                        <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+                            <h3>Sejarah dan Profil Desa</h3>
+                            <p class="fst-italic" style="text-align: justify">
 
-                            Akat Fadedo sudah ada sejak jaman dulu namun penghuni pertama hanya 4 keluarga dan Fadedo masih
-                            kategori dusun dari Negeri Urung. (Anak Dusun Desa Urung).<br>
-                            Seiring dengan perkembangan zaman pertumbuhan penduduk pun mulai bertambah. setelah Seram Bagian
-                            Timur mekar dari Maluku Tengah pada tahun 2003 Pemerintah SBT mulai melakukan pemekaran
-                            Kecematan dari 5 Kecamatan menjadi 15 Kecematan, dusun dusun di SBT pun ambil bagian di
-                            pemekaran tersebetu salah satunya dusun Akat Fadedo yang di mekarkan pada tahun 20204 menjadi
-                            sebuah Desa Administratif. <br>
-                            Dan sampai saat ini Desa Administratif Akat Fadedo telah di pimpin oleh 3 Pejabat Kepala
-                            Pemerintah. Atas nama:
-                        </p>
+                                Akat Fadedo sudah ada sejak jaman dulu namun penghuni pertama hanya 4 keluarga dan Fadedo
+                                masih
+                                kategori dusun dari Negeri Urung. (Anak Dusun Desa Urung).<br>
+                                Seiring dengan perkembangan zaman pertumbuhan penduduk pun mulai bertambah. setelah Seram
+                                Bagian
+                                Timur mekar dari Maluku Tengah pada tahun 2003 Pemerintah SBT mulai melakukan pemekaran
+                                Kecematan dari 5 Kecamatan menjadi 15 Kecematan, dusun dusun di SBT pun ambil bagian di
+                                pemekaran tersebetu salah satunya dusun Akat Fadedo yang di mekarkan pada tahun 2014 menjadi
+                                sebuah Desa Administratif. <br>
+                                Dan sampai saat ini Desa Administratif Akat Fadedo telah di pimpin oleh 3 Pejabat Kepala
+                                Pemerintah. Atas nama:
+                            </p>
 
-                        <ul>
-                            <li><i class="bi bi-check2-all"></i> <span>Azis Wakas (2014 - 2020).</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>Muhamat T. Rumasukun (2021 - 2022).</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>Ahmad Bugis (2023 - 2025).</span></li>
-                        </ul>
-                        <p style="text-align: justify">
-                            Alhamdulillah saat ini pemekaran hingga sekarang penduduk mulai bertambah (Lihat Statistik
-                            Desa). Saat ini Negeri Administratif Akat Fadedo tidak lagi ketinggalan dari desa desa yang ada
-                            di SBT.<br>
-                            Demikian Sejarah Singkat Negeri Administratif Akat Fadedo
-                        </p>
-                    </div>
-                </div>
-                <div id="struktur-desa" class="doctors section">
-                    <div class="container section-title" data-aos="fade-up">
-                        <h2>Struktur Pemerintahan Desa</h2>
-                        <p>Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan.</p>
-                    </div>
-
-                    <div class="container">
-                        <div class="row gy-4">
-                            @forelse ($strukturDesa as $anggota)
-                                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
-                                    data-aos-delay="100">
-                                    <div class="team-member">
-                                        <div class="member-img">
-                                            <img src="{{ asset('storage/' . $anggota->image) }}" class="img-fluid"
-                                                alt="{{ $anggota->nama }}" width="600" height="600">
-                                            <div class="social">
-                                                @if ($anggota->twitter)
-                                                    <a href="{{ $anggota->twitter }}"><i class="bi bi-twitter-x"></i></a>
-                                                @endif
-                                                @if ($anggota->facebook)
-                                                    <a href="{{ $anggota->facebook }}"><i class="bi bi-facebook"></i></a>
-                                                @endif
-                                                @if ($anggota->instagram)
-                                                    <a href="{{ $anggota->instagram }}"><i
-                                                            class="bi bi-instagram"></i></a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="member-info text-center">
-                                            <h4 class="mb-1">{{ $anggota->nama }}</h4>
-                                            <span class="text-muted">{{ $anggota->posisi }}</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                @empty
-                                <div class="col-12">
-                                    <div class="alert alert-info">Belum ada struktur-desa yang tersedia.</div>
-                                </div>
-                            @endforelse
-                            <div class="text-end my-4">
-                                <a href="{{ route('home.daftar-sturktur-desa') }}" class="lihat-berita-link">
-                                    <i class="fas fa-file-alt"></i> LIHAT STURKTUR DESA LEBIH BANYAK
-                                </a>
-                            </div>
+                            <ul>
+                                <li><i class="bi bi-check2-all"></i> <span>Azis Wokas (2014 - 2020).</span></li>
+                                <li><i class="bi bi-check2-all"></i> <span>Muhamat Taher Rumasukun (2021 - 2022).</span>
+                                </li>
+                                <li><i class="bi bi-check2-all"></i> <span>Ahmad Bugis (2023 - 2025).</span></li>
+                            </ul>
+                            <p style="text-align: justify">
+                                Alhamdulillah saat ini pemekaran hingga sekarang penduduk mulai bertambah (Lihat Statistik
+                                Desa). Saat ini Negeri Administratif Akat Fadedo tidak lagi ketinggalan dari desa desa yang
+                                ada
+                                di SBT.<br>
+                                Demikian Sejarah Singkat Negeri Administratif Akat Fadedo
+                            </p>
                         </div>
                     </div>
+                    <div id="struktur-desa" class="doctors section">
+                        <div class="container section-title" data-aos="fade-up">
+                            <h2>Struktur Pemerintahan Desa</h2>
+                            <p>Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan.</p>
+                        </div>
 
-            </div>
-            {{-- Tutup Sejarah Dan Profil Desa --}}
-            {{-- <div class="container" data-aos="fade-up">
+                        <div class="container">
+                            <div class="row gy-4">
+                                @forelse ($strukturDesa as $anggota)
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                                        data-aos-delay="100">
+                                        <div class="team-member">
+                                            <div class="member-img">
+                                                <img src="{{ asset('storage/' . $anggota->image) }}" class="img-fluid"
+                                                    alt="{{ $anggota->nama }}" width="600" height="600">
+                                                <div class="social">
+                                                    @if ($anggota->twitter)
+                                                        <a href="{{ $anggota->twitter }}"><i
+                                                                class="bi bi-twitter-x"></i></a>
+                                                    @endif
+                                                    @if ($anggota->facebook)
+                                                        <a href="{{ $anggota->facebook }}"><i
+                                                                class="bi bi-facebook"></i></a>
+                                                    @endif
+                                                    @if ($anggota->instagram)
+                                                        <a href="{{ $anggota->instagram }}"><i
+                                                                class="bi bi-instagram"></i></a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="member-info text-center">
+                                                <h4 class="mb-1">{{ $anggota->nama }}</h4>
+                                                <span class="text-muted">{{ $anggota->posisi }}</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="col-12">
+                                        <div class="alert alert-info">Belum ada struktur-desa yang tersedia.</div>
+                                    </div>
+                                @endforelse
+                                <div class="text-end my-4">
+                                    <a href="{{ route('home.daftar-sturktur-desa') }}" class="lihat-berita-link">
+                                        <i class="fas fa-file-alt"></i> LIHAT STURKTUR DESA LEBIH BANYAK
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {{-- Tutup Sejarah Dan Profil Desa --}}
+                    {{-- <div class="container" data-aos="fade-up">
                 <h2>Peta Desa</h2>
                 <p>Menampilkan Peta Lokasi Desa Akat Fadedo
                 </p>
@@ -215,16 +221,16 @@
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1442.3112557462064!2d130.71061032854638!3d-3.8241932616395586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d40810037fec673%3A0x4407ad62fb3b89d6!2sKantor%20Desa%20Akat%20Fadedo!5e1!3m2!1sid!2sid!4v1738774423050!5m2!1sid!2sid"
                     style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
-                {{-- <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
-            {{-- </div><!-- End Google Maps --> --}}
-            {{-- </section><!-- /About Section --> --}}
+                    {{-- <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+                    {{-- </div><!-- End Google Maps --> --}}
+                    {{-- </section><!-- /About Section --> --}}
 
 
 
-            <!-- Stats Section -->
-            {{-- di uncoment kalau sudah selesai --}}
+                    <!-- Stats Section -->
+                    {{-- di uncoment kalau sudah selesai --}}
 
-            {{-- <!-- Struktur Organisasi Section -->
+                    {{-- <!-- Struktur Organisasi Section -->
     <section id="doctors" class="doctors section light-background">
 
         <!-- Section Title -->
@@ -393,10 +399,10 @@
         </div>
 
     </section><!-- /Struktur Organisasi Section --> --}}
-            <!-- Struktur Organisasi Section -->
+                    <!-- Struktur Organisasi Section -->
 
-            {{-- di uncoment kalau sudah selesai --}}
-            {{-- <section id="struktur-desa" class="doctors section light-background">
+                    {{-- di uncoment kalau sudah selesai --}}
+                    {{-- <section id="struktur-desa" class="doctors section light-background">
             <div class="container section-title" data-aos="fade-up">
                 <h2>Struktur Organisasi Desa</h2>
                 <p>Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan.</p>
@@ -434,108 +440,117 @@
             </div>
         </section> --}}
 
-            <!-- Features Section -->
-            <div id="features" class="features section">
+                    <!-- Features Section -->
+                    <div id="features" class="features section">
 
-                <div class="container">
+                        <div class="container">
 
-                    <div class="row justify-content-around gy-4">
-                        <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img
-                                src={{ asset('landing/assets/img/features.jpg') }} alt=""></div>
+                            <div class="row justify-content-around gy-4">
+                                <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img
+                                        src={{ asset('landing/assets/img/features.jpg') }} alt=""></div>
 
-                        <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up"
-                            data-aos-delay="200">
-                            <h3>Fasilitas dan Potensi Desa</h3>
-                            <p style="text-align: justify">Desa kami memiliki beragam fasilitas serta potensi unggulan yang
-                                mendukung kesejahteraan
-                                dan kemajuan masyarakat. Dari sektor pertanian hingga pariwisata, setiap bidang dikelola
-                                secara berkelanjutan untuk menciptakan desa yang mandiri dan sejahtera.</p>
+                                <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up"
+                                    data-aos-delay="200">
+                                    <h3>Fasilitas dan Potensi Desa</h3>
+                                    <p style="text-align: justify">Desa kami memiliki beragam fasilitas serta potensi
+                                        unggulan yang
+                                        mendukung kesejahteraan
+                                        dan kemajuan masyarakat. Dari sektor pertanian hingga pariwisata, setiap bidang
+                                        dikelola
+                                        secara berkelanjutan untuk menciptakan desa yang mandiri dan sejahtera.</p>
 
-                            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
-                                <i class="fa-solid fa-seedling flex-shrink-0"></i>
+                                    <div class="icon-box d-flex position-relative" data-aos="fade-up"
+                                        data-aos-delay="300">
+                                        <i class="fa-solid fa-seedling flex-shrink-0"></i>
 
-                                <div>
-                                    <h4><a href="" class="stretched-link">Pertanian dan Perkebunan</a></h4>
-                                    <p style="text-align: justify">Desa memiliki lahan pertanian dan perkebunan yang subur,
-                                        menjadi sumber utama mata
-                                        pencaharian masyarakat dan mendukung ketahanan pangan lokal.</p>
+                                        <div>
+                                            <h4><a href="" class="stretched-link">Pertanian dan Perkebunan</a></h4>
+                                            <p style="text-align: justify">Desa memiliki lahan pertanian dan perkebunan
+                                                yang subur,
+                                                menjadi sumber utama mata
+                                                pencaharian masyarakat dan mendukung ketahanan pangan lokal.</p>
+                                        </div>
+                                    </div><!-- End Icon Box -->
+
+                                    <div class="icon-box d-flex position-relative" data-aos="fade-up"
+                                        data-aos-delay="400">
+                                        <i class="fa-solid fa-fish flex-shrink-0"></i>
+
+                                        <div>
+                                            <h4><a href="" class="stretched-link">Perikanan dan Peternakan</a></h4>
+                                            <p style="text-align: justify">Potensi perikanan dan peternakan dikembangkan
+                                                melalui
+                                                budidaya ikan, ternak sapi,
+                                                kambing, dan unggas untuk memenuhi kebutuhan konsumsi serta meningkatkan
+                                                ekonomi
+                                                warga.
+                                            </p>
+                                        </div>
+                                    </div><!-- End Icon Box -->
+
+                                    <div class="icon-box d-flex position-relative" data-aos="fade-up"
+                                        data-aos-delay="500">
+                                        <i class="fa-solid fa-store flex-shrink-0"></i>
+
+                                        <div>
+                                            <h4><a href="" class="stretched-link">UMKM dan Ekonomi Kreatif</a></h4>
+                                            <p style="text-align: justify">Warga desa diberdayakan melalui usaha mikro,
+                                                kecil, dan
+                                                menengah (UMKM), serta ekonomi
+                                                kreatif seperti kerajinan tangan, kuliner, dan produk lokal khas desa.</p>
+                                        </div>
+                                    </div><!-- End Icon Box -->
+
                                 </div>
-                            </div><!-- End Icon Box -->
-
-                            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="400">
-                                <i class="fa-solid fa-fish flex-shrink-0"></i>
-
-                                <div>
-                                    <h4><a href="" class="stretched-link">Perikanan dan Peternakan</a></h4>
-                                    <p style="text-align: justify">Potensi perikanan dan peternakan dikembangkan melalui
-                                        budidaya ikan, ternak sapi,
-                                        kambing, dan unggas untuk memenuhi kebutuhan konsumsi serta meningkatkan ekonomi
-                                        warga.
-                                    </p>
-                                </div>
-                            </div><!-- End Icon Box -->
-
-                            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="500">
-                                <i class="fa-solid fa-store flex-shrink-0"></i>
-
-                                <div>
-                                    <h4><a href="" class="stretched-link">UMKM dan Ekonomi Kreatif</a></h4>
-                                    <p style="text-align: justify">Warga desa diberdayakan melalui usaha mikro, kecil, dan
-                                        menengah (UMKM), serta ekonomi
-                                        kreatif seperti kerajinan tangan, kuliner, dan produk lokal khas desa.</p>
-                                </div>
-                            </div><!-- End Icon Box -->
+                            </div>
 
                         </div>
+
                     </div>
+        </section><!-- /Features Section -->
+        {{-- Tutup Profil Desa --}}
+        <!-- Services Section -->
+        <section id="services" class="services section">
 
-                </div>
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Layanan</h2>
+                <p>Melayani masyarakat desa dengan berbagai kebutuhan landingistrasi dan informasi secara digital</p>
+            </div><!-- End Section Title -->
 
-            </div>
-            </section><!-- /Features Section -->
-            {{-- Tutup Profil Desa --}}
-            <!-- Services Section -->
-            <section id="services" class="services section">
+            <div class="container">
 
-                <!-- Section Title -->
-                <div class="container section-title" data-aos="fade-up">
-                    <h2>Layanan</h2>
-                    <p>Melayani masyarakat desa dengan berbagai kebutuhan landingistrasi dan informasi secara digital</p>
-                </div><!-- End Section Title -->
+                <div class="row justify-content-center text-center row gy-4">
 
-                <div class="container">
-
-                    <div class="row justify-content-center text-center row gy-4">
-
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="service-item  position-relative">
-                                <div class="icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <a href="#" class="stretched-link">
-                                    <h3>Pembuatan Surat</h3>
-                                </a>
-                                <p>Masyarakat dapat mengajukan pembuatan berbagai surat seperti surat keterangan domisili,
-                                    surat
-                                    izin usaha, dan surat pengantar lainnya secara online.</p>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-item  position-relative">
+                            <div class="icon">
+                                <i class="fas fa-envelope"></i>
                             </div>
-                        </div><!-- End Service Item -->
+                            <a href="#" class="stretched-link">
+                                <h3>Pembuatan Surat</h3>
+                            </a>
+                            <p>Masyarakat dapat mengajukan pembuatan berbagai surat seperti surat keterangan domisili,
+                                surat
+                                izin usaha, dan surat pengantar lainnya secara online.</p>
+                        </div>
+                    </div><!-- End Service Item -->
 
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="service-item position-relative">
-                                <div class="icon">
-                                    <i class="fas fa-bullhorn"></i>
-                                </div>
-                                <a href="#" class="stretched-link">
-                                    <h3>Pengaduan Masyrakat</h3>
-                                </a>
-                                <p>Warga dapat melaporkan keluhan atau permasalahan terkait infrastruktur, keamanan, dan
-                                    layanan
-                                    publik di desa.</p>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="fas fa-bullhorn"></i>
                             </div>
-                        </div><!-- End Service Item -->
+                            <a href="#" class="stretched-link">
+                                <h3>Pengaduan Masyrakat</h3>
+                            </a>
+                            <p>Warga dapat melaporkan keluhan atau permasalahan terkait infrastruktur, keamanan, dan
+                                layanan
+                                publik di desa.</p>
+                        </div>
+                    </div><!-- End Service Item -->
 
-                        {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                         <div class="service-item position-relative">
                             <div class="icon">
                                 <i class="fas fa-newspaper"></i>
@@ -548,21 +563,21 @@
                         </div>
                     </div><!-- End Service Item --> --}}
 
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                            <div class="service-item position-relative">
-                                <div class="icon">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                </div>
-                                <a href="#" class="stretched-link">
-                                    <h3>Transaparansi APBDes</h3>
-                                </a>
-                                <p>Menampilkan anggaran pendapatan dan belanja desa secara transparan agar masyarakat dapat
-                                    mengetahui penggunaan dana desa.</p>
-                                <a href="#" class="stretched-link"></a>
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
                             </div>
-                        </div><!-- End Service Item -->
+                            <a href="#" class="stretched-link">
+                                <h3>Transaparansi APBDes</h3>
+                            </a>
+                            <p>Menampilkan anggaran pendapatan dan belanja desa secara transparan agar masyarakat dapat
+                                mengetahui penggunaan dana desa.</p>
+                            <a href="#" class="stretched-link"></a>
+                        </div>
+                    </div><!-- End Service Item -->
 
-                        {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
                         <div class="service-item position-relative">
                             <div class="icon">
                                 <i class="fas fa-users"></i>
@@ -576,7 +591,7 @@
                         </div>
                     </div><!-- End Service Item --> --}}
 
-                        {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                         <div class="service-item position-relative">
                             <div class="icon">
                                 <i class="fas fa-cloud-upload-alt"></i>
@@ -590,9 +605,9 @@
                         </div>
                     </div><!-- End Service Item --> --}}
 
-                    </div>
-
                 </div>
+
+            </div>
 
             <!-- /Services Section -->
 
@@ -888,57 +903,57 @@
             {{-- berita --}}
 
             <div id="newspapers" class="newspapers section">
-                <div class="container section-title" data-aos="fade-up" >
+                <div class="container section-title" data-aos="fade-up">
                     <h2>Berita Desa</h2>
                     <p>Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari
                         desa.</p>
-                    </div>
+                </div>
 
-                    <div class="container mt-3">
-                        {{-- <h2 class="text-info font-weight-bold fs-1 mb-2">Berita Desa</h2>
+                <div class="container mt-3">
+                    {{-- <h2 class="text-info font-weight-bold fs-1 mb-2">Berita Desa</h2>
                 <p class="mb-4">Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa.</p> --}}
 
-                        <div class="row">
-                            @forelse ($berita as $item)
-                                <div class="col-md-4 mb-4">
-                                    <a href="{{ route('berita.show', $item->slug) }}"
-                                        style="text-decoration: none; color: inherit;">
-                                        <div class="card shadow-sm h-100">
-                                            <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
-                                                style="height: 220px; object-fit: cover;" alt="...">
-                                            <div class="card-body d-flex flex-column">
-                                                <h5 class="card-title">
-                                                    {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
-                                                </h5>
-                                                <p class="card-text text-muted mb-2">
-                                                    {!! \Illuminate\Support\Str::limit(strip_tags($item->konten), 120) !!}
-                                                </p>
-                                                <div class="mt-auto d-flex justify-content-between align-items-center">
-                                                    <small class="text-muted">
-                                                        <i class="fas fa-user"></i>
-                                                        {{ $item->user->name ?? 'Administrator' }}<br>
-                                                        <i class="fas fa-clock"></i>
-                                                        {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}<br>
-                                                        <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }} kali
-                                                    </small>
-                                                </div>
+                    <div class="row">
+                        @forelse ($berita as $item)
+                            <div class="col-md-4 mb-4">
+                                <a href="{{ route('berita.show', $item->slug) }}"
+                                    style="text-decoration: none; color: inherit;">
+                                    <div class="card shadow-sm h-100">
+                                        <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
+                                            style="height: 220px; object-fit: cover;" alt="...">
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title">
+                                                {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
+                                            </h5>
+                                            <p class="card-text text-muted mb-2">
+                                                {!! \Illuminate\Support\Str::limit(strip_tags($item->konten), 120) !!}
+                                            </p>
+                                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-user"></i>
+                                                    {{ $item->user->name ?? 'Administrator' }}<br>
+                                                    <i class="fas fa-clock"></i>
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}<br>
+                                                    <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }} kali
+                                                </small>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                            @empty
-                                <div class="col-12">
-                                    <div class="alert alert-info">Belum ada berita yang tersedia.</div>
-                                </div>
-                            @endforelse
-                            <div class="text-end my-4">
-                                <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
-                                    <i class="fas fa-file-alt"></i> LIHAT BERITA LEBIH BANYAK
+                                    </div>
                                 </a>
                             </div>
+                        @empty
+                            <div class="col-12">
+                                <div class="alert alert-info">Belum ada berita yang tersedia.</div>
+                            </div>
+                        @endforelse
+                        <div class="text-end my-4">
+                            <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
+                                <i class="fas fa-file-alt"></i> LIHAT BERITA LEBIH BANYAK
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
 
             <div id="testimonials" class="testimonials section">
 
@@ -987,7 +1002,7 @@
                                         <h3 class="text-center">{{ $item->nama_kegiatan }}</h3>
                                     </div>
                                 </div><!-- End testimonial item -->
-                                @empty
+                            @empty
                                 <div class="col-12">
                                     <div class="alert alert-info">Belum ada gambar yang tersedia.</div>
                                 </div>
@@ -995,17 +1010,17 @@
                         </div>
                         <div class="swiper-pagination"></div>
                         <div class="text-end my-4">
-                                <a href="{{ route('home.daftar-galeri') }}" class="lihat-berita-link">
-                                    <i class="fas fa-file-alt"></i> LIHAT GALERI LEBIH BANYAK
-                                </a>
-                            </div>
+                            <a href="{{ route('home.daftar-galeri') }}" class="lihat-berita-link">
+                                <i class="fas fa-file-alt"></i> LIHAT GALERI LEBIH BANYAK
+                            </a>
+                        </div>
                     </div>
                 </div>
 
             </div>
-            </section><!-- /Galeri -->
+        </section><!-- /Galeri -->
 
-            {{-- <!-- Pricing Section -->
+        {{-- <!-- Pricing Section -->
 <section id="pricing" class="pricing section">
 
   <!-- Section Title -->
@@ -1093,8 +1108,8 @@
 
 </section><!-- /Pricing Section --> --}}
 
-            <!-- Faq Section -->
-            {{-- <section id="faq" class="faq section light-background">
+        <!-- Faq Section -->
+        {{-- <section id="faq" class="faq section light-background">
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
@@ -1199,15 +1214,15 @@
 
     </section><!-- /Faq Section --> --}}
 
-            <!-- Contact Section -->
-            <section id="contact" class="contact section">
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Lokasi</h2>
                 <p>Temukan lokasi Desa Akat Fadedo di peta berikut.
-                     Silakan kunjungi jika ada keperluan atau ingin mengetahui
-                     lebih dekat tentang desa kami.
+                    Silakan kunjungi jika ada keperluan atau ingin mengetahui
+                    lebih dekat tentang desa kami.
                 </p>
             </div><!-- End Section Title -->
 
@@ -1218,13 +1233,13 @@
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div><!-- End Google Maps -->
 
-                <div class="container" data-aos="fade-up" data-aos-delay="100">
-                    <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>KONTAK</h2>
-                <p>Hubungi Kami
-                </p>
-            </div><!-- End Section Title -->
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <!-- Section Title -->
+                <div class="container section-title" data-aos="fade-up">
+                    <h2>KONTAK</h2>
+                    <p>Hubungi Kami
+                    </p>
+                </div><!-- End Section Title -->
 
                 <div class="row gy-4">
                     <div class="col-lg-6 ">
@@ -1302,7 +1317,7 @@
 
             </div>
 
-            </section><!-- /Contact Section -->
+        </section><!-- /Contact Section -->
 
     </main>
 @endsection
