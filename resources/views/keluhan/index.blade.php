@@ -90,11 +90,44 @@
                                 </span>
 
                                 @if (auth()->user()->role == 'admin' && $item->status == 'pending')
-                                    <form action="{{ route('keluhan.tanggapi', $item) }}" method="POST" class="mt-2">
+                                <!-- Tombol -->
+                                <button class="btn btn-sm btn-outline-primary mt-2" data-toggle="modal"
+                                    data-target="#tanggapiModal{{ $item->id }}">Tanggapi</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="tanggapiModal{{ $item->id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                    <form action="{{ route('keluhan.tanggapi', $item) }}" method="POST">
                                         @csrf
-                                        <button class="btn btn-sm btn-outline-primary">Tanggapi</button>
+                                        <div class="modal-header">
+                                        <h5 class="modal-title">Tanggapi Keluhan</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="respon_admin">Tanggapan</label>
+                                            <textarea name="respon_admin" class="form-control" rows="4" required></textarea>
+                                        </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                        <button class="btn btn-primary">Tandai Diproses</button>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
+                                </div>
+                                @endif
+
+                                @if (auth()->user()->role == 'admin' && $item->status == 'diproses')
+                                    <form action="{{ route('keluhan.selesaikan', $item) }}" method="POST" class="mt-2">
+                                        @csrf
+                                        <button class="btn btn-sm btn-outline-success">Selesaikan</button>
                                     </form>
                                 @endif
+
+
                                 @if (auth()->user()->role == 'admin')
                                 <form action="{{ route('keluhan.destroy', $item->id) }}" method="POST" class="mt-2"
                                     onsubmit="return confirm('Yakin ingin menghapus keluhan ini?')">
