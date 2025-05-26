@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluhan;
+use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ApiKeluhanController extends Controller
 {
-    // Tampilkan semua keluhan milik user yang sedang login
+    // Ambil semua keluhan milik user
     public function index()
     {
-        $userId = Auth::id() ?? 1;
+        $userId = Auth::id();
 
         $keluhan = Keluhan::with('user')
             ->where('user_id', $userId)
@@ -27,7 +29,7 @@ class ApiKeluhanController extends Controller
         ], 200);
     }
 
-    // Tambah keluhan baru
+    // Tambah keluhan
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,9 +48,22 @@ class ApiKeluhanController extends Controller
         $keluhan = Keluhan::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
-            'user_id' => Auth::id() ?? 1,
+            'user_id' => Auth::id(),
             'status' => 'pending',
         ]);
+
+        // Kirim notifikasi ke semua admin
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            Notification::createNotification(
+                $admin->id,
+                'keluhan',
+                "Pengajuan Keluhan oleh {$keluhan->user->name}",
+                $keluhan->id,
+                Keluhan::class,
+                ['judul' => $keluhan->judul]
+            );
+        }
 
         return response()->json([
             'success' => true,
@@ -60,32 +75,28 @@ class ApiKeluhanController extends Controller
     // Tampilkan detail keluhan milik user
     public function show(Keluhan $keluhan)
     {
-        $userId = Auth::id() ?? 1;
-
-        if ($keluhan->user_id !== $userId) {
+        if ($keluhan->user_id !== Auth::id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Keluhan tidak ditemukan atau bukan milik pengguna ini',
+                'message' => 'Akses tidak diizinkan',
                 'data' => null
             ], 403);
         }
 
         return response()->json([
             'success' => true,
-            'message' => 'Detail keluhan berhasil diambil',
+            'message' => 'Detail keluhan',
             'data' => $keluhan
         ], 200);
     }
 
-    // Update keluhan
+    // Update keluhan (judul/isi/status)
     public function update(Request $request, Keluhan $keluhan)
     {
-        $userId = Auth::id() ?? 1;
-
-        if ($keluhan->user_id !== $userId) {
+        if ($keluhan->user_id !== Auth::id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tidak diizinkan mengubah keluhan ini',
+                'message' => 'Tidak diizinkan',
                 'data' => null
             ], 403);
         }
@@ -93,7 +104,6 @@ class ApiKeluhanController extends Controller
         $validator = Validator::make($request->all(), [
             'judul' => 'sometimes|string|max:255',
             'isi' => 'sometimes|string',
-            'status' => 'in:pending,diproses,selesai',
         ]);
 
         if ($validator->fails()) {
@@ -104,11 +114,11 @@ class ApiKeluhanController extends Controller
             ], 422);
         }
 
-        $keluhan->update($request->only('judul', 'isi', 'status'));
+        $keluhan->update($request->only('judul', 'isi'));
 
         return response()->json([
             'success' => true,
-            'message' => 'Keluhan berhasil diperbarui',
+            'message' => 'Keluhan diperbarui',
             'data' => $keluhan
         ]);
     }
@@ -116,12 +126,10 @@ class ApiKeluhanController extends Controller
     // Hapus keluhan
     public function destroy(Keluhan $keluhan)
     {
-        $userId = Auth::id() ?? 1;
-
-        if ($keluhan->user_id !== $userId) {
+        if ($keluhan->user_id !== Auth::id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tidak diizinkan menghapus keluhan ini',
+                'message' => 'Tidak diizinkan menghapus',
                 'data' => null
             ], 403);
         }
@@ -130,8 +138,42 @@ class ApiKeluhanController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Keluhan berhasil dihapus',
-            'data' => null
+            'message' => 'Keluhan berhasil dihapus'
+        ]);
+    }
+
+    // Tanggapi keluhan (ADMIN only)
+    public function tanggapi(Request $request, Keluhan $keluhan)
+    {
+        $request->validate([
+            'respon_admin' => 'required|string',
+        ]);
+
+        $keluhan->update([
+            'status' => 'diproses',
+            'respon_admin' => $request->respon_admin,
+            'tanggal_diproses' => now()
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Keluhan ditanggapi (diproses)',
+            'data' => $keluhan
+        ]);
+    }
+
+    // Tandai selesai
+    public function selesai(Keluhan $keluhan)
+    {
+        $keluhan->update([
+            'status' => 'selesai',
+            'tanggal_selesai' => now()
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Keluhan diselesaikan',
+            'data' => $keluhan
         ]);
     }
 }

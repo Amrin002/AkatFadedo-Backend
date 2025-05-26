@@ -104,6 +104,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{keluhan}', [ApiKeluhanController::class, 'show']);
         Route::put('/{keluhan}', [ApiKeluhanController::class, 'update']);
         Route::delete('/{keluhan}', [ApiKeluhanController::class, 'destroy']);
+        //route tanggapi
+        Route::post('/{keluhan}/tanggapi', [ApiKeluhanController::class, 'tanggapi']);
+        Route::post('/{keluhan}/selesai', [ApiKeluhanController::class, 'selesai']);
     });
 });
 

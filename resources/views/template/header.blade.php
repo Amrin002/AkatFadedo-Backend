@@ -7,17 +7,19 @@
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     <link rel="icon" href="{{ secure_asset('admin/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
 
-     <!-- Notification icons -->
+    <!-- Notification icons -->
     <style>
         .notif-icon {
             width: 40px;
             height: 40px;
-            background-color: #28a745; /* warna latar hijau, sesuaikan jika perlu */
+            background-color: #28a745;
+            /* warna latar hijau, sesuaikan jika perlu */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0; /* jangan mengecil saat ruang terbatas */
+            flex-shrink: 0;
+            /* jangan mengecil saat ruang terbatas */
             margin-right: 10px;
         }
 
@@ -592,8 +594,8 @@
                                                         alt="image profile" class="avatar-img rounded" />
                                                 </div>
                                                 <div class="u-text">
-                                                    <h4>Hizrian</h4>
-                                                    <p class="text-muted">hello@example.com</p>
+                                                    <h4>{{ $user->name }}</h4>
+                                                    <p class="text-muted">{{ $user->email }}</p>
                                                     <a href="profile.html"
                                                         class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                                 </div>

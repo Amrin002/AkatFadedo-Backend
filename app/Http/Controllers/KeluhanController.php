@@ -77,11 +77,34 @@ public function show(Keluhan $keluhan)
 
 }
 
-public function tanggapi(Keluhan $keluhan)
+
+
+public function tanggapi(Request $request, Keluhan $keluhan)
 {
-    $keluhan->update(['status' => 'diproses']);
-    return redirect()->back()->with('success', 'Keluhan telah ditandai sebagai diproses.');
+    $request->validate([
+        'respon_admin' => 'required|string',
+    ]);
+
+    $keluhan->update([
+        'status' => 'diproses',
+        'respon_admin' => $request->respon_admin,
+        'tanggal_diproses' => now(),
+    ]);
+
+    return redirect()->back()->with('success', 'Keluhan ditandai sebagai diproses dengan tanggapan.');
 }
+
+
+public function selesaikan(Keluhan $keluhan)
+{
+    $keluhan->update([
+        'status' => 'selesai',
+        'tanggal_selesai' => now(),
+    ]);
+
+    return redirect()->back()->with('success', 'Keluhan telah diselesaikan.');
+}
+
 
 public function destroy(string $id)
 {
