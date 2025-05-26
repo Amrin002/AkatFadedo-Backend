@@ -104,8 +104,9 @@ class ApbdesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apbdes $apbdes)
+    public function update(Request $request, $id)
     {
+        $apbdes = Apbdes::findOrFail($id);
         Log::info("ID yang diterima untuk update: ", ['id' => $apbdes->id]);
 
         $request->validate([
