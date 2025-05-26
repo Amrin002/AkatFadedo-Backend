@@ -54,6 +54,10 @@ Route::get('/daftar-galeri', [LandingPageController::class, 'galeri'])->name('ho
 Route::get('/daftar-sturktur-desa', [LandingPageController::class, 'struktur'])->name('home.daftar-sturktur-desa');
 Route::get('/berita/{slug}', [LandingPageController::class, 'show'])->name('home.berita');
 
+Route::get('/apbdes-view', [ApbdesController::class, 'tampilUntukUser'])->name('apbdes.view');
+Route::delete('/apbdes/{id}', [ApbdesController::class, 'destroy'])->name('apbdes.destroy');
+Route::patch('/apbdes/{id}', [ApbdesController::class, 'update'])->name('apbdes.update');
+
 // Tambahkan di bagian route publik (di luar middleware admin)
 Route::get('/verifikasi/{token}', [App\Http\Controllers\SuratVerifikasiController::class, 'verifikasi'])
     ->name('verifikasi.surat');

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use App\Models\Notification;
 use Exception;
 use Illuminate\Support\Facades\App;
 
@@ -25,11 +24,20 @@ class ApbdesController extends Controller
         $halaman = 'APBDes';
         $user = $request->user();
 
-        $Apbdes = DB::table('apbdes')
+        $apbdes = DB::table('apbdes')
             ->whereNull('deleted_at')
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('apbdes.index', compact('title', 'halaman', 'user', 'Apbdes'));
+        return view('apbdes.index', compact('title', 'halaman', 'user', 'apbdes'));
+    }
+
+    public function tampilUntukUser()
+    {
+        $title = 'Lihat APBDes';
+        $halaman = 'APBDes';
+        $apbdes = Apbdes::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+
+        return view('apbdes.apbdes-view', compact('title', 'halaman', 'apbdes'));
     }
 
     /**
@@ -96,8 +104,9 @@ class ApbdesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apbdes $apbdes)
+    public function update(Request $request, $id)
     {
+        $apbdes = Apbdes::findOrFail($id);
         Log::info("ID yang diterima untuk update: ", ['id' => $apbdes->id]);
 
         $request->validate([
@@ -152,8 +161,10 @@ class ApbdesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Apbdes $apbdes)
+    public function destroy($id)
     {
+        $apbdes = Apbdes::findOrFail($id);
+
         Log::info("Masuk ke destroy dengan ID:", ['id' => $apbdes->id]);
 
         if ($apbdes->file) {

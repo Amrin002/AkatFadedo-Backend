@@ -94,7 +94,7 @@
     <hr>
 
     <div class="center mt-2">
-        <strong>SURAT KETERANGAN TIDAK MAMPu</strong><br>
+        <strong>SURAT KETERANGAN TIDAK MAMPU</strong><br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
