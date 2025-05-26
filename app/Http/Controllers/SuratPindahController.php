@@ -224,7 +224,7 @@ class SuratPindahController extends Controller
                     if ($nomorManual) {
                         $bulanRomawi = $this->getRomawi(now()->month);
                         $tahun = now()->year;
-                        $jenisSurat = 'SKTU';
+                        $jenisSurat = 'SKPD';
                         $kodeNegeri = 'NA-AF';
 
                         $noSurat = sprintf(

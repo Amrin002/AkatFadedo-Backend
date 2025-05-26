@@ -93,7 +93,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($Apbdes as $row)
+                                        @foreach ($apbdes as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>Rp. {{ number_format($row->penyelenggaraan, 0, ',', '.') }}</td>

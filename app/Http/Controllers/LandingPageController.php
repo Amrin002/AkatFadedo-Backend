@@ -28,37 +28,41 @@ class LandingPageController extends Controller
     public function show($slug)
     {
         $berita = Berita::where('slug', $slug)->firstOrFail();
-    // Hitung view (opsional)
-    $sessionKey = 'berita_viewed_' . $berita->id;
+        // Hitung view (opsional)
+        $sessionKey = 'berita_viewed_' . $berita->id;
 
-    // Cek apakah berita ini sudah pernah dilihat dalam sesi ini
-    if (!session()->has($sessionKey)) {
-        $berita->increment('views');
-        session()->put($sessionKey, true);
+        // Cek apakah berita ini sudah pernah dilihat dalam sesi ini
+        if (!session()->has($sessionKey)) {
+            $berita->increment('views');
+            session()->put($sessionKey, true);
+        }
+
+        $berita_terbaru = Berita::latest()->take(8)->get();
+
+        return view('home.berita', compact('berita', 'berita_terbaru'));
     }
 
-    $berita_terbaru = Berita::latest()->take(8)->get();
-
-    return view('home.berita', compact('berita', 'berita_terbaru'));
-    }
-    
     public function semua()
     {
         $berita = Berita::latest()->paginate(6); // Sesuaikan jumlah per halaman
         return view('home.daftar-berita', compact('berita'));
     }
 
-    public function struktur()  
+    public function struktur()
     {
         $strukturDesa = StrukturDesa::all();
         return view('home.daftar-struktur-desa', compact('strukturDesa'));
-
     }
 
     public function galeri()
     {
-         $galeri = GaleriDesa::latest()->paginate(6); // Sesuaikan jumlah per halaman
+        $galeri = GaleriDesa::latest()->paginate(6); // Sesuaikan jumlah per halaman
         return view('home.daftar-galeri', compact('galeri'));
+    }
+
+    public function apbdes()
+    {
+        return view('home.apbdes-view', compact('apbdes'));
     }
 
 }
