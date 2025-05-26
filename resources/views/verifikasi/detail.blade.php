@@ -91,6 +91,13 @@
                                         </div>
 
                                         <div class="row mb-3">
+                                            <div class="col-md-4 fw-bold">Penandatanganan</div>
+                                            <div class="col-md-8">
+                                                SIDIK RUMALOWAK, S.Pd, MMP, M.Si
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
                                             <div class="col-md-4 fw-bold">Waktu Verifikasi</div>
                                             <div class="col-md-8">
                                                 {{ \Carbon\Carbon::now()->locale('id')->isoFormat('HH:mm:ss') }}
@@ -103,7 +110,11 @@
                                                 Kantor Desa Akat Fadedo
                                             </div>
                                         </div>
+
+                                        
+
                                     </div>
+
 
                                     <div class="text-center mt-4">
                                         <p class="mb-0">Untuk penjelasan lebih lanjut, silahkan menghubungi Kantor Desa
