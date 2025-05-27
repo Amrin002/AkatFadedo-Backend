@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SuratApprovedMail;
 use App\Models\SuratKtu;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Notification;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class SuratKtuController extends Controller
 {
@@ -249,7 +251,18 @@ class SuratKtuController extends Controller
             'verifikasi_token' => $verifikasiToken,
             'tanggal_terbit' => $tanggalTerbit,
         ]);
-
+        try {
+            // Pastikan relasi user ada
+            if ($suratKtu->user) {
+                // Debugging untuk memeriksa type_surat
+                Log::info("Type Surat: " . $suratKtu->type_surat);
+                Mail::to($suratKtu->user->email)->send(new SuratApprovedMail($suratKtu));
+            } else {
+                Log::error("User tidak ditemukan untuk surat dengan ID: " . $suratKtu->id);
+            }
+        } catch (Exception $e) {
+            Log::error("Gagal mengirim email pemberitahuan: " . $e->getMessage());
+        }
         // Generate QR code only for approved documents
         if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
             try {

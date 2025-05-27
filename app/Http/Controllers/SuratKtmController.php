@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SuratApprovedMail;
 use App\Models\Notification;
 use App\Models\SuratKtm;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class SuratKtmController extends Controller
@@ -233,6 +235,17 @@ class SuratKtmController extends Controller
             'tanggal_terbit' => $tanggalTerbit,
         ]);
 
+        try {
+            // Pastikan relasi user ada
+            if ($suratKtm->user) {
+                Mail::to($suratKtm->user->email)->send(new SuratApprovedMail($suratKtm));
+            } else {
+                Log::error("User tidak ditemukan untuk surat dengan ID: " . $suratKtm->id);
+            }
+        } catch (Exception $e) {
+            Log::error("Gagal mengirim email pemberitahuan: " . $e->getMessage());
+        }
+
         // Generate QR code only for approved documents
         if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
             try {
@@ -243,6 +256,7 @@ class SuratKtmController extends Controller
                 // Continue without failing the whole operation
             }
         }
+
 
         return redirect()->route('suratktm.index')
             ->with('success', 'Surat Keterangan Tidak Mampu berhasil di ubah');
