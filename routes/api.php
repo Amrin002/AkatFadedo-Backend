@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\SuratDomisiliApiController;
 use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
 use App\Http\Controllers\Api\ApiKeluhanController;
+use App\Http\Controllers\Api\ApbdesApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -108,6 +109,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{keluhan}/tanggapi', [ApiKeluhanController::class, 'tanggapi']);
         Route::post('/{keluhan}/selesai', [ApiKeluhanController::class, 'selesai']);
     });
+
+    // APBDes API
+
+    Route::get('/apbdes', [ApbdesApiController::class, 'index']);
+    Route::get('/apbdes/{id}', [ApbdesApiController::class, 'show']);
+    Route::post('/apbdes', [ApbdesApiController::class, 'store']);
+    Route::put('/apbdes/{id}', [ApbdesApiController::class, 'update']);
+    Route::delete('/apbdes/{id}', [ApbdesApiController::class, 'destroy']);
 });
 
 
