@@ -186,6 +186,11 @@ class SuratDomisiliController extends Controller
         $verifikasiToken = $suratDomisili->verifikasi_token;
         $tanggalTerbit = $suratDomisili->tanggal_terbit;
         $qrCode = $suratDomisili->qr_code;
+        $nomorManual = '';
+
+        if ($statusBaru === 'Approve' && empty($noSurat) && $request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor manual harus di isi sebelum menyetujui surat'])->withInput();
+        }
 
         // Handle status changes
         if ($statusBaru === 'Approve') {
@@ -202,7 +207,7 @@ class SuratDomisiliController extends Controller
                     if ($nomorManual) {
                         $bulanRomawi = $this->getRomawi(now()->month);
                         $tahun = now()->year;
-                        $jenisSurat = 'SKTM';
+                        $jenisSurat = 'SKD';
                         $kodeNegeri = 'NA-AF';
 
                         $noSurat = sprintf(

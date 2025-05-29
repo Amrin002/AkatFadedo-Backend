@@ -210,6 +210,11 @@ class SuratPindahController extends Controller
         $verifikasiToken = $suratPindah->verifikasi_token;
         $tanggalTerbit = $suratPindah->tanggal_terbit;
         $qrCode = $suratPindah->qr_code;
+        $nomorManual = '';
+
+        if ($statusBaru === 'Approve' && empty($noSurat) && $request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual wajib di isi sebelum menyetujui'])->withInput();
+        }
 
         // Handle status changes
         if ($statusBaru === 'Approve') {
@@ -226,7 +231,7 @@ class SuratPindahController extends Controller
                     if ($nomorManual) {
                         $bulanRomawi = $this->getRomawi(now()->month);
                         $tahun = now()->year;
-                        $jenisSurat = 'SKTU';
+                        $jenisSurat = 'SKPD';
                         $kodeNegeri = 'NA-AF';
 
                         $noSurat = sprintf(

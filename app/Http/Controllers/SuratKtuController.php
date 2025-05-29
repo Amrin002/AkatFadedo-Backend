@@ -196,6 +196,11 @@ class SuratKtuController extends Controller
         $verifikasiToken = $suratKtu->verifikasi_token;
         $tanggalTerbit = $suratKtu->tanggal_terbit;
         $qrCode = $suratKtu->qr_code;
+        $nomorManual = '';
+
+        if ($statusBaru === 'Approve' && empty($suratKtu->no_surat) && $request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual Wajib Diisi jika ingin menyetujui surat'])->withInput();
+        }
 
         // Handle status changes
         if ($statusBaru === 'Approve') {

@@ -177,16 +177,21 @@ class SuratKtmController extends Controller
         $suratKtm = SuratKtm::findOrFail($id);
         $oldStatus = $suratKtm->status;
         $statusBaru = $request->status;
+        //dd($suratKtm->no_surat);
 
         // Default values
         $noSurat = $suratKtm->no_surat;
         $verifikasiToken = $suratKtm->verifikasi_token;
         $tanggalTerbit = $suratKtm->tanggal_terbit;
         $qrCode = $suratKtm->qr_code;
-
+        $nomorManual = '';
         // Handle status changes
+        // Tambahkan validasi manual ketika status di-Approve dan nomor surat kosong
+        if ($statusBaru === 'Approve' && empty($suratKtm->no_surat) && !$request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor manual wajib diisi jika status disetujui dan nomor surat belum tersedia.'])->withInput();
+        }
         if ($statusBaru === 'Approve') {
-            // If changing to Approve
+
             if ($oldStatus !== 'Approve') {
                 // Generate new verification token for new approvals or re-approvals
                 $verifikasiToken = Str::uuid();
