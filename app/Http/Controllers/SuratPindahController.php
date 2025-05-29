@@ -212,7 +212,7 @@ class SuratPindahController extends Controller
         $qrCode = $suratPindah->qr_code;
         $nomorManual = '';
 
-        if ($statusBaru === 'Approve' && empty($noSurat) && $request->filled('nomor_manual')) {
+        if ($statusBaru === 'Approve' && empty($noSurat) && !$request->filled('nomor_manual')) {
             return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual wajib di isi sebelum menyetujui'])->withInput();
         }
 

@@ -47,6 +47,13 @@
                             'bg' => 'info',
                             'route' => url('/pengguna'),
                         ],
+                        [
+                            'title' => 'Total Surat Di setujui',
+                            'count' => $jumlahSurat,
+                            'icon' => 'fas fa-file-alt',
+                            'bg' => 'secondary',
+                            'route' => '/dashboard',
+                        ],
                     ];
                 @endphp
 
@@ -64,7 +71,7 @@
                         </div>
                     </div> --}}
                     {{-- new card --}}
-                    <div class="col-sm-6 col-md-3">
+                    <div class="col-sm-6 col-md-4">
                         <div class="card card-stats card-{{ $card['bg'] }} card-round">
                             <div class="card-body">
                                 <div class="row">

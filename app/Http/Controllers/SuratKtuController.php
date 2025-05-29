@@ -198,7 +198,7 @@ class SuratKtuController extends Controller
         $qrCode = $suratKtu->qr_code;
         $nomorManual = '';
 
-        if ($statusBaru === 'Approve' && empty($suratKtu->no_surat) && $request->filled('nomor_manual')) {
+        if ($statusBaru === 'Approve' && empty($noSurat) && !$request->filled('nomor_manual')) {
             return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual Wajib Diisi jika ingin menyetujui surat'])->withInput();
         }
 
