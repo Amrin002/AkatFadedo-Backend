@@ -188,7 +188,7 @@ class SuratDomisiliController extends Controller
         $qrCode = $suratDomisili->qr_code;
         $nomorManual = '';
 
-        if ($statusBaru === 'Approve' && empty($noSurat) && $request->filled('nomor_manual')) {
+        if ($statusBaru === 'Approve' && empty($noSurat) && !$request->filled('nomor_manual')) {
             return redirect()->back()->withErrors(['nomor_manual' => 'Nomor manual harus di isi sebelum menyetujui surat'])->withInput();
         }
 
