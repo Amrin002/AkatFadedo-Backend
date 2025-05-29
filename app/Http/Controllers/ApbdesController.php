@@ -31,6 +31,17 @@ class ApbdesController extends Controller
         return view('apbdes.index', compact('title', 'halaman', 'user', 'apbdes'));
     }
 
+    public function viewUser(Request $request)
+    {
+        $daftarTahun = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun')->toArray();
+
+        $tahunDipilih = $request->input('tahun') ?? $daftarTahun[0]; // tahun terbaru default
+
+        $apbdes = Apbdes::where('tahun', $tahunDipilih)->get();
+
+        return view('apbdes.apbdes-view', compact('daftarTahun', 'apbdes', 'tahunDipilih'));
+    }
+
     public function tampilUntukUser()
     {
         $title = 'Lihat APBDes';
@@ -38,6 +49,8 @@ class ApbdesController extends Controller
         $apbdes = Apbdes::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
         return view('apbdes.apbdes-view', compact('title', 'halaman', 'apbdes'));
+
+
     }
 
     /**
