@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Keluhan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -40,12 +41,20 @@ public function store(Request $request)
     $request->validate([
         'judul' => 'required|string|max:255',
         'isi' => 'required|string',
+        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
+
+     $path = null;
+
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('keluhan', 'public');
+        }
 
     $keluhan = Keluhan::create([
         'judul' => $request->judul,
         'isi' => $request->isi,
         'user_id' => Auth::id(),
+        'gambar' => $path,
 
     ]);
 
@@ -109,6 +118,11 @@ public function selesaikan(Keluhan $keluhan)
 public function destroy(string $id)
 {
     $keluhan = keluhan::findOrFail($id);
+
+     if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
+            Storage::disk('public')->delete($keluhan->gambar);
+        }
+
     $keluhan -> delete();
     return redirect()->route('keluhan.index')->with('succes', 'Keluhan berhasil dihapus!');
 }

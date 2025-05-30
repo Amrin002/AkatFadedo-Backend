@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluhan;
-use App\Models\User;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ApiKeluhanController extends Controller
 {
-    // Ambil semua keluhan milik user
+    // GET: /api/keluhan
     public function index()
     {
         $userId = Auth::id();
-
         $keluhan = Keluhan::with('user')
             ->where('user_id', $userId)
             ->latest()
@@ -24,32 +24,45 @@ class ApiKeluhanController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Daftar keluhan berhasil diambil',
+            'message' => 'Daftar keluhan ditemukan',
             'data' => $keluhan
-        ], 200);
+        ]);
     }
 
-    // Tambah keluhan
+    // POST: /api/keluhan
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
+            'judul'  => 'required|string|max:255',
+            'isi'    => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Validasi gagal',
-                'data' => $validator->errors()
+                'errors'  => $validator->errors(),
             ], 422);
         }
 
+        $path = null;
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('keluhan', 'public');
+        }
+
         $keluhan = Keluhan::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
+            'judul'   => $request->judul,
+            'isi'     => $request->isi,
+            'gambar'  => $path,
             'user_id' => Auth::id(),
-            'status' => 'pending',
+            'status'  => 'pending'
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Keluhan berhasil ditambahkan',
+            'data'    => $keluhan
         ]);
 
         // Kirim notifikasi ke semua admin
@@ -62,118 +75,105 @@ class ApiKeluhanController extends Controller
                 $keluhan->id,
                 Keluhan::class,
                 ['judul' => $keluhan->judul]
-            );
-        }
+    );
+}
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Keluhan berhasil dibuat',
-            'data' => $keluhan
-        ], 201);
     }
 
-    // Tampilkan detail keluhan milik user
+    
+
+    // GET: /api/keluhan/{id}
     public function show(Keluhan $keluhan)
     {
         if ($keluhan->user_id !== Auth::id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Akses tidak diizinkan',
-                'data' => null
+                'message' => 'Tidak diizinkan',
             ], 403);
         }
 
         return response()->json([
             'success' => true,
             'message' => 'Detail keluhan',
-            'data' => $keluhan
-        ], 200);
+            'data'    => $keluhan
+        ]);
     }
 
-    // Update keluhan (judul/isi/status)
-    public function update(Request $request, Keluhan $keluhan)
-    {
-        if ($keluhan->user_id !== Auth::id()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Tidak diizinkan',
-                'data' => null
-            ], 403);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'judul' => 'sometimes|string|max:255',
-            'isi' => 'sometimes|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validasi gagal',
-                'data' => $validator->errors()
-            ], 422);
-        }
-
-        $keluhan->update($request->only('judul', 'isi'));
-
+    // tanggapi: /api/keluhan/{id}/tanggapi
+   
+    public function tanggapi(Request $request, Keluhan $keluhan)
+{
+    // Hanya admin yang bisa menanggapi
+    if (Auth::user()->role !== 'admin') {
         return response()->json([
-            'success' => true,
-            'message' => 'Keluhan diperbarui',
-            'data' => $keluhan
-        ]);
+            'success' => false,
+            'message' => 'Hanya admin yang dapat menanggapi keluhan.',
+        ], 403);
     }
 
-    // Hapus keluhan
+    // Validasi input tanggapan
+    $request->validate([
+        'respon_admin' => 'required|string',
+    ]);
+
+    // Update keluhan
+    $keluhan->update([
+        'status' => 'diproses',
+        'respon_admin' => $request->respon_admin,
+        'tanggal_diproses' => now(),
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Keluhan berhasil ditanggapi.',
+        'data' => $keluhan
+    ], 200);
+}
+
+    // SELESAIKAN: /api/keluha{id}/selesaikan
+
+    public function selesaikan(Keluhan $keluhan)
+{
+    // Hanya admin yang boleh menyelesaikan
+    if (Auth::user()->role !== 'admin') {
+        return response()->json([
+            'success' => false,
+            'message' => 'Hanya admin yang dapat menyelesaikan keluhan.',
+        ], 403);
+    }
+
+    // Update status menjadi selesai
+    $keluhan->update([
+        'status' => 'selesai',
+        'tanggal_selesai' => now(),
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Keluhan berhasil diselesaikan.',
+        'data' => $keluhan
+    ]);
+}
+
+    // DELETE: /api/keluhan/{id}
     public function destroy(Keluhan $keluhan)
     {
         if ($keluhan->user_id !== Auth::id()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tidak diizinkan menghapus',
-                'data' => null
+                'message' => 'Tidak diizinkan',
             ], 403);
+        }
+
+        if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
+            Storage::disk('public')->delete($keluhan->gambar);
         }
 
         $keluhan->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Keluhan berhasil dihapus'
-        ]);
-    }
-
-    // Tanggapi keluhan (ADMIN only)
-    public function tanggapi(Request $request, Keluhan $keluhan)
-    {
-        $request->validate([
-            'respon_admin' => 'required|string',
-        ]);
-
-        $keluhan->update([
-            'status' => 'diproses',
-            'respon_admin' => $request->respon_admin,
-            'tanggal_diproses' => now()
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Keluhan ditanggapi (diproses)',
-            'data' => $keluhan
-        ]);
-    }
-
-    // Tandai selesai
-    public function selesai(Keluhan $keluhan)
-    {
-        $keluhan->update([
-            'status' => 'selesai',
-            'tanggal_selesai' => now()
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Keluhan diselesaikan',
-            'data' => $keluhan
+            'message' => 'Keluhan berhasil dihapus',
         ]);
     }
 }
