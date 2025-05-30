@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SuratApprovedMail;
 use App\Models\Notification;
 use App\Models\SuratKtm;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class SuratKtmController extends Controller
@@ -175,16 +177,21 @@ class SuratKtmController extends Controller
         $suratKtm = SuratKtm::findOrFail($id);
         $oldStatus = $suratKtm->status;
         $statusBaru = $request->status;
+        //dd($suratKtm->no_surat);
 
         // Default values
         $noSurat = $suratKtm->no_surat;
         $verifikasiToken = $suratKtm->verifikasi_token;
         $tanggalTerbit = $suratKtm->tanggal_terbit;
         $qrCode = $suratKtm->qr_code;
-
+        $nomorManual = '';
         // Handle status changes
+        // Tambahkan validasi manual ketika status di-Approve dan nomor surat kosong
+        if ($statusBaru === 'Approve' && empty($suratKtm->no_surat) && !$request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor manual wajib diisi jika status disetujui dan nomor surat belum tersedia.'])->withInput();
+        }
         if ($statusBaru === 'Approve') {
-            // If changing to Approve
+
             if ($oldStatus !== 'Approve') {
                 // Generate new verification token for new approvals or re-approvals
                 $verifikasiToken = Str::uuid();
@@ -233,6 +240,17 @@ class SuratKtmController extends Controller
             'tanggal_terbit' => $tanggalTerbit,
         ]);
 
+        try {
+            // Pastikan relasi user ada
+            if ($suratKtm->user) {
+                Mail::to($suratKtm->user->email)->send(new SuratApprovedMail($suratKtm));
+            } else {
+                Log::error("User tidak ditemukan untuk surat dengan ID: " . $suratKtm->id);
+            }
+        } catch (Exception $e) {
+            Log::error("Gagal mengirim email pemberitahuan: " . $e->getMessage());
+        }
+
         // Generate QR code only for approved documents
         if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
             try {
@@ -243,6 +261,7 @@ class SuratKtmController extends Controller
                 // Continue without failing the whole operation
             }
         }
+
 
         return redirect()->route('suratktm.index')
             ->with('success', 'Surat Keterangan Tidak Mampu berhasil di ubah');

@@ -56,6 +56,7 @@ Route::get('/berita/{slug}', [LandingPageController::class, 'show'])->name('home
 
 Route::get('/apbdes-view', [ApbdesController::class, 'tampilUntukUser'])->name('apbdes.view');
 Route::delete('/apbdes/{id}', [ApbdesController::class, 'destroy'])->name('apbdes.destroy');
+Route::get('/apbdes-view', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');
 Route::patch('/apbdes/{id}', [ApbdesController::class, 'update'])->name('apbdes.update');
 
 // Tambahkan di bagian route publik (di luar middleware admin)

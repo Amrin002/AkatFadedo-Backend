@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SuratApprovedMail;
 use App\Models\SuratPindah;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Notification;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class SuratPindahController extends Controller
 {
@@ -55,8 +57,8 @@ class SuratPindahController extends Controller
             'kewarganegaraan' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
-            'kecamatan'=> 'required|string|max:255',
-            'kabupaten'=> 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
+            'kabupaten' => 'required|string|max:255',
             'desa_pindah' => 'required|string|max:255',
             'rt' => 'required|string|max:20',
             'rw' => 'required|string|max:20',
@@ -74,19 +76,19 @@ class SuratPindahController extends Controller
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'status_kawin'=> $request->status_kawin,
+            'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'kecamatan'=> $request->kecamatan,
-            'kabupaten'=> $request->kabupaten,
-            'desa_pindah'=> $request->desa_pindah,
-            'rt'=> $request->rt,
-            'rw'=> $request->rw,
-            'jalan'=> $request->jalan,
-            'kecamatan_pindah'=> $request->kecamatan_pindah,
-            'kabupaten_pindah'=> $request->kabupaten_pindah,
-            'provinsi'=> $request->provinsi,
+            'kecamatan' => $request->kecamatan,
+            'kabupaten' => $request->kabupaten,
+            'desa_pindah' => $request->desa_pindah,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'jalan' => $request->jalan,
+            'kecamatan_pindah' => $request->kecamatan_pindah,
+            'kabupaten_pindah' => $request->kabupaten_pindah,
+            'provinsi' => $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => 'On Progress',
         ]);
@@ -183,8 +185,8 @@ class SuratPindahController extends Controller
                 'kewarganegaraan' => 'required|string|max:255',
                 'pekerjaan' => 'required|string|max:20',
                 'alamat' => 'required|string|max:255',
-                'kecamatan'=> 'required|string|max:255',
-                'kabupaten'=> 'required|string|max:255',
+                'kecamatan' => 'required|string|max:255',
+                'kabupaten' => 'required|string|max:255',
                 'desa_pindah' => 'required|string|max:255',
                 'rt' => 'required|string|max:20',
                 'rw' => 'required|string|max:20',
@@ -208,6 +210,11 @@ class SuratPindahController extends Controller
         $verifikasiToken = $suratPindah->verifikasi_token;
         $tanggalTerbit = $suratPindah->tanggal_terbit;
         $qrCode = $suratPindah->qr_code;
+        $nomorManual = '';
+
+        if ($statusBaru === 'Approve' && empty($noSurat) && !$request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual wajib di isi sebelum menyetujui'])->withInput();
+        }
 
         // Handle status changes
         if ($statusBaru === 'Approve') {
@@ -250,25 +257,37 @@ class SuratPindahController extends Controller
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'status_kawin'=> $request->status_kawin,
+            'status_kawin' => $request->status_kawin,
             'kewarganegaraan' => $request->kewarganegaraan,
             'pekerjaan' => $request->pekerjaan,
             'alamat' => $request->alamat,
-            'kecamatan'=> $request->kecamatan,
-            'kabupaten'=> $request->kabupaten,
-            'desa_pindah'=> $request->desa_pindah,
-            'rt'=> $request->rt,
-            'rw'=> $request->rw,
-            'jalan'=> $request->jalan,
-            'kecamatan_pindah'=> $request->kecamatan_pindah,
-            'kabupaten_pindah'=> $request->kabupaten_pindah,
-            'provinsi'=> $request->provinsi,
+            'kecamatan' => $request->kecamatan,
+            'kabupaten' => $request->kabupaten,
+            'desa_pindah' => $request->desa_pindah,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'jalan' => $request->jalan,
+            'kecamatan_pindah' => $request->kecamatan_pindah,
+            'kabupaten_pindah' => $request->kabupaten_pindah,
+            'provinsi' => $request->provinsi,
             'keterangan' => $request->keterangan,
             'status' => $statusBaru,
             'verifikasi_token' => $verifikasiToken,
             'tanggal_terbit' => $tanggalTerbit,
         ]);
 
+        try {
+            // Pastikan relasi user ada
+            if ($suratPindah->user) {
+                // Debugging untuk memeriksa type_surat
+                Log::info("Type Surat: " . $suratPindah->type_surat);
+                Mail::to($suratPindah->user->email)->send(new SuratApprovedMail($suratPindah));
+            } else {
+                Log::error("User tidak ditemukan untuk surat dengan ID: " . $suratPindah->id);
+            }
+        } catch (Exception $e) {
+            Log::error("Gagal mengirim email pemberitahuan: " . $e->getMessage());
+        }
         // Generate QR code only for approved documents
         if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
             try {
