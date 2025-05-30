@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('apbdes', function (Blueprint $table) {
             $table->id();
-            $table->integer('penyelenggaraan');
-            $table->integer('pelaksanaan');
-            $table->integer('pembinaan');
-            $table->integer('pemberdayaan');
-            $table->integer('penanggulangan');
+            $table->string('penyelenggaraan');
+            $table->string('pelaksanaan');
+            $table->string('pembinaan');
+            $table->string('pemberdayaan');
+            $table->string('penanggulangan');
             $table->integer('tahun');
             $table->string('file');
             $table->unsignedBigInteger('user_id')->nullable();

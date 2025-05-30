@@ -68,11 +68,11 @@ class ApbdesController extends Controller
     {
         //
         $request->validate([
-            'penyelenggaraan' => 'required|integer',
-            'pelaksanaan' => 'required|integer',
-            'pembinaan' => 'required|integer',
-            'pemberdayaan' => 'required|integer',
-            'penanggulangan' => 'required|integer',
+            'penyelenggaraan' => 'required|string',
+            'pelaksanaan' => 'required|string',
+            'pembinaan' => 'required|string',
+            'pemberdayaan' => 'required|string',
+            'penanggulangan' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'required|file|mimes:png,jpg,jpeg|max:2048',
         ],[
@@ -123,11 +123,11 @@ class ApbdesController extends Controller
         Log::info("ID yang diterima untuk update: ", ['id' => $apbdes->id]);
 
         $request->validate([
-            'penyelenggaraan' => 'required|integer',
-            'pelaksanaan' => 'required|integer',
-            'pembinaan' => 'required|integer',
-            'pemberdayaan' => 'required|integer',
-            'penanggulangan' => 'required|integer',
+            'penyelenggaraan' => 'required|string',
+            'pelaksanaan' => 'required|string',
+            'pembinaan' => 'required|string',
+            'pemberdayaan' => 'required|string',
+            'penanggulangan' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ], [

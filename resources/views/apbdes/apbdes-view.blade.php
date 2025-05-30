@@ -76,8 +76,8 @@
 <div class="container mt-4 font">
     <form method="GET" action="{{ route('apbdes.viewUser') }}">
         <div class="container mt-3">
-            <div class="row">
-                <div class="col-md-4">
+            <div class="row" style="margin-left:0px">
+                <div class="col-md-3">
                     <div class="input-group shadow-sm rounded">
                         <span class="input-group-text bg-primary text-white">
                             <i class="bi bi-funnel-fill"></i>
@@ -100,7 +100,7 @@
             {{-- looping card bidang --}}
             @foreach ($apbdes as $item)
                 {{-- tampilkan card di sini --}}
-                <div class="container mt-4 font">
+                <div class="container font" style="margin-top:30px">
                     <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akad Fadedo</h2>
                     <div class="row">
                         <!-- Kolom Kiri: Card List -->
