@@ -8,7 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Keluhan extends Model
 {
     use HasFactory;
-    protected $fillable = ['judul', 'isi', 'status', 'user_id'];
+   protected $fillable = [
+    'judul',
+    'isi',
+    'status',
+    'gambar',
+    'user_id',
+    'respon_admin',
+    'tanggal_diproses',
+    'tanggal_selesai'
+];
 
     public function user()
     {

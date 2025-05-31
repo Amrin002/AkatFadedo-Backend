@@ -97,17 +97,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}/get-download-url', [SuratPindahApiController::class, 'getDownloadUrl']); // Add this line
     });
 
-    // Keluhan API
+    // // Keluhan API
 
-    Route::prefix('keluhan')->group(function () {
+   Route::prefix('keluhan')->group(function () {
         Route::get('/', [ApiKeluhanController::class, 'index']);
         Route::post('/', [ApiKeluhanController::class, 'store']);
         Route::get('/{keluhan}', [ApiKeluhanController::class, 'show']);
         Route::put('/{keluhan}', [ApiKeluhanController::class, 'update']);
         Route::delete('/{keluhan}', [ApiKeluhanController::class, 'destroy']);
-        //route tanggapi
         Route::post('/{keluhan}/tanggapi', [ApiKeluhanController::class, 'tanggapi']);
-        Route::post('/{keluhan}/selesai', [ApiKeluhanController::class, 'selesai']);
+        Route::post('/{keluhan}/selesaikan', [ApiKeluhanController::class, 'selesaikan']);
     });
 
     // APBDes API
