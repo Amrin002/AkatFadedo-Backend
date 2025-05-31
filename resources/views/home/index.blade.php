@@ -568,12 +568,12 @@
                             <div class="icon">
                                 <i class="fas fa-file-invoice-dollar"></i>
                             </div>
-                            <a href="#" class="stretched-link">
+                            <a href="{{ route('apbdes.viewUser') }}" class="stretched-link">
                                 <h3>Transaparansi APBDes</h3>
                             </a>
                             <p>Menampilkan anggaran pendapatan dan belanja desa secara transparan agar masyarakat dapat
                                 mengetahui penggunaan dana desa.</p>
-                            <a href="#" class="stretched-link"></a>
+                            <a href="{{ route('apbdes.viewUser') }}" class="stretched-link"></a>
                         </div>
                     </div><!-- End Service Item -->
 

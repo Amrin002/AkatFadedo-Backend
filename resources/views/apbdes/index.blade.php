@@ -64,7 +64,7 @@
                                                 <div class="form-group">
                                                     <label for="file">File "PNG/JPG/JPEG", Size Max = 2Mb</label>
                                                     <input type="file" class="form-control"
-                                                    name="file" accept=".jpg,.jpeg,.png" required>
+                                                    name="file" accept=".jpg,.jpeg,.png">
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary">Simpan</button>

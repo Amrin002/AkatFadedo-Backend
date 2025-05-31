@@ -74,16 +74,19 @@ class ApbdesController extends Controller
             'pemberdayaan' => 'required|string',
             'penanggulangan' => 'required|string',
             'tahun' => 'required|integer',
-            'file' => 'required|file|mimes:png,jpg,jpeg|max:2048',
+            'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ],[
             'file.max' => 'Size file yang anda pilih terlalu besar!',
             'file.mimes' => 'Format file yang anda masukan tidak sesuai!',
         ]);
 
-        $originalFileName = $request->file('file')->getClientOriginalName();
+        $filePath = null;
 
-        // Menyimpan file dengan nama asli
-        $filePath = $request->file('file')->storeAs('apbdes', $originalFileName, 'public');
+        if ($request->hasFile('file')) {
+            $originalFileName = $request->file('file')->getClientOriginalName();
+            // Menyimpan file dengan nama asli
+            $filePath = $request->file('file')->storeAs('apbdes', $originalFileName, 'public');
+        }
 
         Apbdes::create([
         'penyelenggaraan' => $request->penyelenggaraan,
@@ -92,7 +95,7 @@ class ApbdesController extends Controller
         'pemberdayaan' => $request->pemberdayaan,
         'penanggulangan' => $request->penanggulangan,
         'tahun' => $request->tahun,
-        'file' => $filePath, // simpan path file
+        'file' => $filePath, null// simpan path file
         ]);
 
         return redirect()->route('apbdes.index')->with('success', "Data APBDes baru Berhasil di Tambahkan");

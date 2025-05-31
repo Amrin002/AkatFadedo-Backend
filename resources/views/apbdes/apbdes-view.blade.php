@@ -175,7 +175,7 @@
                                 </div>
                             @else
                                 <div class="a4-preview">
-                                    <p>Placeholder A4</p>
+                                    <p>Gambar Tidak Ditemukan</p>
                                 </div>
                             @endif
                         </div>
