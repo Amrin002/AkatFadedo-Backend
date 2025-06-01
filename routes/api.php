@@ -31,7 +31,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/users', [AuthController::class, 'index']);
-
+Route::get('/apbdes', [ApbdesApiController::class, 'index']);
+Route::get('/apbdes/{id}', [ApbdesApiController::class, 'show']);
 Route::post('/forgot-password', [PasswordResetApiController::class, 'sendResetLinkEmail']);
 Route::post('/reset-password', [PasswordResetApiController::class, 'reset']);
 Route::post('/send-otp', [PasswordResetApiController::class, 'sendOtp']);
@@ -99,7 +100,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // // Keluhan API
 
-   Route::prefix('keluhan')->group(function () {
+    Route::prefix('keluhan')->group(function () {
         Route::get('/', [ApiKeluhanController::class, 'index']);
         Route::post('/', [ApiKeluhanController::class, 'store']);
         Route::get('/{keluhan}', [ApiKeluhanController::class, 'show']);
@@ -111,16 +112,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // APBDes API
 
-    Route::get('/apbdes', [ApbdesApiController::class, 'index']);
-    Route::get('/apbdes/{id}', [ApbdesApiController::class, 'show']);
+
     Route::post('/apbdes', [ApbdesApiController::class, 'store']);
     Route::put('/apbdes/{id}', [ApbdesApiController::class, 'update']);
     Route::delete('/apbdes/{id}', [ApbdesApiController::class, 'destroy']);
 });
-
-
-
-
-
-
-

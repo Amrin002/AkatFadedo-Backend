@@ -49,8 +49,6 @@ class ApbdesController extends Controller
         $apbdes = Apbdes::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
         return view('apbdes.apbdes-view', compact('title', 'halaman', 'apbdes'));
-
-
     }
 
     /**
@@ -66,7 +64,6 @@ class ApbdesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'penyelenggaraan' => 'required|string',
             'pelaksanaan' => 'required|string',
@@ -75,7 +72,7 @@ class ApbdesController extends Controller
             'penanggulangan' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
-        ],[
+        ], [
             'file.max' => 'Size file yang anda pilih terlalu besar!',
             'file.mimes' => 'Format file yang anda masukan tidak sesuai!',
         ]);
@@ -83,23 +80,27 @@ class ApbdesController extends Controller
         $filePath = null;
 
         if ($request->hasFile('file')) {
-            $originalFileName = $request->file('file')->getClientOriginalName();
-            // Menyimpan file dengan nama asli
-            $filePath = $request->file('file')->storeAs('apbdes', $originalFileName, 'public');
+            // Buat nama file unik
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $filename = uniqid('apbdes_') . '.' . $extension;
+
+            // Simpan file dengan nama baru
+            $filePath = $request->file('file')->storeAs('apbdes', $filename, 'public');
         }
 
         Apbdes::create([
-        'penyelenggaraan' => $request->penyelenggaraan,
-        'pelaksanaan' => $request->pelaksanaan,
-        'pembinaan' => $request->pembinaan,
-        'pemberdayaan' => $request->pemberdayaan,
-        'penanggulangan' => $request->penanggulangan,
-        'tahun' => $request->tahun,
-        'file' => $filePath, null// simpan path file
+            'penyelenggaraan' => $request->penyelenggaraan,
+            'pelaksanaan' => $request->pelaksanaan,
+            'pembinaan' => $request->pembinaan,
+            'pemberdayaan' => $request->pemberdayaan,
+            'penanggulangan' => $request->penanggulangan,
+            'tahun' => $request->tahun,
+            'file' => $filePath,
         ]);
 
         return redirect()->route('apbdes.index')->with('success', "Data APBDes baru Berhasil di Tambahkan");
     }
+
 
     /**
      * Display the specified resource.
@@ -139,7 +140,6 @@ class ApbdesController extends Controller
         ]);
 
         try {
-            // Jika user upload file baru
             if ($request->hasFile('file')) {
                 // Hapus file lama kalau ada
                 if ($apbdes->file && Storage::exists('public/' . $apbdes->file)) {
@@ -147,12 +147,14 @@ class ApbdesController extends Controller
                     Log::info('File lama berhasil dihapus: ' . $apbdes->file);
                 }
 
-                // Upload file baru
-                $originalFileName = $request->file('file')->getClientOriginalName();
-                $filePath = $request->file('file')->storeAs('apbdes', $originalFileName, 'public');
+                // Buat nama file baru unik
+                $extension = $request->file('file')->getClientOriginalExtension();
+                $filename = uniqid('apbdes_') . '.' . $extension;
+
+                // Upload file baru dengan nama unik
+                $filePath = $request->file('file')->storeAs('apbdes', $filename, 'public');
                 Log::info('File baru berhasil diupload: ' . $filePath);
             } else {
-                // Tidak ada upload baru, gunakan file lama
                 $filePath = $apbdes->file;
             }
 
@@ -174,6 +176,7 @@ class ApbdesController extends Controller
         }
     }
 
+
     /**
      * Remove the specified resource from storage.
      */
@@ -191,5 +194,4 @@ class ApbdesController extends Controller
 
         return redirect()->route('apbdes.index')->with('success', 'Data APBDes berhasil dihapus');
     }
-
 }

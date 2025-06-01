@@ -29,42 +29,46 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('apbdes.store') }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('apbdes.store') }}" method="POST"
+                                                enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label for="penyelenggaraan">Bidang Penyelenggaraan Pemerintahan Desa</label>
+                                                    <label for="penyelenggaraan">Bidang Penyelenggaraan Pemerintahan
+                                                        Desa</label>
                                                     <input type="number" class="form-control" id="penyelenggaraan"
-                                                    name="penyelenggaraan" value="{{ old('penyelenggaraan') }}" required>
+                                                        name="penyelenggaraan" value="{{ old('penyelenggaraan') }}"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pelaksanaan">Bidang Pelaksanaan Pembangunan Desa</label>
                                                     <input type="number" class="form-control" id="pelaksanaan"
-                                                    name="pelaksanaan" value="{{ old('pelaksanaan') }}" required>
+                                                        name="pelaksanaan" value="{{ old('pelaksanaan') }}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pembinaan">Bidang Pembinaan Kemasyarakatan</label>
                                                     <input type="number" class="form-control" id="pembinaan"
-                                                    name="pembinaan" value="{{ old('pembinaan') }}" required>
+                                                        name="pembinaan" value="{{ old('pembinaan') }}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pemberdayaan">Bidang Pemberdayaan Kemasyarakatan</label>
                                                     <input type="number" class="form-control" id="pemberdayaan"
-                                                    name="pemberdayaan" value="{{ old('pemberdayaan') }}" required>
+                                                        name="pemberdayaan" value="{{ old('pemberdayaan') }}" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="penanggulangan">Bidang Penanggulangan Bencana Darurat dan Mendesak</label>
+                                                    <label for="penanggulangan">Bidang Penanggulangan Bencana Darurat dan
+                                                        Mendesak</label>
                                                     <input type="number" class="form-control" id="penanggulangan"
-                                                    name="penanggulangan" value="{{ old('penanggulangan') }}" required>
+                                                        name="penanggulangan" value="{{ old('penanggulangan') }}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tahun">Tahun</label>
-                                                    <input type="number" class="form-control" id="tahun"
-                                                    name="tahun" value="{{ old('tahun') }}" required>
+                                                    <input type="number" class="form-control" id="tahun" name="tahun"
+                                                        value="{{ old('tahun') }}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="file">File "PNG/JPG/JPEG", Size Max = 2Mb</label>
-                                                    <input type="file" class="form-control"
-                                                    name="file" accept=".jpg,.jpeg,.png">
+                                                    <input type="file" class="form-control" name="file"
+                                                        accept=".jpg,.jpeg,.png">
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -103,8 +107,9 @@
                                                 <td>Rp. {{ number_format($row->penanggulangan, 0, ',', '.') }}</td>
                                                 <td>{{ $row->tahun }}</td>
                                                 <td>
-                                                    @if($row->file && file_exists(public_path('storage/' . $row->file)))
-                                                        <img src="{{ asset('storage/' . $row->file) }}" alt="Gambar APBDes" style="max-width: 100px; max-height: 100px;">
+                                                    @if ($row->file)
+                                                        <img src="{{ asset('storage/' . $row->file) }}" alt="Gambar APBDes"
+                                                            style="max-width: 100px; max-height: 100px;">
                                                     @else
                                                         <span>Tidak ada gambar</span>
                                                     @endif
@@ -114,13 +119,15 @@
                                                         <div class="d-flex align-items-center gap-2">
                                                             {{-- Tombol Edit --}}
                                                             <button type="button" class="btn btn-warning btn-sm"
-                                                                data-toggle="modal" data-target="#editModal{{ $row->id }}">
+                                                                data-toggle="modal"
+                                                                data-target="#editModal{{ $row->id }}">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </button>
 
                                                             {{-- Tombol Hapus --}}
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
+                                                                data-toggle="modal"
+                                                                data-target="#deleteModal{{ $row->id }}">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </button>
                                                         </div>
@@ -168,53 +175,73 @@
                                             </tr>
 
                                             {{-- Modal Edit --}}
-                                            <div class="modal fade" id="editModal{{ $row->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $row->id }}" aria-hidden="true">
+                                            <div class="modal fade" id="editModal{{ $row->id }}" tabindex="-1"
+                                                aria-labelledby="editModalLabel{{ $row->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                    <form action="{{ route('apbdes.update', $row->id) }}" method="POST" enctype="multipart/form-data">
+                                                    <form action="{{ route('apbdes.update', $row->id) }}" method="POST"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Edit APBDes</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
                                                                     <span>&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label>Bidang Penyelenggaraan Pemerintahan Desa</label>
-                                                                    <input type="number" class="form-control" name="penyelenggaraan" value="{{ $row->penyelenggaraan }}" required>
+                                                                    <input type="number" class="form-control"
+                                                                        name="penyelenggaraan"
+                                                                        value="{{ $row->penyelenggaraan }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Bidang Pelaksanaan Pembangunan Desa</label>
-                                                                    <input type="number" class="form-control" name="pelaksanaan" value="{{ $row->pelaksanaan }}" required>
+                                                                    <input type="number" class="form-control"
+                                                                        name="pelaksanaan"
+                                                                        value="{{ $row->pelaksanaan }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Bidang Pembinaan Kemasyarakatan</label>
-                                                                    <input type="number" class="form-control" name="pembinaan" value="{{ $row->pembinaan }}" required>
+                                                                    <input type="number" class="form-control"
+                                                                        name="pembinaan" value="{{ $row->pembinaan }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Bidang Pemberdayaan Kemasyarakatan</label>
-                                                                    <input type="number" class="form-control" name="pemberdayaan" value="{{ $row->pemberdayaan }}" required>
+                                                                    <input type="number" class="form-control"
+                                                                        name="pemberdayaan"
+                                                                        value="{{ $row->pemberdayaan }}" required>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Bidang Penanggulangan Bencana Darurat dan Mendesak</label>
-                                                                    <input type="number" class="form-control" name="penanggulangan" value="{{ $row->penanggulangan }}" required>
+                                                                    <label>Bidang Penanggulangan Bencana Darurat dan
+                                                                        Mendesak</label>
+                                                                    <input type="number" class="form-control"
+                                                                        name="penanggulangan"
+                                                                        value="{{ $row->penanggulangan }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Tahun</label>
-                                                                    <input type="number" class="form-control" name="tahun" value="{{ $row->tahun }}" required>
+                                                                    <input type="number" class="form-control"
+                                                                        name="tahun" value="{{ $row->tahun }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>File "PNG/JPG/JPEG", Size Max = 2Mb</label>
-                                                                    <input type="file" class="form-control" name="file" accept=".jpg,.jpeg,.png">
+                                                                    <input type="file" class="form-control"
+                                                                        name="file" accept=".jpg,.jpeg,.png">
                                                                     @if ($row->file)
-                                                                        <small>File saat ini: <a href="{{ asset('storage/' . $row->file) }}" target="_blank">{{ $row->file }}</a></small>
+                                                                        <small>File saat ini: <a
+                                                                                href="{{ asset('storage/' . $row->file) }}"
+                                                                                target="_blank">{{ $row->file }}</a></small>
                                                                     @endif
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                    Perubahan</button>
                                                             </div>
                                                         </div>
                                                     </form>
