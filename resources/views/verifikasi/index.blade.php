@@ -136,6 +136,7 @@
                                             <th scope="col">Tanggal Terbit</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Tanggal Verifikasi</th>
+                                            <th scope="col">Aksi</th>
                                             {{-- <th scope="col">QR Code</th> --}}
                                         </tr>
                                     </thead>
@@ -170,22 +171,71 @@
                                                 {{-- <td>
                                                     {{ $row->verifikasi_token }}
                                                 </td> --}}
-                                            </tr>
-                                        @endforeach
 
-                                        @if (count($suratVerifikasi) == 0)
-                                            <tr>
-                                                <td colspan="8" class="text-center">Tidak ada data verifikasi</td>
-                                            </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
+                                                <td>
+                                                    <div class="d-flex flex-column align-items-start">
+
+
+                                                        {{-- Tombol Hapus --}}
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            data-toggle="modal"
+                                                            data-target="#deleteModal{{ $row->id }}">
+                                                            <i class="fas fa-trash"></i> Hapus
+                                                        </button>
+                                                    </div>
+
+
                             </div>
+                            </td>
+                            {{-- modal Konfirmasi Hapus --}}
+                            <div class="modal fade" id="deleteModal{{ $row->id }}" tabindex="-1"
+                                aria-labelledby="deleteModalLabel{{ $row->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ $row->id }}">
+                                                Konfirmasi Hapus
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus Surat ini
+                                            ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Batal
+                                            </button>
+                                            <form action="{{ route('verifikasi.destroy', $row->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    Ya, Hapus
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- end modal Konfirmasi Hapus --}}
+                            </tr>
+                            @endforeach
+
+                            @if (count($suratVerifikasi) == 0)
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada data verifikasi</td>
+                                </tr>
+                            @endif
+                            </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 

@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Apbdes;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-use Exception;
+
 
 class ApbdesApiController extends Controller
 {
@@ -38,6 +35,7 @@ class ApbdesApiController extends Controller
             'data' => $apbdes
         ]);
     }
+<<<<<<< HEAD
 
     public function store(Request $request)
     {
@@ -153,4 +151,6 @@ class ApbdesApiController extends Controller
 
         return response()->json(['status' => true, 'message' => 'Data berhasil dihapus']);
     }
+=======
+>>>>>>> 8b259fad0f1c01f7a02757e18eb746f249a5983c
 }

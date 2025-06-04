@@ -24,6 +24,7 @@ use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\ApbdesController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\SuratVerifikasiController;
 use App\Http\Controllers\WhatsappController;
 use App\Models\Apbdes;
 use App\Models\SuratPindah;
@@ -66,6 +67,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
     Route::get('/verifikasi', [App\Http\Controllers\SuratVerifikasiController::class, 'index'])
         ->name('verifikasi.index');
+    Route::delete('/verifikasi/{id}', [SuratVerifikasiController::class, 'destroy'])->name('verifikasi.destroy');
 
     // Notifications
     // Get unread notifications
