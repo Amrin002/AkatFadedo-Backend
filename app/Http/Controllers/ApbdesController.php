@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Apbdes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Models\User;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Exception;
-use Illuminate\Support\Facades\App;
 
 class ApbdesController extends Controller
 {
@@ -24,10 +20,7 @@ class ApbdesController extends Controller
         $halaman = 'APBDes';
         $user = $request->user();
 
-        $apbdes = DB::table('apbdes')
-            ->whereNull('deleted_at')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $apbdes = Apbdes::orderBy('created_at', 'desc')->get();
         return view('apbdes.index', compact('title', 'halaman', 'user', 'apbdes'));
     }
 
@@ -35,7 +28,17 @@ class ApbdesController extends Controller
     {
         $daftarTahun = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun')->toArray();
 
-        $tahunDipilih = $request->input('tahun') ?? $daftarTahun[0]; // tahun terbaru default
+        // Cek jika tidak ada data sama sekali
+        if (empty($daftarTahun)) {
+            return view('apbdes.apbdes-view', [
+                'daftarTahun' => [],
+                'apbdes' => [],
+                'tahunDipilih' => null,
+                'message' => 'Maaf, data APBDes belum tersedia.'
+            ]);
+        }
+
+        $tahunDipilih = $request->input('tahun') ?? $daftarTahun[0];
 
         $apbdes = Apbdes::where('tahun', $tahunDipilih)->get();
 
@@ -65,6 +68,7 @@ class ApbdesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'pendapatan' => 'required|string',
             'penyelenggaraan' => 'required|string',
             'pelaksanaan' => 'required|string',
             'pembinaan' => 'required|string',
@@ -88,17 +92,24 @@ class ApbdesController extends Controller
             $filePath = $request->file('file')->storeAs('apbdes', $filename, 'public');
         }
 
-        Apbdes::create([
+        try {
+            Apbdes::create([
+            'pendapatan' => $request->pendapatan,
             'penyelenggaraan' => $request->penyelenggaraan,
             'pelaksanaan' => $request->pelaksanaan,
             'pembinaan' => $request->pembinaan,
             'pemberdayaan' => $request->pemberdayaan,
             'penanggulangan' => $request->penanggulangan,
             'tahun' => $request->tahun,
-            'file' => $filePath,
-        ]);
+            'file' => $filePath,// simpan path file
+            'user_id' => $request->user()->id,
+            ]);
 
-        return redirect()->route('apbdes.index')->with('success', "Data APBDes baru Berhasil di Tambahkan");
+            return redirect()->route('apbdes.index')->with('success', "Data APBDes baru Berhasil di Tambahkan");
+        } catch (Exception $e) {
+            Log::error('Gagal menyimpan data APBDes: ' . $e->getMessage());
+            return back()->withErrors(['create_error' => 'Terjadi kesalahan saat menyimpan data.']);
+        }
     }
 
 
@@ -127,6 +138,7 @@ class ApbdesController extends Controller
         Log::info("ID yang diterima untuk update: ", ['id' => $apbdes->id]);
 
         $request->validate([
+            'pendapatan' => 'required|string',
             'penyelenggaraan' => 'required|string',
             'pelaksanaan' => 'required|string',
             'pembinaan' => 'required|string',
@@ -160,6 +172,7 @@ class ApbdesController extends Controller
 
             // Update data
             $apbdes->update([
+                'pendapatan' => $request->pendapatan,
                 'penyelenggaraan' => $request->penyelenggaraan,
                 'pelaksanaan' => $request->pelaksanaan,
                 'pembinaan' => $request->pembinaan,
@@ -167,6 +180,7 @@ class ApbdesController extends Controller
                 'penanggulangan' => $request->penanggulangan,
                 'tahun' => $request->tahun,
                 'file' => $filePath,
+                'user_id' => $request->user()->id,
             ]);
 
             return redirect()->route('apbdes.index')->with('success', 'Data APBDes berhasil diubah');

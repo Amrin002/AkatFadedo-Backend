@@ -33,8 +33,12 @@
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label for="penyelenggaraan">Bidang Penyelenggaraan Pemerintahan
-                                                        Desa</label>
+                                                    <label for="pendapatan">Pendapatan</label>
+                                                    <input type="number" class="form-control" id="pendapatan"
+                                                    name="pendapatan" value="{{ old('pendapatan') }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="penyelenggaraan">Bidang Penyelenggaraan Pemerintahan Desa</label>
                                                     <input type="number" class="form-control" id="penyelenggaraan"
                                                         name="penyelenggaraan" value="{{ old('penyelenggaraan') }}"
                                                         required>
@@ -86,6 +90,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Pendapatan</th>
                                             <th>Bidang Penyelenggaraan Pemerintahan Desa</th>
                                             <th>Bidang pelaksanaan Pembangunan Desa</th>
                                             <th>Bidang pembinaan Kemasyarakatan</th>
@@ -100,6 +105,7 @@
                                         @foreach ($apbdes as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>Rp. {{ number_format($row->pendapatan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->penyelenggaraan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->pelaksanaan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->pembinaan, 0, ',', '.') }}</td>
@@ -191,6 +197,10 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label>Pendapatan</label>
+                                                                    <input type="number" class="form-control" name="pendapatan" value="{{ $row->pendapatan }}" required>
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label>Bidang Penyelenggaraan Pemerintahan Desa</label>
                                                                     <input type="number" class="form-control"
