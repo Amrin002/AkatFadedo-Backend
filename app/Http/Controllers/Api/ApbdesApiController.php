@@ -42,11 +42,12 @@ class ApbdesApiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'penyelenggaraan' => 'required|integer',
-            'pelaksanaan' => 'required|integer',
-            'pembinaan' => 'required|integer',
-            'pemberdayaan' => 'required|integer',
-            'penanggulangan' => 'required|integer',
+            'pendapatan' => 'required|string',
+            'penyelenggaraan' => 'required|string',
+            'pelaksanaan' => 'required|string',
+            'pembinaan' => 'required|string',
+            'pemberdayaan' => 'required|string',
+            'penanggulangan' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'required|file|mimes:png,jpg,jpeg|max:2048',
         ]);
@@ -59,6 +60,7 @@ class ApbdesApiController extends Controller
             );
 
             $apbdes = Apbdes::create([
+                'pendapatan' => $request->pendapatan,
                 'penyelenggaraan' => $request->penyelenggaraan,
                 'pelaksanaan' => $request->pelaksanaan,
                 'pembinaan' => $request->pembinaan,
@@ -88,11 +90,12 @@ class ApbdesApiController extends Controller
         }
 
         $request->validate([
-            'penyelenggaraan' => 'required|integer',
-            'pelaksanaan' => 'required|integer',
-            'pembinaan' => 'required|integer',
-            'pemberdayaan' => 'required|integer',
-            'penanggulangan' => 'required|integer',
+            'pendapatan' => 'required|string',
+            'penyelenggaraan' => 'required|string',
+            'pelaksanaan' => 'required|string',
+            'pembinaan' => 'required|string',
+            'pemberdayaan' => 'required|string',
+            'penanggulangan' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ]);
@@ -113,6 +116,7 @@ class ApbdesApiController extends Controller
             }
 
             $apbdes->update([
+                'pendapatan' => $request->pendapatan,
                 'penyelenggaraan' => $request->penyelenggaraan,
                 'pelaksanaan' => $request->pelaksanaan,
                 'pembinaan' => $request->pembinaan,

@@ -11,6 +11,7 @@ class Apbdes extends Model
     use HasFactory;
     protected $table = 'apbdes';
     protected $fillable = [
+        'pendapatan',
         'penyelenggaraan',
         'pelaksanaan',
         'pembinaan',
@@ -18,7 +19,7 @@ class Apbdes extends Model
         'penanggulangan',
         'tahun',
         'file',
-        'user_id'
+        'user_id',
     ];
 
     public function user()

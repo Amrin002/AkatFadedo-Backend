@@ -31,8 +31,6 @@
     }
 
     .info-icon {
-        width: 60px;
-        height: 70px;
         background-color: #44b4e8; /* bisa diganti sesuai kebutuhan */
         display: flex;
         align-items: center;
@@ -40,6 +38,12 @@
         color: white;
         flex-shrink: 0;
         border-radius: 0; /* sisi kiri tetap kotak */
+    }
+
+    .info-icon img {
+        width: 60px;
+        height: 70px;
+        object-fit: contain;
     }
 
     .info-content {
@@ -95,7 +99,7 @@
         </div>
     </form>
     {{-- Hanya tampilkan jika tahun dipilih --}}
-    @if ($apbdes->count() > 0)
+    @if (count($apbdes) > 0)
         <div class="container mt-4">
             {{-- looping card bidang --}}
             @foreach ($apbdes as $item)
@@ -103,11 +107,22 @@
                 <div class="container font" style="margin-top:30px">
                     <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akad Fadedo</h2>
                     <div class="row">
+                        <!-- (Konten seperti biasa tetap di sini) -->
                         <!-- Kolom Kiri: Card List -->
                         <div class="col-md-7">
                             <div class="info-card">
+                                <div class="info-icon" style="background-color: #33a1d4;">
+                                    <img src="{{ asset('images/stats.png') }}">
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-title">Pendapatan</div>
+                                    <div class="info-amount">Rp {{ number_format($item->pendapatan, 0, ',', '.') }}</div>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
                                 <div class="info-icon" style="background-color: #007db8;">
-                                    <img src="/images/townhall.png" class="icon-img" alt="icon">
+                                    <img src="{{ asset('images/townhall.png') }}">
                                 </div>
                                 <div class="info-content">
                                     <div class="info-title">Bidang Penyelenggaraan Pemerintahan Desa</div>
@@ -117,7 +132,7 @@
 
                             <div class="info-card">
                                 <div class="info-icon" style="background-color: #006a9b;">
-                                    <img src="/images/excavator.png" class="icon-img" alt="icon">
+                                    <img src="{{ asset('images/excavator.png') }}">
                                 </div>
                                 <div class="info-content">
                                     <div class="info-title">Bidang Pelaksanaan Pembangunan Desa</div>
@@ -127,7 +142,7 @@
 
                             <div class="info-card">
                                 <div class="info-icon" style="background-color: #005177;">
-                                    <img src="/images/teach.png" class="icon-img" alt="icon">
+                                    <img src="{{ asset('images/teach.png') }}">
                                 </div>
                                 <div class="info-content">
                                     <div class="info-title">Bidang Pembinaan Kemasyarakatan</div>
@@ -137,7 +152,7 @@
 
                             <div class="info-card">
                                 <div class="info-icon" style="background-color: #013d59;">
-                                    <img src="/images/people.png" class="icon-img" alt="icon">
+                                    <img src="{{ asset('images/people.png') }}">
                                 </div>
                                 <div class="info-content">
                                     <div class="info-title">Bidang Pemberdayaan Masyarakat</div>
@@ -147,7 +162,7 @@
 
                             <div class="info-card">
                                 <div class="info-icon" style="background-color: #002232;">
-                                    <img src="/images/tsunami.png" class="icon-img" alt="icon">
+                                    <img src="{{ asset('images/tsunami.png') }}">
                                 </div>
                                 <div class="info-content">
                                     <div class="info-title">Bidang Penanggulangan Bencana, Darurat dan Mendesak</div>
@@ -182,6 +197,11 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+    @else
+        <div class="container text-center mt-5 mb-5">
+            <img src="{{ asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 550px;" class="mb-3">
+            <h4 class="text-muted">Maaf, data APBDes belum tersedia.</h4>
         </div>
     @endif
 </div>
