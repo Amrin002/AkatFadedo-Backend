@@ -19,10 +19,7 @@ return new class extends Migration
             $table->string('pemberdayaan');
             $table->string('penanggulangan');
             $table->integer('tahun');
-            $table->string('file')->nullable(); // <--- ubah ini
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
-            $table->softDeletes();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
