@@ -94,15 +94,14 @@ class ApbdesController extends Controller
 
         try {
             Apbdes::create([
-            'pendapatan' => $request->pendapatan,
-            'penyelenggaraan' => $request->penyelenggaraan,
-            'pelaksanaan' => $request->pelaksanaan,
-            'pembinaan' => $request->pembinaan,
-            'pemberdayaan' => $request->pemberdayaan,
-            'penanggulangan' => $request->penanggulangan,
-            'tahun' => $request->tahun,
-            'file' => $filePath,// simpan path file
-            'user_id' => $request->user()->id,
+                'pendapatan' => $request->pendapatan,
+                'penyelenggaraan' => $request->penyelenggaraan,
+                'pelaksanaan' => $request->pelaksanaan,
+                'pembinaan' => $request->pembinaan,
+                'pemberdayaan' => $request->pemberdayaan,
+                'penanggulangan' => $request->penanggulangan,
+                'tahun' => $request->tahun,
+                'file' => $filePath, // simpan path file
             ]);
 
             return redirect()->route('apbdes.index')->with('success', "Data APBDes baru Berhasil di Tambahkan");
@@ -180,7 +179,6 @@ class ApbdesController extends Controller
                 'penanggulangan' => $request->penanggulangan,
                 'tahun' => $request->tahun,
                 'file' => $filePath,
-                'user_id' => $request->user()->id,
             ]);
 
             return redirect()->route('apbdes.index')->with('success', 'Data APBDes berhasil diubah');
