@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Apbdes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Models\User;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Exception;
-use Illuminate\Support\Facades\App;
 
 class ApbdesController extends Controller
 {
@@ -96,15 +92,18 @@ class ApbdesController extends Controller
             $filePath = $request->file('file')->storeAs('apbdes', $filename, 'public');
         }
 
-        Apbdes::create([
-        'penyelenggaraan' => $request->penyelenggaraan,
-        'pelaksanaan' => $request->pelaksanaan,
-        'pembinaan' => $request->pembinaan,
-        'pemberdayaan' => $request->pemberdayaan,
-        'penanggulangan' => $request->penanggulangan,
-        'tahun' => $request->tahun,
-        'file' => $filePath, null// simpan path file
-        ]);
+        try {
+            Apbdes::create([
+            'pendapatan' => $request->pendapatan,
+            'penyelenggaraan' => $request->penyelenggaraan,
+            'pelaksanaan' => $request->pelaksanaan,
+            'pembinaan' => $request->pembinaan,
+            'pemberdayaan' => $request->pemberdayaan,
+            'penanggulangan' => $request->penanggulangan,
+            'tahun' => $request->tahun,
+            'file' => $filePath,// simpan path file
+            'user_id' => $request->user()->id,
+            ]);
 
             return redirect()->route('apbdes.index')->with('success', "Data APBDes baru Berhasil di Tambahkan");
         } catch (Exception $e) {
