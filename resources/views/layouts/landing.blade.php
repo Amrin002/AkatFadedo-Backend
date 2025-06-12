@@ -9,8 +9,8 @@
     <meta name="keywords" content="">
 
     <!-- Favicons -->
-    <link href="{{ secure_asset('landing/assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ secure_asset('landing/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ secure_asset('landing/assets/img/Logo2.png') }}" rel="icon">
+    <link href="{{ secure_asset('landing/assets/img/Logo2.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -76,20 +76,20 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li>
-                          <a href="{{ Request::is('/') ? '#hero' : url('/#hero') }}"
-                            class="{{ Request::is('/') ? 'active' : '' }}">
-                            Beranda
-                          </a>
+                            <a href="{{ Request::is('/') ? '#hero' : url('/#hero') }}"
+                                class="{{ Request::is('/') ? 'active' : '' }}">
+                                Beranda
+                            </a>
                         </li>
                         <li>
-                          <a href="{{ Request::is('/') ? '#about' : url('/#about') }}">Profil Desa</a>
+                            <a href="{{ Request::is('/') ? '#about' : url('/#about') }}">Profil Desa</a>
                         </li>
                         <li>
-                           <a href="{{ Request::is('/') ? '#services' : url('/#services') }}">Layanan</a>
+                            <a href="{{ Request::is('/') ? '#services' : url('/#services') }}">Layanan</a>
                         </li>
                         {{-- <li><a href="#departments">Struktur Pemerintahan</a></li> --}}
                         <li>
-                          <a href="{{ Request::is('/') ? '#contact' : url('/#contact') }}">Kontak</a>
+                            <a href="{{ Request::is('/') ? '#contact' : url('/#contact') }}">Kontak</a>
                         </li>
                         {{-- <li><a href="#doctors">Doctors</a></li>
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
