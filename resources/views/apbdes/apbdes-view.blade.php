@@ -201,7 +201,7 @@
         </div>
     @else
         <div class="container text-center mt-5 mb-5">
-            <img src="{{ asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 550px;" class="mb-3">
+            <img src="{{ asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 400px;" class="mb-3">
             <h4 class="text-muted">Maaf, data APBDes belum tersedia.</h4>
         </div>
     @endif
