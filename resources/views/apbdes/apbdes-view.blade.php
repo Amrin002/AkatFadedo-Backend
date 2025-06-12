@@ -105,7 +105,7 @@
             @foreach ($apbdes as $item)
                 {{-- tampilkan card di sini --}}
                 <div class="container font" style="margin-top:30px">
-                    <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akad Fadedo</h2>
+                    <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akat Fadedo</h2>
                     <div class="row">
                         <!-- (Konten seperti biasa tetap di sini) -->
                         <!-- Kolom Kiri: Card List -->
@@ -173,26 +173,27 @@
 
                         <!-- Kolom Kanan: Gambar Besar -->
                         <div class="col-md-5 d-flex justify-content-center">
-                            @if ($item->file && file_exists(public_path('storage/' . $item->file)))
-                                <div class="a4-preview" role="button" data-bs-toggle="modal" data-bs-target="#modalGambar{{ $item->id }}">
-                                    <img src="{{ asset('storage/' . $item->file) }}" alt="Gambar APBDes" class="img-fluid">
-                                </div>
+                            <div class="a4-preview" role="button" data-bs-toggle="modal" data-bs-target="#modalGambar{{ $item->id }}">
+                                <img src="{{ asset('storage/' . $item->file) }}"
+                                     alt="Gambar APBDes"
+                                     class="img-fluid"
+                                     onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
+                            </div>
 
-                                <!-- Modal Full Gambar -->
-                                <div class="modal fade" id="modalGambar{{ $item->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $item->id }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content bg-transparent border-0">
-                                            <div class="modal-body text-center">
-                                                <img src="{{ asset('storage/' . $item->file) }}" alt="Gambar APBDes Full" class="img-fluid rounded shadow">
-                                            </div>
+                            <!-- Modal Full Gambar -->
+                            <div class="modal fade" id="modalGambar{{ $item->id }}" tabindex="-1"
+                                 aria-labelledby="modalLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content bg-transparent border-0">
+                                        <div class="modal-body text-center">
+                                            <img src="{{ asset('storage/' . $item->file) }}"
+                                                 alt="Gambar APBDes Full"
+                                                 class="img-fluid rounded shadow"
+                                                 onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <div class="a4-preview">
-                                    <p>Gambar Tidak Ditemukan</p>
-                                </div>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
