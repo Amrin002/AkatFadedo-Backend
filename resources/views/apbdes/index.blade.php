@@ -101,6 +101,7 @@
                                             <th>Bidang pembinaan Kemasyarakatan</th>
                                             <th>Bidang Pemberdayaan Kemasyarakatan</th>
                                             <th>Bidang Penanggulangan Bencana Darurat dan Mendesak</th>
+                                            <th>Pejabat Kepala Desa</th>
                                             <th>Tahun</th>
                                             <th>File Gambar</th>
                                             <th>Action</th>
@@ -116,6 +117,7 @@
                                                 <td>Rp. {{ number_format($row->pembinaan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->pemberdayaan, 0, ',', '.') }}</td>
                                                 <td>Rp. {{ number_format($row->penanggulangan, 0, ',', '.') }}</td>
+                                                <td>{{ $row->pejabat }}</td>
                                                 <td>{{ $row->tahun }}</td>
                                                 <td>
                                                     @if ($row->file)
@@ -238,10 +240,14 @@
                                                                         value="{{ $row->penanggulangan }}" required>
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <label>Pejabat Kepala Desa</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="pejabat" value="{{ $row->pejabat }}" required>
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label>Tahun</label>
                                                                     <input type="number" class="form-control"
-                                                                        name="tahun" value="{{ $row->tahun }}"
-                                                                        required>
+                                                                        name="tahun" value="{{ $row->tahun }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>File "PNG/JPG/JPEG", Size Max = 2Mb</label>

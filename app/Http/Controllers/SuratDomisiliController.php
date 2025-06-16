@@ -54,7 +54,7 @@ class SuratDomisiliController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'status_kawin' => 'required|in:Belum kawin,Sudah kawin, Cerai',
+            'status_kawin' => 'required|in:Belum kawin,Sudah kawin,Cerai',
             'kewarganegaraan' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:225',
             'alamat' => 'required|string|max:255',
