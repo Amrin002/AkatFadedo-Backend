@@ -158,6 +158,61 @@
                             </p>
                         </div>
                     </div>
+                    <section id="stats" class="stats section">
+                        <div class="container" data-aos="fade-up" data-aos-delay="100">
+                            <div class="row gy-4">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="stats-item d-flex align-items-center w-100 h-100">
+                                        <i class="fas fa-users flex-shrink-0"></i>
+                                        <div>
+                                            <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahPenduduk }}"
+                                                data-purecounter-duration="1" class="purecounter"></span>
+                                            <p>Jumlah Penduduk</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End Stats Item -->
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="stats-item d-flex align-items-center w-100 h-100">
+                                        <i class="fas fa-school flex-shrink-0"></i>
+
+                                        <div>
+                                            <span data-purecounter-start="0"
+                                                data-purecounter-end="{{ $fasilitas->fasilitas_pendidikan ?? 0 }}"
+                                                data-purecounter-duration="1" class="purecounter"></span>
+                                            <p>Jumlah Fasilitas Pendidikan</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End Stats Item -->
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="stats-item d-flex align-items-center w-100 h-100">
+                                        <i class="fas fa-hospital-alt flex-shrink-0"></i>
+
+                                        <div>
+                                            <span data-purecounter-start="0"
+                                                data-purecounter-end="{{ $fasilitas->fasilitas_kesehatan ?? 0 }}"
+                                                data-purecounter-duration="1" class="purecounter"></span>
+                                            <p>Jumlah Fasilitas Kesehatan</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End Stats Item -->
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="stats-item d-flex align-items-center w-100 h-100">
+                                        <i class="fas fa-map flex-shrink-0"></i>
+
+                                        <div>
+                                            <span data-purecounter-start="0"
+                                                data-purecounter-end="{{ $fasilitas->luas_wilayah ?? 0 }}"
+                                                data-purecounter-duration="1" class="purecounter"></span>
+                                            <p>Luas Wilayah (km²)</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End Stats Item -->
+                            </div>
+                        </div>
+                    </section>
                     <div id="struktur-desa" class="doctors section">
                         <div class="container section-title" data-aos="fade-up">
                             <h2>Struktur Pemerintahan Desa</h2>

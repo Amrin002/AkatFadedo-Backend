@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Berita;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,8 +14,10 @@ class BeritaApiController extends Controller
     // Ambil semua berita
     public function index()
     {
-        $beritas = Berita::with('user')->orderBy('created_at', 'desc')->get();
-
+        // Caching daftar berita
+        $beritas = Cache::remember('beritas', 60, function () {
+            return Berita::with('user')->orderBy('created_at', 'desc')->get();
+        });
         return response()->json([
             'success' => true,
             'messsage' => 'Berita Berhasil diambil',
@@ -53,7 +56,9 @@ class BeritaApiController extends Controller
     // Detail berita
     public function show(string $id)
     {
-        $berita = Berita::with('user')->find($id);
+        $berita = Cache::remember('berita_' . $id, 60, function () use ($id) {
+            return Berita::with('user')->find($id);
+        });
         // $berita = DB::table('berita')
         //     ->join('user' . 'user_id', 'berita' . 'user_id')
         //     ->find($id);

@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string',
+
                 'nik' => 'required|string|unique:users|max:20',
                 'no_telp' => 'nullable|string|unique:users|max:15',
                 'email' => 'required|string|email|unique:users',
@@ -66,7 +66,7 @@ class AuthController extends Controller
             }
 
             $user = User::create([
-                'name' => $request->name,
+                'name' => $penduduk->nama_lengkap,
                 'nik' => $request->nik,
                 'penduduk_id' => optional($penduduk)->id,
                 'no_telp' => $request->no_telp,
@@ -100,13 +100,21 @@ class AuthController extends Controller
     {
         $user = $request->user(); // Ambil user yang sedang login
         $user = User::find($id); // Ambil user berdasarkan ID
+
         $request->validate([
-            'name' => 'nullable|string',
+
             'no_telp' => 'nullable|string|unique:users,no_telp,' . $user->id,
             'email' => 'nullable|string|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        // Ambil nama dari NIK yang sudah ada pada user
+        $penduduk = Penduduk::where('nik', $user->nik)->first();
+        if ($penduduk) {
+            $user->name = $penduduk->nama_lengkap; // Mengambil nama dari Penduduk berdasarkan NIK yang ada di User
+        } else {
+            return response()->json(['message' => 'NIK tidak ditemukan'], 422);
+        }
 
         // Simpan foto baru jika ada
         if ($request->hasFile('image')) {
@@ -122,9 +130,7 @@ class AuthController extends Controller
         }
 
         // Update data user
-        if ($request->filled('name')) {
-            $user->name = $request->name;
-        }
+
         if ($request->filled('no_telp')) {
             $user->no_telp = $request->no_telp;
         }

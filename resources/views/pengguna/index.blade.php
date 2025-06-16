@@ -33,11 +33,7 @@
                                                     <input type="text" class="form-control" id="nik" name="nik"
                                                         value="{{ old('nik') }}" required>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="name">Nama</label>
-                                                    <input type="text" class="form-control" id="name" name="name"
-                                                        value="{{ old('name') }}" required>
-                                                </div>
+
                                                 <div class="form-group">
                                                     <label for="no_telp">Nomor Telepon</label>
                                                     <input type="text" class="form-control" id="no_telp" name="no_telp"
@@ -80,8 +76,8 @@
                                                         <div class="modal-header bg-danger text-white">
                                                             <h5 class="modal-title" id="nikErrorModalLabel">
                                                                 NIK Tidak Ditemukan</h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Tutup"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             NIK yang Anda masukkan tidak terdaftar dalam data
@@ -224,13 +220,7 @@
                                                                         value="{{ $row->nik }}" required>
                                                                 </div>
 
-                                                                <!-- Input Name -->
-                                                                <div class="form-group">
-                                                                    <label for="name">Nama</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="name{{ $row->id }}" name="name"
-                                                                        value="{{ $row->name }}" required>
-                                                                </div>
+
 
                                                                 <!-- Input No Telp -->
                                                                 <div class="form-group">

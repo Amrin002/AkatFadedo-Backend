@@ -5,8 +5,10 @@ namespace App\Imports;
 use App\Models\KK;
 use App\Models\Penduduk;
 use Illuminate\Support\Collection;
+
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class PendudukImport implements ToCollection, WithHeadingRow
 {
@@ -43,6 +45,13 @@ class PendudukImport implements ToCollection, WithHeadingRow
                     'alasan' => 'No KK tidak ditemukan'
                 ];
                 continue;
+            }
+            // Cek dan konversi tanggal_lahir jika perlu
+            $tanggal_lahir = $row['tanggal_lahir'];
+
+            // Jika tanggal_lahir adalah angka (format serial Excel)
+            if (is_numeric($tanggal_lahir)) {
+                $tanggal_lahir = Date::excelToDateTimeObject($tanggal_lahir)->format('Y-m-d');
             }
 
             Penduduk::create([

@@ -113,7 +113,4 @@ Route::middleware('auth:sanctum')->group(function () {
     // APBDes API
 
 
-    Route::post('/apbdes', [ApbdesApiController::class, 'store']);
-    Route::put('/apbdes/{id}', [ApbdesApiController::class, 'update']);
-    Route::delete('/apbdes/{id}', [ApbdesApiController::class, 'destroy']);
 });

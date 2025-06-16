@@ -43,7 +43,6 @@ class PenggunaController extends Controller
         // Validasi data input
         $request->validate([
             'nik' => 'required|string|max:16|unique:users,nik',
-            'name' => 'required|string|max:255',
             'no_telp' => 'required|string|max:15',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:6',
@@ -76,7 +75,7 @@ class PenggunaController extends Controller
         // Simpan data ke database
         User::create([
             'nik' => $request->nik,
-            'name' => $request->name,
+            'name' => $penduduk->nama_lengkap,
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'password' => Hash::make($request->password), // Hash password sebelum disimpan
@@ -113,7 +112,6 @@ class PenggunaController extends Controller
         // Validasi data input
         $request->validate([
             'nik' => 'required|string|max:16',
-            'name' => 'required|string|max:255',
             'no_telp' => 'required|string|max:15',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6', // Password opsional
@@ -123,7 +121,15 @@ class PenggunaController extends Controller
 
         // Cari user berdasarkan ID
         $user = User::findOrFail($id);
+        // Ambil data penduduk berdasarkan NIK
+        $penduduk = Penduduk::where('nik', $request->nik)->first();
 
+        if (!$penduduk) {
+            return back()->withErrors(['nik' => 'NIK tidak terdaftar di data penduduk.'])->withInput();
+        }
+
+        // Nama diambil langsung dari Penduduk
+        $name = $penduduk->nama_lengkap;
         // Update foto jika ada yang diunggah
         if ($request->hasFile('image')) {
             if ($user->image) {
@@ -138,7 +144,7 @@ class PenggunaController extends Controller
         // Update data pengguna
         $user->update([
             'nik' => $request->nik,
-            'name' => $request->name,
+            'name' => $name,
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'role' => $request->role,
