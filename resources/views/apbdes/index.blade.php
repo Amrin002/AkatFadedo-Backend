@@ -65,6 +65,11 @@
                                                         name="penanggulangan" value="{{ old('penanggulangan') }}" required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="pejabat">Pejabat Kepala Desa</label>
+                                                    <input type="text" class="form-control" id="pejabat"
+                                                        name="pejabat" value="{{ old('pejabat') }}" required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="tahun">Tahun</label>
                                                     <input type="number" class="form-control" id="tahun" name="tahun"
                                                         value="{{ old('tahun') }}" required>

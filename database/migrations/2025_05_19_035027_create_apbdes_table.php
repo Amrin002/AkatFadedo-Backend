@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('pembinaan');
             $table->string('pemberdayaan');
             $table->string('penanggulangan');
+            $table->string('pejabat');
             $table->integer('tahun');
             $table->string('file')->nullable();
             $table->timestamps();
