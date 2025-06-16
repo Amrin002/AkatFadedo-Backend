@@ -105,7 +105,7 @@
             @foreach ($apbdes as $item)
                 {{-- tampilkan card di sini --}}
                 <div class="container font" style="margin-top:30px">
-                    <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akad Fadedo</h2>
+                    <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akat Fadedo</h2>
                     <div class="row">
                         <!-- (Konten seperti biasa tetap di sini) -->
                         <!-- Kolom Kiri: Card List -->
@@ -169,30 +169,75 @@
                                     <div class="info-amount">Rp {{ number_format($item->penanggulangan, 0, ',', '.') }}</div>
                                 </div>
                             </div>
+
+                            <div style="
+                                background-image: url('{{ asset('images/profile_frame.png') }}');
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                background-size: 100% auto;
+                                border-radius: 12px;
+                                width: 100%;
+                                max-width: 400px;
+                                height: 180px;
+                                margin: 30px auto;
+                                padding: 15px 20px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                flex-wrap: nowrap;
+                            ">
+                                <!-- Kolom kiri: Logo -->
+                                <div style="flex-shrink: 0; margin-left: 20px;">
+                                    <img src="{{ asset('images/logo2.png') }}" alt="Logo" class="img-fluid" style="max-height: 120px;">
+                                </div>
+
+                                <!-- Kolom kanan: Teks -->
+                                <div class="text-end text-dark ms-2" style="flex: 1;">
+                                    <p class="mb-1" style="font-size: 16px; text-shadow: 1px 1px 2px #3b3b3b;">Pejabat Kepala Desa</p>
+                                    <p class="mb-5" style="font-size: 18px; text-shadow: 1px 1px 2px #3b3b3b;">{{ $item->pejabat }}</p>
+                                    <p class="mb-0" style="font-size: 20px; text-shadow: 1px 1px 2px #3b3b3b;">Akat Fadedo</p>
+                                </div>
+                            </div>
+
+                            <style>
+                            @media (max-width: 576px) {
+                                div[style*="background-image"] {
+                                    height: 150px !important;
+                                    padding: 20px 10px !important;
+                                }
+                                div[style*="background-image"] img {
+                                    max-height: 110px !important;
+                                }
+                                div[style*="background-image"] p {
+                                    font-size: 16px !important;
+                                }
+                            }
+                            </style>
                         </div>
 
                         <!-- Kolom Kanan: Gambar Besar -->
                         <div class="col-md-5 d-flex justify-content-center">
-                            @if ($item->file && file_exists(public_path('storage/' . $item->file)))
-                                <div class="a4-preview" role="button" data-bs-toggle="modal" data-bs-target="#modalGambar{{ $item->id }}">
-                                    <img src="{{ asset('storage/' . $item->file) }}" alt="Gambar APBDes" class="img-fluid">
-                                </div>
+                            <div class="a4-preview" role="button" data-bs-toggle="modal" data-bs-target="#modalGambar{{ $item->id }}">
+                                <img src="{{ asset('storage/' . $item->file) }}"
+                                     alt="Gambar APBDes"
+                                     class="img-fluid"
+                                     onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
+                            </div>
 
-                                <!-- Modal Full Gambar -->
-                                <div class="modal fade" id="modalGambar{{ $item->id }}" tabindex="-1" aria-labelledby="modalLabel{{ $item->id }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content bg-transparent border-0">
-                                            <div class="modal-body text-center">
-                                                <img src="{{ asset('storage/' . $item->file) }}" alt="Gambar APBDes Full" class="img-fluid rounded shadow">
-                                            </div>
+                            <!-- Modal Full Gambar -->
+                            <div class="modal fade" id="modalGambar{{ $item->id }}" tabindex="-1"
+                                 aria-labelledby="modalLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content bg-transparent border-0">
+                                        <div class="modal-body text-center">
+                                            <img src="{{ asset('storage/' . $item->file) }}"
+                                                 alt="Gambar APBDes Full"
+                                                 class="img-fluid rounded shadow"
+                                                 onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <div class="a4-preview">
-                                    <p>Gambar Tidak Ditemukan</p>
-                                </div>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -200,7 +245,7 @@
         </div>
     @else
         <div class="container text-center mt-5 mb-5">
-            <img src="{{ asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 550px;" class="mb-3">
+            <img src="{{ asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 400px;" class="mb-3">
             <h4 class="text-muted">Maaf, data APBDes belum tersedia.</h4>
         </div>
     @endif

@@ -17,6 +17,7 @@ class Apbdes extends Model
         'pembinaan',
         'pemberdayaan',
         'penanggulangan',
+        'pejabat',
         'tahun',
         'file',
     ];

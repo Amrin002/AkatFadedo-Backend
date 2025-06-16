@@ -13,7 +13,7 @@ class ApbdesApiController extends Controller
 {
     public function index()
     {
-        $apbdes = Apbdes::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+        $apbdes = Apbdes::orderBy('created_at', 'desc')->get(); // Hapus whereNull('deleted_at')
         return response()->json([
             'status' => true,
             'message' => 'Data APBDes berhasil diambil',

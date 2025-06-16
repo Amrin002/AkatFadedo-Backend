@@ -74,6 +74,7 @@ class ApbdesController extends Controller
             'pembinaan' => 'required|string',
             'pemberdayaan' => 'required|string',
             'penanggulangan' => 'required|string',
+            'pejabat' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ], [
@@ -100,6 +101,7 @@ class ApbdesController extends Controller
                 'pembinaan' => $request->pembinaan,
                 'pemberdayaan' => $request->pemberdayaan,
                 'penanggulangan' => $request->penanggulangan,
+                'pejabat' => $request->pejabat,
                 'tahun' => $request->tahun,
                 'file' => $filePath, // simpan path file
             ]);
@@ -143,6 +145,7 @@ class ApbdesController extends Controller
             'pembinaan' => 'required|string',
             'pemberdayaan' => 'required|string',
             'penanggulangan' => 'required|string',
+            'pejabat' => 'required|string',
             'tahun' => 'required|integer',
             'file' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ], [
@@ -177,6 +180,7 @@ class ApbdesController extends Controller
                 'pembinaan' => $request->pembinaan,
                 'pemberdayaan' => $request->pemberdayaan,
                 'penanggulangan' => $request->penanggulangan,
+                'pejabat' => $request->pejabat,
                 'tahun' => $request->tahun,
                 'file' => $filePath,
             ]);
