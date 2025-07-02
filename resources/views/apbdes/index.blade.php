@@ -35,10 +35,11 @@
                                                 <div class="form-group">
                                                     <label for="pendapatan">Pendapatan</label>
                                                     <input type="number" class="form-control" id="pendapatan"
-                                                    name="pendapatan" value="{{ old('pendapatan') }}" required>
+                                                        name="pendapatan" value="{{ old('pendapatan') }}" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="penyelenggaraan">Bidang Penyelenggaraan Pemerintahan Desa</label>
+                                                    <label for="penyelenggaraan">Bidang Penyelenggaraan Pemerintahan
+                                                        Desa</label>
                                                     <input type="number" class="form-control" id="penyelenggaraan"
                                                         name="penyelenggaraan" value="{{ old('penyelenggaraan') }}"
                                                         required>
@@ -66,8 +67,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pejabat">Pejabat Kepala Desa</label>
-                                                    <input type="text" class="form-control" id="pejabat"
-                                                        name="pejabat" value="{{ old('pejabat') }}" required>
+                                                    <input type="text" class="form-control" id="pejabat" name="pejabat"
+                                                        value="{{ old('pejabat') }}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tahun">Tahun</label>
@@ -121,7 +122,8 @@
                                                 <td>{{ $row->tahun }}</td>
                                                 <td>
                                                     @if ($row->file)
-                                                        <img src="{{ asset('storage/' . $row->file) }}" alt="Gambar APBDes"
+                                                        <img src="{{ asset('storage/' . $row->file) }}"
+                                                            alt="Gambar APBDes"
                                                             style="max-width: 100px; max-height: 100px;">
                                                     @else
                                                         <span>Tidak ada gambar</span>
@@ -206,7 +208,9 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label>Pendapatan</label>
-                                                                    <input type="number" class="form-control" name="pendapatan" value="{{ $row->pendapatan }}" required>
+                                                                    <input type="number" class="form-control"
+                                                                        name="pendapatan" value="{{ $row->pendapatan }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Bidang Penyelenggaraan Pemerintahan Desa</label>
@@ -242,12 +246,14 @@
                                                                 <div class="form-group">
                                                                     <label>Pejabat Kepala Desa</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="pejabat" value="{{ $row->pejabat }}" required>
+                                                                        name="pejabat" value="{{ $row->pejabat }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Tahun</label>
                                                                     <input type="number" class="form-control"
-                                                                        name="tahun" value="{{ $row->tahun }}" required>
+                                                                        name="tahun" value="{{ $row->tahun }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>File "PNG/JPG/JPEG", Size Max = 2Mb</label>
@@ -255,7 +261,7 @@
                                                                         name="file" accept=".jpg,.jpeg,.png">
                                                                     @if ($row->file)
                                                                         <small>File saat ini: <a
-                                                                                href="{{ asset('storage/' . $row->file) }}"
+                                                                                href="{{ secure_asset('storage/' . $row->file) }}"
                                                                                 target="_blank">{{ $row->file }}</a></small>
                                                                     @endif
                                                                 </div>

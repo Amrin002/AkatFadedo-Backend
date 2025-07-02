@@ -353,7 +353,8 @@
                             <div class="icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
-                            <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#requirementModal">
+                            <a href="#" class="stretched-link" data-bs-toggle="modal"
+                                data-bs-target="#requirementModal">
                                 <h3>Pembuatan Surat</h3>
                             </a>
                             <p>Masyarakat dapat mengajukan pembuatan berbagai surat seperti surat keterangan domisili,
@@ -367,7 +368,8 @@
                             <div class="icon">
                                 <i class="fas fa-bullhorn"></i>
                             </div>
-                            <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#requirementModal">
+                            <a href="#" class="stretched-link" data-bs-toggle="modal"
+                                data-bs-target="#requirementModal">
                                 <h3>Pengaduan Masyarakat</h3>
                             </a>
                             <p>Warga dapat melaporkan keluhan atau permasalahan terkait infrastruktur, keamanan, dan
@@ -377,11 +379,13 @@
                     </div><!-- End Service Item -->
 
                     <!-- Modal -->
-                    <div class="modal modal-lg fade" id="requirementModal" tabindex="-1" aria-labelledby="requirementModalLabel" aria-hidden="true">
+                    <div class="modal modal-lg fade" id="requirementModal" tabindex="-1"
+                        aria-labelledby="requirementModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content border-2">
                                 <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
 
                                 <div class="modal-body">
@@ -394,7 +398,8 @@
                                             <div class="row position-relative" style="z-index: 2;">
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <div class="me-4">
-                                                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="img-fluid" style="max-width: 100px;">
+                                                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                                                            class="img-fluid" style="max-width: 100px;">
                                                     </div>
                                                     <div style="text-align: justify;">
                                                         <p class="mb-1">Layanan Desa</p>
@@ -404,11 +409,16 @@
                                                 </div>
 
                                                 <!-- Preview Images -->
-                                                <div class="bg-light rounded my-3 px-2 py-3 text-center" style="width: calc(100% - 10px); margin: auto;">
-                                                    <div class="d-flex justify-content-center gap-3 flex-nowrap" style="overflow-x: auto;">
-                                                        <img src="{{ asset('images/preview1.png') }}" alt="Preview 1" style="width: 90px;">
-                                                        <img src="{{ asset('images/preview2.png') }}" alt="Preview 2" style="width: 90px;">
-                                                        <img src="{{ asset('images/preview3.png') }}" alt="Preview 3" style="width: 90px;">
+                                                <div class="bg-light rounded my-3 px-2 py-3 text-center"
+                                                    style="width: calc(100% - 10px); margin: auto;">
+                                                    <div class="d-flex justify-content-center gap-3 flex-nowrap"
+                                                        style="overflow-x: auto;">
+                                                        <img src="{{ asset('images/preview1.png') }}" alt="Preview 1"
+                                                            style="width: 90px;">
+                                                        <img src="{{ asset('images/preview2.png') }}" alt="Preview 2"
+                                                            style="width: 90px;">
+                                                        <img src="{{ asset('images/preview3.png') }}" alt="Preview 3"
+                                                            style="width: 90px;">
                                                     </div>
                                                 </div>
 
@@ -434,10 +444,12 @@
                                             <h5 style="color: #4A4A4A"><strong>Tujuan Kami</strong></h5>
                                             <ol style="font-size: 14px; color: #4A4A4A">
                                                 <li>Meningkatkan pelayanan publik desa melalui teknologi</li>
-                                                <li>Mempermudah akses masyarakat terhadap layanan administrasi seperti Pengaduan Surat, Transparansi APBDes, dan informasi desa</li>
+                                                <li>Mempermudah akses masyarakat terhadap layanan administrasi seperti
+                                                    Pengaduan Surat, Transparansi APBDes, dan informasi desa</li>
                                                 <li>Mendukung program digitalisasi desa yang transparan dan akuntabel.</li>
                                             </ol>
-                                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akad Fadedo - Melayani dengan Teknologi, Membangun dengan Hati.</strong></h6>
+                                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akad
+                                                    Fadedo - Melayani dengan Teknologi, Membangun dengan Hati.</strong></h6>
                                         </div>
                                     </div>
                                 </div>
