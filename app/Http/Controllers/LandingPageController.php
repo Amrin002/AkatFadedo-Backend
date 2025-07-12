@@ -20,6 +20,18 @@ class LandingPageController extends Controller
         $jumlahPenduduk = Cache::remember('jumlah_penduduk', 60, function () {
             return Penduduk::where('nama_lengkap', '!=', 'Admin')->count();
         });
+        // Tambahkan data gender penduduk
+        $pendudukLakiLaki = Cache::remember('penduduk_laki_laki', 60, function () {
+            return Penduduk::where('nama_lengkap', '!=', 'Admin')
+                ->where('jenis_kelamin', 'Laki-laki') // Sesuaikan dengan field di database
+                ->count();
+        });
+
+        $pendudukPerempuan = Cache::remember('penduduk_perempuan', 60, function () {
+            return Penduduk::where('nama_lengkap', '!=', 'Admin')
+                ->where('jenis_kelamin', 'Perempuan') // Sesuaikan dengan field di database
+                ->count();
+        });
 
         // Caching fasilitas desa
         $fasilitas = Cache::remember('fasilitas', 60, function () {
@@ -43,7 +55,16 @@ class LandingPageController extends Controller
 
         $title = 'Berita Desa';
 
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title'));
+        return view('home.index', compact(
+            'jumlahPenduduk',
+            'pendudukLakiLaki',
+            'pendudukPerempuan',
+            'fasilitas',
+            'strukturDesa',
+            'galeri',
+            'berita',
+            'title'
+        ));
     }
 
     public function show($slug)
