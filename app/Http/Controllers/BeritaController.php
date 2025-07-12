@@ -14,16 +14,13 @@ class BeritaController extends Controller
         $user = $request->user();
         $title = 'Daftar Berita';
         $berita = Berita::latest()->get();
-        // return view('berita.index', [
-        //     'berita' => $berita,
-        //     'title' => 'Daftar Berita' // Kirim variabel $title ke view
-        // ]);
-        return view('berita.index', compact('user', 'berita', 'title',));
+        return view('berita.index', compact('user', 'berita', 'title'));
     }
 
     public function create()
     {
-        return view('berita.create');
+        $title = 'Tambah Berita';
+        return view('berita.create', compact('title'));
     }
 
     public function store(Request $request)
@@ -31,8 +28,7 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg|max:2048'
-
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $gambarPath = null;
@@ -40,7 +36,6 @@ class BeritaController extends Controller
             $gambarPath = $request->file('gambar')->store('berita', 'public');
         }
 
-        //dd($gambarPath);
         Berita::create([
             'judul' => $request->judul,
             'konten' => $request->konten,
@@ -51,10 +46,11 @@ class BeritaController extends Controller
         return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan!');
     }
 
-
-    public function edit(Berita $berita)
+    public function edit($id)
     {
-        return view('berita.edit', compact('berita'));
+        $berita = Berita::findOrFail($id);
+        $title = 'Edit Berita';
+        return view('berita.edit', compact('berita', 'title'));
     }
 
     public function update(Request $request, $id)
@@ -65,7 +61,6 @@ class BeritaController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Temukan data berita berdasarkan ID
         $berita = Berita::findOrFail($id);
 
         $data = [
@@ -73,12 +68,10 @@ class BeritaController extends Controller
             'konten' => $request->konten,
         ];
 
-        // Jika ada file gambar baru, hapus yang lama lalu simpan yang baru
         if ($request->hasFile('gambar')) {
             if ($berita->gambar && Storage::disk('public')->exists($berita->gambar)) {
                 Storage::disk('public')->delete($berita->gambar);
             }
-
             $data['gambar'] = $request->file('gambar')->store('berita', 'public');
         }
 
@@ -87,13 +80,8 @@ class BeritaController extends Controller
         return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui!');
     }
 
-
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        // if ($berita->gambar) {
-        //     Storage::delete($berita->gambar);
-        // }
-
         $berita = Berita::findOrFail($id);
 
         if ($berita->gambar && Storage::disk('public')->exists($berita->gambar)) {

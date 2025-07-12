@@ -34,15 +34,7 @@
                     </div>
                 </div><!-- End Carousel Item -->
 
-                {{-- <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-    </a>
 
-    <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-    </a>
-
-    <ol class="carousel-indicators"></ol> --}}
 
             </div>
 
@@ -93,22 +85,6 @@
 
         </section><!-- /Featured Services Section -->
 
-        <!-- Call To Action Section -->
-        {{-- <section id="call-to-action" class="call-to-action section accent-background">
-
-  <div class="container">
-    <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
-      <div class="col-xl-10">
-        <div class="text-center">
-          <h3>In an emergency? Need help now?</h3>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="cta-btn" href="#appointment">Make an Appointment</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section><!-- /Call To Action Section --> --}}
         {{-- Profil Desa --}}
         <!-- About Section -->
         <section id="about" class="about section">
@@ -158,61 +134,187 @@
                             </p>
                         </div>
                     </div>
+                    {{-- Stats Section dengan Pie Chart --}}
                     <section id="stats" class="stats section">
                         <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                            {{-- Summary Stats --}}
+                            <div class="stats-summary" data-aos="fade-up" data-aos-delay="200">
+                                <div class="row">
+                                    <div class="col-md-3 col-6">
+                                        <div class="summary-item">
+                                            <span class="summary-number">{{ number_format($jumlahPenduduk) }}</span>
+                                            <div class="summary-label">Total Penduduk</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="summary-item">
+                                            <span class="summary-number">
+                                                {{ ($fasilitas->fasilitas_pendidikan ?? 0) + ($fasilitas->fasilitas_kesehatan ?? 0) }}
+                                            </span>
+                                            <div class="summary-label">Total Fasilitas</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="summary-item">
+                                            <span class="summary-number">{{ $fasilitas->luas_wilayah ?? 0 }}</span>
+                                            <div class="summary-label">Luas Wilayah (km²)</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="summary-item">
+                                            <span class="summary-number">
+                                                {{ $fasilitas && $fasilitas->luas_wilayah > 0 ? number_format($jumlahPenduduk / $fasilitas->luas_wilayah, 0) : 0 }}
+                                            </span>
+                                            <div class="summary-label">Kepadatan/km²</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Charts Row --}}
                             <div class="row gy-4">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                                        <i class="fas fa-users flex-shrink-0"></i>
-                                        <div>
-                                            <span data-purecounter-start="0" data-purecounter-end="{{ $jumlahPenduduk }}"
-                                                data-purecounter-duration="1" class="purecounter"></span>
-                                            <p>Jumlah Penduduk</p>
+                                {{-- Pie Chart Penduduk --}}
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="chart-container" data-aos="fade-up" data-aos-delay="300">
+                                        <div class="chart-title">Komposisi Penduduk</div>
+                                        <canvas id="pendudukChart"></canvas>
+                                        <div class="legend-custom">
+                                            <div class="legend-item">
+                                                <div class="legend-color" style="background-color: #3498db;"></div>
+                                                <span>Laki-laki</span>
+                                            </div>
+                                            <div class="legend-item">
+                                                <div class="legend-color" style="background-color: #e74c3c;"></div>
+                                                <span>Perempuan</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><!-- End Stats Item -->
+                                </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                                        <i class="fas fa-school flex-shrink-0"></i>
+                                {{-- Pie Chart Fasilitas --}}
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="chart-container" data-aos="fade-up" data-aos-delay="400">
+                                        <div class="chart-title">Distribusi Fasilitas</div>
+                                        <canvas id="fasilitasChart"></canvas>
+                                        <div class="legend-custom">
+                                            <div class="legend-item">
+                                                <div class="legend-color" style="background-color: #2ecc71;"></div>
+                                                <span>Pendidikan</span>
+                                            </div>
+                                            <div class="legend-item">
+                                                <div class="legend-color" style="background-color: #f39c12;"></div>
+                                                <span>Kesehatan</span>
+                                            </div>
 
-                                        <div>
-                                            <span data-purecounter-start="0"
-                                                data-purecounter-end="{{ $fasilitas->fasilitas_pendidikan ?? 0 }}"
-                                                data-purecounter-duration="1" class="purecounter"></span>
-                                            <p>Jumlah Fasilitas Pendidikan</p>
                                         </div>
                                     </div>
-                                </div><!-- End Stats Item -->
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                                        <i class="fas fa-hospital-alt flex-shrink-0"></i>
-
-                                        <div>
-                                            <span data-purecounter-start="0"
-                                                data-purecounter-end="{{ $fasilitas->fasilitas_kesehatan ?? 0 }}"
-                                                data-purecounter-duration="1" class="purecounter"></span>
-                                            <p>Jumlah Fasilitas Kesehatan</p>
-                                        </div>
-                                    </div>
-                                </div><!-- End Stats Item -->
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                                        <i class="fas fa-map flex-shrink-0"></i>
-
-                                        <div>
-                                            <span data-purecounter-start="0"
-                                                data-purecounter-end="{{ $fasilitas->luas_wilayah ?? 0 }}"
-                                                data-purecounter-duration="1" class="purecounter"></span>
-                                            <p>Luas Wilayah (km²)</p>
-                                        </div>
-                                    </div>
-                                </div><!-- End Stats Item -->
+                                </div>
                             </div>
                         </div>
                     </section>
+                    {{-- JavaScript untuk Chart --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Data dari Laravel Backend
+                            const dataPenduduk = {
+                                lakiLaki: {{ $pendudukLakiLaki ?? floor($jumlahPenduduk * 0.52) }}, // Estimasi jika tidak ada data gender
+                                perempuan: {{ $pendudukPerempuan ?? floor($jumlahPenduduk * 0.48) }}
+                            };
+
+                            const dataFasilitas = {
+                                pendidikan: {{ $fasilitas->fasilitas_pendidikan ?? 0 }},
+                                kesehatan: {{ $fasilitas->fasilitas_kesehatan ?? 0 }},
+                                umum: {{ $fasilitas->fasilitas_umum ?? 0 }}
+                            };
+
+                            // Chart configuration
+                            const chartOptions = {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: false // We'll use custom legend
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                const label = context.label || '';
+                                                const value = context.raw;
+                                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                                const percentage = ((value / total) * 100).toFixed(1);
+                                                return ${label}: ${value.toLocaleString('id-ID')} (${percentage}%);
+                                            }
+                                        }
+                                    }
+                                },
+                                animation: {
+                                    animateRotate: true,
+                                    animateScale: true,
+                                    duration: 2000
+                                }
+                            };
+
+                            // Penduduk Chart
+                            const pendudukCtx = document.getElementById('pendudukChart').getContext('2d');
+                            new Chart(pendudukCtx, {
+                                type: 'pie',
+                                data: {
+                                    labels: ['Laki-laki', 'Perempuan'],
+                                    datasets: [{
+                                        data: [dataPenduduk.lakiLaki, dataPenduduk.perempuan],
+                                        backgroundColor: ['#3498db', '#e74c3c'],
+                                        borderWidth: 3,
+                                        borderColor: '#fff',
+                                        hoverBorderWidth: 5,
+                                        hoverOffset: 10
+                                    }]
+                                },
+                                options: chartOptions
+                            });
+
+                            // Fasilitas Chart - Hanya tampilkan jika ada data
+                            const totalFasilitas = dataFasilitas.pendidikan + dataFasilitas.kesehatan + dataFasilitas.umum;
+                            if (totalFasilitas > 0) {
+                                const fasilitasCtx = document.getElementById('fasilitasChart').getContext('2d');
+                                new Chart(fasilitasCtx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['Pendidikan', 'Kesehatan'],
+                                        datasets: [{
+                                            data: [dataFasilitas.pendidikan, dataFasilitas.kesehatan, dataFasilitas
+                                                .umum
+                                            ],
+                                            backgroundColor: ['#2ecc71', '#f39c12', '#9b59b6'],
+                                            borderWidth: 3,
+                                            borderColor: '#fff',
+                                            hoverBorderWidth: 5,
+                                            hoverOffset: 10
+                                        }]
+                                    },
+                                    options: chartOptions
+                                });
+                            } else {
+                                // Tampilkan pesan jika tidak ada data fasilitas
+                                const fasilitasContainer = document.getElementById('fasilitasChart').parentElement;
+                                fasilitasContainer.innerHTML =
+                                    '<div class="text-center p-4"><p class="text-muted">Data fasilitas belum tersedia</p></div>';
+                            }
+
+                            // Add interactive animations
+                            document.querySelectorAll('.chart-container').forEach(container => {
+                                container.addEventListener('mouseenter', function() {
+                                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                                });
+
+                                container.addEventListener('mouseleave', function() {
+                                    this.style.transform = 'translateY(0) scale(1)';
+                                });
+                            });
+                        });
+                    </script>
+
+
                     <div id="struktur-desa" class="doctors section">
                         <div class="container section-title" data-aos="fade-up">
                             <h2>Struktur Pemerintahan Desa</h2>
@@ -377,6 +479,19 @@
                                 publik di desa.</p>
                         </div>
                     </div><!-- End Service Item -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <a href="{{ route('apbdes.viewUser') }}" class="stretched-link">
+                                <h3>Transaparansi APBDes</h3>
+                            </a>
+                            <p>Menampilkan anggaran pendapatan dan belanja desa secara transparan agar masyarakat dapat
+                                mengetahui penggunaan dana desa.</p>
+                            <a href="{{ route('apbdes.viewUser') }}" class="stretched-link"></a>
+                        </div>
+                    </div><!-- End Service Item -->
 
                     <!-- Modal -->
                     <div class="modal modal-lg fade" id="requirementModal" tabindex="-1"
@@ -457,424 +572,77 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="service-item position-relative">
-                            <div class="icon">
-                                <i class="fas fa-newspaper"></i>
-                            </div>
-                            <a href="/berita-desa" class="stretched-link">
-                                <h3>Berita dan Informasi</h3>
-                            </a>
-                            <p>Menyediakan berita terbaru dan informasi seputar kegiatan serta kebijakan desa yang perlu
-                                diketahui masyarakat.</p>
-                        </div>
-                    </div><!-- End Service Item --> --}}
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                        <div class="service-item position-relative">
-                            <div class="icon">
-                                <i class="fas fa-file-invoice-dollar"></i>
-                            </div>
-                            <a href="{{ route('apbdes.viewUser') }}" class="stretched-link">
-                                <h3>Transaparansi APBDes</h3>
-                            </a>
-                            <p>Menampilkan anggaran pendapatan dan belanja desa secara transparan agar masyarakat dapat
-                                mengetahui penggunaan dana desa.</p>
-                            <a href="{{ route('apbdes.viewUser') }}" class="stretched-link"></a>
-                        </div>
-                    </div><!-- End Service Item -->
 
-                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                        <div class="service-item position-relative">
-                            <div class="icon">
-                                <i class="fas fa-users"></i>
-                            </div>
 
-                            <h3>Profil dan Struktur Desa</h3>
-                            </a>
-                            <p>Menampilkan informasi mengenai profil desa, struktur pemerintahan, serta sejarah dan potensi
+                    {{-- berita --}}
+
+                    <div id="newspapers" class="newspapers section">
+                        <div class="container section-title" data-aos="fade-up">
+                            <h2>Berita Desa</h2>
+                            <p>Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel
+                                jurnalistik dari
                                 desa.</p>
-                            <a href="#" class="stretched-link"></a>
                         </div>
-                    </div><!-- End Service Item --> --}}
 
-                    {{-- <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-                        <div class="service-item position-relative">
-                            <div class="icon">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                            </div>
-                            <a href="#" class="stretched-link">
-                                <h3>Digitalisasi Dokumen</h3>
-                            </a>
-                            <p>Masyarakat dapat mengunggah dan mengelola dokumen penting secara digital untuk kemudahan
-                                akses kapan saja.</p>
-                            <a href="#" class="stretched-link"></a>
-                        </div>
-                    </div><!-- End Service Item --> --}}
+                        <div class="container mt-3">
 
-                </div>
-
-            </div>
-
-            <!-- /Services Section -->
-
-
-
-            <!-- Appointment Section -->
-            {{-- <section id="appointment" class="appointment section light-background">
-
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>MAKE AN APPOINTMENT</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-  </div><!-- End Section Title -->
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-      <div class="row">
-        <div class="col-md-4 form-group">
-          <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
-        </div>
-        <div class="col-md-4 form-group mt-3 mt-md-0">
-          <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-        </div>
-        <div class="col-md-4 form-group mt-3 mt-md-0">
-          <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 form-group mt-3">
-          <input type="datetime-local" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" required="">
-        </div>
-        <div class="col-md-4 form-group mt-3">
-          <select name="department" id="department" class="form-select" required="">
-            <option value="">Select Department</option>
-            <option value="Department 1">Department 1</option>
-            <option value="Department 2">Department 2</option>
-            <option value="Department 3">Department 3</option>
-          </select>
-        </div>
-        <div class="col-md-4 form-group mt-3">
-          <select name="doctor" id="doctor" class="form-select" required="">
-            <option value="">Select Doctor</option>
-            <option value="Doctor 1">Doctor 1</option>
-            <option value="Doctor 2">Doctor 2</option>
-            <option value="Doctor 3">Doctor 3</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group mt-3">
-        <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
-      </div>
-      <div class="mt-3">
-        <div class="loading">Loading</div>
-        <div class="error-message"></div>
-        <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
-        <div class="text-center"><button type="submit">Make an Appointment</button></div>
-      </div>
-    </form>
-
-  </div>
-
-</section><!-- /Appointment Section --> --}}
-
-            {{-- <!-- Tabs Section -->
-<section id="tabs" class="tabs section">
-
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Departments</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-  </div><!-- End Section Title -->
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row">
-      <div class="col-lg-3">
-        <ul class="nav nav-tabs flex-column">
-          <li class="nav-item">
-            <a class="nav-link active show" data-bs-toggle="tab" href="#tabs-tab-1">Cardiology</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-2">Neurology</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-3">Hepatology</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-4">Pediatrics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-5">Ophthalmologists</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-lg-9 mt-4 mt-lg-0">
-        <div class="tab-content">
-          <div class="tab-pane active show" id="tabs-tab-1">
-            <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>Cardiology</h3>
-                <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
-              </div>
-              <div class="col-lg-4 text-center order-1 order-lg-2">
-                <img src="assets/img/departments-1.jpg" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tabs-tab-2">
-            <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>Neurology</h3>
-                <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
-              </div>
-              <div class="col-lg-4 text-center order-1 order-lg-2">
-                <img src="assets/img/departments-2.jpg" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tabs-tab-3">
-            <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>Hepatology</h3>
-                <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
-              </div>
-              <div class="col-lg-4 text-center order-1 order-lg-2">
-                <img src="assets/img/departments-3.jpg" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tabs-tab-4">
-            <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>Pediatrics</h3>
-                <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
-              </div>
-              <div class="col-lg-4 text-center order-1 order-lg-2">
-                <img src="assets/img/departments-4.jpg" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tabs-tab-5">
-            <div class="row">
-              <div class="col-lg-8 details order-2 order-lg-1">
-                <h3>Ophthalmologists</h3>
-                <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
-              </div>
-              <div class="col-lg-4 text-center order-1 order-lg-2">
-                <img src="assets/img/departments-5.jpg" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</section><!-- /Tabs Section --> --}}
-
-            <!-- Galeri Section -->
-
-            {{-- <section id="testimonials" class="testimonials section">
-
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Galeri</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-            </div><!-- End Section Title -->
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="swiper init-swiper" data-speed="600" data-delay="5000"
-                data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
-                <script type="application/json" class="swiper-config">
-        {
-          "loop": true,
-          "speed": 600,
-          "autoplay": {
-            "delay": 5000
-          },
-          "slidesPerView": "auto",
-          "pagination": {
-            "el": ".swiper-pagination",
-            "type": "bullets",
-            "clickable": true
-          },
-          "breakpoints": {
-            "320": {
-              "slidesPerView": 1,
-              "spaceBetween": 40
-            },
-            "1200": {
-              "slidesPerView": 3,
-              "spaceBetween": 20
-            }
-          }
-        }
-      </script>
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('landing/assets/img/gallery/bagimesinparut.jpg') }}"
-                                class="testimonial-img" alt="">
-                            <h3>Pembagian Mesin Parut ke Masyarakat</h3>
-                        </div>
-                    </div><!-- End testimonial item -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('landing/assets/img/gallery/musdus.jpg') }}" class="testimonial-img"
-                                alt="">
-                            <h3>Musyawarah Dusun</h3>
-</div>
-                    </div><!-- End testimonial item -->
-
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-
-                            <img src="{{ asset('landing/assets/img/gallery/bagipipa.jpg') }}" class="testimonial-img"
-                                alt="">
-                            <h3>Pembagian Pipa</h3>
-
-                        </div>
-                    </div><!-- End testimonial item -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-
-                            <img src="{{ asset('landing/assets/img/gallery/pkk.jpg') }}" class="testimonial-img"
-                                alt="">
-                            <h3>Penanaman Bibit Bersama Ibu PKK</h3>
-
-                        </div>
-                    </div><!-- End testimonial item -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-
-                            <img src="{{ asset('landing/assets/img/gallery/blt.jpg') }}" class="testimonial-img"
-                                alt="">
-                            <h3>Penyaluran BLT Extrim Dana Desa Tahun 2024</h3>
-
-                        </div>
-                    </div><!-- End testimonial item -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-
-                            <img src="{{ asset('landing/assets/img/gallery/musrembang.jpg') }}"
-                                class="testimonial-img" alt="">
-                            <h3>Musyawarah Perencanaan Pembangunan Desa T.A 2025</h3>
-
-                        </div>
-                    </div><!-- End testimonial item -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card">
-                            <div class="testimonial-item">
-
-                                <img src="{{ asset('landing/assets/img/testimonials/testimonials-3.jpg') }}"
-                                    class="testimonial-img" alt="">
-                                <h3>Jena Karlis</h3>
-                                <h4>Store Owner</h4>
-                            </div>
-                        </div>
-                    </div><!-- End testimonial item -->
-                        </div><!-- End testimonial item -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <img src="{{ asset('landing/assets/img/gallery/musdus.jpg') }}" class="testimonial-img"
-                                    alt="">
-                                <h3>Musyawarah Dusun</h3>
- </div>
-                        </div><!-- End testimonial item -->
-
-                    <!-- End testimonial item -->
-
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-
-        </div>
-
-    </section> --}}
-            <!-- /Galeri -->
-            <!-- Galeri Section -->
-            {{-- di uncoment kalau sudah selesai --}}
-
-            {{-- berita --}}
-
-            <div id="newspapers" class="newspapers section">
-                <div class="container section-title" data-aos="fade-up">
-                    <h2>Berita Desa</h2>
-                    <p>Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari
-                        desa.</p>
-                </div>
-
-                <div class="container mt-3">
-                    {{-- <h2 class="text-info font-weight-bold fs-1 mb-2">Berita Desa</h2>
-                <p class="mb-4">Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa.</p> --}}
-
-                    <div class="row">
-                        @forelse ($berita as $item)
-                            <div class="col-md-4 mb-4">
-                                <a href="{{ route('berita.show', $item->slug) }}"
-                                    style="text-decoration: none; color: inherit;">
-                                    <div class="card shadow-sm h-100">
-                                        <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
-                                            style="height: 220px; object-fit: cover;" alt="...">
-                                        <div class="card-body d-flex flex-column">
-                                            <h5 class="card-title">
-                                                {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
-                                            </h5>
-                                            <p class="card-text text-muted mb-2">
-                                                {!! \Illuminate\Support\Str::limit(strip_tags($item->konten), 120) !!}
-                                            </p>
-                                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                                <small class="text-muted">
-                                                    <i class="fas fa-user"></i>
-                                                    {{ $item->user->name ?? 'Administrator' }}<br>
-                                                    <i class="fas fa-clock"></i>
-                                                    {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}<br>
-                                                    <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }} kali
-                                                </small>
+                            <div class="row">
+                                @forelse ($berita as $item)
+                                    <div class="col-md-4 mb-4">
+                                        <a href="{{ route('berita.show', $item->slug) }}"
+                                            style="text-decoration: none; color: inherit;">
+                                            <div class="card shadow-sm h-100">
+                                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
+                                                    style="height: 220px; object-fit: cover;" alt="...">
+                                                <div class="card-body d-flex flex-column">
+                                                    <h5 class="card-title">
+                                                        {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
+                                                    </h5>
+                                                    <p class="card-text text-muted mb-2">
+                                                        {!! \Illuminate\Support\Str::limit(strip_tags($item->konten), 120) !!}
+                                                    </p>
+                                                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-user"></i>
+                                                            {{ $item->user->name ?? 'Administrator' }}<br>
+                                                            <i class="fas fa-clock"></i>
+                                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}<br>
+                                                            <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }}
+                                                            kali
+                                                        </small>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
-                                </a>
+                                @empty
+                                    <div class="col-12">
+                                        <div class="alert alert-info">Belum ada berita yang tersedia.</div>
+                                    </div>
+                                @endforelse
+                                <div class="text-end my-4">
+                                    <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
+                                        <i class="fas fa-file-alt"></i> LIHAT BERITA LEBIH BANYAK
+                                    </a>
+                                </div>
                             </div>
-                        @empty
-                            <div class="col-12">
-                                <div class="alert alert-info">Belum ada berita yang tersedia.</div>
-                            </div>
-                        @endforelse
-                        <div class="text-end my-4">
-                            <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
-                                <i class="fas fa-file-alt"></i> LIHAT BERITA LEBIH BANYAK
-                            </a>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div id="testimonials" class="testimonials section">
+                    <div id="testimonials" class="testimonials section">
 
-                <!-- Section Title -->
-                <div class="container section-title" data-aos="fade-up">
-                    <h2>Galeri</h2>
-                    <p>Dokumentasi kegiatan dan acara di desa kami.</p>
-                </div><!-- End Section Title -->
+                        <!-- Section Title -->
+                        <div class="container section-title" data-aos="fade-up">
+                            <h2>Galeri</h2>
+                            <p>Dokumentasi kegiatan dan acara di desa kami.</p>
+                        </div><!-- End Section Title -->
 
-                <div class="container" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper init-swiper" data-speed="600" data-delay="5000"
-                        data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
+                        <div class="container" data-aos="fade-up" data-aos-delay="100">
+                            <div class="swiper init-swiper" data-speed="600" data-delay="5000"
+                                data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
 
-                        <script type="application/json" class="swiper-config">
+                                <script type="application/json" class="swiper-config">
                         {
                             "loop": true,
                             "speed": 600,
@@ -900,226 +668,34 @@
                         }
                         </script>
 
-                        <div class="swiper-wrapper">
-                            @forelse ($galeri as $item)
-                                <div class="swiper-slide">
-                                    <div class="testimonial-item">
-                                        <img src="{{ asset('storage/' . $item->image) }}" class="testimonial-img"
-                                            alt="{{ $item->nama_kegiatan }}">
-                                        <h3 class="text-center">{{ $item->nama_kegiatan }}</h3>
-                                    </div>
-                                </div><!-- End testimonial item -->
-                            @empty
-                                <div class="col-12">
-                                    <div class="alert alert-info">Belum ada gambar yang tersedia.</div>
+                                <div class="swiper-wrapper">
+                                    @forelse ($galeri as $item)
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-item">
+                                                <img src="{{ asset('storage/' . $item->image) }}" class="testimonial-img"
+                                                    alt="{{ $item->nama_kegiatan }}">
+                                                <h3 class="text-center">{{ $item->nama_kegiatan }}</h3>
+                                            </div>
+                                        </div><!-- End testimonial item -->
+                                    @empty
+                                        <div class="col-12">
+                                            <div class="alert alert-info">Belum ada gambar yang tersedia.</div>
+                                        </div>
+                                    @endforelse
                                 </div>
-                            @endforelse
+                                <div class="swiper-pagination"></div>
+                                <div class="text-end my-4">
+                                    <a href="{{ route('home.daftar-galeri') }}" class="lihat-berita-link">
+                                        <i class="fas fa-file-alt"></i> LIHAT GALERI LEBIH BANYAK
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="swiper-pagination"></div>
-                        <div class="text-end my-4">
-                            <a href="{{ route('home.daftar-galeri') }}" class="lihat-berita-link">
-                                <i class="fas fa-file-alt"></i> LIHAT GALERI LEBIH BANYAK
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
+                    </div>
         </section><!-- /Galeri -->
 
-        {{-- <!-- Pricing Section -->
-<section id="pricing" class="pricing section">
 
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Pricing</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-  </div><!-- End Section Title -->
-
-  <div class="container">
-
-    <div class="row gy-3">
-
-      <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="pricing-item">
-          <h3>Free</h3>
-          <h4><sup>$</sup>0<span> / month</span></h4>
-          <ul>
-            <li>Aida dere</li>
-            <li>Nec feugiat nisl</li>
-            <li>Nulla at volutpat dola</li>
-            <li class="na">Pharetra massa</li>
-            <li class="na">Massa ultricies mi</li>
-          </ul>
-          <div class="btn-wrap">
-            <a href="#" class="btn-buy">Buy Now</a>
-          </div>
-        </div>
-      </div><!-- End Pricing Item -->
-
-      <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="pricing-item featured">
-          <h3>Business</h3>
-          <h4><sup>$</sup>19<span> / month</span></h4>
-          <ul>
-            <li>Aida dere</li>
-            <li>Nec feugiat nisl</li>
-            <li>Nulla at volutpat dola</li>
-            <li>Pharetra massa</li>
-            <li class="na">Massa ultricies mi</li>
-          </ul>
-          <div class="btn-wrap">
-            <a href="#" class="btn-buy">Buy Now</a>
-          </div>
-        </div>
-      </div><!-- End Pricing Item -->
-
-      <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="pricing-item">
-          <h3>Developer</h3>
-          <h4><sup>$</sup>29<span> / month</span></h4>
-          <ul>
-            <li>Aida dere</li>
-            <li>Nec feugiat nisl</li>
-            <li>Nulla at volutpat dola</li>
-            <li>Pharetra massa</li>
-            <li>Massa ultricies mi</li>
-          </ul>
-          <div class="btn-wrap">
-            <a href="#" class="btn-buy">Buy Now</a>
-          </div>
-        </div>
-      </div><!-- End Pricing Item -->
-
-      <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="pricing-item">
-          <span class="advanced">Advanced</span>
-          <h3>Ultimate</h3>
-          <h4><sup>$</sup>49<span> / month</span></h4>
-          <ul>
-            <li>Aida dere</li>
-            <li>Nec feugiat nisl</li>
-            <li>Nulla at volutpat dola</li>
-            <li>Pharetra massa</li>
-            <li>Massa ultricies mi</li>
-          </ul>
-          <div class="btn-wrap">
-            <a href="#" class="btn-buy">Buy Now</a>
-          </div>
-        </div>
-      </div><!-- End Pricing Item -->
-
-    </div>
-
-  </div>
-
-</section><!-- /Pricing Section --> --}}
-
-        <!-- Faq Section -->
-        {{-- <section id="faq" class="faq section light-background">
-
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-            <h2>Frequently Asked Questions</h2>
-            <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit
-            </p>
-        </div><!-- End Section Title -->
-
-        <div class="container">
-
-            <div class="row justify-content-center">
-
-                <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-
-                    <div class="faq-container">
-
-                        <div class="faq-item">
-                            <h3>Non consectetur a erat nam at lectus urna duis?</h3>
-                            <div class="faq-content">
-                                <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id
-                                    volutpat lacus laoreet
-                                    non curabitur gravida. Venenatis lectus magna fringilla urna
-                                    porttitor rhoncus dolor
-                                    purus non.</p>
-                            </div>
-                            <i class="faq-toggle bi bi-chevron-right"></i>
-                        </div><!-- End Faq item-->
-
-                        <div class="faq-item">
-                            <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
-                            <div class="faq-content">
-                                <p>Dolor sit amet consectetur adipiscing elit pellentesque
-                                    habitant morbi. Id interdum
-                                    velit laoreet id donec ultrices. Fringilla phasellus
-                                    faucibus scelerisque eleifend
-                                    donec pretium. Est pellentesque elit ullamcorper dignissim.
-                                    Mauris ultrices eros in
-                                    cursus turpis massa tincidunt dui.</p>
-                            </div>
-                            <i class="faq-toggle bi bi-chevron-right"></i>
-                        </div><!-- End Faq item-->
-
-                        <div class="faq-item">
-                            <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
-                            <div class="faq-content">
-                                <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices
-                                    sagittis orci. Faucibus
-                                    pulvinar elementum integer enim. Sem nulla pharetra diam sit
-                                    amet nisl suscipit.
-                                    Rutrum tellus pellentesque eu tincidunt. Lectus urna duis
-                                    convallis convallis
-                                    tellus. Urna molestie at elementum eu facilisis sed odio
-                                    morbi quis</p>
-                            </div>
-                            <i class="faq-toggle bi bi-chevron-right"></i>
-                        </div><!-- End Faq item-->
-
-                        <div class="faq-item">
-                            <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
-                            <div class="faq-content">
-                                <p>Dolor sit amet consectetur adipiscing elit pellentesque
-                                    habitant morbi. Id interdum
-                                    velit laoreet id donec ultrices. Fringilla phasellus
-                                    faucibus scelerisque eleifend
-                                    donec pretium. Est pellentesque elit ullamcorper dignissim.
-                                    Mauris ultrices eros in
-                                    cursus turpis massa tincidunt dui.</p>
-                            </div>
-                            <i class="faq-toggle bi bi-chevron-right"></i>
-                        </div><!-- End Faq item-->
-
-                        <div class="faq-item">
-                            <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
-                            <div class="faq-content">
-                                <p>Molestie a iaculis at erat pellentesque adipiscing commodo.
-                                    Dignissim suspendisse in
-                                    est ante in. Nunc vel risus commodo viverra maecenas
-                                    accumsan. Sit amet nisl
-                                    suscipit adipiscing bibendum est. Purus gravida quis blandit
-                                    turpis cursus in</p>
-                            </div>
-                            <i class="faq-toggle bi bi-chevron-right"></i>
-                        </div><!-- End Faq item-->
-
-                        <div class="faq-item">
-                            <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
-                            <div class="faq-content">
-                                <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et
-                                    consequatur non sed in
-                                    suscipit sequi. Distinctio ipsam dolore et.</p>
-                            </div>
-                            <i class="faq-toggle bi bi-chevron-right"></i>
-                        </div><!-- End Faq item-->
-
-                    </div>
-
-                </div><!-- End Faq Column-->
-
-            </div>
-
-        </div>
-
-    </section><!-- /Faq Section --> --}}
 
         <!-- Contact Section -->
         <section id="contact" class="contact section">
