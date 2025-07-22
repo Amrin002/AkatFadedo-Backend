@@ -243,7 +243,17 @@
                                                 const value = context.raw;
                                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                                 const percentage = ((value / total) * 100).toFixed(1);
+
                                                 return `${label}: ${value.toLocaleString('id-ID')} (${percentage}%)`;
+
+                                                return $ {
+                                                    label
+                                                }: $ {
+                                                    value.toLocaleString('id-ID')
+                                                }($ {
+                                                    percentage
+                                                } % );
+
                                             }
                                         }
                                     }
