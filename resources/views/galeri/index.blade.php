@@ -35,7 +35,7 @@
                                                 <div class="form-group">
                                                     <label for="imageGaleri">Foto Kegiatan</label>
                                                     <input type="file" class="form-control-file galeri-image"
-                                                        id="imageGaleri" name="image" accept="gambar/png, gambar/jpeg"
+                                                        id="imageGaleri" name="image" accept="image/png, image/jpeg"
                                                         data-target="previewGaleri">
                                                     <!-- Preview Image -->
                                                     <img id="previewGaleri" src="" alt="Preview Foto"

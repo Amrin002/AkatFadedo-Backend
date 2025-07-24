@@ -87,6 +87,39 @@ public function show(Keluhan $keluhan)
 }
 
 
+public function update(Request $request, $id)
+{
+    $keluhan = Keluhan::findOrFail($id);
+
+    // Validasi
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'isi' => 'required|string',
+        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    // Cek hak akses
+    if (Auth::id() !== $keluhan->user_id && Auth::user()->role !== 'admin') {
+        abort(403, 'Unauthorized');
+    }
+
+    // Ganti gambar jika ada
+    if ($request->hasFile('gambar')) {
+        if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
+            Storage::disk('public')->delete($keluhan->gambar);
+        }
+        $keluhan->gambar = $request->file('gambar')->store('keluhan', 'public');
+    }
+
+    $keluhan->judul = $request->judul;
+    $keluhan->isi = $request->isi;
+    $keluhan->save();
+
+    return redirect()->route('keluhan.index')->with('success', 'Keluhan berhasil diperbarui.');
+}
+
+
+
 
 public function tanggapi(Request $request, Keluhan $keluhan)
 {

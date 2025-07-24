@@ -5,5 +5,8 @@
 
 @include('template.footer')
 
+
+@stack('scripts')
+
 {{-- Section untuk script tambahan dari halaman child --}}
 @yield('scripts')

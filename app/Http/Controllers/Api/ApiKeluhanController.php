@@ -130,6 +130,60 @@ class ApiKeluhanController extends Controller
         ], 200);
     }
 
+    // PUT/PATCH: /api/keluhan/{id}
+public function update(Request $request, Keluhan $keluhan)
+{
+    // Hanya pemilik keluhan yang boleh mengedit
+    if ($keluhan->user_id !== Auth::id()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Tidak diizinkan untuk mengedit keluhan ini.',
+        ], 403);
+    }
+
+    // Validasi data
+    $validator = Validator::make($request->all(), [
+        'judul'  => 'sometimes|required|string|max:255',
+        'isi'    => 'sometimes|required|string',
+        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validasi gagal',
+            'errors'  => $validator->errors(),
+        ], 422);
+    }
+
+    // Update data
+    if ($request->hasFile('gambar')) {
+        // Hapus gambar lama jika ada
+        if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
+            Storage::disk('public')->delete($keluhan->gambar);
+        }
+        $gambarBaru = $request->file('gambar')->store('keluhan', 'public');
+        $keluhan->gambar = $gambarBaru;
+    }
+
+    if ($request->filled('judul')) {
+        $keluhan->judul = $request->judul;
+    }
+
+    if ($request->filled('isi')) {
+        $keluhan->isi = $request->isi;
+    }
+
+    $keluhan->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Keluhan berhasil diperbarui.',
+        'data'    => $keluhan,
+    ]);
+}
+
+
     // SELESAIKAN: /api/keluha{id}/selesaikan
 
     public function selesaikan(Keluhan $keluhan)

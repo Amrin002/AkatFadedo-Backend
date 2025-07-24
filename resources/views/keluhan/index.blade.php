@@ -64,6 +64,8 @@
                             @endif
                         </td>
 
+
+
                         <td>
                             <span class="badge
                                 {{ $item->status == 'pending' ? 'bg-warning text-dark' :
@@ -75,6 +77,12 @@
                         <td>{{ $item->created_at->format('d M Y H:i') }}</td>
                         <td>
                         <div class="d-flex flex-column gap-2">
+                            
+                            {{-- Tombol Lihat --}}
+                            <a href="{{ route('keluhan.show', $item->id) }}" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-eye"></i> Lihat Keluhan
+                            </a>
+
                             {{-- Tanggapi (jika admin & status pending) --}}
                             @if (auth()->user()->role === 'admin' && $item->status == 'pending')
                                 <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
@@ -111,6 +119,7 @@
                                 </div>
                             @endif
 
+
                             {{-- Tandai selesai --}}
                             @if (auth()->user()->role === 'admin' && $item->status == 'diproses')
                                 <form action="{{ route('keluhan.selesaikan', $item) }}" method="POST">
@@ -118,6 +127,15 @@
                                     <button class="btn btn-sm btn-outline-success">Selesai</button>
                                 </form>
                             @endif
+
+                           {{-- Tombol Edit --}}
+                                @if (auth()->id() === $item->user_id || auth()->user()->role === 'admin')
+                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                                        data-bs-target="#editModal{{ $item->id }}">
+                                        Edit
+                                    </button>
+                                @endif
+
 
                             {{-- Tombol Hapus --}}
                             <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
@@ -196,6 +214,51 @@
         </div>
         </div>
         </div>
+
+        {{-- Modal Edit --}}
+<div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
+    aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form action="{{ route('keluhan.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-white" id="editModalLabel{{ $item->id }}">Edit Keluhan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="judul{{ $item->id }}">Judul</label>
+                        <input type="text" class="form-control" name="judul" id="judul{{ $item->id }}"
+                            value="{{ $item->judul }}" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="isi{{ $item->id }}">Isi Keluhan</label>
+                        <textarea name="isi" class="form-control" id="isi{{ $item->id }}" rows="4" required>{{ $item->isi }}</textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="gambar{{ $item->id }}">Ganti Gambar (opsional)</label>
+                        <input type="file" name="gambar" class="form-control" id="gambar{{ $item->id }}">
+                        @if ($item->gambar)
+                            <p class="mt-2">Gambar saat ini:</p>
+                            <img src="{{ asset('storage/' . $item->gambar) }}" width="100">
+                        @endif
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
     </div>
     </div>
 </div>

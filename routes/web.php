@@ -113,6 +113,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/galeri', GaleriDesaController::class);
     Route::resource('/berita', BeritaController::class);
     Route::resource('/keluhan', KeluhanController::class);
+    Route::get('/keluhan/{id}/edit', [KeluhanController::class, 'edit'])->name('keluhan.edit');
+    Route::put('/keluhan/{id}', [KeluhanController::class, 'update'])->name('keluhan.update');
+
     Route::post('/keluhan/{keluhan}/tanggapi', [KeluhanController::class, 'tanggapi'])->name('keluhan.tanggapi');
     Route::post('/keluhan/{keluhan}/selesaikan', [KeluhanController::class, 'selesaikan'])->name('keluhan.selesaikan');
     Route::get('/suratktu/export/pdf/{id}', [SuratKtuController::class, 'exportPdf'])->name('suratktu.export.pdf');

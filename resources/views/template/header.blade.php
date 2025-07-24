@@ -39,11 +39,8 @@
         }
     </style>
 
-    <!-- CKEditor 5 Script - WAJIB DIMUAT PERTAMA -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
     <!-- Fonts and icons -->
-    <script src={{ secure_asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></script>
+    <script src={{ secure_asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></>
     <script>
         WebFont.load({
             google: {
