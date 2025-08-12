@@ -31,7 +31,7 @@
 </div>
 
 </div>
-<!--   Core JS Files   -->
+<!-- Core JS Files -->
 <script src="{{ secure_asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ secure_asset('admin/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ secure_asset('admin/assets/js/core/bootstrap.min.js') }}"></script>
@@ -64,258 +64,12 @@
 <!-- Kaiadmin JS -->
 <script src="{{ secure_asset('admin/assets/js/kaiadmin.min.js') }}"></script>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-    // Simpan jQuery dalam variable terpisah untuk menghindari conflict
-    var $j = jQuery.noConflict();
-</script>
 <!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 <!-- Sweet Alert 2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-{{-- ================================ --}}
-{{-- CKEDITOR GLOBAL SCRIPTS --}}
-{{-- ================================ --}}
-<script>
-    // Tunggu sampai DOM dan semua script siap
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM loaded, checking CKEditor...');
-        
-        // Cek apakah CKEditor sudah dimuat
-        if (typeof ClassicEditor === 'undefined') {
-            console.error('❌ CKEditor belum dimuat! Pastikan script CKEditor di-include di header.');
-            return;
-        }
-        
-        console.log('✅ CKEditor tersedia:', ClassicEditor);
-        
-        // Global CKEditor configuration function
-        window.initializeCKEditor = function(selector, config = {}) {
-            console.log('🚀 Initializing CKEditor for:', selector);
-            
-            const element = document.querySelector(selector);
-            if (!element) {
-                console.error('❌ Element tidak ditemukan:', selector);
-                return Promise.reject('Element not found');
-            }
-            
-            const defaultConfig = {
-                toolbar: [
-                    'heading',
-                    '|',
-                    'bold',
-                    'italic',
-                    'underline',
-                    '|',
-                    'fontSize',
-                    'fontColor',
-                    'fontBackgroundColor',
-                    '|',
-                    'link',
-                    'bulletedList',
-                    'numberedList',
-                    '|',
-                    'outdent',
-                    'indent',
-                    'alignment',
-                    '|',
-                    'insertTable',
-                    'blockQuote',
-                    '|',
-                    'undo',
-                    'redo'
-                ],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' }
-                    ]
-                },
-                fontSize: {
-                    options: [
-                        9, 11, 13, 'default', 17, 19, 21, 24, 27, 30
-                    ]
-                },
-                fontColor: {
-                    colors: [
-                        {
-                            color: 'hsl(0, 0%, 0%)',
-                            label: 'Black'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 30%)',
-                            label: 'Dim grey'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 60%)',
-                            label: 'Grey'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 90%)',
-                            label: 'Light grey'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 100%)',
-                            label: 'White',
-                            hasBorder: true
-                        },
-                        {
-                            color: 'hsl(0, 75%, 60%)',
-                            label: 'Red'
-                        },
-                        {
-                            color: 'hsl(30, 75%, 60%)',
-                            label: 'Orange'
-                        },
-                        {
-                            color: 'hsl(60, 75%, 60%)',
-                            label: 'Yellow'
-                        },
-                        {
-                            color: 'hsl(90, 75%, 60%)',
-                            label: 'Light green'
-                        },
-                        {
-                            color: 'hsl(120, 75%, 60%)',
-                            label: 'Green'
-                        },
-                        {
-                            color: 'hsl(180, 75%, 60%)',
-                            label: 'Aquamarine'
-                        },
-                        {
-                            color: 'hsl(210, 75%, 60%)',
-                            label: 'Turquoise'
-                        },
-                        {
-                            color: 'hsl(240, 75%, 60%)',
-                            label: 'Light blue'
-                        },
-                        {
-                            color: 'hsl(270, 75%, 60%)',
-                            label: 'Purple'
-                        }
-                    ]
-                },
-                fontBackgroundColor: {
-                    colors: [
-                        {
-                            color: 'hsl(0, 0%, 100%)',
-                            label: 'White'
-                        },
-                        {
-                            color: 'hsl(0, 0%, 90%)',
-                            label: 'Light grey'
-                        },
-                        {
-                            color: 'hsl(60, 75%, 90%)',
-                            label: 'Light yellow'
-                        },
-                        {
-                            color: 'hsl(120, 75%, 90%)',
-                            label: 'Light green'
-                        },
-                        {
-                            color: 'hsl(180, 75%, 90%)',
-                            label: 'Light aquamarine'
-                        },
-                        {
-                            color: 'hsl(240, 75%, 90%)',
-                            label: 'Light blue'
-                        }
-                    ]
-                },
-                table: {
-                    contentToolbar: [
-                        'tableColumn',
-                        'tableRow',
-                        'mergeTableCells',
-                        'tableCellProperties',
-                        'tableProperties'
-                    ]
-                }
-                // Upload gambar dinonaktifkan untuk menghindari error route
-            };
-
-            // Merge custom config dengan default config
-            const finalConfig = Object.assign({}, defaultConfig, config);
-
-            return ClassicEditor
-                .create(element, finalConfig)
-                .then(editor => {
-                    console.log('✅ CKEditor berhasil dimuat untuk:', selector);
-                    
-                    // Simpan instance editor ke element
-                    element.ckeditorInstance = editor;
-                    
-                    // Tambahkan event listener untuk perubahan konten
-                    editor.model.document.on('change:data', () => {
-                        // Auto save atau update preview bisa ditambahkan di sini
-                        console.log('📝 Content changed in:', selector);
-                    });
-                    
-                    return editor;
-                })
-                .catch(error => {
-                    console.error('❌ Error memuat CKEditor:', error);
-                    throw error;
-                });
-        };
-
-        // Helper function untuk mendapatkan data dari CKEditor
-        window.getCKEditorData = function(editorId) {
-            const element = document.querySelector(editorId);
-            if (element && element.ckeditorInstance) {
-                return element.ckeditorInstance.getData();
-            }
-            console.warn('⚠️ CKEditor instance tidak ditemukan untuk:', editorId);
-            return '';
-        };
-
-        // Helper function untuk set data ke CKEditor
-        window.setCKEditorData = function(editorId, data) {
-            const element = document.querySelector(editorId);
-            if (element && element.ckeditorInstance) {
-                element.ckeditorInstance.setData(data);
-            } else {
-                console.warn('⚠️ CKEditor instance tidak ditemukan untuk:', editorId);
-            }
-        };
-
-        // Auto-initialize CKEditor untuk elemen dengan class 'ckeditor'
-        // NONAKTIFKAN AUTO-INIT untuk menghindari double editor
-        // setTimeout(function() {
-        //     console.log('🔍 Mencari elemen dengan class "ckeditor"...');
-        //     const editors = document.querySelectorAll('.ckeditor');
-        //     console.log('📋 Ditemukan', editors.length, 'elemen CKEditor');
-            
-        //     editors.forEach((editor, index) => {
-        //         if (editor.id) {
-        //             console.log(`🎯 Inisialisasi CKEditor ${index + 1}:`, editor.id);
-        //             initializeCKEditor('#' + editor.id);
-        //         } else {
-        //             console.warn('⚠️ Element CKEditor tidak memiliki ID:', editor);
-        //             // Buat ID otomatis jika tidak ada
-        //             const autoId = 'ckeditor-auto-' + (index + 1);
-        //             editor.id = autoId;
-        //             console.log('🔧 Membuat ID otomatis:', autoId);
-        //             initializeCKEditor('#' + autoId);
-        //         }
-        //     });
-        // }, 500); // Delay 500ms untuk memastikan semua ready
-    });
-</script>
-
-{{-- ================================ --}}
-{{-- EXISTING SCRIPTS --}}
-{{-- ================================ --}}
 
 <script>
     $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
@@ -347,12 +101,24 @@
 </script>
 
 <script>
-    $j(document).ready(function() {
-        $j('#datepicker input').datepicker({
-            format: 'yyyy-mm-dd', // Format sesuai dengan MySQL
-            autoclose: true,
-            todayHighlight: true
-        });
+    $(document).ready(function() {
+        // Initialize DataTables jika ada
+        if ($.fn.DataTable && $("#data-penduduk").length) {
+            $("#data-penduduk").DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json"
+                }
+            });
+        }
+        
+        // Initialize Datepicker
+        if ($.fn.datepicker && $('#datepicker input').length) {
+            $('#datepicker input').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+        }
     });
 </script>
 
@@ -623,14 +389,22 @@
     </script>
 @endif
 
-{{-- Data Tables --}}
+{{-- Data Tables - Updated --}}
 <script>
-    $j(document).ready(function() {
-        $j("#data-penduduk").DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json"
-            }
-        });
+    $(document).ready(function() {
+        // Initialize semua tabel dengan class 'table' sebagai DataTable
+        if ($.fn.DataTable) {
+            $('.table').each(function() {
+                if (!$.fn.DataTable.isDataTable(this)) {
+                    $(this).DataTable({
+                        responsive: true,
+                        language: {
+                            url: "//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json"
+                        }
+                    });
+                }
+            });
+        }
     });
 </script>
 
