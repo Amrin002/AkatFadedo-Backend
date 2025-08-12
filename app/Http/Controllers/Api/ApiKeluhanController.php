@@ -99,36 +99,6 @@ class ApiKeluhanController extends Controller
         ]);
     }
 
-    // tanggapi: /api/keluhan/{id}/tanggapi
-
-    public function tanggapi(Request $request, Keluhan $keluhan)
-    {
-        // Hanya admin yang bisa menanggapi
-        if (Auth::user()->role !== 'admin') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hanya admin yang dapat menanggapi keluhan.',
-            ], 403);
-        }
-
-        // Validasi input tanggapan
-        $request->validate([
-            'respon_admin' => 'required|string',
-        ]);
-
-        // Update keluhan
-        $keluhan->update([
-            'status' => 'diproses',
-            'respon_admin' => $request->respon_admin,
-            'tanggal_diproses' => now(),
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Keluhan berhasil ditanggapi.',
-            'data' => $keluhan
-        ], 200);
-    }
 
     // PUT/PATCH: /api/keluhan/{id}
     public function update(Request $request, Keluhan $keluhan)
@@ -184,30 +154,7 @@ class ApiKeluhanController extends Controller
     }
 
 
-    // SELESAIKAN: /api/keluha{id}/selesaikan
 
-    public function selesaikan(Keluhan $keluhan)
-    {
-        // Hanya admin yang boleh menyelesaikan
-        if (Auth::user()->role !== 'admin') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hanya admin yang dapat menyelesaikan keluhan.',
-            ], 403);
-        }
-
-        // Update status menjadi selesai
-        $keluhan->update([
-            'status' => 'selesai',
-            'tanggal_selesai' => now(),
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Keluhan berhasil diselesaikan.',
-            'data' => $keluhan
-        ]);
-    }
 
     // DELETE: /api/keluhan/{id}
     public function destroy(Keluhan $keluhan)

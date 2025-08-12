@@ -126,4 +126,9 @@ class LandingPageController extends Controller
     {
         return view('home.apbdes-view', compact('apbdes'));
     }
+
+    public function privacy()
+    {
+        return view('home.privacy');
+    }
 }
