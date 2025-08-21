@@ -32,33 +32,34 @@
         .ck-editor__editable {
             min-height: 400px;
         }
-        
+
         .ck-editor__main {
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 
     <!-- Fonts and icons -->
-    <script src={{ secure_asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></>
-    <script>
-        WebFont.load({
-            google: {
-                families: ["Public Sans:300,400,500,600,700"]
-            },
-            custom: {
-                families: [
-                    "Font Awesome 5 Solid",
-                    "Font Awesome 5 Regular",
-                    "Font Awesome 5 Brands",
-                    "simple-line-icons",
-                ],
-                urls: ["{{ secure_asset('admin/assets/css/fonts.min.css') }}"],
-            },
-            active: function() {
-                sessionStorage.fonts = true;
-            },
-        });
+    <script src={{ secure_asset('admin/assets/js/plugin/webfont/webfont.min.js') }}>
+        < /> <
+        script >
+            WebFont.load({
+                google: {
+                    families: ["Public Sans:300,400,500,600,700"]
+                },
+                custom: {
+                    families: [
+                        "Font Awesome 5 Solid",
+                        "Font Awesome 5 Regular",
+                        "Font Awesome 5 Brands",
+                        "simple-line-icons",
+                    ],
+                    urls: ["{{ secure_asset('admin/assets/css/fonts.min.css') }}"],
+                },
+                active: function() {
+                    sessionStorage.fonts = true;
+                },
+            });
     </script>
 
     <!-- CSS Files -->
@@ -168,6 +169,13 @@
                                         <a href="{{ url('/suratlainnya') }}">
                                             <span class="sub-item">
                                                 <p>Surat Lainnya</p>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item {{ request()->is('arsipsurat*') ? 'active' : '' }}">
+                                        <a href="{{ url('/arsip') }}">
+                                            <span class="sub-item">
+                                                <p>Arsip Surat</p>
                                             </span>
                                         </a>
                                     </li>

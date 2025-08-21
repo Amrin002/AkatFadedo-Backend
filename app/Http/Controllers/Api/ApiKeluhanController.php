@@ -100,7 +100,6 @@ class ApiKeluhanController extends Controller
     }
 
 
-<<<<<<< HEAD
     // PUT/PATCH: /api/keluhan/{id}
     public function update(Request $request, Keluhan $keluhan)
     {
@@ -155,9 +154,9 @@ class ApiKeluhanController extends Controller
     }
 
 
-=======
+
     // SELESAIKAN: /api/keluha{id}/selesaikan
->>>>>>> 120c0225e2c3e4107d2185ae6e8930cf957f2ce7
+
 
 
     // DELETE: /api/keluhan/{id}

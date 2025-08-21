@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SuratApprovedMail;
+use App\Models\ArsipSurat;
 use App\Models\Notification;
 use App\Models\SuratKtm;
 use App\Models\User;
@@ -132,7 +133,44 @@ class SuratKtmController extends Controller
         //
 
     }
+    private function buatArsipSurat($surat)
+    {
+        try {
+            // 🎯 HAPUS ARSIP LAMA jika ada (untuk case edit nomor surat)
+            $existingArsip = ArsipSurat::where('surat_type', get_class($surat))
+                ->where('surat_id', $surat->id)
+                ->first();
 
+            if ($existingArsip) {
+                Log::info("Menghapus arsip lama untuk update nomor surat", [
+                    'arsip_lama_id' => $existingArsip->id,
+                    'nomor_lama' => $existingArsip->nomor_surat,
+                    'nomor_baru' => $surat->no_surat
+                ]);
+
+                $existingArsip->delete();
+            }
+
+            // 🎯 BUAT ARSIP BARU dengan nomor yang sudah diupdate
+            $arsip = ArsipSurat::buatArsip($surat);
+
+            Log::info("Arsip berhasil dibuat/diperbarui untuk surat KTM", [
+                'surat_id' => $surat->id,
+                'nomor_surat' => $surat->no_surat,
+                'arsip_id' => $arsip->id,
+                'nama_pemohon' => $surat->nama
+            ]);
+
+            return $arsip;
+        } catch (Exception $e) {
+            Log::error("Gagal membuat arsip untuk surat KTM ID: {$surat->id}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return null;
+        }
+    }
     /**
      * Update the specified resource in storage.
      */
@@ -219,9 +257,23 @@ class SuratKtmController extends Controller
                 }
             }
         } elseif ($statusBaru === 'Cancel') {
-            // If canceling, invalidate verification data but keep history
+            // Hapus nomor surat
             $noSurat = null;
-            // We keep the verifikasi_token to track history but mark as invalid in verifikasi method
+
+            // 🎯 HAPUS ARSIP jika ada (karena surat di-cancel)
+            $existingArsip = ArsipSurat::where('surat_type', get_class($suratKtm))
+                ->where('surat_id', $suratKtm->id)
+                ->first();
+
+            if ($existingArsip) {
+                Log::info("Menghapus arsip karena surat di-cancel", [
+                    'arsip_id' => $existingArsip->id,
+                    'nomor_surat' => $existingArsip->nomor_surat,
+                    'surat_id' => $suratKtm->id
+                ]);
+
+                $existingArsip->delete();
+            }
         }
 
         // Update the document
@@ -239,6 +291,10 @@ class SuratKtmController extends Controller
             'verifikasi_token' => $verifikasiToken,
             'tanggal_terbit' => $tanggalTerbit,
         ]);
+        // 🎯 IMPLEMENTASI ARSIP - Generate arsip otomatis ketika status menjadi Approve
+        if ($statusBaru === 'Approve' && $noSurat && ($oldStatus !== 'Approve')) {
+            $this->buatArsipSurat($suratKtm);
+        }
 
         try {
             // Pastikan relasi user ada

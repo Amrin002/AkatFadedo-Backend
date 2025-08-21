@@ -23,6 +23,7 @@ use App\Http\Controllers\SuratDomisiliController;
 use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\ApbdesController;
+use App\Http\Controllers\ArsipSuratController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SuratVerifikasiController;
 use App\Http\Controllers\WhatsappController;
@@ -128,6 +129,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/penduduk/import', [PendudukController::class, 'importPenduduk'])->name('penduduk.import');
     Route::post('/penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
     Route::post('/keluhan/{keluhan}/tanggapi', [KeluhanController::class, 'tanggapi'])->name('keluhan.tanggapi');
+
+    // route arsip
+    // Export route - HARUS sebelum resource
+    Route::get('/arsip/export/csv', [ArsipSuratController::class, 'exportCsv'])->name('arsip.export.csv');
+    Route::resource('arsip', ArsipSuratController::class);
 });
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
