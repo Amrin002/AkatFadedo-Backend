@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SuratApprovedMail;
+use App\Models\ArsipSurat;
 use App\Models\SuratPindah;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -151,6 +152,51 @@ class SuratPindahController extends Controller
         //
     }
 
+    /**
+     * Fungsi untuk membuat arsip surat Pindah Domisili
+     */
+    private function buatArsipSurat($surat)
+    {
+        try {
+            // 🎯 HAPUS ARSIP LAMA jika ada (untuk case edit nomor surat)
+            $existingArsip = ArsipSurat::where('surat_type', get_class($surat))
+                ->where('surat_id', $surat->id)
+                ->first();
+
+            if ($existingArsip) {
+                Log::info("Menghapus arsip lama untuk update nomor surat Pindah Domisili", [
+                    'arsip_lama_id' => $existingArsip->id,
+                    'nomor_lama' => $existingArsip->nomor_surat,
+                    'nomor_baru' => $surat->no_surat
+                ]);
+
+                $existingArsip->delete();
+            }
+
+            // 🎯 BUAT ARSIP BARU dengan nomor yang sudah diupdate
+            $arsip = ArsipSurat::buatArsip($surat);
+
+            Log::info("Arsip berhasil dibuat/diperbarui untuk surat Pindah Domisili", [
+                'surat_id' => $surat->id,
+                'nomor_surat' => $surat->no_surat,
+                'arsip_id' => $arsip->id,
+                'nama_pemohon' => $surat->nama,
+                'alamat_asal' => $surat->alamat,
+                'alamat_tujuan' => "{$surat->desa_pindah}, {$surat->kecamatan_pindah}, {$surat->kabupaten_pindah}",
+                'provinsi_tujuan' => $surat->provinsi
+            ]);
+
+            return $arsip;
+        } catch (Exception $e) {
+            Log::error("Gagal membuat arsip untuk surat Pindah Domisili ID: {$surat->id}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return null;
+        }
+    }
+
     private function getRomawi($bulan)
     {
         $romawi = [
@@ -198,7 +244,8 @@ class SuratPindahController extends Controller
                 'status' => 'nullable|in:On Progress,Approve,Cancel',
             ]);
         } catch (Exception $e) {
-            Log::error("Gagal Ubah Data: " . $e->getMessage());
+            Log::error("Gagal Validasi Update Surat Pindah: " . $e->getMessage());
+            return redirect()->back()->withErrors(['validation_error' => $e->getMessage()])->withInput();
         }
 
         $suratPindah = SuratPindah::findOrFail($id);
@@ -212,8 +259,9 @@ class SuratPindahController extends Controller
         $qrCode = $suratPindah->qr_code;
         $nomorManual = '';
 
-        if ($statusBaru === 'Approve' && empty($noSurat) && !$request->filled('nomor_manual')) {
-            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual wajib di isi sebelum menyetujui'])->withInput();
+        // Tambahkan validasi manual ketika status di-Approve dan nomor surat kosong
+        if ($statusBaru === 'Approve' && empty($suratPindah->no_surat) && !$request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor manual wajib diisi jika status disetujui dan nomor surat belum tersedia.'])->withInput();
         }
 
         // Handle status changes
@@ -246,11 +294,26 @@ class SuratPindahController extends Controller
                 }
             }
         } elseif ($statusBaru === 'Cancel') {
-            // If canceling, invalidate verification data but keep history
+            // Hapus nomor surat
             $noSurat = null;
-            // We keep the verifikasi_token to track history but mark as invalid in verifikasi method
+
+            // 🎯 HAPUS ARSIP jika ada (karena surat di-cancel)
+            $existingArsip = ArsipSurat::where('surat_type', get_class($suratPindah))
+                ->where('surat_id', $suratPindah->id)
+                ->first();
+
+            if ($existingArsip) {
+                Log::info("Menghapus arsip karena surat Pindah Domisili di-cancel", [
+                    'arsip_id' => $existingArsip->id,
+                    'nomor_surat' => $existingArsip->nomor_surat,
+                    'surat_id' => $suratPindah->id
+                ]);
+
+                $existingArsip->delete();
+            }
         }
 
+        // Update the document
         $suratPindah->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,
@@ -276,6 +339,11 @@ class SuratPindahController extends Controller
             'tanggal_terbit' => $tanggalTerbit,
         ]);
 
+        // 🎯 IMPLEMENTASI ARSIP - Generate arsip otomatis ketika status menjadi Approve
+        if ($statusBaru === 'Approve' && $noSurat && ($oldStatus !== 'Approve')) {
+            $this->buatArsipSurat($suratPindah);
+        }
+
         try {
             // Pastikan relasi user ada
             if ($suratPindah->user) {
@@ -288,6 +356,7 @@ class SuratPindahController extends Controller
         } catch (Exception $e) {
             Log::error("Gagal mengirim email pemberitahuan: " . $e->getMessage());
         }
+
         // Generate QR code only for approved documents
         if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
             try {
@@ -298,7 +367,6 @@ class SuratPindahController extends Controller
                 // Continue without failing the whole operation
             }
         }
-
 
         return redirect()->route('suratpindah.index')->with('success', 'Surat Keteranan Pindah Domisili berhasil di ubah');
     }
