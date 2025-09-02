@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SuratApprovedMail;
+use App\Models\ArsipSurat;
 use App\Models\SuratKtu;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -143,6 +144,49 @@ class SuratKtuController extends Controller
     }
 
     /**
+     * Fungsi untuk membuat arsip surat SKTU
+     */
+    private function buatArsipSurat($surat)
+    {
+        try {
+            // 🎯 HAPUS ARSIP LAMA jika ada (untuk case edit nomor surat)
+            $existingArsip = ArsipSurat::where('surat_type', get_class($surat))
+                ->where('surat_id', $surat->id)
+                ->first();
+
+            if ($existingArsip) {
+                Log::info("Menghapus arsip lama untuk update nomor surat SKTU", [
+                    'arsip_lama_id' => $existingArsip->id,
+                    'nomor_lama' => $existingArsip->nomor_surat,
+                    'nomor_baru' => $surat->no_surat
+                ]);
+
+                $existingArsip->delete();
+            }
+
+            // 🎯 BUAT ARSIP BARU dengan nomor yang sudah diupdate
+            $arsip = ArsipSurat::buatArsip($surat);
+
+            Log::info("Arsip berhasil dibuat/diperbarui untuk surat SKTU", [
+                'surat_id' => $surat->id,
+                'nomor_surat' => $surat->no_surat,
+                'arsip_id' => $arsip->id,
+                'nama_pemohon' => $surat->nama,
+                'nama_usaha' => $surat->nama_usaha
+            ]);
+
+            return $arsip;
+        } catch (Exception $e) {
+            Log::error("Gagal membuat arsip untuk surat SKTU ID: {$surat->id}", [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return null;
+        }
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     private function getRomawi($bulan)
@@ -185,6 +229,7 @@ class SuratKtuController extends Controller
             ]);
         } catch (Exception $e) {
             Log::error("Gagal Validasi Update SKTU: " . $e->getMessage());
+            return redirect()->back()->withErrors(['validation_error' => $e->getMessage()])->withInput();
         }
 
         $suratKtu = SuratKtu::findOrFail($id);
@@ -198,8 +243,9 @@ class SuratKtuController extends Controller
         $qrCode = $suratKtu->qr_code;
         $nomorManual = '';
 
-        if ($statusBaru === 'Approve' && empty($noSurat) && !$request->filled('nomor_manual')) {
-            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor Manual Wajib Diisi jika ingin menyetujui surat'])->withInput();
+        // Tambahkan validasi manual ketika status di-Approve dan nomor surat kosong
+        if ($statusBaru === 'Approve' && empty($suratKtu->no_surat) && !$request->filled('nomor_manual')) {
+            return redirect()->back()->withErrors(['nomor_manual' => 'Nomor manual wajib diisi jika status disetujui dan nomor surat belum tersedia.'])->withInput();
         }
 
         // Handle status changes
@@ -232,11 +278,26 @@ class SuratKtuController extends Controller
                 }
             }
         } elseif ($statusBaru === 'Cancel') {
-            // If canceling, invalidate verification data but keep history
+            // Hapus nomor surat
             $noSurat = null;
-            // We keep the verifikasi_token to track history but mark as invalid in verifikasi method
+
+            // 🎯 HAPUS ARSIP jika ada (karena surat di-cancel)
+            $existingArsip = ArsipSurat::where('surat_type', get_class($suratKtu))
+                ->where('surat_id', $suratKtu->id)
+                ->first();
+
+            if ($existingArsip) {
+                Log::info("Menghapus arsip karena surat SKTU di-cancel", [
+                    'arsip_id' => $existingArsip->id,
+                    'nomor_surat' => $existingArsip->nomor_surat,
+                    'surat_id' => $suratKtu->id
+                ]);
+
+                $existingArsip->delete();
+            }
         }
 
+        // Update the document
         $suratKtu->update([
             'no_surat' => $noSurat,
             'nama' => $request->nama,
@@ -256,6 +317,12 @@ class SuratKtuController extends Controller
             'verifikasi_token' => $verifikasiToken,
             'tanggal_terbit' => $tanggalTerbit,
         ]);
+
+        // 🎯 IMPLEMENTASI ARSIP - Generate arsip otomatis ketika status menjadi Approve
+        if ($statusBaru === 'Approve' && $noSurat && ($oldStatus !== 'Approve')) {
+            $this->buatArsipSurat($suratKtu);
+        }
+
         try {
             // Pastikan relasi user ada
             if ($suratKtu->user) {
@@ -268,6 +335,7 @@ class SuratKtuController extends Controller
         } catch (Exception $e) {
             Log::error("Gagal mengirim email pemberitahuan: " . $e->getMessage());
         }
+
         // Generate QR code only for approved documents
         if ($statusBaru === 'Approve' && ($oldStatus !== 'Approve' || !$qrCode)) {
             try {
@@ -282,7 +350,6 @@ class SuratKtuController extends Controller
         return redirect()->route('suratktu.index')
             ->with('success', 'Surat Keterangan Tempat Usaha berhasil di ubah');
     }
-
 
     /**
      * Remove the specified resource from storage.

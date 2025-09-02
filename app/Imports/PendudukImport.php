@@ -5,10 +5,9 @@ namespace App\Imports;
 use App\Models\KK;
 use App\Models\Penduduk;
 use Illuminate\Support\Collection;
-
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class PendudukImport implements ToCollection, WithHeadingRow
 {
@@ -46,7 +45,7 @@ class PendudukImport implements ToCollection, WithHeadingRow
                 ];
                 continue;
             }
-            // Cek dan konversi tanggal_lahir jika perlu
+             // Cek dan konversi tanggal_lahir jika perlu
             $tanggal_lahir = $row['tanggal_lahir'];
 
             // Jika tanggal_lahir adalah angka (format serial Excel)
@@ -59,7 +58,7 @@ class PendudukImport implements ToCollection, WithHeadingRow
                 'no_kk'             => $no_kk,
                 'nama_lengkap'      => $row['nama_lengkap'],
                 'tempat_lahir'      => $row['tempat_lahir'],
-                'tanggal_lahir'     => $row['tanggal_lahir'],
+                'tanggal_lahir'     => $tanggal_lahir,
                 'jenis_kelamin'     => $row['jenis_kelamin'],
                 'agama'             => $row['agama'],
                 'pendidikan'        => $row['pendidikan'],

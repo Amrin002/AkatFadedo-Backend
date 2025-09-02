@@ -20,5 +20,8 @@ class Apbdes extends Model
         'pejabat',
         'tahun',
         'file',
+
     ];
+
+    
 }

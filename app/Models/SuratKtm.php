@@ -43,11 +43,4 @@ class SuratKtm extends Model
     {
         return 'Surat Keterangan Tidak Mampu';
     }
-
-    // relasi ke ArsipSurat
-    // Relasi ke ArsipSurat (polymorphic)
-    public function arsip()
-    {
-        return $this->morphOne(ArsipSurat::class, 'surat', 'surat_type', 'surat_id');
-    }
 }

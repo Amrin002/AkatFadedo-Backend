@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SuratApprovedMail;
-use App\Models\ArsipSurat;
 use App\Models\Notification;
 use App\Models\SuratKtm;
 use App\Models\User;
@@ -15,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Models\ArsipSurat;
 
 class SuratKtmController extends Controller
 {
@@ -133,6 +133,8 @@ class SuratKtmController extends Controller
         //
 
     }
+    
+    // ArsipSurat
     private function buatArsipSurat($surat)
     {
         try {
@@ -171,6 +173,7 @@ class SuratKtmController extends Controller
             return null;
         }
     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -257,9 +260,8 @@ class SuratKtmController extends Controller
                 }
             }
         } elseif ($statusBaru === 'Cancel') {
-            // Hapus nomor surat
+            // If canceling, invalidate verification data but keep history
             $noSurat = null;
-
             // 🎯 HAPUS ARSIP jika ada (karena surat di-cancel)
             $existingArsip = ArsipSurat::where('surat_type', get_class($suratKtm))
                 ->where('surat_id', $suratKtm->id)
@@ -291,6 +293,7 @@ class SuratKtmController extends Controller
             'verifikasi_token' => $verifikasiToken,
             'tanggal_terbit' => $tanggalTerbit,
         ]);
+        
         // 🎯 IMPLEMENTASI ARSIP - Generate arsip otomatis ketika status menjadi Approve
         if ($statusBaru === 'Approve' && $noSurat && ($oldStatus !== 'Approve')) {
             $this->buatArsipSurat($suratKtm);

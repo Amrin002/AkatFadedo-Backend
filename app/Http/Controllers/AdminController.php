@@ -18,15 +18,15 @@ class AdminController extends Controller
     {
         //
         $title = 'Halaman Utama';
-        $user = $request->user(); // Ambil data user yang login
-        $totalUser = User::count();
-        $jumlahkk = KK::count();
+        $user = $request->user(); 
+        $totalUser = User::where('role', '!=', 'admin')->count();
+        $jumlahkk = KK::where('desa', '!=', 'Admin')->count();
         $jumlahSurat = SuratKtm::whereNotNull('no_surat')->count()
             + SuratKtu::whereNotNull('no_surat')->count()
             + SuratDomisili::whereNotNull('no_surat')->count()
             + SuratPindah::whereNotNull('no_surat')->count();
         $perempuan = Penduduk::where('jenis_kelamin', 'perempuan')->count();
-        $laki = Penduduk::where('jenis_kelamin', 'laki')->where('nama_lengkap', '!=', 'Admin')->count();
+        $laki = Penduduk::where('jenis_kelamin', 'Laki-laki')->where('nama_lengkap', '!=', 'Admin')->count();
         $jmlpenduduk = Penduduk::where('nama_lengkap', '!=', 'Admin')->count();
         return view('admin.index', compact(
             'title',
