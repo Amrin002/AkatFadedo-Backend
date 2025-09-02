@@ -101,7 +101,7 @@
         <img src="{{ public_path('admin/assets/img/logo_sbt.png') }}" alt="Logo SBT">
         <div class="kop-text">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
-            KECAMATAN SERAM TIMUR<br>
+            KECAMATAN UKAR SENGAN<br>
             NEGERI ADMINISTRATIF AKAT FADEDO<br>
             Jln. Kumbang
         </div>
@@ -109,13 +109,13 @@
 
     <hr>
 
-    <div class="center mt-2 bold">
+    <div class="mt-2 center bold">
         SURAT KETERANGAN PINDAH DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
     <p class="mt-2 isi-paragraf">
-        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur,
+        Yang bertanda tangan di bawah ini, Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Ukar Sengan,
         Kabupaten Seram Bagian Timur, dengan ini menerangkan bahwa:
     </p>
 
@@ -159,7 +159,7 @@
             class="qr-code">
         @endif
 
-        <p class="bold">AHMAD BUGIS</p>
+        <p class="bold">Muhamad Arsad Talahatu</p>
     </div>
 
 </body>

@@ -100,20 +100,20 @@
         <img src="{{ public_path('admin/assets/img/logo_sbt.png') }}" alt="Logo SBT">
         <div class="kop-text">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
-            KECAMATAN SERAM TIMUR<br>
+            KECAMATAN UKAR SENGAN<br>
             NEGERI ADMINISTRATIF AKAT FADEDO<br>
             Jln. Kumbang
         </div>
     </div>
     <hr>
 
-    <div class="center mt-2 bold">
+    <div class="mt-2 center bold">
         SURAT KETERANGAN DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
 
     <p class="mt-2 isi-paragraf">
-        Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
+        Kepala Pemerintah Negeri Akat Fadedo, Kecamatan Ukar Sengan, Kabupaten Seram Bagian Timur.
         Dengan ini menerangkan bahwa:
     </p>
 
@@ -129,7 +129,7 @@
 
     <p class="mt-1 isi-paragraf">
         Bahwa yang bersangkutan di atas benar Warga Masyarakat Negeri Akat Fadedo yang berdomisili
-        di Negeri Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.
+        di Negeri Akat Fadedo, Kecamatan Ukar Sengan, Kabupaten Seram Bagian Timur.
         Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
 
@@ -145,7 +145,7 @@
             class="qr-code">
         @endif
 
-        <p class="bold">AHMAD BUGIS</p>
+        <p class="bold">Muhamad Arsad Talahatu</p>
     </div>
 
 </body>
