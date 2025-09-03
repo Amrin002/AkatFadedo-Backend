@@ -138,19 +138,22 @@
                                                         <div class="d-flex align-items-center gap-2">
                                                             {{-- Tombol Edit --}}
                                                             <button type="button" class="btn btn-warning btn-sm"
-                                                                data-toggle="modal" data-target="#editModal{{ $row->id }}">
+                                                                data-toggle="modal"
+                                                                data-target="#editModal{{ $row->id }}">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </button>
 
                                                             {{-- Tombol Hapus --}}
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
+                                                                data-toggle="modal"
+                                                                data-target="#deleteModal{{ $row->id }}">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </button>
                                                         </div>
 
                                                         {{-- Form Export di bawah --}}
-                                                        <form action="{{ route('suratktm.export.pdf', $row->id) }}" method="GET" class="w-100 mt-2">
+                                                        <form action="{{ route('suratktm.export.pdf', $row->id) }}"
+                                                            method="GET" class="w-100 mt-2">
                                                             <button type="submit" class="btn btn-success btn-sm w-100">
                                                                 <i class="fas fa-file-pdf"></i> Export
                                                             </button>

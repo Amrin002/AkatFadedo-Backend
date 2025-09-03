@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Surat Keterangan Domisili</title>
@@ -94,6 +95,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="kop-surat">
@@ -107,7 +109,7 @@
     </div>
     <hr>
 
-    <div class="mt-2 center bold">
+    <div class="center mt-2 bold">
         SURAT KETERANGAN DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
@@ -118,13 +120,34 @@
     </p>
 
     <table class="data-surat">
-        <tr><td width="200">Nama</td><td>: {{ strtoupper($surat->nama) }}</td></tr>
-        <tr><td>Tempat/Tgl Lahir</td><td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td></tr>
-        <tr><td>Jenis Kelamin</td><td>: {{ strtoupper($surat->jenis_kelamin) }}</td></tr>
-        <tr><td>Status Kawin</td><td>: {{ strtoupper($surat->status_kawin) }}</td></tr>
-        <tr><td>Kewarganegaraan</td><td>: {{ strtoupper($surat->kewarganegaraan) }}</td></tr>
-        <tr><td>Pekerjaan</td><td>: {{ strtoupper($surat->pekerjaan) }}</td></tr>
-        <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
+        <tr>
+            <td width="200">Nama</td>
+            <td>: {{ strtoupper($surat->nama) }}</td>
+        </tr>
+        <tr>
+            <td>Tempat/Tgl Lahir</td>
+            <td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin</td>
+            <td>: {{ strtoupper($surat->jenis_kelamin) }}</td>
+        </tr>
+        <tr>
+            <td>Status Kawin</td>
+            <td>: {{ strtoupper($surat->status_kawin) }}</td>
+        </tr>
+        <tr>
+            <td>Kewarganegaraan</td>
+            <td>: {{ strtoupper($surat->kewarganegaraan) }}</td>
+        </tr>
+        <tr>
+            <td>Pekerjaan</td>
+            <td>: {{ strtoupper($surat->pekerjaan) }}</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>: {{ strtoupper($surat->alamat) }}</td>
+        </tr>
     </table>
 
     <p class="mt-1 isi-paragraf">
@@ -139,14 +162,12 @@
         <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
         @if ($surat->qr_code)
-        <img
-            src="{{ public_path($surat->qr_code) }}"
-            alt="QR Code Verifikasi"
-            class="qr-code">
+            <img src="{{ public_path($surat->qr_code) }}" alt="QR Code Verifikasi" class="qr-code">
         @endif
 
         <p class="bold">Muhamad Arsad Talahatu</p>
     </div>
 
 </body>
+
 </html>

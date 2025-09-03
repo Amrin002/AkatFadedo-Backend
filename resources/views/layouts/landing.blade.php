@@ -4,14 +4,65 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Akat Fadedo</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <title>Website Resmi Desa Akat Fadedo</title>
+    <meta name="description"
+        content="Website resmi Desa Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur, menyajikan informasi lengkap tentang profil desa, sejarah, serta struktur pemerintahan desa. Melalui situs ini, Anda dapat mengenal lebih dekat kehidupan masyarakat Desa Akat Fadedo, serta berbagai potensi yang ada di desa ini. Temukan informasi mengenai program-program pembangunan dan kegiatan yang berlangsung di desa yang penuh dengan nilai sejarah dan budaya lokal.">
+    <meta name="keywords"
+        content="Akat Fadedo, Desa Akat Fadedo, desa akat fadedo, akat fadedo,  Akat Fadedo Website, Website Desa, Seram timur, Seram Bagian Timur, SBT, desa akat fadedo, akar fadedo, desa akar fadedo, sejarah desa akat fadedo, profil desa akat fadedo, pemerintahan desa akat fadedo, kepala desa akat fadedo, BPD akat fadedo, RT RW akat fadedo, penduduk akat fadedo, demografi akat fadedo, wisata akat fadedo, potensi desa akat fadedo, ekonomi akat fadedo, pertanian akat fadedo, perikanan akat fadedo, UMKM akat fadedo, budaya akat fadedo, adat istiadat akat fadedo, tradisi akat fadedo, seram bagian timur, kabupaten seram bagian timur, provinsi maluku, desa di maluku, desa di seram, pulau seram, kecamatan seram timur, pemerintah desa, pelayanan publik, administrasi desa, data desa, statistik desa, program desa, pembangunan desa, dana desa, APBDes, BUMDes, posyandu, PKK, karang taruna, lembaga desa">
+    <!-- Meta tags tambahan untuk SEO -->
+    <meta name="author" content="Pemerintah Desa Akat Fadedo">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Indonesian">
+    <meta name="geo.region" content="ID-ML">
+    <meta name="geo.placename" content="Akat Fadedo, Seram Timur, Seram Bagian Timur">
 
+    <!-- Open Graph Meta Tags untuk media sosial -->
+    <meta property="og:title" content="Desa Akat Fadedo - Website Resmi">
+    <meta property="og:description"
+        content="Website resmi Desa Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur. Informasi lengkap tentang profil desa, sejarah, pemerintahan, dan potensi wisata.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://akatfadedo.com">
+    <meta property="og:image" content="{{ secure_asset('landing/assets/img/Logo2.png') }}">
+    <meta property="og:site_name" content="Akat Fadedo">
+    <meta property="og:locale" content="id_ID">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Desa Akat Fadedo - Website Resmi">
+    <meta name="twitter:description"
+        content="Website resmi Desa Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.">
+    <meta name="twitter:image" content="{{ secure_asset('landing/assets/img/Logo2.png') }}">
+
+    <!-- Meta tags khusus untuk desa -->
+    <meta name="dc.title" content="Desa Akat Fadedo">
+    <meta name="dc.subject" content="Pemerintahan Desa, Pelayanan Publik, Informasi Desa">
+    <meta name="dc.creator" content="Pemerintah Desa Akat Fadedo">
+    <meta name="dc.publisher" content="Pemerintah Desa Akat Fadedo">
+    <meta name="dc.type" content="Text">
+    <meta name="dc.format" content="text/html">
+    <meta name="dc.language" content="id">
+    <meta name="dc.coverage" content="Akat Fadedo, Seram Bagian Timur, Maluku Tengah, Indonesia".>
     <!-- Favicons -->
-    <link href="{{ secure_asset('landing/assets/img/Logo2.png') }}" rel="icon">
-    <link href="{{ secure_asset('landing/assets/img/Logo2.png') }}" rel="apple-touch-icon">
+    <!-- Favicons - Menggunakan file ICO -->
+    <!-- Favicon utama (ICO) -->
+    <link rel="icon" type="image/x-icon" href="{{ secure_asset('images/logo_apps.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ secure_asset('images/logo_apps.ico') }}">
 
+    <!-- Favicon untuk berbagai ukuran (masih menggunakan PNG untuk ukuran spesifik) -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ secure_asset('images/Logo2.png') }}">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="apple-touch-icon" href="{{ secure_asset('images/Logo2.png') }}">
+
+    <!-- Android Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ secure_asset('images/Logo2.png') }}">
+
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileImage" content="{{ secure_asset('images/Logo2.png') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -34,29 +85,124 @@
     <link href="{{ secure_asset('landing/assets/css/main.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/css/jquery.orgchart.css">
+    <!-- Di bagian head atau sebelum closing body -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    {{-- CSS Styles --}}
     <style>
-        #chart-container {
+        .stats {
+            padding: 80px 0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect hanya untuk desktop */
+        @media (min-width: 769px) {
+            .chart-container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Alternative: Hover effect yang lebih subtle untuk mobile */
+        @media (max-width: 768px) {
+            .chart-container:hover {
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+                /* Hanya ubah shadow, tanpa translateY */
+            }
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .stats-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .summary-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #3498db;
+            display: block;
+        }
+
+        .summary-label {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+                padding: 15px;
+                /* Tambahkan margin bottom lebih besar untuk spacing */
+                margin-bottom: 30px;
+            }
+
+            .chart-title {
+                font-size: 1.2rem;
+            }
+
+            .summary-number {
+                font-size: 2rem;
+            }
+
+            /* Pastikan legend tidak terlalu dekat dengan container berikutnya */
+            .legend-custom {
+                margin-bottom: 10px;
+            }
+        }
+
+        .legend-custom {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
             align-items: center;
-            min-height: 200px;
-            border: 1px solid #ccc;
-            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border-radius: 3px;
         }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/js/jquery.orgchart.js"></script>
 
-    </style>
 
-    <!-- =======================================================
-  * Template Name: Medicio
-  * Template URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
 </head>
 
 <body class="index-page">
@@ -193,7 +339,8 @@
         </div> --}}
 
                 <div class="container copyright text-center mt-4">
-                    <p>© <span>Copyright</span> <strong class="px-1 sitename">Local Class Techonology</strong> <span>All
+                    <p>© <span>Copyright</span> <strong class="px-1 sitename">Local Project Techonology</strong>
+                        <span>All
                             Rights
                             Reserved</span></p>
                     <div class="credits">
@@ -226,37 +373,7 @@
     <script src="{{ secure_asset('landing/assets/js/main.js') }}"></script>
 
 
-    {{--
-  <script>
-    $(function() {
-      var data = {
-        'id': 'kepala-desa',
-        'name': 'Kepala Desa',
-        'title': 'Pimpinan Desa',
-        'children': [
-            { 'id': 'sekdes', 'name': 'Sekretaris Desa', 'title': 'Sekretaris' },
-            { 'id': 'bendahara', 'name': 'Bendahara', 'title': 'Keuangan' },
-            { 'id': 'kadus1', 'name': 'Kepala Dusun 1', 'title': 'Dusun 1', 'children': [
-                { 'id': 'staf-dusun1', 'name': 'Staf Dusun 1', 'title': 'Staf Dusun' }
-            ]},
-            { 'id': 'kadus2', 'name': 'Kepala Dusun 2', 'title': 'Dusun 2', 'children': [
-                { 'id': 'staf-dusun2', 'name': 'Staf Dusun 2', 'title': 'Staf Dusun' }
-            ]}
-        ]
-      };
 
-      console.log("OrgChart is loading...");
-
-      if ($.fn.orgchart) {
-        $('#chart-container').orgchart({
-          'data' : data,
-          'nodeContent': 'title'
-        });
-      } else {
-        console.error("Plugin OrgChart tidak tersedia!");
-      }
-    });
-  </script> --}}
 
 
 </body>

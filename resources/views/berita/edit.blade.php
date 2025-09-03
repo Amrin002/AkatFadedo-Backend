@@ -11,19 +11,16 @@
                             <h5>Form Edit Berita</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('berita.update', $berita->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                
+
                                 <div class="form-group">
                                     <label for="judul">Judul <span class="text-danger">*</span></label>
-                                    <input type="text" 
-                                           class="form-control @error('judul') is-invalid @enderror" 
-                                           id="judul" 
-                                           name="judul" 
-                                           value="{{ old('judul', $berita->judul) }}" 
-                                           placeholder="Masukkan judul berita"
-                                           required>
+                                    <input type="text" class="form-control @error('judul') is-invalid @enderror"
+                                        id="judul" name="judul" value="{{ old('judul', $berita->judul) }}"
+                                        placeholder="Masukkan judul berita" required>
                                     @error('judul')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -31,9 +28,7 @@
 
                                 <div class="form-group">
                                     <label for="konten">Konten <span class="text-danger">*</span></label>
-                                    <textarea class="form-control @error('konten') is-invalid @enderror" 
-                                              id="konten" 
-                                              name="konten">{{ old('konten', $berita->konten) }}</textarea>
+                                    <textarea class="form-control @error('konten') is-invalid @enderror" id="konten" name="konten">{{ old('konten', $berita->konten) }}</textarea>
                                     @error('konten')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -41,34 +36,27 @@
 
                                 <div class="form-group">
                                     <label for="gambar">Gambar</label>
-                                    
-                                    @if($berita->gambar)
+
+                                    @if ($berita->gambar)
                                         <div class="mb-3">
                                             <p>Gambar saat ini:</p>
-                                            <img src="{{ asset('storage/' . $berita->gambar) }}" 
-                                                 class="img-thumbnail" 
-                                                 style="max-width: 300px;">
+                                            <img src="{{ asset('storage/' . $berita->gambar) }}" class="img-thumbnail"
+                                                style="max-width: 300px;">
                                         </div>
                                     @endif
-                                    
-                                    <input type="file" 
-                                           class="form-control @error('gambar') is-invalid @enderror" 
-                                           id="gambar" 
-                                           name="gambar"
-                                           accept="image/*"
-                                           onchange="previewImage(this)">
+
+                                    <input type="file" class="form-control @error('gambar') is-invalid @enderror"
+                                        id="gambar" name="gambar" accept="image/*" onchange="previewImage(this)">
                                     @error('gambar')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah gambar. Format: JPEG, PNG, JPG (Max: 2MB)</small>
-                                    
+                                    <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah gambar. Format:
+                                        JPEG, PNG, JPG (Max: 2MB)</small>
+
                                     <!-- Preview New Image -->
                                     <div class="mt-3">
-                                        <img id="preview" 
-                                             src="#" 
-                                             alt="Preview Gambar Baru" 
-                                             class="img-thumbnail" 
-                                             style="max-width: 300px; display: none;">
+                                        <img id="preview" src="#" alt="Preview Gambar Baru" class="img-thumbnail"
+                                            style="max-width: 300px; display: none;">
                                     </div>
                                 </div>
 
@@ -89,71 +77,47 @@
     </div>
 @endsection
 
-{{-- script preview image --}}
-
 @push('scripts')
-<script>
-    function previewImage(input) {
-        const preview = document.getElementById('preview');
-        const file = input.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = '#';
-            preview.style.display = 'none';
-        }
-    }
-</script>
-@endpush
+    <!-- Load TinyMCE dari CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js"></script>
 
 
-@push('scripts')
-<!-- Load TinyMCE dari CDN -->
-<script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#konten', // target textarea dengan id konten
+            height: 500,
+            menubar: 'file edit view insert format tools table help',
+            plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+            toolbar: 'undo redo | styles | bold italic underline strikethrough | fontselect fontsizeselect formatselect | ' +
+                'alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | ' +
+                'forecolor backcolor casechange permanentpen formatpainter removeformat | ' +
+                'pagebreak | charmap emoticons | fullscreen preview save print | ' +
+                'insertfile image media link anchor codesample | ltr rtl',
+            toolbar_mode: 'sliding',
+            contextmenu: 'link image imagetools table',
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
 
+                input.onchange = function() {
+                    var file = this.files[0];
 
-<script>
-    tinymce.init({
-        selector: '#konten', // target textarea dengan id konten
-        height: 500,
-        menubar: 'file edit view insert format tools table help',
-        plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-        toolbar: 'undo redo | styles | bold italic underline strikethrough | fontselect fontsizeselect formatselect | ' +
-                 'alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | ' +
-                 'forecolor backcolor casechange permanentpen formatpainter removeformat | ' +
-                 'pagebreak | charmap emoticons | fullscreen preview save print | ' +
-                 'insertfile image media link anchor codesample | ltr rtl',
-        toolbar_mode: 'sliding',
-        contextmenu: 'link image imagetools table',
-        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-        image_title: true,
-        automatic_uploads: true,
-        file_picker_types: 'image',
-        file_picker_callback: function(cb, value, meta) {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-
-            input.onchange = function() {
-                var file = this.files[0];
-
-                const reader = new FileReader();
-                reader.onload = function () {
-                    cb(reader.result, { title: file.name });
+                    const reader = new FileReader();
+                    reader.onload = function() {
+                        cb(reader.result, {
+                            title: file.name
+                        });
+                    };
+                    reader.readAsDataURL(file);
                 };
-                reader.readAsDataURL(file);
-            };
 
-            input.click();
-        }
-    });
-</script>
+                input.click();
+            }
+        });
+    </script>
 @endpush

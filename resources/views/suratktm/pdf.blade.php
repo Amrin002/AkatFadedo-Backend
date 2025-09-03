@@ -85,7 +85,7 @@
         <img src="{{ public_path('admin/assets/img/logo_sbt.png') }}" alt="Logo SBT">
         <div class="kop-text">
             PEMERINTAH KABUPATEN SERAM BAGIAN TIMUR<br>
-            KECAMATAN UKAR SENGAN <br>
+            KECAMATAN UKAR SENGAN<br>
             NEGERI ADMINISTRATIF AKAT FADEDO<br>
             Jln. Kumbang
         </div>
@@ -93,7 +93,7 @@
 
     <hr>
 
-    <div class="mt-2 center">
+    <div class="center mt-2">
         <strong>SURAT KETERANGAN TIDAK MAMPU</strong><br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
@@ -135,13 +135,13 @@
         <br>Demikian surat keterangan ini dibuat dan digunakan sebagaimana mestinya.
     </p>
 
-    <div class="mt-4 signature">
+    <div class="signature mt-4">
         <p>Dikeluarkan di: Fadedo</p>
         <p>Pada Tanggal: {{ $tanggal_dikeluarkan }}</p>
         <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
         @if ($surat->qr_code)
-        <img src="{{ public_path($surat->qr_code) }}" alt="QR Code Verifikasi" class="qr-code">
+            <img src="{{ public_path($surat->qr_code) }}" alt="QR Code Verifikasi" class="qr-code">
         @endif
 
         <p><strong>Muhamad Arsad Talahatu</strong></p>

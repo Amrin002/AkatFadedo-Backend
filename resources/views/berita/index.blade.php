@@ -46,7 +46,8 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
                                                     @if ($row->gambar)
-                                                        <img src="{{ asset('storage/' . $row->gambar) }}" width="100" class="img-thumbnail">
+                                                        <img src="{{ asset('storage/' . $row->gambar) }}" width="100"
+                                                            class="img-thumbnail">
                                                     @else
                                                         <p>Tidak ada gambar</p>
                                                     @endif
@@ -57,11 +58,12 @@
                                                 <td>{{ $row->created_at->format('d - m - Y') }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
-                                                        <a href="{{ route('berita.edit', $row->id) }}" class="btn btn-warning btn-sm">
+                                                        <a href="{{ route('berita.edit', $row->id) }}"
+                                                            class="btn btn-warning btn-sm">
                                                             <i class="fas fa-edit"></i> Edit
                                                         </a>
-                                                        <button type="button" class="btn btn-danger btn-sm" 
-                                                            data-toggle="modal" 
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            data-toggle="modal"
                                                             data-target="#deleteBeritaModal{{ $row->id }}">
                                                             <i class="fas fa-trash"></i> Hapus
                                                         </button>
@@ -70,27 +72,31 @@
                                             </tr>
 
                                             <!-- Modal Konfirmasi Hapus -->
-                                            <div class="modal fade" id="deleteBeritaModal{{ $row->id }}" 
-                                                tabindex="-1" 
-                                                aria-labelledby="deleteBeritaModalLabel{{ $row->id }}" 
+                                            <div class="modal fade" id="deleteBeritaModal{{ $row->id }}" tabindex="-1"
+                                                aria-labelledby="deleteBeritaModalLabel{{ $row->id }}"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Apakah Anda yakin ingin menghapus <strong>{{ $row->judul }}</strong>?
+                                                            Apakah Anda yakin ingin menghapus
+                                                            <strong>{{ $row->judul }}</strong>?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <form action="{{ route('berita.destroy', $row->id) }}" method="POST">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Batal</button>
+                                                            <form action="{{ route('berita.destroy', $row->id) }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                                                <button type="submit" class="btn btn-danger">Ya,
+                                                                    Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>

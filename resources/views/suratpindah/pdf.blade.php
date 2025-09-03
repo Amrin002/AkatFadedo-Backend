@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Surat Keterangan Pindah Domisili</title>
@@ -109,7 +110,7 @@
 
     <hr>
 
-    <div class="mt-2 center bold">
+    <div class="center mt-2 bold">
         SURAT KETERANGAN PINDAH DOMISILI<br>
         NO: {{ $surat->no_surat ?? '...' }}
     </div>
@@ -120,27 +121,70 @@
     </p>
 
     <table class="data-surat">
-        <tr><td width="200">Nama</td><td>: {{ strtoupper($surat->nama) }}</td></tr>
-        <tr><td>Tempat/Tgl Lahir</td><td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td></tr>
-        <tr><td>Jenis Kelamin</td><td>: {{ strtoupper($surat->jenis_kelamin) }}</td></tr>
-        <tr><td>Kewarganegaraan</td><td>: {{ strtoupper($surat->kewarganegaraan) }}</td></tr>
-        <tr><td>Pekerjaan</td><td>: {{ strtoupper($surat->pekerjaan) }}</td></tr>
-        <tr><td>Kecamatan</td><td>: {{ strtoupper($surat->kecamatan) }}</td></tr>
-        <tr><td>Kabupaten</td><td>: {{ strtoupper($surat->kabupaten) }}</td></tr>
-        <tr><td>Alamat</td><td>: {{ strtoupper($surat->alamat) }}</td></tr>
+        <tr>
+            <td width="200">Nama</td>
+            <td>: {{ strtoupper($surat->nama) }}</td>
+        </tr>
+        <tr>
+            <td>Tempat/Tgl Lahir</td>
+            <td>: {{ $surat->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->tanggal_lahir)->format('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin</td>
+            <td>: {{ strtoupper($surat->jenis_kelamin) }}</td>
+        </tr>
+        <tr>
+            <td>Kewarganegaraan</td>
+            <td>: {{ strtoupper($surat->kewarganegaraan) }}</td>
+        </tr>
+        <tr>
+            <td>Pekerjaan</td>
+            <td>: {{ strtoupper($surat->pekerjaan) }}</td>
+        </tr>
+        <tr>
+            <td>Kecamatan</td>
+            <td>: {{ strtoupper($surat->kecamatan) }}</td>
+        </tr>
+        <tr>
+            <td>Kabupaten</td>
+            <td>: {{ strtoupper($surat->kabupaten) }}</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>: {{ strtoupper($surat->alamat) }}</td>
+        </tr>
     </table>
 
     <p class="mt-1 isi-paragraf">
-        Berdasarkan data yang ada, yang bersangkutan benar warga Negeri Administratif Akat Fadedo dan telah berpindah alamat ke:
+        Berdasarkan data yang ada, yang bersangkutan benar warga Negeri Administratif Akat Fadedo dan telah berpindah
+        alamat ke:
     </p>
 
     <table class="data-surat">
-        <tr><td width="200">Desa</td><td>: {{ strtoupper($surat->desa_pindah) }}</td></tr>
-        <tr><td>RT/RW</td><td>: {{ str_pad($surat->rt, 2, '0', STR_PAD_LEFT) }}/{{ str_pad($surat->rw, 2, '0', STR_PAD_LEFT) }}</td></tr>
-        <tr><td>Jalan</td><td>: {{ strtoupper($surat->jalan) }}</td></tr>
-        <tr><td>Kecamatan</td><td>: {{ strtoupper($surat->kecamatan_pindah) }}</td></tr>
-        <tr><td>Kabupaten</td><td>: {{ strtoupper($surat->kabupaten_pindah) }}</td></tr>
-        <tr><td>Provinsi</td><td>: {{ strtoupper($surat->provinsi) }}</td></tr>
+        <tr>
+            <td width="200">Desa</td>
+            <td>: {{ strtoupper($surat->desa_pindah) }}</td>
+        </tr>
+        <tr>
+            <td>RT/RW</td>
+            <td>: {{ str_pad($surat->rt, 2, '0', STR_PAD_LEFT) }}/{{ str_pad($surat->rw, 2, '0', STR_PAD_LEFT) }}</td>
+        </tr>
+        <tr>
+            <td>Jalan</td>
+            <td>: {{ strtoupper($surat->jalan) }}</td>
+        </tr>
+        <tr>
+            <td>Kecamatan</td>
+            <td>: {{ strtoupper($surat->kecamatan_pindah) }}</td>
+        </tr>
+        <tr>
+            <td>Kabupaten</td>
+            <td>: {{ strtoupper($surat->kabupaten_pindah) }}</td>
+        </tr>
+        <tr>
+            <td>Provinsi</td>
+            <td>: {{ strtoupper($surat->provinsi) }}</td>
+        </tr>
     </table>
 
     <p class="mt-1 isi-paragraf">
@@ -153,14 +197,12 @@
         <p>Kepala Pemerintah Negeri Administratif Akat Fadedo</p>
 
         @if ($surat->qr_code)
-        <img
-            src="{{ public_path($surat->qr_code) }}"
-            alt="QR Code Verifikasi"
-            class="qr-code">
+            <img src="{{ public_path($surat->qr_code) }}" alt="QR Code Verifikasi" class="qr-code">
         @endif
 
         <p class="bold">Muhamad Arsad Talahatu</p>
     </div>
 
 </body>
+
 </html>

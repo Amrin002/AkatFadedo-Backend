@@ -243,17 +243,7 @@
                                                 const value = context.raw;
                                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                                 const percentage = ((value / total) * 100).toFixed(1);
-
                                                 return `${label}: ${value.toLocaleString('id-ID')} (${percentage}%)`;
-
-                                                return $ {
-                                                    label
-                                                }: $ {
-                                                    value.toLocaleString('id-ID')
-                                                }($ {
-                                                    percentage
-                                                } % );
-
                                             }
                                         }
                                     }
@@ -323,7 +313,6 @@
                             });
                         });
                     </script>
-
 
                     <div id="struktur-desa" class="doctors section">
                         <div class="container section-title" data-aos="fade-up">
@@ -501,7 +490,7 @@
                                 mengetahui penggunaan dana desa.</p>
                             <a href="{{ route('apbdes.viewUser') }}" class="stretched-link"></a>
                         </div>
-                    </div><!-- End Service Item -->
+                    </div>
 
                     <!-- Modal -->
                     <div class="modal modal-lg fade" id="requirementModal" tabindex="-1"
@@ -548,12 +537,15 @@
                                                 </div>
 
                                                 <div class="mt-2 mb-2 text-center">
-                                                    <button type="button" class="btn text-white fw-bold"
-                                                        style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
-                                                        onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
-                                                        onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
-                                                        Download
-                                                    </button>
+                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
+                                                        <button type="button" class="btn text-white fw-bold"
+                                                            style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
+                                                            onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
+                                                            onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
+                                                            Download
+                                                        </button>
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -581,7 +573,6 @@
                             </div>
                         </div>
                     </div>
-
 
 
 
