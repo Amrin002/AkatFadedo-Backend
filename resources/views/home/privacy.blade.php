@@ -2,736 +2,682 @@
 @section('content')
     <main class="main">
 
-        <!-- Hero Section for Privacy Policy -->
+        <!-- Hero Section -->
         <section id="privacy-hero" class="hero section">
             <div class="container" data-aos="fade-up">
                 <div class="row justify-content-center text-center">
                     <div class="col-lg-8">
                         <h1 class="display-4 mb-4">Kebijakan Privasi</h1>
-                        <p class="lead">Terakhir diperbarui: 31 Maret 2025</p>
-                        <p class="text-muted">Kebijakan Privasi ini menjelaskan kebijakan dan prosedur kami tentang
-                            pengumpulan, penggunaan, dan pengungkapan informasi Anda ketika menggunakan Layanan.</p>
+                        <p class="lead">Layanan Desa Akat Fadedo</p>
+                        <p class="text-muted">Terakhir diperbarui: 31 Maret 2025</p>
                     </div>
                 </div>
             </div>
-        </section><!-- /Hero Section -->
+        </section>
 
         <!-- Privacy Policy Content -->
         <section id="privacy-content" class="section">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3">
-                        <!-- Table of Contents -->
-                        <div class="sticky-top" style="top: 100px;" data-aos="fade-right">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="mb-0"><i class="fas fa-list"></i> Daftar Isi</h5>
+                    <div class="col-lg-12">
+
+                        <!-- Pendahuluan -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-info-circle"></i> Pendahuluan</h2>
+                            <p>Kebijakan Privasi ini menjelaskan bagaimana Pemerintah Desa Akat Fadedo mengumpulkan,
+                                menggunakan, dan melindungi informasi pribadi Anda ketika menggunakan aplikasi "Layanan
+                                Desa" dan layanan digital lainnya yang kami sediakan.</p>
+
+                            <div class="alert alert-info">
+                                <strong>Komitmen Kami:</strong> Kami berkomitmen untuk melindungi privasi dan keamanan data
+                                pribadi warga desa sesuai dengan Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data
+                                Pribadi (UU PDP).
+                            </div>
+                        </div>
+
+                        <!-- Data yang Kami Kumpulkan -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-database"></i> Data yang Kami Kumpulkan</h2>
+
+                            <h3>1. Data Pribadi untuk Layanan Administratif</h3>
+                            <ul class="data-list">
+                                <li><strong>Identitas:</strong> Nama lengkap, NIK, tempat/tanggal lahir, jenis kelamin</li>
+                                <li><strong>Alamat:</strong> Alamat lengkap, RT/RW, nomor rumah</li>
+                                <li><strong>Kontak:</strong> Nomor HP, email (jika ada)</li>
+                                <li><strong>Dokumen:</strong> KTP, KK, dokumen pendukung lainnya</li>
+                                <li><strong>Foto:</strong> Pas foto untuk keperluan dokumen resmi</li>
+                            </ul>
+
+                            <h3>2. Data untuk Pengaduan Masyarakat</h3>
+                            <ul class="data-list">
+                                <li>Nama pelapor dan kontak</li>
+                                <li>Lokasi kejadian/masalah</li>
+                                <li>Deskripsi pengaduan</li>
+                                <li>Foto/video pendukung (jika ada)</li>
+                                <li>Waktu dan tanggal pelaporan</li>
+                            </ul>
+
+                            <h3>3. Data Teknis Aplikasi</h3>
+                            <ul class="data-list">
+                                <li>Alamat IP perangkat</li>
+                                <li>Jenis perangkat dan browser</li>
+                                <li>Waktu akses dan aktivitas dalam aplikasi</li>
+                                <li>Data lokasi (untuk layanan yang memerlukan)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Tujuan Penggunaan Data -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-bullseye"></i> Tujuan Penggunaan Data</h2>
+
+                            <div class="purpose-grid">
+                                <div class="purpose-card">
+                                    <i class="fas fa-file-alt"></i>
+                                    <h4>Pembuatan Surat</h4>
+                                    <p>Memproses permohonan surat keterangan domisili, surat pengantar, dan dokumen
+                                        administratif lainnya sesuai kebutuhan warga.</p>
                                 </div>
-                                <div class="card-body">
-                                    <nav class="nav flex-column">
-                                        <a class="nav-link" href="#interpretasi">Interpretasi & Definisi</a>
-                                        <a class="nav-link" href="#pengumpulan-data">Pengumpulan Data</a>
-                                        <a class="nav-link" href="#jenis-data">Jenis Data</a>
-                                        <a class="nav-link" href="#penggunaan-data">Penggunaan Data</a>
-                                        <a class="nav-link" href="#penyimpanan-data">Penyimpanan Data</a>
-                                        <a class="nav-link" href="#transfer-data">Transfer Data</a>
-                                        <a class="nav-link" href="#hapus-data">Hapus Data</a>
-                                        <a class="nav-link" href="#pengungkapan-data">Pengungkapan Data</a>
-                                        <a class="nav-link" href="#keamanan-data">Keamanan Data</a>
-                                        <a class="nav-link" href="#privasi-anak">Privasi Anak</a>
-                                        <a class="nav-link" href="#tautan-eksternal">Tautan Eksternal</a>
-                                        <a class="nav-link" href="#perubahan-kebijakan">Perubahan Kebijakan</a>
-                                        <a class="nav-link" href="#kontak">Kontak</a>
-                                    </nav>
+
+                                <div class="purpose-card">
+                                    <i class="fas fa-comments"></i>
+                                    <h4>Penanganan Pengaduan</h4>
+                                    <p>Menindaklanjuti laporan dan keluhan masyarakat terkait pelayanan publik,
+                                        infrastruktur, dan masalah lainnya di desa.</p>
+                                </div>
+
+                                <div class="purpose-card">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <h4>Transparansi APBDes</h4>
+                                    <p>Menyediakan akses informasi anggaran desa yang transparan dan akuntabel kepada
+                                        masyarakat.</p>
+                                </div>
+
+                                <div class="purpose-card">
+                                    <i class="fas fa-newspaper"></i>
+                                    <h4>Informasi dan Berita</h4>
+                                    <p>Menyampaikan informasi terkini tentang program, kegiatan, dan perkembangan desa
+                                        kepada warga.</p>
+                                </div>
+
+                                <div class="purpose-card">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <h4>Keamanan dan Verifikasi</h4>
+                                    <p>Memverifikasi identitas pemohon layanan dan mencegah penyalahgunaan sistem.</p>
+                                </div>
+
+                                <div class="purpose-card">
+                                    <i class="fas fa-chart-line"></i>
+                                    <h4>Evaluasi Layanan</h4>
+                                    <p>Menganalisis penggunaan layanan untuk meningkatkan kualitas pelayanan kepada
+                                        masyarakat.</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-9">
-                        <div class="privacy-content" data-aos="fade-left">
+                        <!-- Keamanan Data -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-lock"></i> Keamanan dan Perlindungan Data</h2>
 
-                            <!-- Introduction -->
-                            <div class="content-section mb-5">
-                                <div class="alert alert-info">
-                                    <i class="fas fa-info-circle"></i>
-                                    <strong>Penting:</strong> Kami menggunakan Data Pribadi Anda untuk menyediakan dan
-                                    meningkatkan Layanan. Dengan menggunakan Layanan, Anda menyetujui pengumpulan dan
-                                    penggunaan informasi sesuai dengan Kebijakan Privasi ini.
+                            <div class="security-measures">
+                                <div class="security-item">
+                                    <i class="fas fa-server"></i>
+                                    <div>
+                                        <h4>Penyimpanan Aman</h4>
+                                        <p>Data disimpan dalam server lokal dengan enkripsi dan backup rutin. Akses terbatas
+                                            hanya untuk petugas yang berwenang.</p>
+                                    </div>
+                                </div>
+
+                                <div class="security-item">
+                                    <i class="fas fa-user-shield"></i>
+                                    <div>
+                                        <h4>Akses Terkontrol</h4>
+                                        <p>Sistem login dengan autentikasi ganda dan pembatasan akses berdasarkan jabatan
+                                            dan kewenangan petugas.</p>
+                                    </div>
+                                </div>
+
+                                <div class="security-item">
+                                    <i class="fas fa-history"></i>
+                                    <div>
+                                        <h4>Log Aktivitas</h4>
+                                        <p>Semua aktivitas akses dan perubahan data tercatat dalam sistem log untuk audit
+                                            dan pemantauan.</p>
+                                    </div>
+                                </div>
+
+                                <div class="security-item">
+                                    <i class="fas fa-trash-alt"></i>
+                                    <div>
+                                        <h4>Penghapusan Data</h4>
+                                        <p>Data yang tidak diperlukan akan dihapus sesuai jadwal retensi dan peraturan yang
+                                            berlaku.</p>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Interpretasi dan Definisi -->
-                            <div id="interpretasi" class="content-section mb-5">
-                                <h2 class="section-title">
-                                    <i class="fas fa-book"></i> Interpretasi dan Definisi
-                                </h2>
+                        <!-- Hak Anda sebagai Warga -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-gavel"></i> Hak Anda sebagai Warga</h2>
 
-                                <h3 class="subsection-title">Interpretasi</h3>
-                                <p class="content-text">Kata-kata yang huruf awalnya menggunakan huruf kapital memiliki
-                                    makna yang didefinisikan dalam kondisi berikut. Definisi berikut akan memiliki makna
-                                    yang sama terlepas dari apakah mereka muncul dalam bentuk tunggal atau jamak.</p>
-
-                                <h3 class="subsection-title">Definisi</h3>
-                                <p class="content-text">Untuk keperluan Kebijakan Privasi ini:</p>
+                            <div class="rights-section">
+                                <div class="alert alert-success">
+                                    <h4><i class="fas fa-info-circle"></i> Berdasarkan UU PDP, Anda memiliki hak:</h4>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="definition-card">
-                                            <h5><i class="fas fa-user-circle"></i> Akun</h5>
-                                            <p>Akun unik yang dibuat untuk Anda mengakses Layanan kami atau bagian dari
-                                                Layanan kami.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="definition-card">
-                                            <h5><i class="fas fa-building"></i> Afiliasi</h5>
-                                            <p>Entitas yang mengendalikan, dikendalikan oleh atau berada di bawah kendali
-                                                bersama dengan suatu pihak.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="definition-card">
-                                            <h5><i class="fas fa-mobile-alt"></i> Aplikasi</h5>
-                                            <p>Mengacu pada Layanan Desa, program perangkat lunak yang disediakan oleh
-                                                Perusahaan.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="definition-card">
-                                            <h5><i class="fas fa-home"></i> Perusahaan</h5>
-                                            <p>Mengacu pada Layanan Desa (disebut sebagai "Perusahaan", "Kami", "Kita" atau
-                                                "Milik Kami").</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="definition-card">
-                                            <h5><i class="fas fa-flag"></i> Negara</h5>
-                                            <p>Mengacu pada: Indonesia</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="definition-card">
-                                            <h5><i class="fas fa-laptop"></i> Perangkat</h5>
-                                            <p>Perangkat apa pun yang dapat mengakses Layanan seperti komputer, ponsel, atau
-                                                tablet digital.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pengumpulan dan Penggunaan Data -->
-                            <div id="pengumpulan-data" class="content-section mb-5">
-                                <h2 class="section-title">
-                                    <i class="fas fa-database"></i> Pengumpulan dan Penggunaan Data Pribadi Anda
-                                </h2>
-                            </div>
-
-                            <!-- Jenis Data yang Dikumpulkan -->
-                            <div id="jenis-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Jenis Data yang Dikumpulkan</h3>
-
-                                <div class="data-type-section">
-                                    <h4><i class="fas fa-user"></i> Data Pribadi</h4>
-                                    <p class="content-text">Saat menggunakan Layanan Kami, Kami mungkin meminta Anda untuk
-                                        memberikan informasi yang dapat diidentifikasi secara pribadi yang dapat digunakan
-                                        untuk menghubungi atau mengidentifikasi Anda.</p>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <ul class="feature-list">
-                                                <li><i class="fas fa-envelope"></i> Alamat email</li>
-                                                <li><i class="fas fa-user"></i> Nama depan dan nama belakang</li>
-                                                <li><i class="fas fa-phone"></i> Nomor telepon</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <ul class="feature-list">
-                                                <li><i class="fas fa-map-marker-alt"></i> Alamat, Provinsi, Kode Pos, Kota
-                                                </li>
-                                                <li><i class="fas fa-chart-line"></i> Data Penggunaan</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="data-type-section">
-                                    <h4><i class="fas fa-chart-bar"></i> Data Penggunaan</h4>
-                                    <p class="content-text">Data Penggunaan dikumpulkan secara otomatis saat menggunakan
-                                        Layanan.</p>
-                                    <div class="alert alert-light">
-                                        <p><strong>Data yang dapat dikumpulkan meliputi:</strong></p>
-                                        <ul>
-                                            <li>Alamat Protokol Internet perangkat Anda (misalnya alamat IP)</li>
-                                            <li>Jenis browser, versi browser</li>
-                                            <li>Halaman Layanan kami yang Anda kunjungi</li>
-                                            <li>Waktu dan tanggal kunjungan Anda</li>
-                                            <li>ID unik perangkat dan data diagnostik lainnya</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="data-type-section">
-                                    <h4><i class="fas fa-share-alt"></i> Informasi dari Layanan Media Sosial Pihak Ketiga
-                                    </h4>
-                                    <p class="content-text">Perusahaan memungkinkan Anda membuat akun dan masuk untuk
-                                        menggunakan Layanan melalui Layanan Media Sosial Pihak Ketiga berikut:</p>
-
-                                    <div class="social-media-grid">
-                                        <div class="social-item">
-                                            <i class="fab fa-google"></i>
-                                            <span>Google</span>
-                                        </div>
-                                        <div class="social-item">
-                                            <i class="fab fa-facebook"></i>
-                                            <span>Facebook</span>
-                                        </div>
-                                        <div class="social-item">
-                                            <i class="fab fa-instagram"></i>
-                                            <span>Instagram</span>
-                                        </div>
-                                        <div class="social-item">
-                                            <i class="fab fa-twitter"></i>
-                                            <span>Twitter</span>
-                                        </div>
-                                        <div class="social-item">
-                                            <i class="fab fa-linkedin"></i>
-                                            <span>LinkedIn</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="data-type-section">
-                                    <h4><i class="fas fa-mobile-alt"></i> Informasi yang Dikumpulkan saat Menggunakan
-                                        Aplikasi</h4>
-                                    <p class="content-text">Saat menggunakan Aplikasi Kami, untuk memberikan fitur Aplikasi
-                                        Kami, Kami dapat mengumpulkan, dengan izin Anda sebelumnya:</p>
-
-                                    <div class="permission-cards">
-                                        <div class="permission-card">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <h5>Informasi Lokasi</h5>
-                                            <p>Informasi mengenai lokasi Anda</p>
-                                        </div>
-                                        <div class="permission-card">
-                                            <i class="fas fa-address-book"></i>
-                                            <h5>Buku Kontak</h5>
-                                            <p>Informasi dari buku telepon Perangkat Anda</p>
-                                        </div>
-                                        <div class="permission-card">
-                                            <i class="fas fa-camera"></i>
-                                            <h5>Kamera & Galeri</h5>
-                                            <p>Gambar dan informasi lain dari kamera dan galeri foto Perangkat Anda</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        <strong>Catatan:</strong> Anda dapat mengaktifkan atau menonaktifkan akses ke
-                                        informasi ini kapan saja, melalui pengaturan Perangkat Anda.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Penggunaan Data Pribadi -->
-                            <div id="penggunaan-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Penggunaan Data Pribadi Anda</h3>
-                                <p class="content-text">Perusahaan dapat menggunakan Data Pribadi untuk tujuan berikut:</p>
-
-                                <div class="usage-grid">
-                                    <div class="usage-card">
-                                        <i class="fas fa-cogs"></i>
-                                        <h5>Menyediakan dan Memelihara Layanan</h5>
-                                        <p>Termasuk memantau penggunaan Layanan kami.</p>
-                                    </div>
-                                    <div class="usage-card">
-                                        <i class="fas fa-user-cog"></i>
-                                        <h5>Mengelola Akun Anda</h5>
-                                        <p>Mengelola pendaftaran Anda sebagai pengguna Layanan.</p>
-                                    </div>
-                                    <div class="usage-card">
-                                        <i class="fas fa-handshake"></i>
-                                        <h5>Pelaksanaan Kontrak</h5>
-                                        <p>Pengembangan, kepatuhan dan pelaksanaan kontrak pembelian.</p>
-                                    </div>
-                                    <div class="usage-card">
-                                        <i class="fas fa-phone"></i>
-                                        <h5>Menghubungi Anda</h5>
-                                        <p>Melalui email, telepon, SMS, atau komunikasi elektronik lainnya.</p>
-                                    </div>
-                                    <div class="usage-card">
-                                        <i class="fas fa-bullhorn"></i>
-                                        <h5>Memberikan Penawaran</h5>
-                                        <p>Berita, penawaran khusus dan informasi umum tentang barang dan layanan.</p>
-                                    </div>
-                                    <div class="usage-card">
-                                        <i class="fas fa-tasks"></i>
-                                        <h5>Mengelola Permintaan</h5>
-                                        <p>Melayani dan mengelola permintaan Anda kepada Kami.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Penyimpanan Data -->
-                            <div id="penyimpanan-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Penyimpanan Data Pribadi Anda</h3>
-                                <div class="info-box">
-                                    <i class="fas fa-clock"></i>
-                                    <div>
-                                        <h5>Periode Penyimpanan</h5>
-                                        <p class="content-text">Perusahaan akan menyimpan Data Pribadi Anda hanya selama
-                                            diperlukan untuk tujuan yang ditetapkan dalam Kebijakan Privasi ini. Kami akan
-                                            menyimpan dan menggunakan Data Pribadi Anda sejauh yang diperlukan untuk
-                                            mematuhi kewajiban hukum kami, menyelesaikan perselisihan, dan menegakkan
-                                            perjanjian dan kebijakan hukum kami.</p>
-
-                                        <p class="content-text"><strong>Data Penggunaan</strong> umumnya disimpan untuk
-                                            periode waktu yang lebih singkat, kecuali ketika data ini digunakan untuk
-                                            memperkuat keamanan atau meningkatkan fungsionalitas Layanan Kami.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Transfer Data -->
-                            <div id="transfer-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Transfer Data Pribadi Anda</h3>
-                                <div class="alert alert-info">
-                                    <i class="fas fa-globe"></i>
-                                    <p><strong>Transfer Lintas Batas:</strong> Informasi Anda, termasuk Data Pribadi,
-                                        diproses di kantor operasi Perusahaan dan di tempat lain di mana pihak-pihak yang
-                                        terlibat dalam pemrosesan berada. Ini berarti informasi ini dapat ditransfer ke —
-                                        dan dipelihara di — komputer yang terletak di luar negara bagian, provinsi, negara,
-                                        atau yurisdiksi pemerintahan lainnya.</p>
-
-                                    <p>Persetujuan Anda terhadap Kebijakan Privasi ini diikuti dengan pengiriman informasi
-                                        tersebut mewakili persetujuan Anda terhadap transfer tersebut.</p>
-                                </div>
-                            </div>
-
-                            <!-- Hapus Data -->
-                            <div id="hapus-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Hapus Data Pribadi Anda</h3>
-                                <div class="rights-section">
-                                    <h5><i class="fas fa-user-shield"></i> Hak Anda</h5>
-                                    <p class="content-text">Anda memiliki hak untuk menghapus atau meminta agar Kami
-                                        membantu menghapus Data Pribadi yang telah Kami kumpulkan tentang Anda.</p>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="right-card">
-                                                <i class="fas fa-edit"></i>
-                                                <h6>Akses Pengaturan</h6>
-                                                <p>Anda dapat memperbarui, mengubah, atau menghapus informasi Anda dengan
-                                                    masuk ke Akun Anda dan mengunjungi bagian pengaturan akun.</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="right-card">
-                                                <i class="fas fa-envelope"></i>
-                                                <h6>Hubungi Kami</h6>
-                                                <p>Anda juga dapat menghubungi Kami untuk meminta akses, koreksi, atau
-                                                    penghapusan informasi pribadi yang telah Anda berikan.</p>
+                                        <div class="right-item">
+                                            <i class="fas fa-eye"></i>
+                                            <div>
+                                                <h5>Hak Akses</h5>
+                                                <p>Mengetahui data pribadi apa saja yang kami miliki tentang Anda</p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="alert alert-warning">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        <strong>Catatan:</strong> Kami mungkin perlu menyimpan informasi tertentu ketika
-                                        kami memiliki kewajiban hukum atau dasar hukum untuk melakukannya.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pengungkapan Data -->
-                            <div id="pengungkapan-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Pengungkapan Data Pribadi Anda</h3>
-
-                                <div class="disclosure-types">
-                                    <div class="disclosure-card">
-                                        <i class="fas fa-building"></i>
-                                        <h5>Transaksi Bisnis</h5>
-                                        <p>Jika Perusahaan terlibat dalam merger, akuisisi atau penjualan aset, Data Pribadi
-                                            Anda mungkin ditransfer. Kami akan memberikan pemberitahuan sebelum Data Pribadi
-                                            Anda ditransfer.</p>
+                                    <div class="col-md-6">
+                                        <div class="right-item">
+                                            <i class="fas fa-edit"></i>
+                                            <div>
+                                                <h5>Hak Pembetulan</h5>
+                                                <p>Meminta perbaikan jika ada data yang tidak akurat</p>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="disclosure-card">
-                                        <i class="fas fa-gavel"></i>
-                                        <h5>Penegakan Hukum</h5>
-                                        <p>Dalam keadaan tertentu, Perusahaan mungkin diminta untuk mengungkapkan Data
-                                            Pribadi Anda jika diminta oleh hukum atau sebagai respons terhadap permintaan
-                                            yang sah dari otoritas publik.</p>
+                                    <div class="col-md-6">
+                                        <div class="right-item">
+                                            <i class="fas fa-ban"></i>
+                                            <div>
+                                                <h5>Hak Pembatasan</h5>
+                                                <p>Membatasi penggunaan data untuk tujuan tertentu</p>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="disclosure-card">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <h5>Persyaratan Hukum Lainnya</h5>
-                                        <p>Perusahaan dapat mengungkapkan Data Pribadi Anda dengan itikad baik bahwa
-                                            tindakan tersebut diperlukan untuk:</p>
-                                        <ul class="mt-2">
-                                            <li>Mematuhi kewajiban hukum</li>
-                                            <li>Melindungi dan membela hak atau properti Perusahaan</li>
-                                            <li>Mencegah atau menyelidiki kemungkinan kesalahan</li>
-                                            <li>Melindungi keselamatan pribadi Pengguna atau publik</li>
-                                            <li>Melindungi terhadap tanggung jawab hukum</li>
-                                        </ul>
+                                    <div class="col-md-6">
+                                        <div class="right-item">
+                                            <i class="fas fa-trash"></i>
+                                            <div>
+                                                <h5>Hak Penghapusan</h5>
+                                                <p>Meminta penghapusan data yang tidak diperlukan</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- Keamanan Data -->
-                            <div id="keamanan-data" class="content-section mb-5">
-                                <h3 class="subsection-title">Keamanan Data Pribadi Anda</h3>
-                                <div class="security-section">
-                                    <div class="alert alert-success">
-                                        <i class="fas fa-lock"></i>
-                                        <div>
-                                            <h5>Komitmen Keamanan</h5>
-                                            <p>Keamanan Data Pribadi Anda penting bagi Kami, tetapi ingat bahwa tidak ada
-                                                metode transmisi melalui Internet, atau metode penyimpanan elektronik yang
-                                                100% aman. Meskipun Kami berusaha menggunakan cara yang dapat diterima
-                                                secara komersial untuk melindungi Data Pribadi Anda, Kami tidak dapat
-                                                menjamin keamanan absolutnya.</p>
+                                    <div class="col-md-6">
+                                        <div class="right-item">
+                                            <i class="fas fa-download"></i>
+                                            <div>
+                                                <h5>Hak Portabilitas</h5>
+                                                <p>Mendapatkan salinan data dalam format yang dapat dibaca</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="right-item">
+                                            <i class="fas fa-times-circle"></i>
+                                            <div>
+                                                <h5>Hak Penarikan Persetujuan</h5>
+                                                <p>Menarik persetujuan penggunaan data kapan saja</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Privasi Anak -->
-                            <div id="privasi-anak" class="content-section mb-5">
-                                <h3 class="subsection-title">Privasi Anak</h3>
-                                <div class="children-privacy">
-                                    <div class="alert alert-warning">
-                                        <i class="fas fa-child"></i>
-                                        <div>
-                                            <h5>Perlindungan Anak di Bawah 13 Tahun</h5>
-                                            <p>Layanan Kami tidak ditujukan untuk siapa pun yang berusia di bawah 13 tahun.
-                                                Kami tidak secara sengaja mengumpulkan informasi yang dapat diidentifikasi
-                                                secara pribadi dari siapa pun yang berusia di bawah 13 tahun.</p>
-
-                                            <p><strong>Jika Anda adalah orang tua atau wali</strong> dan Anda mengetahui
-                                                bahwa anak Anda telah memberikan Data Pribadi kepada Kami, silakan hubungi
-                                                Kami.</p>
-
-                                            <p><strong>Jika Kami mengetahui</strong> bahwa Kami telah mengumpulkan Data
-                                                Pribadi dari siapa pun yang berusia di bawah 13 tahun tanpa verifikasi
-                                                persetujuan orang tua, Kami mengambil langkah-langkah untuk menghapus
-                                                informasi tersebut dari server Kami.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Tautan ke Situs Web Lain -->
-                            <div id="tautan-eksternal" class="content-section mb-5">
-                                <h3 class="subsection-title">Tautan ke Situs Web Lain</h3>
-                                <div class="external-links">
-                                    <div class="info-box">
-                                        <i class="fas fa-external-link-alt"></i>
-                                        <div>
-                                            <p class="content-text">Layanan Kami mungkin berisi tautan ke situs web lain
-                                                yang tidak dioperasikan oleh Kami. Jika Anda mengklik tautan pihak ketiga,
-                                                Anda akan diarahkan ke situs pihak ketiga tersebut.</p>
-
-                                            <p class="content-text"><strong>Kami sangat menyarankan</strong> Anda untuk
-                                                meninjau Kebijakan Privasi dari setiap situs yang Anda kunjungi.</p>
-
-                                            <p class="content-text">Kami tidak memiliki kendali atas dan tidak bertanggung
-                                                jawab atas konten, kebijakan privasi, atau praktik dari situs atau layanan
-                                                pihak ketiga mana pun.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Perubahan Kebijakan -->
-                            <div id="perubahan-kebijakan" class="content-section mb-5">
-                                <h3 class="subsection-title">Perubahan pada Kebijakan Privasi Ini</h3>
-                                <div class="policy-changes">
-                                    <div class="info-box">
-                                        <i class="fas fa-sync-alt"></i>
-                                        <div>
-                                            <p class="content-text">Kami dapat memperbarui Kebijakan Privasi Kami dari
-                                                waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan apa pun dengan
-                                                memposting Kebijakan Privasi baru di halaman ini.</p>
-
-                                            <p class="content-text">Kami akan memberi tahu Anda melalui email dan/atau
-                                                pemberitahuan yang mencolok di Layanan Kami, sebelum perubahan menjadi
-                                                efektif dan memperbarui tanggal "Terakhir diperbarui" di bagian atas
-                                                Kebijakan Privasi ini.</p>
-
-                                            <p class="content-text"><strong>Anda disarankan</strong> untuk meninjau
-                                                Kebijakan Privasi ini secara berkala untuk setiap perubahan. Perubahan pada
-                                                Kebijakan Privasi ini efektif ketika diposting di halaman ini.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Kontak -->
-                            <div id="kontak" class="content-section mb-5">
-                                <h3 class="subsection-title">Hubungi Kami</h3>
-                                <div class="contact-section">
-                                    <p class="content-text">Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini,
-                                        Anda dapat menghubungi kami:</p>
-
-                                    <div class="contact-card">
-                                        <i class="fas fa-envelope"></i>
-                                        <div>
-                                            <h5>Email</h5>
-                                            <p><a href="mailto:info@layanan-desa.com">info@layanan-desa.com</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+
+                        <!-- Berbagi Data -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-share-alt"></i> Berbagi Data dengan Pihak Lain</h2>
+
+                            <div class="alert alert-warning">
+                                <strong>Prinsip Kami:</strong> Data pribadi Anda TIDAK akan dijual atau diperdagangkan
+                                kepada pihak ketiga untuk kepentingan komersial.
+                            </div>
+
+                            <h3>Data dapat dibagikan dalam kondisi berikut:</h3>
+                            <ul class="sharing-list">
+                                <li><strong>Instansi Pemerintah:</strong> Kepada Kecamatan, Kabupaten, atau instansi terkait
+                                    untuk keperluan administrasi yang sah</li>
+                                <li><strong>Kewajiban Hukum:</strong> Jika diminta oleh penegak hukum dengan surat perintah
+                                    yang sah</li>
+                                <li><strong>Keadaan Darurat:</strong> Untuk melindungi keselamatan warga dalam situasi
+                                    emergency</li>
+                                <li><strong>Persetujuan Anda:</strong> Dengan persetujuan tertulis dari Anda untuk tujuan
+                                    tertentu</li>
+                            </ul>
+                        </div>
+
+                        <!-- Penyimpanan Data -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-archive"></i> Penyimpanan Data</h2>
+
+                            <div class="storage-info">
+                                <div class="storage-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <div>
+                                        <h4>Periode Penyimpanan</h4>
+                                        <ul>
+                                            <li><strong>Data Administratif:</strong> Sesuai peraturan arsip desa (minimal 10
+                                                tahun)</li>
+                                            <li><strong>Data Pengaduan:</strong> 3 tahun setelah penyelesaian</li>
+                                            <li><strong>Data Teknis:</strong> 1 tahun untuk analisis sistem</li>
+                                            <li><strong>Data Backup:</strong> 5 tahun untuk pemulihan sistem</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="storage-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <h4>Lokasi Penyimpanan</h4>
+                                        <p>Data disimpan di server lokal Kantor Desa Akat Fadedo dengan sistem backup ke
+                                            cloud server Indonesia yang tersertifikasi.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cookie dan teknologi Pelacakan -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-cookie-bite"></i> Cookie dan Teknologi Pelacakan</h2>
+
+                            <p>Aplikasi kami menggunakan cookie dan teknologi serupa untuk:</p>
+                            <ul class="cookie-list">
+                                <li><strong>Session Cookie:</strong> Menjaga sesi login Anda tetap aktif</li>
+                                <li><strong>Preferensi Cookie:</strong> Mengingat pengaturan bahasa dan tampilan</li>
+                                <li><strong>Analytics Cookie:</strong> Memahami pola penggunaan untuk perbaikan layanan</li>
+                                <li><strong>Security Cookie:</strong> Melindungi dari serangan keamanan</li>
+                            </ul>
+
+                            <div class="alert alert-info">
+                                <strong>Catatan:</strong> Anda dapat mengelola pengaturan cookie melalui browser Anda, namun
+                                menonaktifkan cookie dapat mempengaruhi fungsi aplikasi.
+                            </div>
+                        </div>
+
+                        <!-- Privasi Anak -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-child"></i> Perlindungan Data Anak</h2>
+
+                            <div class="child-protection">
+                                <div class="alert alert-warning">
+                                    <strong>Perhatian:</strong> Untuk warga di bawah 17 tahun, penggunaan layanan harus
+                                    didampingi dan atas persetujuan orang tua/wali.
+                                </div>
+
+                                <h3>Perlindungan Khusus:</h3>
+                                <ul>
+                                    <li>Data anak di bawah 17 tahun memerlukan persetujuan orang tua/wali</li>
+                                    <li>Penggunaan data anak sangat terbatas untuk keperluan administrasi saja</li>
+                                    <li>Data anak tidak akan dibagikan kecuali untuk kepentingan terbaik anak</li>
+                                    <li>Orang tua/wali dapat mengakses dan mengontrol data anak mereka</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Perubahan Kebijakan -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-sync-alt"></i> Perubahan Kebijakan Privasi</h2>
+
+                            <p>Kebijakan Privasi ini dapat berubah dari waktu ke waktu. Kami akan memberitahu perubahan
+                                melalui:</p>
+                            <ul>
+                                <li>Pengumuman di aplikasi dan website desa</li>
+                                <li>Pemberitahuan melalui SMS/WhatsApp (jika perubahan signifikan)</li>
+                                <li>Pengumuman di papan pengumuman desa</li>
+                                <li>Sosialisasi dalam pertemuan warga</li>
+                            </ul>
+
+                            <div class="alert alert-info">
+                                <strong>Saran:</strong> Periksa kebijakan ini secara berkala untuk memahami bagaimana kami
+                                melindungi informasi Anda.
+                            </div>
+                        </div>
+
+                        <!-- Kontak dan Pengaduan -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <h2><i class="fas fa-phone"></i> Kontak dan Pengaduan Privasi</h2>
+
+                            <p>Jika Anda memiliki pertanyaan, keluhan, atau ingin menggunakan hak-hak Anda terkait data
+                                pribadi, hubungi kami melalui:</p>
+
+                            <div class="contact-grid">
+                                <div class="contact-card">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <h5>Kantor Desa</h5>
+                                        <p>Desa Akat Fadedo<br>
+                                            Kec. Seram Timur<br>
+                                            Kab. Seram Bagian Timur, Maluku</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <h5>Telepon</h5>
+                                        <p>+62 822-2360-7709<br>
+                                            <small>Jam Kerja: 08:00 - 16:00 WIT<br>Senin - Jumat</small>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <h5>Email</h5>
+                                        <p>admindesa@akatfadedo.com<br>
+                                            <small>Respon dalam 2x24 jam</small>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card">
+                                    <i class="fas fa-user-tie"></i>
+                                    <div>
+                                        <h5>Petugas Perlindungan Data</h5>
+                                        <p>Sekretaris Desa<br>
+                                            <small>Bertanggung jawab atas penanganan keluhan privasi</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="complaint-process">
+                                <h3>Prosedur Pengaduan:</h3>
+                                <ol>
+                                    <li><strong>Ajukan pengaduan</strong> secara tertulis dengan identitas jelas</li>
+                                    <li><strong>Kami akan merespon</strong> dalam maksimal 3 hari kerja</li>
+                                    <li><strong>Investigasi</strong> akan dilakukan dalam 14 hari kerja</li>
+                                    <li><strong>Tindak lanjut</strong> akan diinformasikan kepada Anda</li>
+                                    <li><strong>Jika tidak puas</strong>, Anda dapat melaporkan ke Kominfo Kabupaten</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Penutup -->
+                        <div class="content-section mb-5" data-aos="fade-up">
+                            <div class="closing-statement">
+                                <h2><i class="fas fa-handshake"></i> Komitmen Kami</h2>
+                                <p class="lead">Pemerintah Desa Akat Fadedo berkomitmen untuk terus meningkatkan
+                                    perlindungan data pribadi warga desa. Kami percaya bahwa transparansi dan akuntabilitas
+                                    dalam pengelolaan data adalah kunci kepercayaan masyarakat.</p>
+
+                                <div class="commitment-box">
+                                    <h4>Janji Kami kepada Warga:</h4>
+                                    <ul>
+                                        <li>Selalu mengutamakan keamanan dan privasi data Anda</li>
+                                        <li>Menggunakan data hanya untuk kepentingan pelayanan publik</li>
+                                        <li>Memberikan layanan yang transparan dan dapat dipertanggungjawabkan</li>
+                                        <li>Terus belajar dan meningkatkan sistem keamanan data</li>
+                                        <li>Menghormati hak-hak Anda sebagai pemilik data pribadi</li>
+                                    </ul>
+                                </div>
+
+                                <p class="text-center mt-4">
+                                    <strong>Desa Akat Fadedo - Melayani dengan Teknologi, Melindungi dengan Hati</strong>
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </section><!-- /Privacy Policy Content -->
+        </section>
 
     </main>
 
     <style>
-        /* Custom Styles for Privacy Policy */
-        .privacy-content {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .section-title {
-            color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .subsection-title {
-            color: #34495e;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .content-text {
-            color: #5a6c7d;
-            line-height: 1.7;
-            text-align: justify;
-            margin-bottom: 15px;
-        }
-
+        /* Basic Styles */
         .content-section {
             background: #fff;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
-        .definition-card,
-        .usage-card,
-        .permission-card,
-        .disclosure-card,
-        .right-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #3498db;
-            transition: transform 0.2s;
-        }
-
-        .definition-card:hover,
-        .usage-card:hover,
-        .permission-card:hover,
-        .disclosure-card:hover,
-        .right-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .definition-card h5,
-        .usage-card h5,
-        .permission-card h5,
-        .disclosure-card h5,
-        .right-card h6 {
+        .content-section h2 {
             color: #2c3e50;
-            margin-bottom: 10px;
-            font-weight: 600;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
         }
 
-        .definition-card i,
-        .usage-card i,
-        .permission-card i,
-        .disclosure-card i,
-        .right-card i {
-            color: #3498db;
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-
-        .social-media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .social-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-            transition: all 0.3s;
-        }
-
-        .social-item:hover {
-            border-color: #3498db;
-            transform: translateY(-2px);
-        }
-
-        .social-item i {
-            font-size: 2em;
-            color: #3498db;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .permission-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .permission-card {
-            text-align: center;
-            border-left: none;
-            border-top: 4px solid #e74c3c;
-        }
-
-        .permission-card i {
-            font-size: 2.5em;
-            color: #e74c3c;
+        .content-section h3 {
+            color: #34495e;
+            margin-top: 25px;
             margin-bottom: 15px;
-            display: block;
         }
 
-        .usage-grid {
+        /* Data Lists */
+        .data-list,
+        .sharing-list,
+        .cookie-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .data-list li,
+        .sharing-list li,
+        .cookie-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .data-list li:last-child,
+        .sharing-list li:last-child,
+        .cookie-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Purpose Grid */
+        .purpose-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 20px 0;
         }
 
-        .usage-card {
-            border-left-color: #2ecc71;
-        }
-
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            padding: 8px 0;
-            color: #5a6c7d;
-        }
-
-        .feature-list li i {
-            color: #3498db;
-            margin-right: 10px;
-            width: 20px;
-        }
-
-        .info-box,
-        .contact-card {
+        .purpose-card {
             background: #f8f9fa;
             padding: 25px;
-            border-radius: 10px;
-            border-left: 5px solid #3498db;
-            display: flex;
-            align-items: flex-start;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #3498db;
+            transition: transform 0.2s;
         }
 
-        .info-box i,
-        .contact-card i {
-            font-size: 2em;
+        .purpose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .purpose-card i {
+            font-size: 2.5em;
             color: #3498db;
-            margin-right: 20px;
-            margin-top: 5px;
+            margin-bottom: 15px;
         }
 
-        .info-box h5,
-        .contact-card h5 {
+        .purpose-card h4 {
             color: #2c3e50;
-            margin-bottom: 10px;
-            font-weight: 600;
+            margin-bottom: 15px;
         }
 
-        .rights-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .disclosure-types {
+        /* Security Measures */
+        .security-measures {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .disclosure-card {
-            border-left-color: #f39c12;
+        .security-item {
+            display: flex;
+            align-items: flex-start;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
         }
 
-        .disclosure-card ul {
-            color: #5a6c7d;
-            margin-top: 10px;
+        .security-item i {
+            font-size: 2em;
+            color: #27ae60;
+            margin-right: 20px;
+            margin-top: 5px;
         }
 
-        .disclosure-card ul li {
-            margin-bottom: 5px;
+        .security-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
 
-        .security-section,
-        .children-privacy,
-        .external-links,
-        .policy-changes {
+        /* Rights Section */
+        .right-item {
+            display: flex;
+            align-items: flex-start;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .right-item i {
+            font-size: 1.5em;
+            color: #e74c3c;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .right-item h5 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        /* Storage Info */
+        .storage-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .storage-item {
+            display: flex;
+            align-items: flex-start;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .storage-item i {
+            font-size: 2em;
+            color: #f39c12;
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+
+        .storage-item h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin: 20px 0;
         }
 
-        .contact-card a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
+        .contact-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #9b59b6;
         }
 
-        .contact-card a:hover {
-            color: #2980b9;
-            text-decoration: underline;
+        .contact-card i {
+            font-size: 2em;
+            color: #9b59b6;
+            margin-bottom: 15px;
         }
 
-        /* Table of Contents Styles */
-        .nav-link {
-            color: #5a6c7d;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-size: 0.9em;
+        .contact-card h5 {
+            color: #2c3e50;
+            margin-bottom: 15px;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            background-color: #3498db;
-            color: white !important;
-            text-decoration: none;
+        /* Complaint Process */
+        .complaint-process {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
         }
 
-        /* Alert Customizations */
+        .complaint-process h3 {
+            color: #27ae60;
+        }
+
+        .complaint-process ol li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        /* Commitment Box */
+        .commitment-box {
+            background: #e3f2fd;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            margin: 20px 0;
+        }
+
+        .commitment-box h4 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+
+        .commitment-box ul li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Closing Statement */
+        .closing-statement {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .closing-statement h2 {
+            color: white;
+            border-bottom: 2px solid white;
+        }
+
+        .closing-statement .lead {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        /* Hero Section */
+        #privacy-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+
+        /* Alerts */
         .alert {
             border: none;
             border-radius: 8px;
@@ -739,126 +685,59 @@
         }
 
         .alert-info {
-            background-color: #e8f4fd;
-            color: #1e5799;
-            border-left: 4px solid #3498db;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-left: 4px solid #2196f3;
         }
 
         .alert-warning {
-            background-color: #fff3cd;
-            color: #856404;
-            border-left: 4px solid #ffc107;
+            background-color: #fff3e0;
+            color: #e65100;
+            border-left: 4px solid #ff9800;
         }
 
         .alert-success {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #17a2b8;
-        }
-
-        .alert-light {
-            background-color: #fefefe;
-            color: #495057;
-            border: 1px solid #e9ecef;
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
 
-            .usage-grid,
-            .permission-cards {
+            .purpose-grid,
+            .contact-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .social-media-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
 
             .content-section {
                 padding: 20px;
             }
 
-            .info-box,
-            .contact-card {
+            .security-item,
+            .right-item,
+            .storage-item {
                 flex-direction: column;
                 text-align: center;
             }
 
-            .info-box i,
-            .contact-card i {
+            .security-item i,
+            .right-item i,
+            .storage-item i {
                 margin-right: 0;
                 margin-bottom: 15px;
             }
+
+            #privacy-hero {
+                padding: 60px 0;
+            }
+
+            .closing-statement {
+                padding: 30px 20px;
+            }
         }
 
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Active Section Highlighting */
-        .content-section:target {
-            background-color: #f0f8ff;
-            border: 2px solid #3498db;
-        }
-
-        /* Custom Scrollbar for Table of Contents */
-        .nav {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .nav::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .nav::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .nav::-webkit-scrollbar-thumb {
-            background: #3498db;
-            border-radius: 2px;
-        }
-
-        .nav::-webkit-scrollbar-thumb:hover {
-            background: #2980b9;
-        }
-
-        /* Hero Section Styles */
-        #privacy-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 100px 0;
-        }
-
-        #privacy-hero h1 {
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        #privacy-hero .lead {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        #privacy-hero .text-muted {
-            color: rgba(255, 255, 255, 0.8) !important;
-        }
-
-        /* Card Header Styles */
-        .card-header {
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            border-bottom: none;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Animation Classes */
+        /* Animation */
         .content-section {
             animation: fadeInUp 0.6s ease-out;
         }
@@ -875,45 +754,47 @@
             }
         }
 
+        /* Utility Classes */
+        .text-justify {
+            text-align: justify;
+        }
+
+        .mb-custom {
+            margin-bottom: 2rem;
+        }
+
         /* Print Styles */
         @media print {
-
-            .sticky-top,
-            .nav {
-                display: none;
-            }
-
             .content-section {
                 box-shadow: none;
                 border: 1px solid #ddd;
                 page-break-inside: avoid;
             }
 
-            .section-title {
-                page-break-after: avoid;
+            .purpose-card,
+            .contact-card {
+                break-inside: avoid;
+            }
+
+            #privacy-hero {
+                background: none !important;
+                color: #333 !important;
             }
         }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for navigation links
-            const navLinks = document.querySelectorAll('.nav-link');
+            // Smooth scrolling for internal links
+            const links = document.querySelectorAll('a[href^="#"]');
 
-            navLinks.forEach(link => {
+            links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
 
                     if (targetElement) {
-                        // Remove active class from all links
-                        navLinks.forEach(navLink => navLink.classList.remove('active'));
-
-                        // Add active class to clicked link
-                        this.classList.add('active');
-
-                        // Smooth scroll to target
                         targetElement.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'
@@ -922,58 +803,7 @@
                 });
             });
 
-            // Highlight active section on scroll
-            const sections = document.querySelectorAll('.content-section[id]');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-
-                        // Remove active class from all links
-                        navLinks.forEach(navLink => navLink.classList.remove('active'));
-
-                        // Add active class to current section link
-                        if (activeLink) {
-                            activeLink.classList.add('active');
-                        }
-                    }
-                });
-            }, {
-                rootMargin: '-20% 0px -80% 0px'
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Add loading animation to cards
-            const cards = document.querySelectorAll(
-                '.definition-card, .usage-card, .permission-card, .disclosure-card, .right-card');
-
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-
-                setTimeout(() => {
-                    card.style.transition = 'all 0.6s ease-out';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-
-            // Add click effect to social media items
-            const socialItems = document.querySelectorAll('.social-item');
-            socialItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-
-            // Back to top functionality
+            // Back to top button
             let backToTopBtn = document.createElement('button');
             backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             backToTopBtn.className = 'btn btn-primary position-fixed';
@@ -1007,18 +837,86 @@
                 });
             });
 
-            // Add hover effects to info boxes
-            const infoBoxes = document.querySelectorAll('.info-box, .contact-card');
-            infoBoxes.forEach(box => {
-                box.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-3px)';
-                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.purpose-card, .contact-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
                 });
 
-                box.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
                 });
+            });
+
+            // Highlight important sections
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'all 0.2s ease';
+                });
+
+                alert.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Copy to clipboard functionality for contact info
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const textContent = this.textContent.trim();
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(textContent).then(() => {
+                            // Show temporary feedback
+                            const originalHTML = this.innerHTML;
+                            this.innerHTML =
+                                '<i class="fas fa-check"></i><div><h5>Disalin!</h5><p>Informasi kontak telah disalin</p></div>';
+                            setTimeout(() => {
+                                this.innerHTML = originalHTML;
+                            }, 2000);
+                        });
+                    }
+                });
+            });
+
+            // Reading progress indicator
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(to right, #3498db, #2ecc71);
+                z-index: 9999;
+                transition: width 0.3s ease;
+            `;
+            document.body.appendChild(progressBar);
+
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            });
+
+            // Print functionality
+            const printBtn = document.createElement('button');
+            printBtn.innerHTML = '<i class="fas fa-print"></i> Cetak';
+            printBtn.className = 'btn btn-outline-primary position-fixed';
+            printBtn.style.cssText = `
+                bottom: 80px;
+                right: 20px;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            `;
+            printBtn.title = 'Cetak halaman ini';
+            document.body.appendChild(printBtn);
+
+            printBtn.addEventListener('click', function() {
+                window.print();
             });
         });
     </script>

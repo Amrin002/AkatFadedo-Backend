@@ -14,7 +14,8 @@
 
                         <div class="card-body">
                             <button class="btn btn-success mb-
-                            3" data-toggle="modal" data-target="#modalTambahSuratPINDAH">
+                            3" data-toggle="modal"
+                                data-target="#modalTambahSuratPINDAH">
                                 <i class="fas fa-plus-circle"></i> Tambah Surat
                             </button>
 
@@ -115,12 +116,14 @@
                                                 <div class="form-group">
                                                     <label for="kecamatan_pindah">Kecamatan Pindah</label>
                                                     <input type="text" class="form-control" id="kecamatan_pindah"
-                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah') }}" required>
+                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah') }}"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="kabupaten_pindah">Kabupaten Pindah</label>
                                                     <input type="text" class="form-control" id="kabupaten_pindah"
-                                                        name="kabupaten_pindah" value="{{ old('kabupaten_pindah') }}" required>
+                                                        name="kabupaten_pindah" value="{{ old('kabupaten_pindah') }}"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="provinsi">Provinsi Pindah</label>
@@ -208,19 +211,22 @@
                                                         <div class="d-flex align-items-center gap-2">
                                                             {{-- Tombol Edit --}}
                                                             <button type="button" class="btn btn-warning btn-sm"
-                                                                data-toggle="modal" data-target="#editModal{{ $row->id }}">
+                                                                data-toggle="modal"
+                                                                data-target="#editModal{{ $row->id }}">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </button>
 
                                                             {{-- Tombol Hapus --}}
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                data-toggle="modal" data-target="#deleteModal{{ $row->id }}">
+                                                                data-toggle="modal"
+                                                                data-target="#deleteModal{{ $row->id }}">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </button>
                                                         </div>
 
                                                         {{-- Form Export di bawah --}}
-                                                        <form action="{{ route('suratpindah.export.pdf', $row->id) }}" method="GET" class="w-100 mt-2">
+                                                        <form action="{{ route('suratpindah.export.pdf', $row->id) }}"
+                                                            method="GET" class="w-100 mt-2">
                                                             <button type="submit" class="btn btn-success btn-sm w-100">
                                                                 <i class="fas fa-file-pdf"></i> Export
                                                             </button>
@@ -252,7 +258,8 @@
                                                                     data-dismiss="modal">
                                                                     Batal
                                                                 </button>
-                                                                <form action="{{ route('suratpindah.destroy', $row->id) }}"
+                                                                <form
+                                                                    action="{{ route('suratpindah.destroy', $row->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -271,13 +278,15 @@
                                             <div class="modal fade" id="editModal{{ $row->id }}" tabindex="-1"
                                                 aria-labelledby="editModalLabel{{ $row->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                    <form action="{{ route('suratpindah.update', $row->id) }}" method="POST">
+                                                    <form action="{{ route('suratpindah.update', $row->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Edit Surat</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close">
                                                                     <span>&times;</span>
                                                                 </button>
                                                             </div>
@@ -291,43 +300,64 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="nama">Nama</label>
-                                                                    <input type="text" class="form-control" name="nama"
+                                                                    <input type="text" class="form-control"
+                                                                        name="nama"
                                                                         value="{{ old('nama', $row->nama) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="tempat_lahir">Tempat Lahir</label>
-                                                                    <input type="text" class="form-control" name="tempat_lahir"
-                                                                        value="{{ old('tempat_lahir', $row->tempat_lahir) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        name="tempat_lahir"
+                                                                        value="{{ old('tempat_lahir', $row->tempat_lahir) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                                    <input type="date" class="form-control" name="tanggal_lahir"
-                                                                        value="{{ old('tanggal_lahir', $row->tanggal_lahir) }}" required>
+                                                                    <input type="date" class="form-control"
+                                                                        name="tanggal_lahir"
+                                                                        value="{{ old('tanggal_lahir', $row->tanggal_lahir) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="jenis_kelamin">Jenis Kelamin</label>
-                                                                    <select class="form-control" name="jenis_kelamin" required>
-                                                                        <option value="Laki-laki" {{ old('jenis_kelamin', $row->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                                                        <option value="Perempuan" {{ old('jenis_kelamin', $row->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                                                    <select class="form-control" name="jenis_kelamin"
+                                                                        required>
+                                                                        <option value="Laki-laki"
+                                                                            {{ old('jenis_kelamin', $row->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
+                                                                            Laki-laki</option>
+                                                                        <option value="Perempuan"
+                                                                            {{ old('jenis_kelamin', $row->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
+                                                                            Perempuan</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="status_kawin">Status Kawin</label>
-                                                                    <select class="form-control" name="status_kawin" required>
-                                                                        <option value="Belum kawin" {{ old('status_kawin', $row->status_kawin) == 'Belum kawin' ? 'selected' : '' }}>Belum Kawin</option>
-                                                                        <option value="Sudah kawin" {{ old('status_kawin', $row->status_kawin) == 'Sudah kawin' ? 'selected' : '' }}>Sudah Kawin</option>
-                                                                        <option value="Cerai" {{ old('status_kawin', $row->status_kawin) == 'Cerai' ? 'selected' : '' }}>Cerai</option>
+                                                                    <select class="form-control" name="status_kawin"
+                                                                        required>
+                                                                        <option value="Belum kawin"
+                                                                            {{ old('status_kawin', $row->status_kawin) == 'Belum kawin' ? 'selected' : '' }}>
+                                                                            Belum Kawin</option>
+                                                                        <option value="Sudah kawin"
+                                                                            {{ old('status_kawin', $row->status_kawin) == 'Sudah kawin' ? 'selected' : '' }}>
+                                                                            Sudah Kawin</option>
+                                                                        <option value="Cerai"
+                                                                            {{ old('status_kawin', $row->status_kawin) == 'Cerai' ? 'selected' : '' }}>
+                                                                            Cerai</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kewarganegaraan">Kewarganegaraan</label>
-                                                                    <input type="text" class="form-control" name="kewarganegaraan"
-                                                                        value="{{ old('kewarganegaraan', $row->kewarganegaraan) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        name="kewarganegaraan"
+                                                                        value="{{ old('kewarganegaraan', $row->kewarganegaraan) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="pekerjaan">Pekerjaan</label>
-                                                                    <input type="text" class="form-control" name="pekerjaan"
-                                                                        value="{{ old('pekerjaan', $row->pekerjaan) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        name="pekerjaan"
+                                                                        value="{{ old('pekerjaan', $row->pekerjaan) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="alamat">Alamat</label>
@@ -335,48 +365,63 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kecamatan">Kecamatan</label>
-                                                                    <input type="text" class="form-control" name="kecamatan"
-                                                                        value="{{ old('kecamatan', $row->kecamatan) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        name="kecamatan"
+                                                                        value="{{ old('kecamatan', $row->kecamatan) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kabupaten">Kabupaten</label>
-                                                                    <input type="text" class="form-control" name="kabupaten"
-                                                                        value="{{ old('kabupaten', $row->kabupaten) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        name="kabupaten"
+                                                                        value="{{ old('kabupaten', $row->kabupaten) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="desa_pindah">Desa Pindah</label>
-                                                                    <input type="text" class="form-control" id="desa_pindah"
-                                                                        name="desa_pindah" value="{{ old('desa_pindah', $row->desa_pindah) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="desa_pindah" name="desa_pindah"
+                                                                        value="{{ old('desa_pindah', $row->desa_pindah) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="rt">RT Pindah</label>
-                                                                    <input type="text" class="form-control" id="rt"
-                                                                        name="rt" value="{{ old('rt', $row->rt) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="rt" name="rt"
+                                                                        value="{{ old('rt', $row->rt) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="rw">RW Pindah</label>
-                                                                    <input type="text" class="form-control" id="rw"
-                                                                        name="rw" value="{{ old('rw', $row->rw) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="rw" name="rw"
+                                                                        value="{{ old('rw', $row->rw) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="jalan">Jalan Pindah</label>
-                                                                    <input type="text" class="form-control" id="jalan"
-                                                                        name="jalan" value="{{ old('jalan', $row->jalan) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="jalan" name="jalan"
+                                                                        value="{{ old('jalan', $row->jalan) }}" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kecamatan_pindah">Kecamatan Pindah</label>
-                                                                    <input type="text" class="form-control" id="kecamatan_pindah"
-                                                                        name="kecamatan_pindah" value="{{ old('kecamatan_pindah', $row->kecamatan_pindah) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="kecamatan_pindah" name="kecamatan_pindah"
+                                                                        value="{{ old('kecamatan_pindah', $row->kecamatan_pindah) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kabupaten_pindah">Kabupaten Pindah</label>
-                                                                    <input type="text" class="form-control" id="kabupaten_pindah"
-                                                                        name="kabupaten_pindah" value="{{ old('kabupaten_pindah', $row->kabupaten_pindah) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="kabupaten_pindah" name="kabupaten_pindah"
+                                                                        value="{{ old('kabupaten_pindah', $row->kabupaten_pindah) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="provinsi">Provinsi Pindah</label>
-                                                                    <input type="text" class="form-control" id="provinsi"
-                                                                        name="provinsi" value="{{ old('provinsi', $row->provinsi) }}" required>
+                                                                    <input type="text" class="form-control"
+                                                                        id="provinsi" name="provinsi"
+                                                                        value="{{ old('provinsi', $row->provinsi) }}"
+                                                                        required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="keterangan">Keterangan</label>
@@ -385,14 +430,21 @@
                                                                 <div class="form-group">
                                                                     <label>Status</label>
                                                                     <select class="form-control" name="status" required>
-                                                                        <option value="On Progress" {{ old('status', $row->status) == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                                                                        <option value="Approve" {{ old('status', $row->status) == 'Approve' ? 'selected' : '' }}>Approve</option>
-                                                                        <option value="Cancel" {{ old('status', $row->status) == 'Cancel' ? 'selected' : '' }}>Cancel</option>
+                                                                        <option value="On Progress"
+                                                                            {{ old('status', $row->status) == 'On Progress' ? 'selected' : '' }}>
+                                                                            On Progress</option>
+                                                                        <option value="Approve"
+                                                                            {{ old('status', $row->status) == 'Approve' ? 'selected' : '' }}>
+                                                                            Approve</option>
+                                                                        <option value="Cancel"
+                                                                            {{ old('status', $row->status) == 'Cancel' ? 'selected' : '' }}>
+                                                                            Cancel</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                    Perubahan</button>
                                                             </div>
                                                         </div>
                                                     </form>

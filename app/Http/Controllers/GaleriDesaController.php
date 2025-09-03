@@ -41,6 +41,7 @@ class GaleriDesaController extends Controller
             'nama_kegiatan' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        // dd($request->all());
 
         // Simpan gambar dengan nama berbasis timestamp
         $imagePath = null;

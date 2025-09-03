@@ -83,11 +83,11 @@
             <div class="container mt-3">
                 <div class="row" style="margin-left:0px">
                     <div class="col-md-3">
-                        <div class="rounded shadow-sm input-group">
-                            <span class="text-white input-group-text bg-primary">
+                        <div class="input-group shadow-sm rounded">
+                            <span class="input-group-text bg-primary text-white">
                                 <i class="bi bi-funnel-fill"></i>
                             </span>
-                            <select name="tahun" class="border-0 form-select" onchange="this.form.submit()">
+                            <select name="tahun" class="form-select border-0" onchange="this.form.submit()">
                                 @foreach ($daftarTahun as $tahun)
                                     <option value="{{ $tahun }}" {{ $tahunDipilih == $tahun ? 'selected' : '' }}>
                                         {{ $tahun }}
@@ -106,7 +106,7 @@
                 @foreach ($apbdes as $item)
                     {{-- tampilkan card di sini --}}
                     <div class="container font" style="margin-top:30px">
-                        <h2 class="mb-4 text-center fw-bold">APBDes {{ $item->tahun }} Negeri Akat Fadedo</h2>
+                        <h2 class="fw-bold text-center mb-4">APBDes {{ $item->tahun }} Negeri Akat Fadedo</h2>
                         <div class="row">
                             <!-- (Konten seperti biasa tetap di sini) -->
                             <!-- Kolom Kiri: Card List -->
@@ -241,10 +241,10 @@
                                 <div class="modal fade" id="modalGambar{{ $item->id }}" tabindex="-1"
                                     aria-labelledby="modalLabel{{ $item->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="bg-transparent border-0 modal-content">
-                                            <div class="text-center modal-body">
+                                        <div class="modal-content bg-transparent border-0">
+                                            <div class="modal-body text-center">
                                                 <img src="{{ secure_asset('storage/' . $item->file) }}"
-                                                    alt="Gambar APBDes Full" class="rounded shadow img-fluid"
+                                                    alt="Gambar APBDes Full" class="img-fluid rounded shadow"
                                                     onerror="this.onerror=null;this.src='{{ secure_asset('images/default.png') }}';">
                                             </div>
                                         </div>
@@ -256,7 +256,7 @@
                 @endforeach
             </div>
         @else
-            <div class="container mt-5 mb-5 text-center">
+            <div class="container text-center mt-5 mb-5">
                 <img src="{{ secure_asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 400px;"
                     class="mb-3">
                 <h4 class="text-muted">Maaf, data APBDes belum tersedia.</h4>

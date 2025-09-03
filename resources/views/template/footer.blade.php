@@ -111,7 +111,7 @@
                 }
             });
         }
-        
+
         // Initialize Datepicker
         if ($.fn.datepicker && $('#datepicker input').length) {
             $('#datepicker input').datepicker({
@@ -413,4 +413,5 @@
 @yield('scripts')
 
 </body>
+
 </html>
