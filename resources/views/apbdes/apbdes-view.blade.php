@@ -113,7 +113,7 @@
                             <div class="col-md-7">
                                 <div class="info-card">
                                     <div class="info-icon" style="background-color: #33a1d4;">
-                                        <img src="{{ secure_asset('images/stats.png') }}">
+                                        <img src="{{ asset('images/stats.png') }}">
                                     </div>
                                     <div class="info-content">
                                         <div class="info-title">Pendapatan</div>
@@ -124,7 +124,7 @@
 
                                 <div class="info-card">
                                     <div class="info-icon" style="background-color: #007db8;">
-                                        <img src="{{ secure_asset('images/townhall.png') }}">
+                                        <img src="{{ asset('images/townhall.png') }}">
                                     </div>
                                     <div class="info-content">
                                         <div class="info-title">Bidang Penyelenggaraan Pemerintahan Desa</div>
@@ -135,7 +135,7 @@
 
                                 <div class="info-card">
                                     <div class="info-icon" style="background-color: #006a9b;">
-                                        <img src="{{ secure_asset('images/excavator.png') }}">
+                                        <img src="{{ asset('images/excavator.png') }}">
                                     </div>
                                     <div class="info-content">
                                         <div class="info-title">Bidang Pelaksanaan Pembangunan Desa</div>
@@ -146,7 +146,7 @@
 
                                 <div class="info-card">
                                     <div class="info-icon" style="background-color: #005177;">
-                                        <img src="{{ secure_asset('images/teach.png') }}">
+                                        <img src="{{ asset('images/teach.png') }}">
                                     </div>
                                     <div class="info-content">
                                         <div class="info-title">Bidang Pembinaan Kemasyarakatan</div>
@@ -157,7 +157,7 @@
 
                                 <div class="info-card">
                                     <div class="info-icon" style="background-color: #013d59;">
-                                        <img src="{{ secure_asset('images/people.png') }}">
+                                        <img src="{{ asset('images/people.png') }}">
                                     </div>
                                     <div class="info-content">
                                         <div class="info-title">Bidang Pemberdayaan Masyarakat</div>
@@ -168,7 +168,7 @@
 
                                 <div class="info-card">
                                     <div class="info-icon" style="background-color: #002232;">
-                                        <img src="{{ secure_asset('images/tsunami.png') }}">
+                                        <img src="{{ asset('images/tsunami.png') }}">
                                     </div>
                                     <div class="info-content">
                                         <div class="info-title">Bidang Penanggulangan Bencana, Darurat dan Mendesak</div>
@@ -179,7 +179,7 @@
 
                                 <div
                                     style="
-                                background-image: url('{{ secure_asset('images/profile_frame.png') }}');
+                                background-image: url('{{ asset('images/profile_frame.png') }}');
                                 background-repeat: no-repeat;
                                 background-position: center;
                                 background-size: 100% auto;
@@ -196,7 +196,7 @@
                             ">
                                     <!-- Kolom kiri: Logo -->
                                     <div style="flex-shrink: 0; margin-left: 20px;">
-                                        <img src="{{ secure_asset('images/logo2.png') }}" alt="Logo" class="img-fluid"
+                                        <img src="{{ asset('images/logo2.png') }}" alt="Logo" class="img-fluid"
                                             style="max-height: 120px;">
                                     </div>
 
@@ -243,9 +243,9 @@
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content bg-transparent border-0">
                                             <div class="modal-body text-center">
-                                                <img src="{{ secure_asset('storage/' . $item->file) }}"
+                                                <img src="{{ asset('storage/' . $item->file) }}"
                                                     alt="Gambar APBDes Full" class="img-fluid rounded shadow"
-                                                    onerror="this.onerror=null;this.src='{{ secure_asset('images/default.png') }}';">
+                                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +257,7 @@
             </div>
         @else
             <div class="container text-center mt-5 mb-5">
-                <img src="{{ secure_asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 400px;"
+                <img src="{{ asset('images/no_data.png') }}" alt="Data kosong" style="max-width: 400px;"
                     class="mb-3">
                 <h4 class="text-muted">Maaf, data APBDes belum tersedia.</h4>
             </div>

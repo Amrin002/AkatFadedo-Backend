@@ -22,7 +22,7 @@
         content="Website resmi Desa Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur. Informasi lengkap tentang profil desa, sejarah, pemerintahan, dan potensi wisata.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://akatfadedo.com">
-    <meta property="og:image" content="{{ secure_asset('landing/assets/img/Logo2.png') }}">
+    <meta property="og:image" content="{{ asset('landing/assets/img/Logo2.png') }}">
     <meta property="og:site_name" content="Akat Fadedo">
     <meta property="og:locale" content="id_ID">
     <!-- Twitter Card Meta Tags -->
@@ -30,7 +30,7 @@
     <meta name="twitter:title" content="Desa Akat Fadedo - Website Resmi">
     <meta name="twitter:description"
         content="Website resmi Desa Akat Fadedo, Kecamatan Seram Timur, Kabupaten Seram Bagian Timur.">
-    <meta name="twitter:image" content="{{ secure_asset('landing/assets/img/Logo2.png') }}">
+    <meta name="twitter:image" content="{{ asset('landing/assets/img/Logo2.png') }}">
 
     <!-- Meta tags khusus untuk desa -->
     <meta name="dc.title" content="Desa Akat Fadedo">
@@ -44,24 +44,24 @@
     <!-- Favicons -->
     <!-- Favicons - Menggunakan file ICO -->
     <!-- Favicon utama (ICO) -->
-    <link rel="icon" type="image/x-icon" href="{{ secure_asset('images/logo_apps.ico') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ secure_asset('images/logo_apps.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo_apps.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo_apps.ico') }}">
 
     <!-- Favicon untuk berbagai ukuran (masih menggunakan PNG untuk ukuran spesifik) -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('images/Logo2.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('images/Logo2.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/Logo2.png') }}">
 
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('images/Logo2.png') }}">
-    <link rel="apple-touch-icon" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/Logo2.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/Logo2.png') }}">
 
     <!-- Android Chrome -->
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ secure_asset('images/Logo2.png') }}">
-    <link rel="icon" type="image/png" sizes="512x512" href="{{ secure_asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/Logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('images/Logo2.png') }}">
 
     <!-- Microsoft Tiles -->
-    <meta name="msapplication-TileImage" content="{{ secure_asset('images/Logo2.png') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('images/Logo2.png') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -72,17 +72,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ secure_asset('landing/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('landing/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('landing/assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('landing/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('landing/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('landing/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
 
 
     <!-- Main CSS File -->
-    <link href="{{ secure_asset('landing/assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/assets/css/main.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/css/jquery.orgchart.css">
     <!-- Di bagian head atau sebelum closing body -->
@@ -214,7 +214,7 @@
 
             <div class="container position-relative d-flex align-items-center justify-content-end">
                 <a href="/" class="logo d-flex align-items-center me-auto">
-                    <img src="{{ secure_asset('landing/assets/img/Logo2.png') }}" alt="">
+                    <img src="{{ asset('landing/assets/img/Logo2.png') }}" alt="">
                     <!-- Uncomment the line below if you also wish to use a text logo -->
                     <h1 class="sitename">Akat Fadedo</h1>
                 </a>
@@ -362,15 +362,15 @@
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <script src="{{ secure_asset('landing/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ secure_asset('landing/assets/vendor/php-email-form/validate.js') }}"></script>
-    <script src="{{ secure_asset('landing/assets/vendor/aos/aos.js') }}"></script>
-    <script src="{{ secure_asset('landing/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script src="{{ secure_asset('landing/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-    <script src="{{ secure_asset('landing/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('landing/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('landing/assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('landing/assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('landing/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('landing/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+    <script src="{{ asset('landing/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
 
     <!-- Main JS File -->
-    <script src="{{ secure_asset('landing/assets/js/main.js') }}"></script>
+    <script src="{{ asset('landing/assets/js/main.js') }}"></script>
 
 
 
