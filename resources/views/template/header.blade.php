@@ -32,7 +32,7 @@
 
 
     <!-- Fonts and icons -->
-    <script src={{ asset ('admin/assets/js/plugin/webfont/webfont.min.js') }}></script>
+    <script src={{ asset('admin/assets/js/plugin/webfont/webfont.min.js') }}></script>
     <script>
         WebFont.load({
             google: {
@@ -45,7 +45,7 @@
                     "Font Awesome 5 Brands",
                     "simple-line-icons",
                 ],
-                urls: ["{{ asset ('admin/assets/css/fonts.min.css') }}"],
+                urls: ["{{ asset('admin/assets/css/fonts.min.css') }}"],
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -54,15 +54,15 @@
     </script>
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="{{ asset ('admin/assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset ('admin/assets/css/plugins.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset ('admin/assets/css/kaiadmin.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/plugins.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/kaiadmin.min.css') }}" />
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="{{ asset ('admin/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
 
     @php
         use App\Models\Notification;
@@ -86,8 +86,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <div class="logo">
-                        <img src="{{ asset ('admin/assets/img/Logo2.png') }}" alt="navbar brand"
-                            class="navbar-brand" height="50" />
+                        <img src="{{ asset('admin/assets/img/Logo2.png') }}" alt="navbar brand" class="navbar-brand"
+                            height="50" />
                     </div>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -125,7 +125,7 @@
                                 <p>Surat</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratpindah*') || request()->is('suratlainnya*') ? 'show' : '' }}"
+                            <div class="collapse {{ request()->is('suratktm*') || request()->is('suratktu*') || request()->is('suratdomisili*') || request()->is('suratpindah*') || request()->is('suratkpt*') || request()->is('suratlainnya*') ? 'show' : '' }}"
                                 id="base">
                                 <ul class="nav nav-collapse">
                                     <li class="nav-item {{ request()->is('suratktm*') ? 'active' : '' }}">
@@ -153,6 +153,13 @@
                                         <a href="{{ url('/suratpindah') }}">
                                             <span class="sub-item">
                                                 <p>Surat Keterangan Pindah</p>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item {{ request()->is('suratkpt*') ? 'active' : '' }}">
+                                        <a href="{{ url('/suratkpt') }}">
+                                            <span class="sub-item">
+                                                <p>Surat Keterangan Perhasilan Tetap</p>
                                             </span>
                                         </a>
                                     </li>
@@ -351,7 +358,7 @@
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="{{ route('home') }}" class="logo">
-                            <img src={{ asset ('admin/assets/img/Logo2.png') }} alt="navbar brand"
+                            <img src={{ asset('admin/assets/img/Logo2.png') }} alt="navbar brand"
                                 class="navbar-brand" height="20" />
                         </a>
                         <div class="nav-toggle">
@@ -586,7 +593,7 @@
                                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="{{ asset ('admin/assets/img/profile.jpg') }}" alt="..."
+                                        <img src="{{ asset('admin/assets/img/profile.jpg') }}" alt="..."
                                             class="avatar-img rounded-circle" />
                                     </div>
                                     <span class="profile-username">
@@ -599,7 +606,7 @@
                                         <li>
                                             <div class="user-box">
                                                 <div class="avatar-lg">
-                                                    <img src="{{ asset ('admin/assets/img/profile.jpg') }}"
+                                                    <img src="{{ asset('admin/assets/img/profile.jpg') }}"
                                                         alt="image profile" class="avatar-img rounded" />
                                                 </div>
                                                 <div class="u-text">

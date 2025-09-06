@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SuratKptController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -130,6 +131,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
     Route::post('/keluhan/{keluhan}/tanggapi', [KeluhanController::class, 'tanggapi'])->name('keluhan.tanggapi');
 
+     Route::resource('/suratkpt', SuratKptController::class);
+    
+    // Route export PDF untuk Surat KPT
+    Route::get('/suratkpt/export/pdf/{id}', [SuratKptController::class, 'exportPdf'])->name('suratkpt.export.pdf');
+    
     // route arsip
     // Export route - HARUS sebelum resource
     Route::get('/arsip/export/csv', [ArsipSuratController::class, 'exportCsv'])->name('arsip.export.csv');

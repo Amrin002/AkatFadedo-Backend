@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratDomisili;
+use App\Models\SuratKpt;
 use App\Models\SuratKtm;
 use App\Models\SuratPindah;
 use App\Models\SuratKtu;
@@ -24,6 +25,7 @@ class SuratVerifikasiController extends Controller
             SuratPindah::class,
             SuratKtu::class,
             SuratDomisili::class,
+            SuratKpt::class,
             // Tambahkan model surat lain di sini nanti
         ];
 
@@ -80,7 +82,8 @@ class SuratVerifikasiController extends Controller
                 'SKTM' => SuratKtm::class,
                 'SKTU' => SuratKtu::class,
                 'DOMISILI' => SuratDomisili::class,
-                'PINDAH' => SuratPindah::class
+                'PINDAH' => SuratPindah::class,
+                'KPT' => SuratKpt::class
             ];
 
             $token = 'Tidak ada';
