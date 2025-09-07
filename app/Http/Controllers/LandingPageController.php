@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Apbdes;
 use App\Models\FasilitasDesa;
 use App\Models\Penduduk;
 use App\Models\StrukturDesa;
@@ -16,6 +17,9 @@ class LandingPageController extends Controller
         // Caching jumlah penduduk
         $jumlahPenduduk = Cache::remember('jumlah_penduduk', 60, function () {
             return Penduduk::where('nama_lengkap', '!=', 'Admin')->count();
+        });
+        $jumlahKk = Cache::remember('jumlah_kk', 60, function () {
+            return Penduduk::where('status_keluarga', 'Kepala Keluarga')->where('nama_lengkap', '!=', 'Admin')->count();
         });
 
         // Caching fasilitas desa
@@ -38,9 +42,13 @@ class LandingPageController extends Controller
             return Berita::latest()->take(6)->get();
         });
 
+        $apbdes = Cache::remember('apbdes_home', 60, function () {
+            return Apbdes::latest()->take(1)->get();
+        });
+
         $title = 'Berita Desa';
         
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title'));
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'apbdes'));
     }
 
     public function show($slug)
