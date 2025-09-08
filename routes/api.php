@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppVersionApiController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\BeritaApiController;
 use App\Http\Controllers\Api\PasswordResetApiController;
@@ -27,7 +28,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::get('/users/{id}', [AuthController::class, 'show']);
-
+// Routes untuk App Version - Public (tidak perlu authentication)
+Route::prefix('app-version')->group(function () {
+    // Cek apakah ada update tersedia
+    Route::post('/check', [AppVersionApiController::class, 'checkVersion']);
+    
+    // Mendapatkan informasi versi terbaru
+    Route::get('/latest', [AppVersionApiController::class, 'getLatestVersion']);
+    
+    // Mendapatkan riwayat versi (optional)
+    Route::get('/history', [AppVersionApiController::class, 'getVersionHistory']);
+});
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/users', [AuthController::class, 'index']);
