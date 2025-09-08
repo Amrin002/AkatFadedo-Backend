@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\AppVersion;
 use App\Models\FasilitasDesa;
 use App\Models\Penduduk;
 use App\Models\StrukturDesa;
@@ -37,10 +38,14 @@ class LandingPageController extends Controller
         $berita = Cache::remember('berita_home', 60, function () {
             return Berita::latest()->take(6)->get();
         });
+                // Caching latest app version untuk download
+        $latestAppVersion = Cache::remember('latest_app_version', 60, function () {
+            return AppVersion::getLatestVersion('android');
+        });
 
         $title = 'Berita Desa';
         
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title'));
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'latestAppVersion'));
     }
 
     public function show($slug)

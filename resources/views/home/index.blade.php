@@ -502,12 +502,13 @@
                                         aria-label="Close"></button>
                                 </div>
 
+                                <!-- Modal Body dengan Dynamic APK Download -->
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <!-- Kiri -->
                                         <div class="col-md-6 text-light p-3 rounded"
                                             style="background: url('{{ asset('images/background2.png') }}') no-repeat center center;
-                                                    background-size: cover; position: relative; overflow: hidden;">
+                    background-size: cover; position: relative; overflow: hidden;">
 
                                             <div class="row position-relative" style="z-index: 2;">
                                                 <div class="d-flex justify-content-center align-items-center">
@@ -518,7 +519,8 @@
                                                     <div style="text-align: justify;">
                                                         <p class="mb-1">Layanan Desa</p>
                                                         <p class="mb-1">Local Class Tech</p>
-                                                        <p class="mb-0">Version: 1.0</p>
+                                                        <p class="mb-0">Version:
+                                                            {{ $latestAppVersion->version ?? '1.0' }}</p>
                                                     </div>
                                                 </div>
 
@@ -537,16 +539,40 @@
                                                 </div>
 
                                                 <div class="mt-2 mb-2 text-center">
-                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
-                                                        <button type="button" class="btn text-white fw-bold"
-                                                            style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
-                                                            onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
-                                                            onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
-                                                            Download
-                                                        </button>
-                                                    </a>
-
+                                                    @if ($latestAppVersion && $latestAppVersion->download_url)
+                                                        <a href="{{ $latestAppVersion->full_download_url }}"
+                                                            target="_blank">
+                                                            <button type="button" class="btn text-white fw-bold"
+                                                                style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
+                                                                onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
+                                                                onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
+                                                                Download v{{ $latestAppVersion->version }}
+                                                            </button>
+                                                        </a>
+                                                    @else
+                                                        <!-- Fallback jika tidak ada app version -->
+                                                        <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
+                                                            <button type="button" class="btn text-white fw-bold"
+                                                                style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
+                                                                onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
+                                                                onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
+                                                                Download
+                                                            </button>
+                                                        </a>
+                                                    @endif
                                                 </div>
+
+                                                <!-- Info tambahan -->
+                                                @if ($latestAppVersion)
+                                                    <div class="text-center mt-2">
+                                                        <small class="text-light" style="font-size: 11px;">
+                                                            <i class="fas fa-calendar"></i>
+                                                            {{ $latestAppVersion->formatted_release_date }}<br>
+                                                            <i class="fas fa-download"></i>
+                                                            {{ $latestAppVersion->file_size ?? 'Size tidak tersedia' }}
+                                                        </small>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -558,6 +584,17 @@
                                                 Semua bisa lewat aplikasi Layanan Desa. Yuk, unduh sekarang dan rasakan
                                                 mudahnya layanan desa digital!
                                             </p>
+
+                                            @if ($latestAppVersion && $latestAppVersion->changelog_array)
+                                                <h6 style="color: #4A4A4A"><strong>Yang Baru di Versi
+                                                        {{ $latestAppVersion->version }}:</strong></h6>
+                                                <ul style="font-size: 13px; color: #4A4A4A; margin-bottom: 15px;">
+                                                    @foreach ($latestAppVersion->changelog_array as $change)
+                                                        <li>{{ $change }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+
                                             <h5 style="color: #4A4A4A"><strong>Tujuan Kami</strong></h5>
                                             <ol style="font-size: 14px; color: #4A4A4A">
                                                 <li>Meningkatkan pelayanan publik desa melalui teknologi</li>
@@ -565,7 +602,7 @@
                                                     Pengaduan Surat, Transparansi APBDes, dan informasi desa</li>
                                                 <li>Mendukung program digitalisasi desa yang transparan dan akuntabel.</li>
                                             </ol>
-                                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akad
+                                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akat
                                                     Fadedo - Melayani dengan Teknologi, Membangun dengan Hati.</strong></h6>
                                         </div>
                                     </div>
