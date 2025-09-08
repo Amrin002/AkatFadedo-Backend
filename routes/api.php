@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AppVersionApiController;
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BeritaApiController;
 use App\Http\Controllers\Api\PasswordResetApiController;
 use App\Http\Controllers\Api\SuratPindahApiController;
