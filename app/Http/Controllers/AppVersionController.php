@@ -17,18 +17,29 @@ class AppVersionController extends Controller
     {
         Log::info('Masuk ke fungsi store AppVersion');
 
+        // Debug file information
+        if ($request->hasFile('apk_file')) {
+            $file = $request->file('apk_file');
+            Log::info('File Details:', [
+                'original_name' => $file->getClientOriginalName(),
+                'mime_type' => $file->getMimeType(),
+                'extension' => $file->getClientOriginalExtension(),
+                'size' => $file->getSize()
+            ]);
+        }
+
         $validator = Validator::make($request->all(), [
             'version' => 'required|string|max:20|unique:app_versions,version',
             'version_code' => 'required|integer|min:1|unique:app_versions,version_code',
             'minimum_version' => 'nullable|string|max:20',
             'minimum_version_code' => 'nullable|integer|min:1',
-            'apk_file' => 'required|file|mimes:apk|max:51200', // Max 50MB
+            // Updated validation - more flexible MIME types for APK
+            'apk_file' => 'required|file|max:51200',
             'is_force_update' => 'boolean',
             'changelog' => 'nullable|string',
             'platform' => 'required|string|in:android,ios'
         ], [
             'apk_file.required' => 'File APK wajib diupload!',
-            'apk_file.mimes' => 'File harus berformat APK!',
             'apk_file.max' => 'Ukuran file APK maksimal 50MB!',
             'version.unique' => 'Versi ini sudah ada!',
             'version_code.required' => 'Version code wajib diisi!',
@@ -39,6 +50,34 @@ class AppVersionController extends Controller
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
+        }
+
+        // Manual APK file validation
+        if ($request->hasFile('apk_file')) {
+            $file = $request->file('apk_file');
+            $extension = strtolower($file->getClientOriginalExtension());
+            $mimeType = $file->getMimeType();
+            
+            // Allow common APK MIME types
+            $allowedMimeTypes = [
+                'application/vnd.android.package-archive',
+                'application/octet-stream',
+                'application/zip',
+                'application/x-zip-compressed'
+            ];
+            
+            // Check extension and MIME type
+            if ($extension !== 'apk' || !in_array($mimeType, $allowedMimeTypes)) {
+                Log::warning('Invalid APK file:', [
+                    'extension' => $extension,
+                    'mime_type' => $mimeType,
+                    'filename' => $file->getClientOriginalName()
+                ]);
+                
+                return back()->withErrors([
+                    'apk_file' => 'File harus berformat APK! (Detected: ' . $extension . ', MIME: ' . $mimeType . ')'
+                ])->withInput();
+            }
         }
 
         // Validasi tambahan: version_code harus lebih besar dari version_code yang sudah ada
@@ -75,14 +114,14 @@ class AppVersionController extends Controller
             // Buat version baru
             AppVersion::create([
                 'version' => $request->version,
-                'version_code' => $request->version_code, // Input manual
+                'version_code' => $request->version_code,
                 'minimum_version' => $request->minimum_version,
-                'minimum_version_code' => $request->minimum_version_code, // Input manual
+                'minimum_version_code' => $request->minimum_version_code,
                 'download_url' => $filePath,
                 'is_force_update' => $request->boolean('is_force_update'),
                 'changelog' => $request->changelog,
                 'file_size' => $fileSize,
-                'is_active' => true, // Versi baru otomatis aktif
+                'is_active' => true,
                 'platform' => $request->platform
             ]);
 
@@ -114,18 +153,37 @@ class AppVersionController extends Controller
         $validator = Validator::make($request->all(), [
             'minimum_version' => 'nullable|string|max:20',
             'minimum_version_code' => 'nullable|integer|min:1',
-            'apk_file' => 'nullable|file|mimes:apk|max:51200', // Optional saat update
+            'apk_file' => 'nullable|file|max:51200', // Remove mimes validation
             'is_force_update' => 'boolean',
             'changelog' => 'nullable|string',
             'is_active' => 'boolean'
         ], [
-            'apk_file.mimes' => 'File harus berformat APK!',
             'apk_file.max' => 'Ukuran file APK maksimal 50MB!',
             'minimum_version_code.min' => 'Minimum version code minimal 1!'
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
+        }
+
+        // Manual APK validation for update
+        if ($request->hasFile('apk_file')) {
+            $file = $request->file('apk_file');
+            $extension = strtolower($file->getClientOriginalExtension());
+            $mimeType = $file->getMimeType();
+            
+            $allowedMimeTypes = [
+                'application/vnd.android.package-archive',
+                'application/octet-stream',
+                'application/zip',
+                'application/x-zip-compressed'
+            ];
+            
+            if ($extension !== 'apk' || !in_array($mimeType, $allowedMimeTypes)) {
+                return back()->withErrors([
+                    'apk_file' => 'File harus berformat APK!'
+                ])->withInput();
+            }
         }
 
         // Validasi minimum_version_code tidak boleh lebih besar dari version_code
