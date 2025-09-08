@@ -71,29 +71,33 @@
         .bg-primary,
         .text-primary,
         .border-primary {
-            --bs-btn-bg: #3FBBC0;
-            --bs-btn-border-color: #3FBBC0;
-            --bs-btn-hover-bg: #30A0A5;
-            --bs-btn-hover-border-color: #30A0A5;
-            --bs-btn-active-bg: #30A0A5;
-            --bs-btn-active-border-color: #30A0A5;
-            --bs-btn-disabled-bg: #3FBBC0;
-            --bs-btn-disabled-border-color: #3FBBC0;
+            --bs-btn-bg: #0DCAF0;
+            --bs-btn-border-color: #0DCAF0;
+            --bs-btn-hover-bg: #217378;
+            --bs-btn-hover-border-color: #217378;
+            --bs-btn-active-bg: #217378;
+            --bs-btn-active-border-color: #217378;
+            --bs-btn-disabled-bg: #0DCAF0;
+            --bs-btn-disabled-border-color: #0DCAF0;
+        }
+
+        .text-justify-custom {
+            text-align: justify;
         }
 
         .btn-outline-primary {
-            --bs-btn-color: #3FBBC0;
-            --bs-btn-border-color: #3FBBC0;
-            --bs-btn-hover-bg: #3FBBC0;
-            --bs-btn-hover-border-color: #3FBBC0;
-            --bs-btn-active-bg: #3FBBC0;
-            --bs-btn-active-border-color: #3FBBC0;
-            --bs-btn-disabled-color: #3FBBC0;
-            --bs-btn-disabled-border-color: #3FBBC0;
+            --bs-btn-color: #0DCAF0;
+            --bs-btn-border-color: #0DCAF0;
+            --bs-btn-hover-bg: #0DCAF0;
+            --bs-btn-hover-border-color: #0DCAF0;
+            --bs-btn-active-bg: #0DCAF0;
+            --bs-btn-active-border-color: #0DCAF0;
+            --bs-btn-disabled-color: #0DCAF0;
+            --bs-btn-disabled-border-color: #0DCAF0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
             scroll-behavior: smooth;
         }
@@ -144,9 +148,9 @@
     @include('layouts.header')
     @yield('content')
     <!-- Footer -->
-    <footer class="bg-info text-primary py-4">
+    <footer class="py-4 bg-info text-primary">
         <div class="container text-center">
-            <p class="text-muted mb-0">&copy; 2025 Desa Akat Fadedo. Hak Cipta Dilindungi.</p>
+            <p class="mb-0 text-muted">&copy; 2025 Desa Akat Fadedo. Hak Cipta Dilindungi.</p>
         </div>
     </footer>
     <!-- Bootstrap JS Bundle -->

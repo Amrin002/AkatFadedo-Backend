@@ -43,11 +43,11 @@ class LandingPageController extends Controller
         });
 
         $apbdes = Cache::remember('apbdes_home', 60, function () {
-            return Apbdes::latest()->take(1)->get();
+            return Apbdes::orderByDesc('tahun')->first(); // langsung ambil 1 record terbaru berdasarkan tahun terbesar
         });
 
         $title = 'Berita Desa';
-        
+
         return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'apbdes'));
     }
 
@@ -145,7 +145,7 @@ class LandingPageController extends Controller
         Cache::forget('berita_detail_' . $slug);
         Cache::forget('berita_home');
         Cache::forget('berita_terbaru_sidebar');
-        
+
         // Clear paginated berita cache
         for ($i = 1; $i <= 10; $i++) {
             Cache::forget("semua_berita_page_{$i}");
