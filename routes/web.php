@@ -46,7 +46,7 @@ use Illuminate\Support\Facades\Log;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 Route::fallback(function () {
-    return response()->view('errors.404', [], 404);
+    return response()->view('Errors.404', [], 404);
 });
 
 Route::get('/privacy', [LandingPageController::class, 'privacy']);
