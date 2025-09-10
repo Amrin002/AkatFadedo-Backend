@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Apbdes;
 use App\Models\FasilitasDesa;
 use App\Models\Penduduk;
 use App\Models\StrukturDesa;
@@ -53,10 +54,13 @@ class LandingPageController extends Controller
         $berita = Cache::remember('berita_home', 60, function () {
             return Berita::latest()->take(6)->get();
         });
+        $apbdes = Cache::remember('apbdes_analisis', 60, function () {
+            return Apbdes::orderByDesc('tahun')->first();
+        });
 
         $title = 'Berita Desa';
         
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title'));
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes'));
     }
 
     public function show($slug)
