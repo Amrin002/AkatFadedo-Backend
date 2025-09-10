@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Apbdes;
 use App\Models\FasilitasDesa;
 use App\Models\Penduduk;
 use App\Models\StrukturDesa;
@@ -55,13 +54,9 @@ class LandingPageController extends Controller
             return Berita::latest()->take(6)->get();
         });
 
-        $apbdes = Cache::remember('apbdes_home', 60, function () {
-            return Apbdes::orderByDesc('tahun')->first(); // langsung ambil 1 record terbaru berdasarkan tahun terbesar
-        });
-
         $title = 'Berita Desa';
-
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'apbdes', 'jumlahLakiLaki', 'jumlahPerempuan'));
+        
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title'));
     }
 
     public function show($slug)

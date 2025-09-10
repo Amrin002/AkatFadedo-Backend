@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -300,15 +300,86 @@
                             <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill">Selengkapnya</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex reveal">
-                    <div class="p-3 text-center card card-layanan w-100">
-                        <div class="card-body">
-                            <i class="mb-3 fas fa-info-circle fa-3x text-info"></i>
-                            <h3 class="mb-2 card-title h4">Pusat Informasi Wisata</h3>
-                            <p class="card-text text-muted">Dapatkan informasi lengkap tentang destinasi wisata,
-                                akomodasi, dan panduan perjalanan di Desa Maju.</p>
-                            <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill">Selengkapnya</a>
+
+                    <!-- Modal -->
+                    <div class="modal modal-lg fade" id="requirementModal" tabindex="-1"
+                        aria-labelledby="requirementModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content border-2">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <!-- Kiri -->
+                                        <div class="col-md-6 text-light p-3 rounded"
+                                            style="background: url('{{ asset('images/background2.png') }}') no-repeat center center;
+                                                    background-size: cover; position: relative; overflow: hidden;">
+
+                                            <div class="row position-relative" style="z-index: 2;">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="me-4">
+                                                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                                                            class="img-fluid" style="max-width: 100px;">
+                                                    </div>
+                                                    <div style="text-align: justify;">
+                                                        <p class="mb-1">Layanan Desa</p>
+                                                        <p class="mb-1">Local Class Tech</p>
+                                                        <p class="mb-0">Version: 1.0</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Preview Images -->
+                                                <div class="bg-light rounded my-3 px-2 py-3 text-center"
+                                                    style="width: calc(100% - 10px); margin: auto;">
+                                                    <div class="d-flex justify-content-center gap-3 flex-nowrap"
+                                                        style="overflow-x: auto;">
+                                                        <img src="{{ asset('images/preview1.png') }}" alt="Preview 1"
+                                                            style="width: 90px;">
+                                                        <img src="{{ asset('images/preview2.png') }}" alt="Preview 2"
+                                                            style="width: 90px;">
+                                                        <img src="{{ asset('images/preview3.png') }}" alt="Preview 3"
+                                                            style="width: 90px;">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-2 mb-2 text-center">
+                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
+                                                        <button type="button" class="btn text-white fw-bold"
+                                                            style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
+                                                            onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
+                                                            onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
+                                                            Download
+                                                        </button>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Kanan -->
+                                        <div class="col-md-6 text-light pt-2 px-3" style="text-align: justify">
+                                            <h5 style="color: #4A4A4A"><strong>Layanan Desa</strong></h5>
+                                            <p style="font-size: 14px; color: #4A4A4A;">
+                                                Mau ajukan surat, baca berita desa, cek APBDes, atau lapor keluhan?
+                                                Semua bisa lewat aplikasi Layanan Desa. Yuk, unduh sekarang dan rasakan
+                                                mudahnya layanan desa digital!
+                                            </p>
+                                            <h5 style="color: #4A4A4A"><strong>Tujuan Kami</strong></h5>
+                                            <ol style="font-size: 14px; color: #4A4A4A">
+                                                <li>Meningkatkan pelayanan publik desa melalui teknologi</li>
+                                                <li>Mempermudah akses masyarakat terhadap layanan administrasi seperti
+                                                    Pengaduan Surat, Transparansi APBDes, dan informasi desa</li>
+                                                <li>Mendukung program digitalisasi desa yang transparan dan akuntabel.</li>
+                                            </ol>
+                                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akad
+                                                    Fadedo - Melayani dengan Teknologi, Membangun dengan Hati.</strong></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
