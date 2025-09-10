@@ -11,7 +11,17 @@ class KKImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
+
         foreach ($rows as $row) {
+            $no_kk = trim((string) ($row['no_kk'] ?? $row['No KK'] ?? ''));
+            $dusun = trim((string) ($row['dusun'] ?? $row['Dusun'] ?? ''));
+            $rt = $row['rt'] ?? $row['RT'] ?? 0;
+            $rw = $row['rw'] ?? $row['RW'] ?? 0;
+            $desa = trim((string) ($row['desa'] ?? $row['Desa'] ?? ''));
+            $kecamatan = trim((string) ($row['kecamatan'] ?? $row['Kecamatan'] ?? ''));
+            $kabupaten = trim((string) ($row['kabupaten'] ?? $row['Kabupaten'] ?? ''));
+            $provinsi = trim((string) ($row['provinsi'] ?? $row['Provinsi'] ?? ''));
+
             // Lewati jika dusun = admin
             if (strtolower($row['dusun']) === 'admin') {
                 continue;
@@ -24,14 +34,14 @@ class KKImport implements ToCollection, WithHeadingRow
             }
             //dd($row);
             KK::create([
-                'no_kk'     => $row['no_kk'],
-                'dusun'     => $row['dusun'],
-                'rt'        => $row['rt'],
-                'rw'        => $row['rw'],
-                'desa'      => $row['desa'],
-                'kecamatan' => $row['kecamatan'],
-                'kabupaten' => $row['kabupaten'],
-                'provinsi'  => $row['provinsi'],
+                'no_kk' => $no_kk,
+                'dusun' => $dusun,
+                'rt' => $rt,
+                'rw' => $rw,
+                'desa' => $desa,
+                'kecamatan' => $kecamatan,
+                'kabupaten' => $kabupaten,
+                'provinsi' => $provinsi,
             ]);
         }
     }

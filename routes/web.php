@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\AppVersionController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -134,6 +135,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Export route - HARUS sebelum resource
     Route::get('/arsip/export/csv', [ArsipSuratController::class, 'exportCsv'])->name('arsip.export.csv');
     Route::resource('arsip', ArsipSuratController::class);
+
+    // Route AppVersion
+    Route::prefix('/app-version')->name('app-version.')->group(function () {
+        Route::get('/', [AppVersionController::class, 'index'])->name('index');
+        Route::get('/create', [AppVersionController::class, 'create'])->name('create');
+        Route::post('/', [AppVersionController::class, 'store'])->name('store');
+        Route::get('/{id}', [AppVersionController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [AppVersionController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AppVersionController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AppVersionController::class, 'destroy'])->name('destroy');
+        Route::patch('/{id}/toggle-active', [AppVersionController::class, 'toggleActive'])->name('toggle-active');
+    });
 });
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')

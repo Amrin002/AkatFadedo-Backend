@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kk',  function (Blueprint $table) {
             $table->string('no_kk')->primary()->unique();
             $table->string('dusun');
-            $table->string('rt');
-            $table->string('rw');
+            $table->string('rt')->default('00');
+            $table->string('rw')->default('00');
             $table->string('desa');
             $table->string('kecamatan');
             $table->string('kabupaten');
