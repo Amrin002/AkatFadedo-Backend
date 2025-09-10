@@ -25,13 +25,33 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="konten">Konten<span class="text-danger">*</span></label>
+                                    <label for="konten">Konten <span class="text-danger">*</span></label>
                                     <textarea class="form-control @error('konten') is-invalid @enderror" id="konten" name="konten">{{ old('konten') }}</textarea>
                                     @error('konten')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                
+                                {{-- Kategori --}}
 
+                                <div class="form-group">
+                                    <label for="kategori">Kategori <span class="text-danger">*</span></label>
+                                    <select class="form-control @error('kategori') is-invalid @enderror" 
+                                            id="kategori" name="kategori" required>
+                                        <option value="">-- Pilih Kategori --</option>
+                                        @foreach($kategori as $kat)
+                                            <option value="{{ $kat['nama'] }}" data-icon="{{ $kat['icon'] }}"
+                                                {{ old('kategori') == $kat['nama'] ? 'selected' : '' }}>
+                                                {{ $kat['nama'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('kategori')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                
+                                
                                 <div class="form-group">
                                     <label for="gambar">Gambar</label>
                                     <input type="file" class="form-control @error('gambar') is-invalid @enderror"
@@ -64,6 +84,7 @@
         </div>
     </div>
 @endsection
+
 
 {{-- script preview image --}}
 
@@ -136,4 +157,23 @@
             }
         });
     </script>
+@endpush
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#kategori').select2({
+            templateResult: function(option) {
+                if (!option.id) return option.text;
+                var icon = $(option.element).data('icon');
+                return $('<span><i class="' + icon + '"></i> ' + option.text + '</span>');
+            },
+            templateSelection: function(option) {
+                if (!option.id) return option.text;
+                var icon = $(option.element).data('icon');
+                return $('<span><i class="' + icon + '"></i> ' + option.text + '</span>');
+            }
+        });
+    });
+</script>
 @endpush

@@ -8,7 +8,7 @@
             <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
                 <div class="carousel-item active">
-                    <img src={{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }} alt="">
+                    <img src={{ asset ('landing/assets/img/hero-carousel/hero-carousel.jpg') }} alt="">
                     <div class="container">
                         <h2>Selamat Datang di Desa <br /> Akat Fadedo</h2>
                         {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> --}}
@@ -17,7 +17,7 @@
                 </div><!-- End Carousel Item -->
 
                 <div class="carousel-item">
-                    <img src={{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }} alt="">
+                    <img src={{ asset ('landing/assets/img/hero-carousel/hero-carousel.jpg') }} alt="">
                     <div class="container">
                         <h2>Selamat Datang di Desa <br /> Akat Fadedo</h2>
                         {{-- <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut.</p> --}}
@@ -26,7 +26,7 @@
                 </div><!-- End Carousel Item -->
 
                 <div class="carousel-item">
-                    <img src={{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }} alt="">
+                    <img src={{ asset ('landing/assets/img/hero-carousel/hero-carousel.jpg') }} alt="">
                     <div class="container">
                         <h2>Selamat Datang di Desa <br /> Akat Fadedo</h2>
                         {{-- <p>Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium.</p> --}}
@@ -100,7 +100,7 @@
                 <div class="container ">
                     <div class="row gy-4">
                         <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
-                            <img src={{ asset('landing/assets/img/ProfilDesa.jpg') }} class="img-fluid" alt="">
+                            <img src={{ asset ('landing/assets/img/ProfilDesa.jpg') }} class="img-fluid" alt="">
                         </div>
                         <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
                             <h3>Sejarah dan Profil Desa</h3>
@@ -327,7 +327,7 @@
                                         data-aos-delay="100">
                                         <div class="team-member">
                                             <div class="member-img">
-                                                <img src="{{ asset('storage/' . $anggota->image) }}" class="img-fluid"
+                                                <img src="{{ asset ('storage/' . $anggota->image) }}" class="img-fluid"
                                                     alt="{{ $anggota->nama }}" width="600" height="600">
                                                 <div class="social">
                                                     @if ($anggota->twitter)
@@ -374,7 +374,7 @@
 
                             <div class="row justify-content-around gy-4">
                                 <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img
-                                        src={{ asset('images/kantor_desa.png') }} alt=""></div>
+                                        src={{ asset ('images/kantor_desa.png') }} alt=""></div>
 
                                 <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up"
                                     data-aos-delay="200">
@@ -506,13 +506,13 @@
                                     <div class="row g-3">
                                         <!-- Kiri -->
                                         <div class="col-md-6 text-light p-3 rounded"
-                                            style="background: url('{{ asset('images/background2.png') }}') no-repeat center center;
+                                            style="background: url('{{ asset ('images/background2.png') }}') no-repeat center center;
                                                     background-size: cover; position: relative; overflow: hidden;">
 
                                             <div class="row position-relative" style="z-index: 2;">
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <div class="me-4">
-                                                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                                                        <img src="{{ asset ('images/logo.png') }}" alt="Logo"
                                                             class="img-fluid" style="max-width: 100px;">
                                                     </div>
                                                     <div style="text-align: justify;">
@@ -527,17 +527,17 @@
                                                     style="width: calc(100% - 10px); margin: auto;">
                                                     <div class="d-flex justify-content-center gap-3 flex-nowrap"
                                                         style="overflow-x: auto;">
-                                                        <img src="{{ asset('images/preview1.png') }}" alt="Preview 1"
+                                                        <img src="{{ asset ('images/preview1.png') }}" alt="Preview 1"
                                                             style="width: 90px;">
-                                                        <img src="{{ asset('images/preview2.png') }}" alt="Preview 2"
+                                                        <img src="{{ asset ('images/preview2.png') }}" alt="Preview 2"
                                                             style="width: 90px;">
-                                                        <img src="{{ asset('images/preview3.png') }}" alt="Preview 3"
+                                                        <img src="{{ asset ('images/preview3.png') }}" alt="Preview 3"
                                                             style="width: 90px;">
                                                     </div>
                                                 </div>
 
                                                 <div class="mt-2 mb-2 text-center">
-                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
+                                                    <a href="{{ asset ('apk/layanan-desa-v1.apk') }}" download>
                                                         <button type="button" class="btn text-white fw-bold"
                                                             style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
                                                             onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
@@ -587,16 +587,42 @@
                         </div>
 
                         <div class="container mt-3">
-
                             <div class="row">
                                 @forelse ($berita as $item)
+                                    @php
+                                        // ambil daftar kategori dari config
+                                        $kategoriConfig = collect(config('kategori'));
+                                        // cari kategori berdasarkan nama string di tabel berita
+                                        $kategoriData = $kategoriConfig->firstWhere('nama', $item->kategori);
+                                    @endphp
+                        
                                     <div class="col-md-4 mb-4">
-                                        <a href="{{ route('berita.show', $item->slug) }}"
-                                            style="text-decoration: none; color: inherit;">
+                                        <a href="{{ route('berita.show', $item->slug) }}" style="text-decoration: none; color: inherit;">
                                             <div class="card shadow-sm h-100">
-                                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
-                                                    style="height: 220px; object-fit: cover;" alt="...">
+                                                <div class="position-relative">
+                                                    <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
+                                                        style="height: 220px; object-fit: cover;" alt="...">
+                        
+                                                    {{-- Badge kategori di atas gambar --}}
+                                                    {{-- @if($kategoriData)
+                                                        <span class="badge bg-primary position-absolute top-0 start-0 m-2 p-2"
+                                                            style="background: rgba(0, 123, 255, 0.85); font-size: 0.85rem;">
+                                                            <i class="{{ $kategoriData['icon'] }}"></i>
+                                                            {{ $kategoriData['nama'] }}
+                                                        </span>
+                                                    @endif --}}
+                                                </div>
+                        
                                                 <div class="card-body d-flex flex-column">
+
+                                                    {{-- Badge kategori di atas judul --}}
+                                                    @if($kategoriData)
+                                                        <span class="badge bg-primary mb-2">
+                                                            <i class="{{ $kategoriData['icon'] }}"></i>
+                                                            {{ $kategoriData['nama'] }}
+                                                        </span>
+                                                    @endif
+                                                
                                                     <h5 class="card-title">
                                                         {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
                                                     </h5>
@@ -609,8 +635,7 @@
                                                             {{ $item->user->name ?? 'Administrator' }}<br>
                                                             <i class="fas fa-clock"></i>
                                                             {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}<br>
-                                                            <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }}
-                                                            kali
+                                                            <i class="fas fa-eye"></i> Dilihat {{ $item->views ?? 0 }} kali
                                                         </small>
                                                     </div>
                                                 </div>
@@ -622,6 +647,7 @@
                                         <div class="alert alert-info">Belum ada berita yang tersedia.</div>
                                     </div>
                                 @endforelse
+                        
                                 <div class="text-end my-4">
                                     <a href="{{ route('home.daftar-berita') }}" class="lihat-berita-link">
                                         <i class="fas fa-file-alt"></i> LIHAT BERITA LEBIH BANYAK
@@ -629,7 +655,10 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
+
+                    {{-- Galeri --}}
 
                     <div id="testimonials" class="testimonials section">
 
@@ -673,7 +702,7 @@
                                     @forelse ($galeri as $item)
                                         <div class="swiper-slide">
                                             <div class="testimonial-item">
-                                                <img src="{{ asset('storage/' . $item->image) }}" class="testimonial-img"
+                                                <img src="{{ asset ('storage/' . $item->image) }}" class="testimonial-img"
                                                     alt="{{ $item->nama_kegiatan }}">
                                                 <h3 class="text-center">{{ $item->nama_kegiatan }}</h3>
                                             </div>

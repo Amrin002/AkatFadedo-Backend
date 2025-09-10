@@ -11,22 +11,33 @@ class Berita extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['judul', 'konten', 'gambar', 'user_id'];
+    protected $fillable = [
+        'judul',
+        'konten',
+        'gambar',
+        'user_id',
+        'kategori',
+    ];
+
     public $timestamps = true;
-    // Fungsi untuk mendapatkan URL gambar
+
+    // Akses URL gambar
     public function getGambarUrlAttribute()
     {
         return $this->gambar ? Storage::url($this->gambar) : asset('default-image.jpg');
     }
 
+    // Relasi ke User
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+
+    // Format tanggal
     public function getTanggalAttribute()
     {
-    return \Carbon\Carbon::parse($this->created_at)->format('d-m-Y');
+        return \Carbon\Carbon::parse($this->created_at)->format('d-m-Y');
     }
 
     protected static function boot()
@@ -38,4 +49,5 @@ class Berita extends Model
         });
     }
 
+    
 }
