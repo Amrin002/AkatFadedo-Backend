@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -56,7 +56,16 @@
             <h1 class="mb-4 display-3 fw-bold reveal">Selamat Datang di Desa Akat Fadedo</h1>
             <p class="mb-5 lead reveal">Membangun desa yang maju dan harmonis, berlandaskan kearifan lokal serta inovasi demi
                 kesejahteraan masyarakat</p>
-            <a href="#potensi" class="shadow-sm btn btn-primary btn-lg rounded-pill reveal">Jelajahi Desa</a>
+            <!-- Container untuk tombol dengan flexbox -->
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center reveal">
+                <a href="#potensi" class="shadow-sm btn btn-primary btn-lg rounded-pill">
+                    <i class="fas fa-compass me-2"></i>Jelajahi Desa
+                </a>
+                <a href="#" class="shadow-sm btn btn-success btn-lg rounded-pill download-app-btn"
+                    data-bs-toggle="modal" data-bs-target="#downloadModal">
+                    <i class="fab fa-android me-2"></i>Download Aplikasi
+                </a>
+            </div>
         </div>
     </section>
 
@@ -71,10 +80,12 @@
                 <div class="col-lg-6 reveal">
                     <h2 class="text-center section-title text-lg-start">Tentang Desa Akat Fadedo</h2>
                     <h5 class="text-center fw-bold text-lg-start">Visi Desa</h5>
-                    <p class="mb-4 text-justify-custom">Terwujudnya Masyarakat Desa Akat Fadedo yang Religius, Cerdas, Maju, Sehat Dan
+                    <p class="mb-4 text-justify-custom">Terwujudnya Masyarakat Desa Akat Fadedo yang Religius, Cerdas, Maju,
+                        Sehat Dan
                         Sejahtera.</p>
                     <h5 class="text-center fw-bold text-lg-start">Sejarah Desa</h5>
-                    <p class="card-text text-justify-custom">Akat Fadedo sudah ada sejak jaman dulu namun penghuni pertama hanya 4 keluarga dan
+                    <p class="card-text text-justify-custom">Akat Fadedo sudah ada sejak jaman dulu namun penghuni pertama
+                        hanya 4 keluarga dan
                         Fadedo masih kategori dusun dari Negeri Urung. (Anak Dusun Desa Urung).<br>
                         Seiring dengan perkembangan zaman pertumbuhan penduduk pun mulai bertambah. setelah Seram Bagian
                         Timur mekar dari Maluku Tengah pada tahun 2003 Pemerintah SBT mulai melakukan pemekaran Kecematan
@@ -111,14 +122,19 @@
                             Wilayah:
                         </li>
                         <ul class="list-unstyled ms-4">
-                            <li class="text-muted"><i class="fas fa-arrow-up me-2 text-info"></i> Utara: Berbatasan dengan Gunung Teri</li>
-                            <li class="text-muted"><i class="fas fa-arrow-down me-2 text-info"></i> Selatan: Berbatasan dengan Laut Banda</li>
-                            <li class="text-muted"><i class="fas fa-arrow-right me-2 text-info"></i> Timur: Berbatasan dengan Desa Mugusinis</li>
-                            <li class="text-muted"><i class="fas fa-arrow-left me-2 text-info"></i> Barat: Berbatasan dengan Desa Sumbawa</li>
+                            <li class="text-muted"><i class="fas fa-arrow-up me-2 text-info"></i> Utara: Berbatasan dengan
+                                Gunung Teri</li>
+                            <li class="text-muted"><i class="fas fa-arrow-down me-2 text-info"></i> Selatan: Berbatasan
+                                dengan Laut Banda</li>
+                            <li class="text-muted"><i class="fas fa-arrow-right me-2 text-info"></i> Timur: Berbatasan
+                                dengan Desa Mugusinis</li>
+                            <li class="text-muted"><i class="fas fa-arrow-left me-2 text-info"></i> Barat: Berbatasan
+                                dengan Desa Sumbawa</li>
                         </ul>
                     </ul>
                     <h5 class="mt-4 mb-3 fw-bold">Kondisi Topografi</h5>
-                    <p class="card-text text-muted text-justify-custom">Desa Maju memiliki topografi yang bervariasi, didominasi oleh dataran
+                    <p class="card-text text-muted text-justify-custom">Desa Maju memiliki topografi yang bervariasi,
+                        didominasi oleh dataran
                         rendah dan perbukitan yang subur, ideal untuk pertanian dan perkebunan. Ketinggiannya berkisar
                         antara 100 hingga 300 meter di atas permukaan laut.</p>
                 </div>
@@ -132,50 +148,56 @@
         <div class="container">
             <h2 class="text-center section-title">Statistik Desa</h2>
             <div class="text-center row g-4 justify-content-center">
-                <!-- Statistik 1: Populasi -->
+                <!-- Statistik 1: Total Penduduk -->
                 <div class="col-md-6 col-lg-3 d-flex reveal">
                     <div class="p-4 card card-statistik w-100">
                         <div class="card-body">
-                            <i class="mb-3 fas fa-users fa-3x text-info"></i>
+                            <i class="mb-3 fas fa-users fa-3x text-primary"></i>
                             <h3 class="card-title h1 fw-bold text-muted">{{ number_format($jumlahPenduduk) }}</h3>
-                            <p class="card-text text-muted">Penduduk</p>
+                            <p class="card-text text-muted">Total Penduduk</p>
                         </div>
                     </div>
                 </div>
-                <!-- Statistik 2: Luas Wilayah -->
+
+                <!-- Statistik 2: Kepala Keluarga -->
                 <div class="col-md-6 col-lg-3 d-flex reveal">
                     <div class="p-4 card card-statistik w-100">
                         <div class="card-body">
-                            <i class="mb-3 fas fa-seedling fa-3x text-info"></i>
-                            <h3 class="card-title h1 fw-bold text-muted">250 Ha</h3>
-                            <p class="card-text text-muted">Lahan Pertanian</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Statistik 3: Rumah Tangga -->
-                <div class="col-md-6 col-lg-3 d-flex reveal">
-                    <div class="p-4 card card-statistik w-100">
-                        <div class="card-body">
-                            <i class="mb-3 fas fa-house-user fa-3x text-info"></i>
+                            <i class="mb-3 fas fa-house-user fa-3x text-success"></i>
                             <h3 class="card-title h1 fw-bold text-muted">{{ number_format($jumlahKk) }}</h3>
                             <p class="card-text text-muted">Kepala Keluarga</p>
                         </div>
                     </div>
                 </div>
-                <!-- Statistik 4: Pendidikan -->
+
+                <!-- Statistik 3: Laki-laki -->
                 <div class="col-md-6 col-lg-3 d-flex reveal">
                     <div class="p-4 card card-statistik w-100">
                         <div class="card-body">
-                            <i class="mb-3 fas fa-school fa-3x text-info"></i>
-                            <h3 class="card-title h1 fw-bold text-muted">95%</h3>
-                            <p class="card-text text-muted">Angka Melek Huruf</p>
+                            <i class="mb-3 fas fa-male fa-3x text-info"></i>
+                            <h3 class="card-title h1 fw-bold text-muted">{{ number_format($jumlahLakiLaki) }}</h3>
+                            <p class="card-text text-muted">Laki-laki</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistik 4: Perempuan -->
+                <div class="col-md-6 col-lg-3 d-flex reveal">
+                    <div class="p-4 card card-statistik w-100">
+                        <div class="card-body">
+                            <i class="mb-3 fas fa-female fa-3x text-warning"></i>
+                            <h3 class="card-title h1 fw-bold text-muted">{{ number_format($jumlahPerempuan) }}</h3>
+                            <p class="card-text text-muted">Perempuan</p>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Tombol Selengkapnya untuk Statistik -->
             <div class="mt-5 text-center reveal">
-                <a href="#" class="px-4 btn btn-outline-primary rounded-pill">Selengkapnya</a>
+                <a href="{{ route('home.profil-desa') }}" class="px-4 btn btn-outline-primary rounded-pill">
+                    <i class="fas fa-chart-bar me-2"></i>Lihat Statistik Lengkap
+                </a>
             </div>
         </div>
     </section>
@@ -192,7 +214,7 @@
                                 <i class="fas fa-file-invoice fa-2x text-info"></i>
                             </div>
                             <div>
-                                @if($apbdes)
+                                @if ($apbdes)
                                     <h5 class="mb-1 fw-bold">APBDes Tahun {{ $apbdes->tahun }}</h5>
                                     <p class="mb-0 h3 fw-bold text-info">
                                         Total Anggaran: Rp {{ number_format($apbdes->pendapatan, 0, ',', '.') }}
@@ -308,7 +330,7 @@
                             <a href="#" class="d-block img-gallery" data-bs-toggle="modal"
                                 data-bs-target="#galleryModal" data-img-src="{{ asset('storage/' . $item->foto) }}">
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->nama_kegiatan }}"
-                                class="img-fluid w-100">
+                                    class="img-fluid w-100">
                             </a>
                         </div>
                     @endforeach

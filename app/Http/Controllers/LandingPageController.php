@@ -21,6 +21,19 @@ class LandingPageController extends Controller
         $jumlahKk = Cache::remember('jumlah_kk', 60, function () {
             return Penduduk::where('status_keluarga', 'Kepala Keluarga')->where('nama_lengkap', '!=', 'Admin')->count();
         });
+        // Caching jumlah laki-laki
+        $jumlahLakiLaki = Cache::remember('jumlah_laki_laki', 60, function () {
+            return Penduduk::where('jenis_kelamin', 'Laki-laki')
+                ->where('nama_lengkap', '!=', 'Admin')
+                ->count();
+        });
+
+        // Caching jumlah perempuan
+        $jumlahPerempuan = Cache::remember('jumlah_perempuan', 60, function () {
+            return Penduduk::where('jenis_kelamin', 'Perempuan')
+                ->where('nama_lengkap', '!=', 'Admin')
+                ->count();
+        });
 
         // Caching fasilitas desa
         $fasilitas = Cache::remember('fasilitas_home', 60, function () {
@@ -48,7 +61,7 @@ class LandingPageController extends Controller
 
         $title = 'Berita Desa';
 
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'apbdes'));
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'apbdes', 'jumlahLakiLaki', 'jumlahPerempuan'));
     }
 
     public function show($slug)
@@ -154,5 +167,239 @@ class LandingPageController extends Controller
     public function privacy()
     {
         return view('home.privacy');
+    }
+
+    public function profilDesa()
+    {
+        try {
+            // Cache statistik demografis lengkap
+            $statistikDemografi = Cache::remember('statistik_demografi', 60, function () {
+                return Penduduk::getStatistikDemografi();
+            });
+
+            // Cache rasio ketergantungan dengan validasi
+            $rasioKetergantungan = Cache::remember('rasio_ketergantungan', 60, function () {
+                $result = Penduduk::getRasioKetergantungan();
+                
+                // Debug: log hasil untuk memastikan formatnya benar
+                \Log::info('Cache rasio_ketergantungan result:', $result);
+                
+                // Validasi hasil - pastikan mengembalikan array
+                if (!is_array($result)) {
+                    \Log::error('getRasioKetergantungan tidak mengembalikan array', ['result' => $result]);
+                    // Return default structure jika bukan array
+                    return [
+                        'rasio_ketergantungan_total' => 0,
+                        'rasio_ketergantungan_anak' => 0,
+                        'rasio_ketergantungan_lansia' => 0
+                    ];
+                }
+                
+                return $result;
+            });
+
+            // Cache statistik gender dan umur dengan validasi
+            $statistikGender = Cache::remember('statistik_gender', 60, function () {
+                $result = Penduduk::getStatistikGenderDanUmur();
+                
+                // Debug: log hasil untuk memastikan formatnya benar
+                \Log::info('Cache statistik_gender result:', $result);
+                
+                // Validasi hasil
+                if (!is_array($result)) {
+                    \Log::error('getStatistikGenderDanUmur tidak mengembalikan array', ['result' => $result]);
+                    // Return default structure jika bukan array
+                    return [
+                        'laki_laki' => ['total' => 0, 'anak_anak' => 0, 'usia_produktif' => 0, 'lansia' => 0],
+                        'perempuan' => ['total' => 0, 'anak_anak' => 0, 'usia_produktif' => 0, 'lansia' => 0]
+                    ];
+                }
+                
+                return $result;
+            });
+
+            // Cache jumlah KK - menggunakan scope excludeAdmin untuk konsistensi
+            $jumlahKk = Cache::remember('jumlah_kk_profil', 60, function () {
+                return Penduduk::excludeAdmin()
+                    ->where('status_keluarga', 'Kepala Keluarga')
+                    ->count();
+            });
+
+            // Validasi data sebelum mengakses
+            if (!is_array($statistikGender) || !isset($statistikGender['perempuan']['total']) || !isset($statistikGender['laki_laki']['total'])) {
+                \Log::error('statistikGender invalid structure', ['data' => $statistikGender]);
+                $statistikGender = [
+                    'laki_laki' => ['total' => 0],
+                    'perempuan' => ['total' => 0]
+                ];
+            }
+
+            if (!is_array($rasioKetergantungan) || !isset($rasioKetergantungan['rasio_ketergantungan_total'])) {
+                \Log::error('rasioKetergantungan invalid structure', ['data' => $rasioKetergantungan]);
+                $rasioKetergantungan = [
+                    'rasio_ketergantungan_total' => 0,
+                    'rasio_ketergantungan_anak' => 0,
+                    'rasio_ketergantungan_lansia' => 0
+                ];
+            }
+
+            // Hitung Sex Ratio dengan safe access
+            $perempuanTotal = $statistikGender['perempuan']['total'] ?? 0;
+            $lakiLakiTotal = $statistikGender['laki_laki']['total'] ?? 0;
+            $sexRatio = $perempuanTotal > 0 ? 
+                round(($lakiLakiTotal / $perempuanTotal) * 100, 2) : 0;
+
+            // Rata-rata anggota per KK
+            $totalPenduduk = $statistikDemografi['total_penduduk'] ?? 0;
+            $rataAnggotaKK = $jumlahKk > 0 ? round($totalPenduduk / $jumlahKk, 2) : 0;
+
+            // Cache APBDes terbaru dengan data analisis
+            $apbdes = Cache::remember('apbdes_analisis', 60, function () {
+                return Apbdes::orderByDesc('tahun')->first();
+            });
+
+            // Data analisis APBDes menggunakan method baru
+            $analisisApbdes = null;
+            if ($apbdes) {
+                try {
+                    $analisisApbdes = [
+                        'persentase_alokasi' => $apbdes->getPersentaseAlokasi(),
+                        'total_pengeluaran' => $apbdes->total_pengeluaran,
+                        'sisa_anggaran' => $apbdes->sisa_anggaran,
+                        'persentase_realisasi' => $apbdes->persentase_realisasi,
+                        'bidang_terbesar' => $apbdes->bidang_terbesar,
+                        'is_seimbang' => $apbdes->isAnggaranSeimbang(),
+                        'rekomendasi' => $apbdes->getRekomendasi(),
+                        'tren' => Apbdes::getTrenAnggaran($apbdes->tahun)
+                    ];
+                } catch (\Exception $e) {
+                    \Log::error('Error generating APBDes analysis: ' . $e->getMessage());
+                    $analisisApbdes = null;
+                }
+            }
+
+            // Cache fasilitas desa
+            $fasilitas = Cache::remember('fasilitas_profil', 60, function () {
+                return FasilitasDesa::first();
+            });
+
+            // Data persebaran wilayah (hardcode sementara karena tidak ada field RT/RW detail)
+            $persebaranWilayah = $this->getPersebaranWilayah();
+
+            // Analisis IDM sederhana berdasarkan data
+            $analisisIdm = $this->generateAnalisisIdm($statistikDemografi, $rasioKetergantungan, $sexRatio);
+
+            $title = 'Profil Desa Akat Fadedo';
+
+            return view('home.profil-desa', compact(
+                'statistikDemografi',
+                'rasioKetergantungan',
+                'statistikGender',
+                'jumlahKk',
+                'sexRatio',
+                'rataAnggotaKK',
+                'apbdes',
+                'analisisApbdes',
+                'fasilitas',
+                'persebaranWilayah',
+                'analisisIdm',
+                'title'
+            ));
+
+        } catch (\Exception $e) {
+            \Log::error('Error in profilDesa method:', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            // Return view dengan data default atau redirect dengan error message
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat profil desa: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Generate data persebaran wilayah
+     * TODO: Nanti bisa diambil dari database jika ada data RT/RW detail
+     */
+    private function getPersebaranWilayah()
+    {
+        // Sementara hardcode, nanti bisa diambil dari model KK
+        // dengan query GROUP BY dusun, rt, rw
+        return [
+            'utara' => ['total_kk' => 83, 'total_jiwa' => 330, 'rw' => '001'],
+            'selatan' => ['total_kk' => 93, 'total_jiwa' => 368, 'rw' => '002'],
+            'timur' => ['total_kk' => 82, 'total_jiwa' => 326, 'rw' => '003'],
+            'barat' => ['total_kk' => 54, 'total_jiwa' => 213, 'rw' => '004']
+        ];
+    }
+
+    /**
+     * Generate analisis IDM berdasarkan data real
+     */
+    private function generateAnalisisIdm($statistikDemografi, $rasioKetergantungan, $sexRatio)
+    {
+        $skor = 0;
+        $kategori = 'TERTINGGAL';
+
+        try {
+            // Pastikan data valid sebelum digunakan
+            $usiaProduktifPersentase = $statistikDemografi['usia_produktif']['persentase'] ?? 0;
+            $rasioKetergantunganTotal = $rasioKetergantungan['rasio_ketergantungan_total'] ?? 0;
+
+            // Scoring berdasarkan indikator
+            if ($usiaProduktifPersentase >= 65) {
+                $skor += 25;
+            } elseif ($usiaProduktifPersentase >= 60) {
+                $skor += 15;
+            } else {
+                $skor += 5;
+            }
+
+            if ($rasioKetergantunganTotal <= 50) {
+                $skor += 25;
+            } elseif ($rasioKetergantunganTotal <= 70) {
+                $skor += 15;
+            } else {
+                $skor += 5;
+            }
+
+            if ($sexRatio >= 95 && $sexRatio <= 105) {
+                $skor += 25;
+            } else {
+                $skor += 10;
+            }
+
+            // Tambahan skor base
+            $skor += 25;
+
+            // Tentukan kategori
+            if ($skor >= 80) {
+                $kategori = 'MANDIRI';
+            } elseif ($skor >= 65) {
+                $kategori = 'MAJU';
+            } elseif ($skor >= 50) {
+                $kategori = 'BERKEMBANG';
+            }
+
+            return [
+                'skor' => $skor,
+                'kategori' => $kategori,
+                'bonus_demografi' => $usiaProduktifPersentase >= 65 ? 'Optimal' : 'Sedang',
+                'sex_ratio_status' => ($sexRatio >= 95 && $sexRatio <= 105) ? 'Seimbang' : 'Tidak Seimbang'
+            ];
+
+        } catch (\Exception $e) {
+            \Log::error('Error generating IDM analysis: ' . $e->getMessage());
+            
+            // Return default values jika terjadi error
+            return [
+                'skor' => 0,
+                'kategori' => 'TERTINGGAL',
+                'bonus_demografi' => 'Sedang',
+                'sex_ratio_status' => 'Tidak Seimbang'
+            ];
+        }
     }
 }
