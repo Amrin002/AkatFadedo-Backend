@@ -139,10 +139,11 @@ class KKController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $no_kk)
+     public function destroy(KK $kk)
     {
-        //
-        $kk = KK::findOrFail($no_kk);
+        // Menggunakan route model binding karena Model KK sudah set:
+        // protected $primaryKey = 'no_kk';
+        // protected $keyType = 'string';
         $kk->delete();
 
         return redirect()->route('kk.index')->with('success', 'Data KK berhasil dihapus.');
