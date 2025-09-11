@@ -64,37 +64,86 @@ class LandingPageController extends Controller
     }
 
     public function show($slug)
-    {
-        // Caching berita berdasarkan slug
-        $berita = Cache::remember('berita_detail_' . $slug, 60, function () use ($slug) {
-            return Berita::where('slug', $slug)->firstOrFail();
-        });
+{
+    // Ambil berita by slug + cache
+    $berita = Cache::remember('berita_detail_' . $slug, 60, function () use ($slug) {
+        return Berita::where('slug', $slug)->firstOrFail();
+    });
 
-        // Hitung view (opsional) - tidak di-cache karena harus realtime
-        $sessionKey = 'berita_viewed_' . $berita->id;
-        if (!session()->has($sessionKey)) {
-            $berita->increment('views');
-            session()->put($sessionKey, true);
+    // Hitung view (real-time)
+    $sessionKey = 'berita_viewed_' . $berita->id;
+    if (!session()->has($sessionKey)) {
+        $berita->increment('views');
+        session()->put($sessionKey, true);
+    }
+
+    // Berita terbaru untuk sidebar
+    $berita_terbaru = Cache::remember('berita_terbaru_sidebar', 60, function () {
+        return Berita::latest()->take(8)->get();
+    });
+
+    // Data kategori (mapping manual)
+    $kategoriData = [
+        'umum'         => ['nama' => 'Umum', 'icon' => 'fas fa-bullhorn'],
+        'politik'      => ['nama' => 'Politik', 'icon' => 'fas fa-landmark'],
+        'ekonomi'      => ['nama' => 'Ekonomi', 'icon' => 'fas fa-coins'],
+        'olahraga'     => ['nama' => 'Olahraga', 'icon' => 'fas fa-futbol'],
+        'teknologi'    => ['nama' => 'Teknologi', 'icon' => 'fas fa-microchip'],
+        'pendidikan'   => ['nama' => 'Pendidikan', 'icon' => 'fas fa-graduation-cap'],
+        'kesehatan'    => ['nama' => 'Kesehatan', 'icon' => 'fas fa-heartbeat'],
+        'pembangunan'  => ['nama' => 'Pembangunan', 'icon' => 'fas fa-tools'],
+        'pertanian'    => ['nama' => 'Pertanian', 'icon' => 'fas fa-tractor'],
+        'perikanan'    => ['nama' => 'Perikanan', 'icon' => 'fas fa-fish'],
+        'lingkungan'   => ['nama' => 'Lingkungan', 'icon' => 'fas fa-leaf'],
+        'pariwisata'   => ['nama' => 'Pariwisata', 'icon' => 'fas fa-umbrella-beach'],
+        'transportasi' => ['nama' => 'Transportasi', 'icon' => 'fas fa-bus'],
+        'hiburan'      => ['nama' => 'Hiburan', 'icon' => 'fas fa-film'],
+        'budaya'       => ['nama' => 'Budaya', 'icon' => 'fas fa-theater-masks'],
+        'musik'        => ['nama' => 'Musik', 'icon' => 'fas fa-music'],
+        'film'         => ['nama' => 'Film', 'icon' => 'fas fa-video'],
+        'agama'        => ['nama' => 'Agama', 'icon' => 'fas fa-mosque'],
+        'opini'        => ['nama' => 'Opini', 'icon' => 'fas fa-pen-nib'],
+        'sosial'       => ['nama' => 'Sosial', 'icon' => 'fas fa-users'],
+        'startup'      => ['nama' => 'Startup', 'icon' => 'fas fa-lightbulb'],
+        'umkm'         => ['nama' => 'UMKM', 'icon' => 'fas fa-store'],
+    ];
+
+    // Normalisasi string kategori dari DB agar cocok dengan key array
+    $kategoriKey = strtolower(trim($berita->kategori));
+
+    return view('home.berita', compact('berita', 'berita_terbaru', 'kategoriData', 'kategoriKey'));
+}
+
+
+
+public function semua(Request $request)
+{
+    $page     = $request->get('page', 1);
+    $kategori = $request->get('kategori'); // ambil filter kategori dari query
+
+    // key cache per halaman + filter kategori (biar tidak bentrok)
+    $cacheKey = "semua_berita_page_{$page}_kategori_" . ($kategori ?? 'all');
+
+    $berita = Cache::remember($cacheKey, 60, function () use ($kategori) {
+        $query = Berita::latest();
+
+        if ($kategori) {
+            // filter berdasarkan string kategori yang disimpan di kolom "kategori"
+            $query->where('kategori', $kategori);
         }
 
-        // Caching berita terbaru untuk sidebar
-        $berita_terbaru = Cache::remember('berita_terbaru_sidebar', 60, function () {
-            return Berita::latest()->take(8)->get();
-        });
+        return $query->paginate(6);
+    });
 
-        return view('home.berita', compact('berita', 'berita_terbaru'));
-    }
+    // ambil daftar kategori dari config, buat array keyed by nama
+    $kategoriData = collect(config('kategori'))
+        ->mapWithKeys(function ($item) {
+            return [$item['nama'] => $item];
+        })
+        ->toArray();
 
-    public function semua(Request $request)
-    {
-        // Caching per halaman untuk pagination
-        $page = $request->get('page', 1);
-        $berita = Cache::remember("semua_berita_page_{$page}", 60, function () {
-            return Berita::latest()->paginate(6);
-        });
-
-        return view('home.daftar-berita', compact('berita'));
-    }
+    return view('home.daftar-berita', compact('berita', 'kategoriData'));
+}
 
     public function struktur()
     {

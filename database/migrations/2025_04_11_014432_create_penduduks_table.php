@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('nama_ibu');
             $table->string('email')->nullable();
             $table->string('no_hp')->nullable();
-            $table->foreign('no_kk')->references('no_kk')->on('KK')->onDelete('cascade');
+            $table->foreign('no_kk')->references('no_kk')->on('kk')->onDelete('cascade');
             $table->timestamps();
         });
     }

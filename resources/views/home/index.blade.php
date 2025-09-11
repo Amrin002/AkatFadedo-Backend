@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -317,6 +317,7 @@
                                         <div class="col-md-6 text-light p-3 rounded"
                                             style="background: url('{{ asset('images/background2.png') }}') no-repeat center center;
                                                     background-size: cover; position: relative; overflow: hidden;">
+                                            background-size: cover; position: relative; overflow: hidden;">
 
                                             <div class="row position-relative" style="z-index: 2;">
                                                 <div class="d-flex justify-content-center align-items-center">
@@ -346,6 +347,15 @@
                                                 </div>
 
                                                 <div class="mt-2 mb-2 text-center">
+                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
+                                                        <button type="button" class="btn text-white fw-bold"
+                                                            style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
+                                                            onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
+                                                            onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
+                                                            Download
+                                                        </button>
+                                                    </a>
+
                                                     <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
                                                         <button type="button" class="btn text-white fw-bold"
                                                             style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"

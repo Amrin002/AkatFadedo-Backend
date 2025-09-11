@@ -7,9 +7,35 @@
                 <div class="col">
                     <h3>Halaman Daftar Berita</h3>
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between align-items-center">
                             <h5>Data Berita</h5>
+
+                            {{-- Filter Kategori --}}
+                            <form action="{{ route('berita.index') }}" method="GET" class="form-inline align-items-center">
+                                <label for="kategori" class="mr-2">Filter Kategori:</label>
+                            
+                                <div class="d-flex align-items-center">
+                                    <select name="kategori" id="kategori" class="form-control mr-2" onchange="this.form.submit()">
+                                        <option value="" data-icon="">-- Semua Kategori --</option>
+                                        @foreach ($kategori as $kat)
+                                            <option value="{{ $kat['nama'] }}" 
+                                                    data-icon="{{ $kat['icon'] }}"
+                                                    {{ request('kategori') == $kat['nama'] ? 'selected' : '' }}>
+                                                {{ $kat['nama'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                            
+                                    {{-- Tempat tampilkan icon --}}
+                                    <span id="kategoriIcon" class="ml-2" style="font-size: 1.2rem;"></span>
+                                </div>
+                            
+                                @if (request('kategori'))
+                                    <a href="{{ route('berita.index') }}" class="btn btn-secondary btn-sm ml-2">Reset</a>
+                                @endif
+                            </form>
                         </div>
+
                         <div class="card-body">
                             {{-- Alert Success --}}
                             @if (session('success'))
@@ -35,13 +61,14 @@
                                             <th scope="col">Gambar</th>
                                             <th scope="col">Judul</th>
                                             <th scope="col">Konten</th>
+                                            <th scope="col">Kategori</th>
                                             <th scope="col">Penulis</th>
                                             <th scope="col">Tanggal Dibuat</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($berita as $row)
+                                        @forelse ($berita as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
@@ -54,6 +81,10 @@
                                                 </td>
                                                 <td>{{ $row->judul }}</td>
                                                 <td>{!! Str::limit(strip_tags($row->konten), 50) !!}</td>
+                                                <td>
+                                                    {{-- tampilkan kategori langsung dari field string --}}
+                                                    {{ $row->kategori ?? '-' }}
+                                                </td>
                                                 <td>{{ $row->user->name ?? 'Admin' }}</td>
                                                 <td>{{ $row->created_at->format('d - m - Y') }}</td>
                                                 <td>
@@ -102,7 +133,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center">Tidak ada berita ditemukan</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -113,3 +148,25 @@
         </div>
     </div>
 @endsection
+
+{{-- script untuk preview icon --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const select = document.getElementById("kategori");
+        const iconSpan = document.getElementById("kategoriIcon");
+
+        function updateIcon() {
+            const selectedOption = select.options[select.selectedIndex];
+            const iconClass = selectedOption.getAttribute("data-icon");
+
+            if (iconClass) {
+                iconSpan.innerHTML = `<i class="${iconClass}"></i>`;
+            } else {
+                iconSpan.innerHTML = "";
+            }
+        }
+
+        updateIcon();
+        select.addEventListener("change", updateIcon);
+    });
+</script>

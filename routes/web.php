@@ -47,14 +47,14 @@ use Illuminate\Support\Facades\Log;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 Route::fallback(function () {
-    return response()->view('errors.404', [], 404);
+    return response()->view('Errors.404', [], 404);
 });
 
 Route::get('/privacy', [LandingPageController::class, 'privacy']);
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 // Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');
 // routes/web.php
-Route::get('/profil-desa', [LandingPageController::class,'profilDesa'])->name('home.profil-desa');
+Route::get('/profil-desa', [LandingPageController::class, 'profilDesa'])->name('home.profil-desa');
 Route::get('/daftar-berita', [LandingPageController::class, 'semua'])->name('home.daftar-berita');
 Route::get('/daftar-galeri', [LandingPageController::class, 'galeri'])->name('home.daftar-galeri');
 Route::get('/daftar-sturktur-desa', [LandingPageController::class, 'struktur'])->name('home.daftar-sturktur-desa');
@@ -133,11 +133,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
     Route::post('/keluhan/{keluhan}/tanggapi', [KeluhanController::class, 'tanggapi'])->name('keluhan.tanggapi');
 
-     Route::resource('/suratkpt', SuratKptController::class);
-    
+    Route::resource('/suratkpt', SuratKptController::class);
+
     // Route export PDF untuk Surat KPT
     Route::get('/suratkpt/export/pdf/{id}', [SuratKptController::class, 'exportPdf'])->name('suratkpt.export.pdf');
-    
+
     // route arsip
     // Export route - HARUS sebelum resource
     Route::get('/arsip/export/csv', [ArsipSuratController::class, 'exportCsv'])->name('arsip.export.csv');
@@ -154,6 +154,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('/{id}', [AppVersionController::class, 'destroy'])->name('destroy');
         Route::patch('/{id}/toggle-active', [AppVersionController::class, 'toggleActive'])->name('toggle-active');
     });
+
+    // Routes untuk admin (dalam middleware admin)
+    Route::resource('umkm', UmkmController::class);
+    Route::post('umkm/{id}/approve', [UmkmController::class, 'approve'])->name('umkm.approve');
+    Route::post('umkm/{id}/reject', [UmkmController::class, 'reject'])->name('umkm.reject');
+    Route::post('umkm/{id}/reset', [UmkmController::class, 'resetToPending'])->name('umkm.reset');
+
 });
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
