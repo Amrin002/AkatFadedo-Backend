@@ -4,6 +4,7 @@
 use App\Http\Controllers\AppVersionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SuratKptController;
+use App\Http\Controllers\UmkmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
