@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\UmkmApprovedMail;
 use App\Mail\UmkmRejectedMail;
+use App\Models\AppVersion;
 use App\Models\Umkm;
 use App\Models\Penduduk;
 use App\Models\User;
@@ -11,6 +12,7 @@ use App\Models\Notification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -88,16 +90,17 @@ class UmkmController extends Controller
             'link_tiktok' => 'nullable|url|max:500',
         ]);
 
-        // Cek apakah NIK sudah memiliki UMKM yang aktif (pending atau approved)
+        // Cek apakah nama usaha sudah ada untuk NIK yang sama
         $existingUmkm = Umkm::where('nik', $request->nik)
+            ->where('nama_usaha', $request->nama_usaha)
             ->whereIn('status', ['pending', 'approved'])
             ->first();
 
         if ($existingUmkm) {
-            return redirect()->back()->with('error', 'NIK ini sudah memiliki UMKM yang aktif!');
+            return redirect()->back()->with('error', 'Nama usaha "' . $request->nama_usaha . '" sudah terdaftar untuk NIK ini!');
         }
 
-        // Simpan foto produk
+        // Rest of the code remains the same...
         $fotoPath = null;
         if ($request->hasFile('foto_produk')) {
             $foto = $request->file('foto_produk');
@@ -106,7 +109,6 @@ class UmkmController extends Controller
             $fotoPath = $foto->storeAs('umkm', $filename, 'public');
         }
 
-        // Simpan data ke database
         $umkm = Umkm::create([
             'nik' => $request->nik,
             'nama_usaha' => $request->nama_usaha,
@@ -178,20 +180,20 @@ class UmkmController extends Controller
 
         $umkm = Umkm::findOrFail($id);
 
-        // Cek apakah NIK sudah digunakan UMKM lain (kecuali yang sedang diedit)
+        // Cek apakah nama usaha sudah digunakan oleh UMKM lain dengan NIK yang sama (kecuali yang sedang diedit)
         $existingUmkm = Umkm::where('nik', $request->nik)
+            ->where('nama_usaha', $request->nama_usaha)
             ->whereIn('status', ['pending', 'approved'])
             ->where('id', '!=', $id)
             ->first();
 
         if ($existingUmkm) {
-            return redirect()->back()->with('error', 'NIK ini sudah digunakan oleh UMKM lain!');
+            return redirect()->back()->with('error', 'Nama usaha "' . $request->nama_usaha . '" sudah terdaftar untuk NIK ini!');
         }
 
-        // Handle foto produk
+        // Rest of the code remains the same...
         $fotoPath = $umkm->foto_produk;
         if ($request->hasFile('foto_produk')) {
-            // Hapus foto lama jika ada
             if ($umkm->foto_produk && Storage::disk('public')->exists($umkm->foto_produk)) {
                 Storage::disk('public')->delete($umkm->foto_produk);
             }
@@ -202,7 +204,6 @@ class UmkmController extends Controller
             $fotoPath = $foto->storeAs('umkm', $filename, 'public');
         }
 
-        // Update data
         $umkm->update([
             'nik' => $request->nik,
             'nama_usaha' => $request->nama_usaha,
@@ -216,11 +217,9 @@ class UmkmController extends Controller
             'link_tiktok' => $request->link_tiktok,
         ]);
 
-        // Reset status ke pending jika ada perubahan data penting
         if ($umkm->status === 'approved') {
             $umkm->resetToPending();
 
-            // Notifikasi ke admin bahwa ada perubahan data
             $admins = User::where('role', 'admin')->get();
             foreach ($admins as $admin) {
                 Notification::createNotification(
@@ -372,6 +371,8 @@ class UmkmController extends Controller
             ->pluck('total', 'kategori');
 
         $title = 'Daftar UMKM Desa';
+        // Tambahkan ini - Caching AppVersion terbaru
+        $latestAppVersion = AppVersion::getLatestVersion('android');
 
         return view('home.umkm', compact(
             'umkms',
@@ -380,9 +381,13 @@ class UmkmController extends Controller
             'search',
             'totalUmkm',
             'totalByKategori',
-            'title'
+            'title',
+            'latestAppVersion'
         ));
     }
+    /**
+     * Show detail UMKM untuk publik
+     */
     /**
      * Show detail UMKM untuk publik
      */
@@ -392,8 +397,17 @@ class UmkmController extends Controller
             ->with('penduduk')
             ->findOrFail($id);
 
+        // Ambil UMKM terkait berdasarkan kategori yang sama
+        $umkmTerkait = Umkm::approved()
+            ->with('penduduk')
+            ->where('kategori', $umkm->kategori)
+            ->where('id', '!=', $umkm->id)
+            ->latest('approved_at')
+            ->take(6)
+            ->get();
+
         $title = $umkm->nama_usaha;
 
-        return view('home.umkm-detail', compact('umkm', 'title'));
+        return view('home.umkm-detail', compact('umkm', 'umkmTerkait', 'title'));
     }
 }

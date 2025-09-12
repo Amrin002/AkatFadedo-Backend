@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -20,7 +20,8 @@
         .card-potensi,
         .card-layanan,
         .card-berita,
-        .card-statistik {
+        .card-statistik,
+        .card-umkm {
             border-radius: 1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -28,7 +29,8 @@
         .card-potensi:hover,
         .card-layanan:hover,
         .card-berita:hover,
-        .card-statistik:hover {
+        .card-statistik:hover,
+        .card-umkm:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
@@ -393,6 +395,52 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- Bagian UMKM -->
+    <section id="umkm" class="py-5 my-5">
+        <div class="container">
+            <h2 class="text-center section-title">UMKM Desa</h2>
+            <p class="text-center text-muted mb-5">Produk unggulan dan usaha kreatif masyarakat Desa Akat Fadedo</p>
+
+            @if ($umkm->isEmpty())
+                <p class="text-center text-muted">Data UMKM belum tersedia.</p>
+            @else
+                <div class="row g-4">
+                    @foreach ($umkm as $item)
+                        <div class="col-lg-4 col-md-6 d-flex reveal">
+                            <div class="shadow-sm card card-layanan w-100">
+                                <img src="{{ asset('storage/' . $item->foto_produk) }}" class="card-img-top"
+                                    alt="{{ $item->nama_produk }}" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <span class="badge bg-info">{{ $item->kategori_label }}</span>
+                                        <small class="text-muted">{{ $item->penduduk->nama_lengkap ?? 'N/A' }}</small>
+                                    </div>
+                                    <h5 class="card-title">{{ $item->nama_usaha }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $item->nama_produk }}</h6>
+                                    <p class="card-text">{{ Str::limit($item->deskripsi_produk, 80) }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('umkm.public.show', $item->id) }}"
+                                            class="btn btn-sm btn-outline-primary rounded-pill">Detail</a>
+                                        <a href="{{ $item->whatsapp_url }}" target="_blank"
+                                            class="btn btn-sm btn-success rounded-pill">
+                                            <i class="fab fa-whatsapp me-1"></i>Hubungi
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <!-- Tombol Selengkapnya untuk UMKM -->
+            <div class="mt-5 text-center reveal">
+                <a href="{{ route('umkm.public.index') }}" class="px-4 btn btn-outline-primary rounded-pill">
+                    <i class="fas fa-store me-2"></i>Lihat Semua UMKM
+                </a>
             </div>
         </div>
     </section>

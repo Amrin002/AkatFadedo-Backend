@@ -7,6 +7,7 @@ use App\Models\Penduduk;
 use App\Models\StrukturDesa;
 use App\Models\Berita;
 use App\Models\GaleriDesa;
+use App\Models\Umkm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -57,93 +58,97 @@ class LandingPageController extends Controller
         $apbdes = Cache::remember('apbdes_analisis', 60, function () {
             return Apbdes::orderByDesc('tahun')->first();
         });
+        // Caching UMKM untuk homepage
+        $umkm = Cache::remember('umkm_home', 60, function () {
+            return Umkm::approved()->with('penduduk')->latest('approved_at')->take(6)->get();
+        });
 
         $title = 'Berita Desa';
-        
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes'));
+
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes', 'umkm'));
     }
 
     public function show($slug)
-{
-    // Ambil berita by slug + cache
-    $berita = Cache::remember('berita_detail_' . $slug, 60, function () use ($slug) {
-        return Berita::where('slug', $slug)->firstOrFail();
-    });
+    {
+        // Ambil berita by slug + cache
+        $berita = Cache::remember('berita_detail_' . $slug, 60, function () use ($slug) {
+            return Berita::where('slug', $slug)->firstOrFail();
+        });
 
-    // Hitung view (real-time)
-    $sessionKey = 'berita_viewed_' . $berita->id;
-    if (!session()->has($sessionKey)) {
-        $berita->increment('views');
-        session()->put($sessionKey, true);
-    }
-
-    // Berita terbaru untuk sidebar
-    $berita_terbaru = Cache::remember('berita_terbaru_sidebar', 60, function () {
-        return Berita::latest()->take(8)->get();
-    });
-
-    // Data kategori (mapping manual)
-    $kategoriData = [
-        'umum'         => ['nama' => 'Umum', 'icon' => 'fas fa-bullhorn'],
-        'politik'      => ['nama' => 'Politik', 'icon' => 'fas fa-landmark'],
-        'ekonomi'      => ['nama' => 'Ekonomi', 'icon' => 'fas fa-coins'],
-        'olahraga'     => ['nama' => 'Olahraga', 'icon' => 'fas fa-futbol'],
-        'teknologi'    => ['nama' => 'Teknologi', 'icon' => 'fas fa-microchip'],
-        'pendidikan'   => ['nama' => 'Pendidikan', 'icon' => 'fas fa-graduation-cap'],
-        'kesehatan'    => ['nama' => 'Kesehatan', 'icon' => 'fas fa-heartbeat'],
-        'pembangunan'  => ['nama' => 'Pembangunan', 'icon' => 'fas fa-tools'],
-        'pertanian'    => ['nama' => 'Pertanian', 'icon' => 'fas fa-tractor'],
-        'perikanan'    => ['nama' => 'Perikanan', 'icon' => 'fas fa-fish'],
-        'lingkungan'   => ['nama' => 'Lingkungan', 'icon' => 'fas fa-leaf'],
-        'pariwisata'   => ['nama' => 'Pariwisata', 'icon' => 'fas fa-umbrella-beach'],
-        'transportasi' => ['nama' => 'Transportasi', 'icon' => 'fas fa-bus'],
-        'hiburan'      => ['nama' => 'Hiburan', 'icon' => 'fas fa-film'],
-        'budaya'       => ['nama' => 'Budaya', 'icon' => 'fas fa-theater-masks'],
-        'musik'        => ['nama' => 'Musik', 'icon' => 'fas fa-music'],
-        'film'         => ['nama' => 'Film', 'icon' => 'fas fa-video'],
-        'agama'        => ['nama' => 'Agama', 'icon' => 'fas fa-mosque'],
-        'opini'        => ['nama' => 'Opini', 'icon' => 'fas fa-pen-nib'],
-        'sosial'       => ['nama' => 'Sosial', 'icon' => 'fas fa-users'],
-        'startup'      => ['nama' => 'Startup', 'icon' => 'fas fa-lightbulb'],
-        'umkm'         => ['nama' => 'UMKM', 'icon' => 'fas fa-store'],
-    ];
-
-    // Normalisasi string kategori dari DB agar cocok dengan key array
-    $kategoriKey = strtolower(trim($berita->kategori));
-
-    return view('home.berita', compact('berita', 'berita_terbaru', 'kategoriData', 'kategoriKey'));
-}
-
-
-
-public function semua(Request $request)
-{
-    $page     = $request->get('page', 1);
-    $kategori = $request->get('kategori'); // ambil filter kategori dari query
-
-    // key cache per halaman + filter kategori (biar tidak bentrok)
-    $cacheKey = "semua_berita_page_{$page}_kategori_" . ($kategori ?? 'all');
-
-    $berita = Cache::remember($cacheKey, 60, function () use ($kategori) {
-        $query = Berita::latest();
-
-        if ($kategori) {
-            // filter berdasarkan string kategori yang disimpan di kolom "kategori"
-            $query->where('kategori', $kategori);
+        // Hitung view (real-time)
+        $sessionKey = 'berita_viewed_' . $berita->id;
+        if (!session()->has($sessionKey)) {
+            $berita->increment('views');
+            session()->put($sessionKey, true);
         }
 
-        return $query->paginate(6);
-    });
+        // Berita terbaru untuk sidebar
+        $berita_terbaru = Cache::remember('berita_terbaru_sidebar', 60, function () {
+            return Berita::latest()->take(8)->get();
+        });
 
-    // ambil daftar kategori dari config, buat array keyed by nama
-    $kategoriData = collect(config('kategori'))
-        ->mapWithKeys(function ($item) {
-            return [$item['nama'] => $item];
-        })
-        ->toArray();
+        // Data kategori (mapping manual)
+        $kategoriData = [
+            'umum' => ['nama' => 'Umum', 'icon' => 'fas fa-bullhorn'],
+            'politik' => ['nama' => 'Politik', 'icon' => 'fas fa-landmark'],
+            'ekonomi' => ['nama' => 'Ekonomi', 'icon' => 'fas fa-coins'],
+            'olahraga' => ['nama' => 'Olahraga', 'icon' => 'fas fa-futbol'],
+            'teknologi' => ['nama' => 'Teknologi', 'icon' => 'fas fa-microchip'],
+            'pendidikan' => ['nama' => 'Pendidikan', 'icon' => 'fas fa-graduation-cap'],
+            'kesehatan' => ['nama' => 'Kesehatan', 'icon' => 'fas fa-heartbeat'],
+            'pembangunan' => ['nama' => 'Pembangunan', 'icon' => 'fas fa-tools'],
+            'pertanian' => ['nama' => 'Pertanian', 'icon' => 'fas fa-tractor'],
+            'perikanan' => ['nama' => 'Perikanan', 'icon' => 'fas fa-fish'],
+            'lingkungan' => ['nama' => 'Lingkungan', 'icon' => 'fas fa-leaf'],
+            'pariwisata' => ['nama' => 'Pariwisata', 'icon' => 'fas fa-umbrella-beach'],
+            'transportasi' => ['nama' => 'Transportasi', 'icon' => 'fas fa-bus'],
+            'hiburan' => ['nama' => 'Hiburan', 'icon' => 'fas fa-film'],
+            'budaya' => ['nama' => 'Budaya', 'icon' => 'fas fa-theater-masks'],
+            'musik' => ['nama' => 'Musik', 'icon' => 'fas fa-music'],
+            'film' => ['nama' => 'Film', 'icon' => 'fas fa-video'],
+            'agama' => ['nama' => 'Agama', 'icon' => 'fas fa-mosque'],
+            'opini' => ['nama' => 'Opini', 'icon' => 'fas fa-pen-nib'],
+            'sosial' => ['nama' => 'Sosial', 'icon' => 'fas fa-users'],
+            'startup' => ['nama' => 'Startup', 'icon' => 'fas fa-lightbulb'],
+            'umkm' => ['nama' => 'UMKM', 'icon' => 'fas fa-store'],
+        ];
 
-    return view('home.daftar-berita', compact('berita', 'kategoriData'));
-}
+        // Normalisasi string kategori dari DB agar cocok dengan key array
+        $kategoriKey = strtolower(trim($berita->kategori));
+
+        return view('home.berita', compact('berita', 'berita_terbaru', 'kategoriData', 'kategoriKey'));
+    }
+
+
+
+    public function semua(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $kategori = $request->get('kategori'); // ambil filter kategori dari query
+
+        // key cache per halaman + filter kategori (biar tidak bentrok)
+        $cacheKey = "semua_berita_page_{$page}_kategori_" . ($kategori ?? 'all');
+
+        $berita = Cache::remember($cacheKey, 60, function () use ($kategori) {
+            $query = Berita::latest();
+
+            if ($kategori) {
+                // filter berdasarkan string kategori yang disimpan di kolom "kategori"
+                $query->where('kategori', $kategori);
+            }
+
+            return $query->paginate(6);
+        });
+
+        // ambil daftar kategori dari config, buat array keyed by nama
+        $kategoriData = collect(config('kategori'))
+            ->mapWithKeys(function ($item) {
+                return [$item['nama'] => $item];
+            })
+            ->toArray();
+
+        return view('home.daftar-berita', compact('berita', 'kategoriData'));
+    }
 
     public function struktur()
     {
@@ -184,7 +189,8 @@ public function semua(Request $request)
             'struktur_desa_all',
             'galeri_home',
             'berita_home',
-            'berita_terbaru_sidebar'
+            'berita_terbaru_sidebar',
+            'umkm_home'
         ];
 
         foreach ($cacheKeys as $key) {
@@ -228,10 +234,10 @@ public function semua(Request $request)
             // Cache rasio ketergantungan dengan validasi
             $rasioKetergantungan = Cache::remember('rasio_ketergantungan', 60, function () {
                 $result = Penduduk::getRasioKetergantungan();
-                
+
                 // Debug: log hasil untuk memastikan formatnya benar
                 \Log::info('Cache rasio_ketergantungan result:', $result);
-                
+
                 // Validasi hasil - pastikan mengembalikan array
                 if (!is_array($result)) {
                     \Log::error('getRasioKetergantungan tidak mengembalikan array', ['result' => $result]);
@@ -242,17 +248,17 @@ public function semua(Request $request)
                         'rasio_ketergantungan_lansia' => 0
                     ];
                 }
-                
+
                 return $result;
             });
 
             // Cache statistik gender dan umur dengan validasi
             $statistikGender = Cache::remember('statistik_gender', 60, function () {
                 $result = Penduduk::getStatistikGenderDanUmur();
-                
+
                 // Debug: log hasil untuk memastikan formatnya benar
                 \Log::info('Cache statistik_gender result:', $result);
-                
+
                 // Validasi hasil
                 if (!is_array($result)) {
                     \Log::error('getStatistikGenderDanUmur tidak mengembalikan array', ['result' => $result]);
@@ -262,7 +268,7 @@ public function semua(Request $request)
                         'perempuan' => ['total' => 0, 'anak_anak' => 0, 'usia_produktif' => 0, 'lansia' => 0]
                     ];
                 }
-                
+
                 return $result;
             });
 
@@ -294,7 +300,7 @@ public function semua(Request $request)
             // Hitung Sex Ratio dengan safe access
             $perempuanTotal = $statistikGender['perempuan']['total'] ?? 0;
             $lakiLakiTotal = $statistikGender['laki_laki']['total'] ?? 0;
-            $sexRatio = $perempuanTotal > 0 ? 
+            $sexRatio = $perempuanTotal > 0 ?
                 round(($lakiLakiTotal / $perempuanTotal) * 100, 2) : 0;
 
             // Rata-rata anggota per KK
@@ -361,7 +367,7 @@ public function semua(Request $request)
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()
             ]);
-            
+
             // Return view dengan data default atau redirect dengan error message
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat profil desa: ' . $e->getMessage());
         }
@@ -440,7 +446,7 @@ public function semua(Request $request)
 
         } catch (\Exception $e) {
             \Log::error('Error generating IDM analysis: ' . $e->getMessage());
-            
+
             // Return default values jika terjadi error
             return [
                 'skor' => 0,

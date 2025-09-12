@@ -68,7 +68,7 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+
 
     @php
         use App\Models\Notification;
@@ -100,8 +100,7 @@
                     <div class="logo">
                         <img src="{{ asset('admin/assets/img/Logo2.png') }}" alt="navbar brand" class="navbar-brand"
                             height="50" />
-                        <img src="{{ asset('admin/assets/img/Logo2.png') }}" alt="navbar brand" class="navbar-brand"
-                            height="50" />
+
                     </div>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">

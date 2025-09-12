@@ -52,7 +52,9 @@ class UmkmApiController extends Controller
         Log::info('Admin users found: ' . $admins->pluck('id')->implode(', '));
     }
 
-    // POST /api/umkm
+    /**
+     * Store a newly created resource in storage via API.
+     */
     public function store(Request $request)
     {
         $user = $request->user();
@@ -77,7 +79,6 @@ class UmkmApiController extends Controller
             ], 422);
         }
 
-        // Ambil NIK dari user yang login
         $penduduk = Penduduk::where('nik', $user->nik)->first();
         if (!$penduduk) {
             return response()->json([
@@ -86,19 +87,20 @@ class UmkmApiController extends Controller
             ], 404);
         }
 
-        // Cek apakah user sudah memiliki UMKM yang aktif
+        // Cek apakah user sudah memiliki usaha dengan nama yang sama
         $existingUmkm = Umkm::where('user_id', $user->id)
+            ->where('nama_usaha', $request->nama_usaha)
             ->whereIn('status', ['pending', 'approved'])
             ->first();
 
         if ($existingUmkm) {
             return response()->json([
                 'success' => false,
-                'message' => 'Anda sudah memiliki UMKM yang aktif!',
+                'message' => 'Anda sudah memiliki usaha dengan nama "' . $request->nama_usaha . '"!',
             ], 422);
         }
 
-        // Simpan foto produk
+        // Rest of the code remains the same...
         $fotoPath = null;
         if ($request->hasFile('foto_produk')) {
             $foto = $request->file('foto_produk');
@@ -109,7 +111,7 @@ class UmkmApiController extends Controller
 
         $umkm = Umkm::create([
             'user_id' => $user->id,
-            'nik' => $user->nik, // Ambil NIK dari user yang login
+            'nik' => $user->nik,
             'nama_usaha' => $request->nama_usaha,
             'kategori' => $request->kategori,
             'nama_produk' => $request->nama_produk,
@@ -123,8 +125,6 @@ class UmkmApiController extends Controller
         ]);
 
         $this->createUmkmNotification($umkm);
-
-        // Load relasi untuk response
         $umkm->load(['penduduk', 'approvedBy']);
 
         return response()->json([
@@ -133,7 +133,6 @@ class UmkmApiController extends Controller
             'data' => $umkm
         ]);
     }
-
     // PUT /api/umkm/{id}
     public function update(Request $request, $id)
     {
@@ -152,6 +151,14 @@ class UmkmApiController extends Controller
                 'success' => false,
                 'message' => 'Anda tidak memiliki izin untuk mengubah UMKM ini',
             ], 403);
+        }
+
+        // Cegah editing data yang sudah approved
+        if ($umkm->status === 'approved') {
+            return response()->json([
+                'success' => false,
+                'message' => 'UMKM yang sudah disetujui tidak dapat diubah',
+            ], 422);
         }
 
         $validator = Validator::make($request->all(), [
@@ -174,6 +181,20 @@ class UmkmApiController extends Controller
             ], 422);
         }
 
+        // Cek apakah nama usaha sudah digunakan oleh UMKM lain milik user yang sama (kecuali yang sedang diedit)
+        $existingUmkm = Umkm::where('user_id', $user->id)
+            ->where('nama_usaha', $request->nama_usaha)
+            ->whereIn('status', ['pending', 'approved'])
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existingUmkm) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda sudah memiliki usaha dengan nama "' . $request->nama_usaha . '"!',
+            ], 422);
+        }
+
         // Handle foto produk
         $fotoPath = $umkm->foto_produk;
         if ($request->hasFile('foto_produk')) {
@@ -188,8 +209,7 @@ class UmkmApiController extends Controller
             $fotoPath = $foto->storeAs('umkm', $filename, 'public');
         }
 
-        $oldStatus = $umkm->status;
-
+        // Update data UMKM (hanya untuk status pending/rejected)
         $umkm->update([
             'nama_usaha' => $request->nama_usaha,
             'kategori' => $request->kategori,
@@ -201,28 +221,6 @@ class UmkmApiController extends Controller
             'link_instagram' => $request->link_instagram,
             'link_tiktok' => $request->link_tiktok,
         ]);
-
-        // Reset status ke pending jika sebelumnya approved
-        if ($oldStatus === 'approved') {
-            $umkm->resetToPending();
-
-            // Notifikasi ke admin
-            $admins = User::where('role', 'admin')->get();
-            foreach ($admins as $admin) {
-                Notification::createNotification(
-                    $admin->id,
-                    'umkm_api',
-                    "UMKM {$umkm->nama_usaha} telah diperbarui dari aplikasi dan perlu review ulang",
-                    $umkm->id,
-                    Umkm::class,
-                    [
-                        'nama_usaha' => $umkm->nama_usaha,
-                        'action' => 'updated',
-                        'submitted_via' => 'api'
-                    ]
-                );
-            }
-        }
 
         // Load relasi untuk response
         $umkm->load(['penduduk', 'approvedBy']);
@@ -259,6 +257,20 @@ class UmkmApiController extends Controller
             'message' => 'Detail UMKM ditemukan',
             'data' => $umkm
         ]);
+    }
+    // Method khusus untuk update dengan file upload via POST
+    public function updateWithFile(Request $request, $id)
+    {
+        // Cek jika ada _method=PUT di request
+        if ($request->input('_method') === 'PUT') {
+            // Gunakan method update yang sama
+            return $this->update($request, $id);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Method not allowed'
+        ], 405);
     }
 
     // DELETE /api/umkm/{id}

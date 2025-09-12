@@ -51,6 +51,10 @@ Route::fallback(function () {
     return response()->view('Errors.404', [], 404);
 });
 
+// Public routes untuk UMKM
+Route::get('/daftar-umkm', [UmkmController::class, 'publicIndex'])->name('umkm.public.index');
+Route::get('/daftar-umkm/{id}', [UmkmController::class, 'publicShow'])->name('umkm.public.show');
+
 Route::get('/privacy', [LandingPageController::class, 'privacy']);
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 // Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\WhatsAppHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -239,7 +240,7 @@ class Umkm extends Model
      */
     public function getWhatsappUrlAttribute()
     {
-        return \App\Helpers\WhatsAppHelper::generateUmkmWhatsAppUrl($this);
+        return WhatsAppHelper::generateUmkmWhatsAppUrl($this);
     }
 
     /**
@@ -247,6 +248,6 @@ class Umkm extends Model
      */
     public function getFormattedPhoneAttribute()
     {
-        return \App\Helpers\WhatsAppHelper::formatForDisplay($this->nomor_telepon);
+        return WhatsAppHelper::formatForDisplay($this->nomor_telepon);
     }
 }
