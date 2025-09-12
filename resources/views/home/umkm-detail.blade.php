@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                       GAYA UNTUK DETAIL UMKM - Sederhana dan Konsisten
-                       ==================== */
+                                       GAYA UNTUK DETAIL UMKM - Sederhana dan Konsisten
+                                       ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -101,6 +101,13 @@
                             <div class="text-center mb-4">
                                 <h2 class="fw-bold mb-2">{{ $umkm->nama_usaha }}</h2>
                                 <h4 class="text-muted mb-3">{{ $umkm->nama_produk }}</h4>
+                                @if ($umkm->harga_produk)
+                                    <div class="text-center mb-3">
+                                        <span class="display-6 fw-bold text-success">
+                                            Rp {{ number_format($umkm->harga_produk, 0, ',', '.') }}
+                                        </span>
+                                    </div>
+                                @endif
                                 <span class="category-badge">{{ $umkm->kategori_label }}</span>
                             </div>
 
