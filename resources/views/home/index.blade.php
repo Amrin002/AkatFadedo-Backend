@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -437,7 +437,8 @@
             </div>
         </div>
     </section>
-    <!-- Bagian UMKM -->
+
+    {{-- section umkm --}}
     <section id="umkm" class="py-5 my-5">
         <div class="container">
             <h2 class="text-center section-title">UMKM Desa</h2>
@@ -459,6 +460,16 @@
                                     </div>
                                     <h5 class="card-title">{{ $item->nama_usaha }}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $item->nama_produk }}</h6>
+
+                                    <!-- Tambahan Harga Produk -->
+                                    @if ($item->harga_produk)
+                                        <div class="mb-2">
+                                            <span class="fw-bold text-success fs-5">
+                                                Rp {{ number_format($item->harga_produk, 0, ',', '.') }}
+                                            </span>
+                                        </div>
+                                    @endif
+
                                     <p class="card-text">{{ Str::limit($item->deskripsi_produk, 80) }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <a href="{{ route('umkm.public.show', $item->id) }}"

@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                               GAYA UNTUK INDEX UMKM PUBLIC - Konsisten dengan Detail
-                                                                                                                               ==================== */
+                                                                                                                                                               GAYA UNTUK INDEX UMKM PUBLIC - Konsisten dengan Detail
+                                                                                                                                                               ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -266,6 +266,13 @@
                                         <span class="category-badge mb-2">{{ $umkm->kategori_label }}</span>
                                         <h5 class="card-title fw-bold">{{ $umkm->nama_usaha }}</h5>
                                         <h6 class="card-subtitle text-muted">{{ $umkm->nama_produk }}</h6>
+                                        @if ($umkm->harga_produk)
+                                            <div class="text-center mb-2">
+                                                <span class="fw-bold text-success h5">
+                                                    Rp {{ number_format($umkm->harga_produk, 0, ',', '.') }}
+                                                </span>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <!-- Pemilik -->

@@ -25,6 +25,7 @@ return new class extends Migration {
             // Data produk
             $table->string('nama_produk', 255);
             $table->text('deskripsi_produk');
+            $table->decimal('harga_produk', 15, 2);
             $table->string('foto_produk', 255)->nullable();
 
             // Data kontak

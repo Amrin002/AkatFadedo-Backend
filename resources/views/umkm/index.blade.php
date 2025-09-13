@@ -103,6 +103,20 @@
                                                                 required>
                                                         </div>
                                                         <div class="form-group">
+                                                            <label for="harga_produk">Harga Produk <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">Rp</span>
+                                                                </div>
+                                                                <input type="number" class="form-control" id="harga_produk"
+                                                                    name="harga_produk" value="{{ old('harga_produk') }}"
+                                                                    min="0" step="1000" placeholder="0" required>
+                                                            </div>
+                                                            <small class="text-muted">Masukkan harga dalam rupiah (tanpa
+                                                                titik atau koma)</small>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="nomor_telepon">Nomor Telepon/WhatsApp <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" class="form-control" id="nomor_telepon"
@@ -163,6 +177,7 @@
                                             <th>Nama Usaha</th>
                                             <th>Kategori</th>
                                             <th>Nama Produk</th>
+                                            <th>Harga</th> <!-- TAMBAHAN -->
                                             <th>Foto Produk</th>
                                             <th>Kontak</th>
                                             <th>Status</th>
@@ -179,6 +194,15 @@
                                                 <td>{{ $row->nama_usaha }}</td>
                                                 <td>{{ $row->kategori_label }}</td>
                                                 <td>{{ $row->nama_produk }}</td>
+                                                <td>
+                                                    @if ($row->harga_produk)
+                                                        <span class="text-success font-weight-bold">
+                                                            Rp {{ number_format($row->harga_produk, 0, ',', '.') }}
+                                                        </span>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($row->foto_produk)
                                                         <img src="{{ asset('storage/' . $row->foto_produk) }}"
@@ -314,6 +338,17 @@
                                                                 <td><strong>Nama Produk:</strong></td>
                                                                 <td>{{ $row->nama_produk }}</td>
                                                             </tr>
+                                                            @if ($row->harga_produk)
+                                                                <tr>
+                                                                    <td><strong>Harga:</strong></td>
+                                                                    <td>
+                                                                        <span class="text-success font-weight-bold">
+                                                                            Rp
+                                                                            {{ number_format($row->harga_produk, 0, ',', '.') }}
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                             <tr>
                                                                 <td><strong>No. Telepon:</strong></td>
                                                                 <td>{{ $row->nomor_telepon }}</td>
@@ -496,6 +531,19 @@
                                                                 <input type="text" class="form-control"
                                                                     name="nama_produk" value="{{ $row->nama_produk }}"
                                                                     required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Harga Produk <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">Rp</span>
+                                                                    </div>
+                                                                    <input type="number" class="form-control"
+                                                                        name="harga_produk"
+                                                                        value="{{ $row->harga_produk }}" min="0"
+                                                                        step="1000" required>
+                                                                </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nomor Telepon/WhatsApp <span

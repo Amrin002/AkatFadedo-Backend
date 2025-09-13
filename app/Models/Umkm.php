@@ -19,6 +19,7 @@ class Umkm extends Model
         'kategori',
         'nama_produk',
         'deskripsi_produk',
+        'harga_produk',
         'foto_produk',
         'nomor_telepon',
         'link_facebook',
