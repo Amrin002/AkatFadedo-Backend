@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
+             $table->integer('urutan')->nullable();
             $table->timestamps();
         });
     }
