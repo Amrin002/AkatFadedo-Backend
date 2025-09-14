@@ -1,5 +1,5 @@
 <!-- Navigasi Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+<nav class="bg-white shadow-sm navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
         <a class="navbar-brand text-info fw-bold" href="{{ route('home') }}">Desa Akat Fadedo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -12,11 +12,11 @@
                     <a class="nav-link" href="#beranda">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tentang">Tentang</a>
+                    <a class="nav-link" href="#tentang">Profil Desa</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#potensi">Potensi</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="#layanan">Layanan</a>
                 </li>
@@ -29,9 +29,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#statistik">Statistik</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#lokasi-desa">Lokasi</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="#kontak">Kontak</a>
                 </li>

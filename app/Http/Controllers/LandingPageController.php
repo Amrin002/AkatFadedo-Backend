@@ -8,8 +8,10 @@ use App\Models\StrukturDesa;
 use App\Models\Berita;
 use App\Models\GaleriDesa;
 use App\Models\Umkm;
+use App\Models\AppVersion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class LandingPageController extends Controller
 {
@@ -63,9 +65,14 @@ class LandingPageController extends Controller
             return Umkm::approved()->with('penduduk')->latest('approved_at')->take(6)->get();
         });
 
+        // Ambil versi terbaru yang aktif
+        $latestAppVersion = AppVersion::where('is_active', true)
+            ->orderByDesc('created_at')
+            ->first();
+
         $title = 'Berita Desa';
 
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes', 'umkm'));
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes', 'umkm', 'latestAppVersion'));
     }
 
     public function show($slug)
@@ -176,6 +183,11 @@ class LandingPageController extends Controller
         return view('home.apbdes-view', compact('apbdes'));
     }
 
+    public function tentangdesa()
+    {
+        return view('home.tentang-desa');
+    }
+
     /**
      * Method untuk clear cache ketika data diupdate
      * Panggil method ini di observer/event listener model
@@ -223,9 +235,12 @@ class LandingPageController extends Controller
         return view('home.privacy');
     }
 
-    public function profilDesa()
+    public function profilDesa(Request $request)
     {
         try {
+              $daftarTahun = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun')->toArray();
+        $tahunTerpilih = $request->get('tahun', $daftarTahun[0] ?? date('Y'));
+
             // Cache statistik demografis lengkap
             $statistikDemografi = Cache::remember('statistik_demografi', 60, function () {
                 return Penduduk::getStatistikDemografi();
@@ -236,11 +251,11 @@ class LandingPageController extends Controller
                 $result = Penduduk::getRasioKetergantungan();
 
                 // Debug: log hasil untuk memastikan formatnya benar
-                \Log::info('Cache rasio_ketergantungan result:', $result);
+                Log::info('Cache rasio_ketergantungan result:', $result);
 
                 // Validasi hasil - pastikan mengembalikan array
                 if (!is_array($result)) {
-                    \Log::error('getRasioKetergantungan tidak mengembalikan array', ['result' => $result]);
+                    Log::error('getRasioKetergantungan tidak mengembalikan array', ['result' => $result]);
                     // Return default structure jika bukan array
                     return [
                         'rasio_ketergantungan_total' => 0,
@@ -257,11 +272,11 @@ class LandingPageController extends Controller
                 $result = Penduduk::getStatistikGenderDanUmur();
 
                 // Debug: log hasil untuk memastikan formatnya benar
-                \Log::info('Cache statistik_gender result:', $result);
+                Log::info('Cache statistik_gender result:', $result);
 
                 // Validasi hasil
                 if (!is_array($result)) {
-                    \Log::error('getStatistikGenderDanUmur tidak mengembalikan array', ['result' => $result]);
+                    Log::error('getStatistikGenderDanUmur tidak mengembalikan array', ['result' => $result]);
                     // Return default structure jika bukan array
                     return [
                         'laki_laki' => ['total' => 0, 'anak_anak' => 0, 'usia_produktif' => 0, 'lansia' => 0],
@@ -281,7 +296,7 @@ class LandingPageController extends Controller
 
             // Validasi data sebelum mengakses
             if (!is_array($statistikGender) || !isset($statistikGender['perempuan']['total']) || !isset($statistikGender['laki_laki']['total'])) {
-                \Log::error('statistikGender invalid structure', ['data' => $statistikGender]);
+                Log::error('statistikGender invalid structure', ['data' => $statistikGender]);
                 $statistikGender = [
                     'laki_laki' => ['total' => 0],
                     'perempuan' => ['total' => 0]
@@ -289,7 +304,7 @@ class LandingPageController extends Controller
             }
 
             if (!is_array($rasioKetergantungan) || !isset($rasioKetergantungan['rasio_ketergantungan_total'])) {
-                \Log::error('rasioKetergantungan invalid structure', ['data' => $rasioKetergantungan]);
+                Log::error('rasioKetergantungan invalid structure', ['data' => $rasioKetergantungan]);
                 $rasioKetergantungan = [
                     'rasio_ketergantungan_total' => 0,
                     'rasio_ketergantungan_anak' => 0,
@@ -307,10 +322,7 @@ class LandingPageController extends Controller
             $totalPenduduk = $statistikDemografi['total_penduduk'] ?? 0;
             $rataAnggotaKK = $jumlahKk > 0 ? round($totalPenduduk / $jumlahKk, 2) : 0;
 
-            // Cache APBDes terbaru dengan data analisis
-            $apbdes = Cache::remember('apbdes_analisis', 60, function () {
-                return Apbdes::orderByDesc('tahun')->first();
-            });
+             $apbdes = Apbdes::where('tahun', $tahunTerpilih)->first();
 
             // Data analisis APBDes menggunakan method baru
             $analisisApbdes = null;
@@ -327,7 +339,7 @@ class LandingPageController extends Controller
                         'tren' => Apbdes::getTrenAnggaran($apbdes->tahun)
                     ];
                 } catch (\Exception $e) {
-                    \Log::error('Error generating APBDes analysis: ' . $e->getMessage());
+                    Log::error('Error generating APBDes analysis: ' . $e->getMessage());
                     $analisisApbdes = null;
                 }
             }
@@ -357,11 +369,13 @@ class LandingPageController extends Controller
                 'fasilitas',
                 'persebaranWilayah',
                 'analisisIdm',
+                'daftarTahun',
+            'tahunTerpilih',
                 'title'
             ));
 
         } catch (\Exception $e) {
-            \Log::error('Error in profilDesa method:', [
+            Log::error('Error in profilDesa method:', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
@@ -445,7 +459,7 @@ class LandingPageController extends Controller
             ];
 
         } catch (\Exception $e) {
-            \Log::error('Error generating IDM analysis: ' . $e->getMessage());
+            Log::error('Error generating IDM analysis: ' . $e->getMessage());
 
             // Return default values jika terjadi error
             return [

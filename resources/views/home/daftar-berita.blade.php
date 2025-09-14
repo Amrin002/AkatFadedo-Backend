@@ -4,13 +4,13 @@
     <main class="container py-5">
         <h2 class="mb-4 text-center fw-bold">Berita Desa Akat Fadedo</h2>
         <div class="row">
-            <div class="text-left my-4">
+            <div class="my-4 text-left">
                 <a href="{{ route('home') }}" class="lihat-berita-link">
                     <i class="fas fa-home me-1"></i>Home
                 </a>
             </div>
         {{-- Filter Kategori --}}
-        <div class="row mb-4">
+        <div class="mb-4 row">
             <div class="col-md-6">
                 <form action="{{ route('home.daftar-berita') }}" method="GET" class="d-flex">
                     <select name="kategori" id="kategori" class="form-select me-2" onchange="this.form.submit()">
@@ -31,8 +31,8 @@
         {{-- Daftar Berita --}}
         <div class="row">
             @forelse ($berita as $item)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0">
+                <div class="mb-4 col-md-4">
+                    <div class="border-0 shadow-sm card h-100">
                         <a href="{{ route('berita.show', $item->slug) }}" class="text-dark text-decoration-none">
                             <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
                                 alt="{{ $item->judul }}" style="height: 200px; object-fit: cover;">
@@ -53,9 +53,9 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                        <div class="bg-white border-0 card-footer d-flex justify-content-between align-items-center">
                             {{-- Tanggal --}}
-                            <span class="badge bg-info text-white">
+                            <span class="text-white badge bg-info">
                                 {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
                             </span>
                             {{-- Kategori + Icon --}}
@@ -72,13 +72,13 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <div class="alert alert-info">Belum ada berita tersedia.</div>
+                    <div class="alert alert-info">Belum ada berita yang tersedia.</div>
                 </div>
             @endforelse
         </div>
 
         {{-- Pagination --}}
-        <div class="d-flex justify-content-center mt-4">
+        <div class="mt-4 d-flex justify-content-center">
             {{ $berita->appends(request()->query())->links() }}
         </div>
     </main>

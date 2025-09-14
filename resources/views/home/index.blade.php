@@ -17,6 +17,27 @@
             text-align: center;
         }
 
+        .border-item {
+            padding: 0.25rem 0;
+            margin-left: 2rem;
+            border-left: 3px solid #17a2b8;
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .info-item i {
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            font-size: 1.1rem;
+        }
+
         .card-potensi,
         .card-layanan,
         .card-berita,
@@ -49,6 +70,10 @@
         .img-gallery img {
             transition: transform 0.3s ease;
         }
+
+        .modal-backdrop.show {
+            opacity: 0.2 !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -59,8 +84,8 @@
             <p class="mb-5 lead reveal">Membangun desa yang maju dan harmonis, berlandaskan kearifan lokal serta inovasi demi
                 kesejahteraan masyarakat</p>
             <!-- Container untuk tombol dengan flexbox -->
-            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center reveal">
-                <a href="#potensi" class="shadow-sm btn btn-primary btn-lg rounded-pill">
+            <div class="gap-3 d-flex flex-column flex-sm-row justify-content-center align-items-center reveal">
+                <a href="#tentang" class="shadow-sm btn btn-primary btn-lg rounded-pill">
                     <i class="fas fa-compass me-2"></i>Jelajahi Desa
                 </a>
                 <a href="#" class="shadow-sm btn btn-success btn-lg rounded-pill download-app-btn"
@@ -71,7 +96,7 @@
         </div>
     </section>
 
-    <!-- Bagian Tentang Kami -->
+    <!-- Bagian Tentang Desa -->
     <section id="tentang" class="py-5 my-5">
         <div class="container">
             <div class="row align-items-center g-5">
@@ -80,7 +105,7 @@
                         class="shadow-sm img-fluid rounded-4">
                 </div>
                 <div class="col-lg-6 reveal">
-                    <h2 class="text-center section-title text-lg-start">Tentang Desa Akat Fadedo</h2>
+                    <h2 class="text-lg text-center section-title">Tentang Desa Akat Fadedo</h2>
                     <h5 class="text-center fw-bold text-lg-start">Visi Desa</h5>
                     <p class="mb-4 text-justify-custom">Terwujudnya Masyarakat Desa Akat Fadedo yang Religius, Cerdas, Maju,
                         Sehat Dan
@@ -96,7 +121,7 @@
                         <br>
                         Dan sampai saat ini Desa Administratif Akat Fadedo telah di pimpin oleh 3 Pejabat Kepala Pemerintah.
                     </p>
-                    <a href="#" class="mt-4 shadow-sm btn btn-primary rounded-pill">Selengkapnya</a>
+                    <a href="{{ route('home.tentang-desa') }}" class="mt-4 shadow-sm btn btn-primary rounded-pill">Selengkapnya</a>
                 </div>
             </div>
         </div>
@@ -116,29 +141,48 @@
                     </iframe>
                 </div>
                 <div class="col-lg-6">
-                    <h5 class="mb-3 fw-bold text-muted">Informasi Geografis</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2 lead"><i class="fas fa-map-marked-alt me-2 text-info"></i> Luas Wilayah:
-                            **15.000 km²**</li>
-                        <li class="mb-2 lead fw-bold text-muted"><i class="fas fa-border-all me-2 text-info"></i> Batas
-                            Wilayah:
-                        </li>
-                        <ul class="list-unstyled ms-4">
-                            <li class="text-muted"><i class="fas fa-arrow-up me-2 text-info"></i> Utara: Berbatasan dengan
-                                Gunung Teri</li>
-                            <li class="text-muted"><i class="fas fa-arrow-down me-2 text-info"></i> Selatan: Berbatasan
-                                dengan Laut Banda</li>
-                            <li class="text-muted"><i class="fas fa-arrow-right me-2 text-info"></i> Timur: Berbatasan
-                                dengan Desa Mugusinis</li>
-                            <li class="text-muted"><i class="fas fa-arrow-left me-2 text-info"></i> Barat: Berbatasan
-                                dengan Desa Sumbawa</li>
-                        </ul>
-                    </ul>
-                    <h5 class="mt-4 mb-3 fw-bold">Kondisi Topografi</h5>
-                    <p class="card-text text-muted text-justify-custom">Desa Maju memiliki topografi yang bervariasi,
-                        didominasi oleh dataran
-                        rendah dan perbukitan yang subur, ideal untuk pertanian dan perkebunan. Ketinggiannya berkisar
-                        antara 100 hingga 300 meter di atas permukaan laut.</p>
+                    <div class="geographic-info h-100">
+                        <h5 class="mb-4 fw-bold text-dark">Informasi Geografis</h5>
+                        <div class="info-item">
+                            <i class="fas fa-map-marked-alt me-2 text-info"></i>
+                            <div>
+                                <strong>Luas Wilayah:</strong> 15.000 km²
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-border-all text-info"></i>
+                            <div>
+                                <strong>Batas Wilayah:</strong>
+                            </div>
+                        </div>
+
+                        <div class="border-item">
+                            <i class="fas fa-arrow-up text-info me-2"></i>
+                            <strong>Utara:</strong> Berbatasan dengan Gunung Teri
+                        </div>
+                        <div class="border-item">
+                            <i class="fas fa-arrow-down text-info me-2"></i>
+                            <strong>Selatan:</strong> Berbatasan dengan Laut Banda
+                        </div>
+                        <div class="border-item">
+                            <i class="fas fa-arrow-right text-info me-2"></i>
+                            <strong>Timur:</strong> Berbatasan dengan Desa Mugusinis
+                        </div>
+                        <div class="border-item">
+                            <i class="fas fa-arrow-left text-info me-2"></i>
+                            <strong>Barat:</strong> Berbatasan dengan Desa Sumbawa
+                        </div>
+
+                        <div class="mt-4">
+                            <h5 class="mb-3 fw-bold text-dark">Kondisi Topografi</h5>
+                            <p class="text-justify-custom text-muted">
+                                Desa Akat Fadedo memiliki topografi yang bervariasi, didominasi oleh dataran
+                                rendah dan perbukitan yang subur, ideal untuk pertanian dan perkebunan.
+                                Ketinggiannya berkisar antara 100 hingga 300 meter di atas permukaan laut.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -234,8 +278,10 @@
                             <li class="text-muted"><i class="far fa-calendar-alt me-2 text-info"></i> Terakhir
                                 diperbarui: 2 weeks ago</li>
                         </ul>
-                        <a href="#" class="px-4 btn btn-outline-primary rounded-pill align-self-end">Lihat
-                            Selengkapnya</a>
+                        <a href="{{ route('home.profil-desa') }}#transparansi"
+                            class="px-4 btn btn-outline-primary rounded-pill align-self-end">
+                            Lihat Selengkapnya
+                        </a>
                     </div>
                 </div>
             </div>
@@ -277,6 +323,7 @@
         <div class="container">
             <h2 class="text-center section-title">Layanan Desa</h2>
             <div class="row g-4 justify-content-center">
+                <!-- Card 1 -->
                 <div class="col-md-6 col-lg-4 d-flex reveal">
                     <div class="p-3 text-center card card-layanan w-100">
                         <div class="card-body">
@@ -284,114 +331,27 @@
                             <h3 class="mb-2 card-title h4">Layanan Administrasi</h3>
                             <p class="card-text text-muted">Masyarakat dapat mengajukan pembuatan berbagai surat seperti
                                 surat keterangan domisili,
-                                surat
-                                izin usaha, dan surat pengantar lainnya secara online.</p>
-                            <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill">Selengkapnya</a>
+                                surat izin usaha, dan surat pengantar lainnya secara online.</p>
+                            <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill"
+                            data-bs-toggle="modal" data-bs-target="#requirementModal">
+                            Selengkapnya
+                            </a>
                         </div>
                     </div>
                 </div>
+
+                <!-- Card 2 -->
                 <div class="col-md-6 col-lg-4 d-flex reveal">
                     <div class="p-3 text-center card card-layanan w-100">
                         <div class="card-body">
                             <i class="mb-3 fas fa-handshake fa-3x text-info"></i>
                             <h3 class="mb-2 card-title h4">Pengaduan Masyarakat</h3>
                             <p class="card-text text-muted">Masyarakat dapat melaporkan keluhan atau permasalahan terkait
-                                infrastruktur, keamanan, dan
-                                layanan
-                                publik di desa.</p>
-                            <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill">Selengkapnya</a>
-                        </div>
-                    </div>
-
-                    <!-- Modal -->
-                    <div class="modal modal-lg fade" id="requirementModal" tabindex="-1"
-                        aria-labelledby="requirementModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content border-2">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="row g-3">
-                                        <!-- Kiri -->
-                                        <div class="col-md-6 text-light p-3 rounded"
-                                            style="background: url('{{ asset('images/background2.png') }}') no-repeat center center;
-                                                    background-size: cover; position: relative; overflow: hidden;">
-                                            background-size: cover; position: relative; overflow: hidden;">
-
-                                            <div class="row position-relative" style="z-index: 2;">
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <div class="me-4">
-                                                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
-                                                            class="img-fluid" style="max-width: 100px;">
-                                                    </div>
-                                                    <div style="text-align: justify;">
-                                                        <p class="mb-1">Layanan Desa</p>
-                                                        <p class="mb-1">Local Class Tech</p>
-                                                        <p class="mb-0">Version: 1.0</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Preview Images -->
-                                                <div class="bg-light rounded my-3 px-2 py-3 text-center"
-                                                    style="width: calc(100% - 10px); margin: auto;">
-                                                    <div class="d-flex justify-content-center gap-3 flex-nowrap"
-                                                        style="overflow-x: auto;">
-                                                        <img src="{{ asset('images/preview1.png') }}" alt="Preview 1"
-                                                            style="width: 90px;">
-                                                        <img src="{{ asset('images/preview2.png') }}" alt="Preview 2"
-                                                            style="width: 90px;">
-                                                        <img src="{{ asset('images/preview3.png') }}" alt="Preview 3"
-                                                            style="width: 90px;">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mt-2 mb-2 text-center">
-                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
-                                                        <button type="button" class="btn text-white fw-bold"
-                                                            style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
-                                                            onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
-                                                            onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
-                                                            Download
-                                                        </button>
-                                                    </a>
-
-                                                    <a href="{{ asset('apk/layanan-desa-v1.apk') }}" download>
-                                                        <button type="button" class="btn text-white fw-bold"
-                                                            style="background-color: #1ABAFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 180px;"
-                                                            onmouseover="this.style.backgroundColor='#004F71'; this.style.border=' 1px solid #ffffff';"
-                                                            onmouseout="this.style.backgroundColor='#1ABAFF'; this.style.border=' 1px solid #0071A5'">
-                                                            Download
-                                                        </button>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Kanan -->
-                                        <div class="col-md-6 text-light pt-2 px-3" style="text-align: justify">
-                                            <h5 style="color: #4A4A4A"><strong>Layanan Desa</strong></h5>
-                                            <p style="font-size: 14px; color: #4A4A4A;">
-                                                Mau ajukan surat, baca berita desa, cek APBDes, atau lapor keluhan?
-                                                Semua bisa lewat aplikasi Layanan Desa. Yuk, unduh sekarang dan rasakan
-                                                mudahnya layanan desa digital!
-                                            </p>
-                                            <h5 style="color: #4A4A4A"><strong>Tujuan Kami</strong></h5>
-                                            <ol style="font-size: 14px; color: #4A4A4A">
-                                                <li>Meningkatkan pelayanan publik desa melalui teknologi</li>
-                                                <li>Mempermudah akses masyarakat terhadap layanan administrasi seperti
-                                                    Pengaduan Surat, Transparansi APBDes, dan informasi desa</li>
-                                                <li>Mendukung program digitalisasi desa yang transparan dan akuntabel.</li>
-                                            </ol>
-                                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akad
-                                                    Fadedo - Melayani dengan Teknologi, Membangun dengan Hati.</strong></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                infrastruktur, keamanan, dan layanan publik di desa.</p>
+                            <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill"
+                            data-bs-toggle="modal" data-bs-target="#requirementModal">
+                            Selengkapnya
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -399,11 +359,118 @@
         </div>
     </section>
 
+
+    <!-- Modal Requirement -->
+    <div class="modal fade" id="requirementModal" tabindex="-1"
+        aria-labelledby="requirementModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="border-2 modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <!-- Kiri -->
+                        <div class="p-3 rounded col-md-6 text-light"
+                            style="background: url('{{ asset('images/background2.png') }}') no-repeat center center;
+                                    background-size: cover; position: relative; overflow: hidden;">
+
+                            <div class="row position-relative" style="z-index: 2;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="me-4">
+                                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                                            class="img-fluid" style="max-width: 100px;">
+                                    </div>
+                                    <div style="text-align: justify;">
+                                        <p class="mb-1">Layanan Desa</p>
+                                        <p class="mb-1">Local Class Tech</p>
+                                        <p class="mb-0">
+                                            Versi :
+                                            @if ($latestAppVersion)
+                                                {{ $latestAppVersion->version }}
+                                            @else
+                                                <span>-</span>
+                                            @endif
+                                        </p>
+                                        <p class="mb-0">
+                                            Rilis :
+                                            @if ($latestAppVersion)
+                                                {{ $latestAppVersion->formatted_release_date }}
+                                            @else
+                                                <span>-</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Preview Images -->
+                                <div class="px-2 py-3 my-3 text-center rounded bg-light"
+                                    style="width: calc(100% - 10px); margin: auto;">
+                                    <div class="gap-3 d-flex justify-content-center flex-nowrap"
+                                        style="overflow-x: auto;">
+                                        <img src="{{ asset('images/preview1.png') }}" alt="Preview 1"
+                                            style="width: 90px;">
+                                        <img src="{{ asset('images/preview2.png') }}" alt="Preview 2"
+                                            style="width: 90px;">
+                                        <img src="{{ asset('images/preview3.png') }}" alt="Preview 3"
+                                            style="width: 90px;">
+                                    </div>
+                                </div>
+
+                                <div class="mt-2 mb-2 text-center">
+                                    @if ($latestAppVersion)
+                                        <a href="{{ $latestAppVersion->full_download_url }}" download
+                                            class="border shadow-sm btn btn-white btn-sm rounded-pill">
+                                            <i class="fas fa-code-branch me-1"></i>
+                                            Versi v{{ $latestAppVersion->version }}
+                                        </a>
+                                        <div class="mt-2">
+                                            <small class="text-muted">
+                                                <i class="fas fa-database me-1"></i>
+                                                Ukuran: {{ $latestAppVersion->file_size }}
+                                            </small>
+                                        </div>
+                                    @else
+                                        <button class="btn btn-secondary btn-sm rounded-pill" disabled>
+                                            <i class="fas fa-code-branch me-1"></i>
+                                            Versi Belum Tersedia
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kanan -->
+                        <div class="px-3 pt-2 col-md-6 text-light" style="text-align: justify">
+                            <h5 style="color: #4A4A4A"><strong>Layanan Desa</strong></h5>
+                            <p style="font-size: 14px; color: #4A4A4A;">
+                                Mau ajukan surat, baca berita desa, cek APBDes, atau lapor keluhan?
+                                Semua bisa lewat aplikasi Layanan Desa. Yuk, unduh sekarang dan rasakan
+                                mudahnya layanan desa digital!
+                            </p>
+                            <h5 style="color: #4A4A4A"><strong>Tujuan Kami</strong></h5>
+                            <ol style="font-size: 14px; color: #4A4A4A">
+                                <li>Meningkatkan pelayanan publik desa melalui teknologi</li>
+                                <li>Mempermudah akses masyarakat terhadap layanan administrasi seperti
+                                    Pengaduan Surat, Transparansi APBDes, dan informasi desa</li>
+                                <li>Mendukung program digitalisasi desa yang transparan dan akuntabel.</li>
+                            </ol>
+                            <h6 class="mt-3" style="font-size: 14px; color: #4A4A4A"><strong>Desa Akad
+                                    Fadedo - Melayani dengan Teknologi, Membangun dengan Hati.</strong></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- section umkm --}}
     <section id="umkm" class="py-5 my-5">
         <div class="container">
             <h2 class="text-center section-title">UMKM Desa</h2>
-            <p class="text-center text-muted mb-5">Produk unggulan dan usaha kreatif masyarakat Desa Akat Fadedo</p>
+            <p class="mb-5 text-center text-muted">Produk unggulan dan usaha kreatif masyarakat Desa Akat Fadedo</p>
 
             @if ($umkm->isEmpty())
                 <p class="text-center text-muted">Data UMKM belum tersedia.</p>
@@ -415,12 +482,12 @@
                                 <img src="{{ asset('storage/' . $item->foto_produk) }}" class="card-img-top"
                                     alt="{{ $item->nama_produk }}" style="height: 200px; object-fit: cover;">
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div class="mb-2 d-flex justify-content-between align-items-start">
                                         <span class="badge bg-info">{{ $item->kategori_label }}</span>
                                         <small class="text-muted">{{ $item->penduduk->nama_lengkap ?? 'N/A' }}</small>
                                     </div>
                                     <h5 class="card-title">{{ $item->nama_usaha }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ $item->nama_produk }}</h6>
+                                    <h6 class="mb-2 card-subtitle text-muted">{{ $item->nama_produk }}</h6>
 
                                     <!-- Tambahan Harga Produk -->
                                     @if ($item->harga_produk)
@@ -468,7 +535,7 @@
                         <!-- Gambar Galeri -->
                         <div class="col-6 col-md-4 col-lg-3 reveal">
                             <a href="#" class="d-block img-gallery" data-bs-toggle="modal"
-                                data-bs-target="#galleryModal" data-img-src="{{ asset('storage/' . $item->foto) }}">
+                                data-bs-target="#galleryModal" data-img-src="{{ asset('storage/' . $item->image) }}">
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->nama_kegiatan }}"
                                     class="img-fluid w-100">
                             </a>
