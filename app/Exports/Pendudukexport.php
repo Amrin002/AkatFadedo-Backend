@@ -10,11 +10,12 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PendudukExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
+class Pendudukexport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     /**
      * Ambil data yang akan diekspor ke Excel
      */
+
     public function collection()
     {
         return Penduduk::where('status', '!=', 'Admin')

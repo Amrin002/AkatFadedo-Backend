@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PendudukExport;
+use App\Exports\Pendudukexport;
 use App\Imports\PendudukImport;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
@@ -107,7 +107,7 @@ class PendudukController extends Controller
     public function export()
     {
         try {
-            return Excel::download(new PendudukExport, 'pendudukexcel.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new Pendudukexport, 'pendudukexcel.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
