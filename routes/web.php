@@ -50,6 +50,12 @@ Route::fallback(function () {
     return response()->view('Errors.404', [], 404);
 });
 
+Route::get('/download/apk', [LandingPageController::class, 'downloadApk'])->name('download.apk');
+
+// Route untuk cek ketersediaan aplikasi (AJAX)
+Route::get('/api/check-app-availability', [LandingPageController::class, 'checkAppAvailability'])->name('check.app.availability');
+
+
 Route::get('/privacy', [LandingPageController::class, 'privacy']);
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 // Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');
@@ -132,8 +138,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
     Route::post('/keluhan/{keluhan}/tanggapi', [KeluhanController::class, 'tanggapi'])->name('keluhan.tanggapi');
 
-     Route::resource('/suratkpt', SuratKptController::class);
-    
+    Route::resource('/suratkpt', SuratKptController::class);
+
     // Route export PDF untuk Surat KPT
     Route::get('/suratkpt/export/pdf/{id}', [SuratKptController::class, 'exportPdf'])->name('suratkpt.export.pdf');
     // route arsip
