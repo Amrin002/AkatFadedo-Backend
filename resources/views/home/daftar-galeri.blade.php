@@ -1,31 +1,205 @@
-@extends('layouts.landing')
+@extends('layouts.main')
 
 @section('content')
-    <main class="container py-5">
-        <h2 class="mb-4 text-center fw-bold">Galeri Desa Akat Fadedo</h2>
-        <div class="row">
-            <div class="my-4 text-left">
-                <a href="{{ route('home') }}" class="lihat-berita-link">
-                    <i class="fas fa-home me-1"></i>Home
-                </a>
-            </div>
-            @forelse ($galeri as $item)
-                <div class="mb-4 col-md-4">
-                    <div class="border-0 shadow-sm card h-100">
+    <div class="main-wrapper">
+        <div class="content-area">
+            <main class="container py-5 galeri-container" style="margin-top:70px; max-width:1200px;">
+                {{-- Judul Halaman --}}
+                <h2 class="mb-5 text-center fw-bolder text-dark" style="font-size:2.2rem;">
+                    Galeri Desa Akat Fadedo
+                </h2>
 
-                        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top"
-                            alt="{{ $item->nama_kegiatan }}" style="height: 300px; object-fit: cover;">
+                {{-- Link Kembali ke Home --}}
+                <div class="mb-4">
+                    <a href="{{ route('home') }}" class="text-decoration-none text-info fw-semibold link-home">
+                        <i class="fas fa-home me-1"></i> Kembali ke Home
+                    </a>
+                </div>
 
-                        <div class="text-center bg-white border-0 card-footer">
-                            <h3>{{ $item->nama_kegiatan }}</h3>
+                <div class="row g-4">
+                    @forelse ($galeri as $index => $item)
+                        <div class="col-md-4 col-sm-6 reveal">
+                            <div class="overflow-hidden border-0 shadow-sm card galeri-card h-100 rounded-3">
+                                {{-- Gambar --}}
+                                <div class="galeri-img-wrapper">
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->nama_kegiatan }}"
+                                        class="card-img-top galeri-img img-gallery" data-index="{{ $index }}"
+                                        data-img-src="{{ asset('storage/' . $item->image) }}"
+                                        data-title="{{ $item->nama_kegiatan }}">
+                                </div>
+
+                                {{-- Judul --}}
+                                <div class="text-center bg-white border-0 card-footer">
+                                    <h5 class="mb-0 fw-semibold text-dark">{{ $item->nama_kegiatan }}</h5>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @empty
+                        <div class="col-12">
+                            <div class="text-center alert alert-info">Belum ada galeri tersedia.</div>
+                        </div>
+                    @endforelse
                 </div>
-            @empty
-                <div class="col-12">
-                    <div class="alert alert-info">Belum ada gambar yang tersedia.</div>
+                {{-- Pagination --}}
+                <div class="mt-4 d-flex justify-content-center">
+                    {{ $galeri->appends(request()->query())->links() }}
                 </div>
-            @endforelse
+            </main>
         </div>
-    </main>
+    </div>
+
+    <!-- Modal Galeri -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="overflow-hidden text-white border-0 shadow-lg modal-content bg-dark rounded-4">
+                <div class="p-0 modal-body position-relative">
+                    <!-- Gambar -->
+                    <img id="modalImage" src="" alt="Gambar Galeri" class="img-fluid w-100 d-block">
+
+                    <!-- Caption -->
+                    <div class="bottom-0 p-3 bg-opacity-75 bg-dark position-absolute start-0 w-100">
+                        <h5 id="modalTitle" class="mb-0 text-center fw-semibold"></h5>
+                    </div>
+
+                    <!-- Tombol Tutup -->
+                    <button type="button" class="top-0 m-3 btn-close btn-close-white position-absolute end-0"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <!-- Navigasi -->
+                    <button class="btn btn-dark btn-lg position-absolute top-50 start-0 translate-middle-y"
+                        id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-dark btn-lg position-absolute top-50 end-0 translate-middle-y" id="nextBtn"><i
+                            class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+{{-- styles Galeri --}}
+@push('styles')
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .main-wrapper {
+            min-height: 95%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-area {
+            flex: 1;
+        }
+
+        .galeri-container {
+            min-height: 70vh;
+        }
+
+        /* Card galeri */
+        .galeri-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .galeri-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .galeri-img-wrapper {
+            overflow: hidden;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .galeri-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .galeri-card:hover .galeri-img {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        #modalImage {
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        #galleryModal .btn {
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        #galleryModal .btn:hover {
+            opacity: 1;
+        }
+
+        /* Animasi reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.reveal-visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+@endpush
+
+{{-- script Modal Galeri --}}
+@push('scripts')
+    <script>
+        const galleryItems = document.querySelectorAll('.img-gallery');
+        let currentIndex = 0;
+
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const galleryModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+
+        function showImage(index) {
+            const img = galleryItems[index];
+            modalImage.src = img.dataset.imgSrc;
+            modalTitle.textContent = img.dataset.title || 'Galeri';
+            currentIndex = index;
+            galleryModal.show();
+        }
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', function() {
+                showImage(index);
+            });
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+            showImage(currentIndex);
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % galleryItems.length;
+            showImage(currentIndex);
+        });
+
+        // Animasi scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+        revealElements.forEach(el => observer.observe(el));
+    </script>
+@endpush

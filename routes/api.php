@@ -40,6 +40,14 @@ Route::prefix('app-version')->group(function () {
     // Mendapatkan riwayat versi (optional)
     Route::get('/history', [AppVersionApiController::class, 'getVersionHistory']);
 });
+Route::prefix('umkm-public')->group(function () {
+    Route::get('/', [UmkmApiController::class, 'publicIndex']);
+    Route::get('/{id}', [UmkmApiController::class, 'publicShow']);
+});
+
+// ✅ TAMBAHAN: UMKM Options Route
+Route::get('/umkm-options', [UmkmApiController::class, 'getOptions']);
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/users', [AuthController::class, 'index']);

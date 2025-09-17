@@ -57,6 +57,9 @@ class LandingPageController extends Controller
         $berita = Cache::remember('berita_home', 60, function () {
             return Berita::latest()->take(6)->get();
         });
+         // Ambil kategori dari config
+        $kategoriData = config('kategori');
+
         $apbdes = Cache::remember('apbdes_analisis', 60, function () {
             return Apbdes::orderByDesc('tahun')->first();
         });
@@ -72,7 +75,7 @@ class LandingPageController extends Controller
 
         $title = 'Berita Desa';
 
-        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes', 'umkm', 'latestAppVersion'));
+        return view('home.index', compact('jumlahPenduduk', 'fasilitas', 'strukturDesa', 'galeri', 'berita', 'title', 'jumlahKk', 'jumlahLakiLaki', 'jumlahPerempuan', 'apbdes', 'umkm', 'kategoriData', 'latestAppVersion'));
     }
 
     public function show($slug)
@@ -94,31 +97,9 @@ class LandingPageController extends Controller
             return Berita::latest()->take(8)->get();
         });
 
-        // Data kategori (mapping manual)
-        $kategoriData = [
-            'umum' => ['nama' => 'Umum', 'icon' => 'fas fa-bullhorn'],
-            'politik' => ['nama' => 'Politik', 'icon' => 'fas fa-landmark'],
-            'ekonomi' => ['nama' => 'Ekonomi', 'icon' => 'fas fa-coins'],
-            'olahraga' => ['nama' => 'Olahraga', 'icon' => 'fas fa-futbol'],
-            'teknologi' => ['nama' => 'Teknologi', 'icon' => 'fas fa-microchip'],
-            'pendidikan' => ['nama' => 'Pendidikan', 'icon' => 'fas fa-graduation-cap'],
-            'kesehatan' => ['nama' => 'Kesehatan', 'icon' => 'fas fa-heartbeat'],
-            'pembangunan' => ['nama' => 'Pembangunan', 'icon' => 'fas fa-tools'],
-            'pertanian' => ['nama' => 'Pertanian', 'icon' => 'fas fa-tractor'],
-            'perikanan' => ['nama' => 'Perikanan', 'icon' => 'fas fa-fish'],
-            'lingkungan' => ['nama' => 'Lingkungan', 'icon' => 'fas fa-leaf'],
-            'pariwisata' => ['nama' => 'Pariwisata', 'icon' => 'fas fa-umbrella-beach'],
-            'transportasi' => ['nama' => 'Transportasi', 'icon' => 'fas fa-bus'],
-            'hiburan' => ['nama' => 'Hiburan', 'icon' => 'fas fa-film'],
-            'budaya' => ['nama' => 'Budaya', 'icon' => 'fas fa-theater-masks'],
-            'musik' => ['nama' => 'Musik', 'icon' => 'fas fa-music'],
-            'film' => ['nama' => 'Film', 'icon' => 'fas fa-video'],
-            'agama' => ['nama' => 'Agama', 'icon' => 'fas fa-mosque'],
-            'opini' => ['nama' => 'Opini', 'icon' => 'fas fa-pen-nib'],
-            'sosial' => ['nama' => 'Sosial', 'icon' => 'fas fa-users'],
-            'startup' => ['nama' => 'Startup', 'icon' => 'fas fa-lightbulb'],
-            'umkm' => ['nama' => 'UMKM', 'icon' => 'fas fa-store'],
-        ];
+
+         // Ambil kategori dari config
+        $kategoriData = config('kategori');
 
         // Normalisasi string kategori dari DB agar cocok dengan key array
         $kategoriKey = strtolower(trim($berita->kategori));
@@ -147,13 +128,8 @@ class LandingPageController extends Controller
             return $query->paginate(6);
         });
 
-        // ambil daftar kategori dari config, buat array keyed by nama
-        $kategoriData = collect(config('kategori'))
-            ->mapWithKeys(function ($item) {
-                return [$item['nama'] => $item];
-            })
-            ->toArray();
-
+       // Ambil kategori dari config
+    $kategoriData = config('kategori');
         return view('home.daftar-berita', compact('berita', 'kategoriData'));
     }
 
@@ -172,7 +148,7 @@ class LandingPageController extends Controller
         // Caching galeri dengan pagination
         $page = $request->get('page', 1);
         $galeri = Cache::remember("galeri_page_{$page}", 60, function () {
-            return GaleriDesa::latest()->paginate(6);
+            return GaleriDesa::latest()->paginate(10);
         });
 
         return view('home.daftar-galeri', compact('galeri'));

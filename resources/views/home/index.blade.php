@@ -289,34 +289,73 @@
     </section>
 
 
-    <!-- Bagian Struktur Organisasi Desa -->
-    <section id="organisasi" class="py-5 my-5 bg-white">
-        <div class="container">
-            <h2 class="text-center section-title">Struktur Organisasi Desa</h2>
-            @if ($strukturDesa->isEmpty())
-                <p class="text-center text-muted">Data struktur organisasi belum tersedia.</p>
-            @else
-                <div class="text-center row g-4 justify-content-center reveal">
-                    @foreach ($strukturDesa as $jabatan)
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="p-3 text-center shadow-sm card w-100">
-                                <img src="{{ asset('storage/' . $jabatan->foto) }}" alt="{{ $jabatan->jabatan }}"
-                                    class="mx-auto mb-3 img-fluid rounded-circle"
-                                    style="width: 200px; height: 200px; object-fit: cover;">
-                                <h5 class="mb-1 fw-bold">{{ $jabatan->jabatan }}</h5>
-                                <p class="mb-0 text-muted">{{ $jabatan->nama }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-            <!-- Tombol Selengkapnya untuk Struktur Organisasi -->
-            <div class="mt-5 text-center reveal">
-                <a href="#" class="px-4 btn btn-outline-primary rounded-pill">Selengkapnya</a>
+    <!-- Bagian Struktur Pemerintahan Desa -->
+<section id="struktur-desa" class="py-5 my-5 team section bg-light">
+    <div class="container mb-5 text-center section-title" data-aos="fade-up">
+        <h2 class="fw-bold">Struktur Pemerintahan Desa</h2>
+        <p class="text-muted">Susunan kepengurusan desa yang bertanggung jawab atas administrasi dan pelayanan masyarakat.</p>
+    </div>
+
+    <div class="container">
+        <div class="row gy-4 justify-content-center">
+            @forelse ($strukturDesa as $anggota)
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch reveal" data-aos="fade-up" data-aos-delay="100">
+    <div class="overflow-hidden text-center border-0 shadow-sm team-member card rounded-4 w-100">
+
+        <!-- Foto -->
+        <div class="mt-4 member-img position-relative">
+            <img src="{{ asset('storage/' . $anggota->image) }}"
+                 alt="{{ $anggota->nama }}"
+                 class="shadow-sm img-fluid rounded-circle"
+                 style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #fff;">
+        </div>
+
+        <!-- Info Anggota -->
+        <div class="member-info card-body">
+            <h5 class="mb-1 fw-bold text-dark">{{ $anggota->nama }}</h5>
+            <p class="mb-3 text-muted small">{{ $anggota->jabatan ?? $anggota->posisi }}</p>
+
+            <!-- Sosial Media -->
+            <div class="gap-2 mt-3 social d-flex justify-content-center">
+                @if ($anggota->twitter)
+                    <a href="{{ $anggota->twitter }}" target="_blank"
+                       class="social-icon twitter" title="Twitter/X">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                @endif
+                @if ($anggota->facebook)
+                    <a href="{{ $anggota->facebook }}" target="_blank"
+                       class="social-icon facebook" title="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                @endif
+                @if ($anggota->instagram)
+                    <a href="{{ $anggota->instagram }}" target="_blank"
+                       class="social-icon instagram" title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                @endif
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
+            @empty
+                <div class="col-12">
+                    <div class="text-center alert alert-info">Belum ada struktur desa yang tersedia.</div>
+                </div>
+            @endforelse
+        </div>
+
+        <!-- Tombol Selengkapnya -->
+        <div class="mt-5 text-center reveal">
+            <a href="{{ route('home.daftar-sturktur-desa') }}"
+               class="px-4 btn btn-outline-primary rounded-pill">
+                <i class="fas fa-sitemap me-1"></i> Lihat Struktur Desa Lebih Banyak
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Bagian Layanan -->
     <section id="layanan" class="py-5 my-5">
@@ -523,32 +562,72 @@
         </div>
     </section>
 
-    <!-- Bagian Galeri Foto -->
-    <section id="galeri" class="py-5 my-5">
-        <div class="container">
-            <h2 class="text-center section-title">Galeri Foto</h2>
-            @if ($galeri->isEmpty())
-                <p class="text-center text-muted">Galeri foto belum tersedia.</p>
-            @else
-                <div class="row g-4">
-                    @foreach ($galeri as $item)
-                        <!-- Gambar Galeri -->
-                        <div class="col-6 col-md-4 col-lg-3 reveal">
-                            <a href="#" class="d-block img-gallery" data-bs-toggle="modal"
-                                data-bs-target="#galleryModal" data-img-src="{{ asset('storage/' . $item->image) }}">
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->nama_kegiatan }}"
-                                    class="img-fluid w-100">
-                            </a>
+   <!-- Bagian Galeri Foto -->
+<section id="galeri" class="py-5 my-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4 text-center fw-bold section-title">Galeri Foto</h2>
+
+        @if ($galeri->isEmpty())
+            <p class="text-center text-muted">Galeri foto belum tersedia.</p>
+        @else
+            <div class="masonry-grid">
+                @foreach ($galeri as $item)
+                    <div class="masonry-item">
+                        <div class="border-0 shadow-sm card galeri-card">
+                            <img src="{{ asset('storage/' . $item->image) }}"
+                                 alt="{{ $item->nama_kegiatan }}"
+                                 class="galeri-img img-gallery"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#galleryModal"
+                                 data-img-src="{{ asset('storage/' . $item->image) }}"
+                                 data-title="{{ $item->nama_kegiatan }}">
+                            <div class="p-2 text-center">
+                                <h6 class="mt-2 mb-0 fw-semibold">{{ $item->nama_kegiatan }}</h6>
+                            </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        <!-- Tombol Selengkapnya -->
+        <div class="mt-5 text-center reveal">
+            <a href="{{ route('home.daftar-galeri') }}"
+               class="px-4 btn btn-outline-primary rounded-pill">
+                <i class="fas fa-images me-1"></i> Lihat Semua Galeri
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Modal Galeri -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="overflow-hidden text-white border-0 shadow-lg modal-content bg-dark rounded-4">
+            <div class="p-0 modal-body position-relative">
+                <!-- Gambar -->
+                <img id="modalImage" src="" alt="Gambar Galeri"
+                     class="img-fluid w-100 d-block animate__animated animate__zoomIn">
+
+                <!-- Caption -->
+                <div class="bottom-0 p-3 bg-opacity-75 bg-dark position-absolute start-0 w-100">
+                    <h5 id="modalTitle" class="mb-0 text-center fw-semibold"></h5>
                 </div>
-            @endif
-            <!-- Tombol Selengkapnya untuk Potensi -->
-            <div class="mt-5 text-center reveal">
-                <a href="#" class="px-4 text-white shadow-sm btn btn-info rounded-pill">Selengkapnya</a>
+
+                <!-- Tombol Tutup -->
+                <button type="button" class="top-0 m-3 btn-close btn-close-white position-absolute end-0"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <!-- Navigasi -->
+                <button class="btn btn-dark btn-lg position-absolute top-50 start-0 translate-middle-y"
+                        id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="btn btn-dark btn-lg position-absolute top-50 end-0 translate-middle-y"
+                        id="nextBtn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+
 
     <!-- Bagian Berita -->
     <section id="berita" class="py-5 my-5 bg-white">
@@ -558,41 +637,69 @@
                 <p class="text-center text-muted">Berita belum tersedia.</p>
             @else
                 <div class="row g-4">
-                    @foreach ($berita as $item)
-                        <div class="col-lg-4 col-md-6 d-flex reveal">
-                            <div class="shadow-sm card card-berita w-100">
-                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
-                                    alt="{{ $item->judul }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $item->judul }}</h5>
-                                    <p class="card-text text-muted small"><i class="far fa-calendar-alt me-2"></i>
-                                        {{ $item->created_at->format('d F Y') }}</p>
-                                    <p class="card-text">{{ Str::limit(strip_tags($item->konten), 100) }}</p>
-                                    <a href="{{ route('berita.show', $item->slug) }}"
-                                        class="btn btn-sm btn-primary rounded-pill">Baca Selengkapnya</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+    @foreach ($berita as $item)
+        @php
+            $katKey = strtolower(trim($item->kategori));
+            $kat = $kategoriData[$katKey] ?? null;
+        @endphp
+
+        <div class="col-lg-4 col-md-6 d-flex reveal">
+            <a href="{{ route('berita.show', $item->slug) }}" style="text-decoration: none; color: inherit;">
+                <div class="shadow-sm card card-berita w-100 h-100">
+                    {{-- Gambar --}}
+                    <img src="{{ asset('storage/' . $item->gambar) }}"
+                         class="card-img-top" alt="{{ $item->judul }}"
+                         style="height: 200px; object-fit: cover;">
+
+                    <div class="card-body d-flex flex-column">
+                        {{-- Judul --}}
+                        <h5 class="card-title fw-bold">{{ Str::limit($item->judul, 60) }}</h5>
+
+                        {{-- Meta info --}}
+                        <p class="mb-2 card-text text-muted small">
+                            <i class="far fa-calendar-alt me-2"></i>
+                            {{ $item->created_at->format('d F Y') }}
+                        </p>
+
+                        {{-- Badge Kategori --}}
+                        @if ($kat)
+                            <span class="badge {{ $kat['class'] }} px-3 py-2 shadow-sm mb-2">
+                                <i class="{{ $kat['icon'] }} me-1"></i> {{ $kat['nama'] }}
+                            </span>
+                        @else
+                            <span class="px-3 py-2 mb-2 text-white shadow-sm badge bg-secondary">
+                                <i class="fas fa-tag me-1"></i> {{ ucfirst($item->kategori) }}
+                            </span>
+                        @endif
+
+                        {{-- Ringkasan --}}
+                        <p class="card-text">{{ Str::limit(strip_tags($item->konten), 100) }}</p>
+
+                        {{-- Tombol --}}
+                        <a href="{{ route('berita.show', $item->slug) }}"
+                           class="mt-auto btn btn-sm btn-primary rounded-pill">
+                            Baca Selengkapnya
+                        </a>
+                    </div>
                 </div>
+            </a>
+        </div>
+    @endforeach
+</div>
+
+
             @endif
             <!-- Tombol Selengkapnya untuk Berita -->
             <div class="mt-5 text-center reveal">
-                <a href="#" class="px-4 btn btn-outline-primary rounded-pill">Lihat Semua Berita</a>
-            </div>
+            <a href="{{ route('home.daftar-berita') }}"
+               class="px-4 btn btn-outline-primary rounded-pill">
+                 <i class="fas fa-book-open me-2"></i>  Lihat Semua Berita
+            </a>
+        </div>
         </div>
     </section>
 
-    <!-- Modal Galeri -->
-    <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="bg-transparent border-0 modal-content">
-                <div class="p-0 modal-body">
-                    <img id="modalImage" src="" alt="Gambar Galeri" class="shadow-lg img-fluid rounded-4">
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Bagian Kontak -->
     <section id="kontak" class="py-5 text-white bg-dark">
@@ -611,30 +718,199 @@
     </section>
 @endsection
 
-@push('scripts')
-    <script>
-        // Logika untuk menampilkan gambar di modal galeri
-        const galleryModal = document.getElementById('galleryModal');
-        galleryModal.addEventListener('show.bs.modal', event => {
-            const button = event.relatedTarget;
-            const imgSrc = button.getAttribute('data-img-src');
-            const modalImage = galleryModal.querySelector('#modalImage');
-            modalImage.src = imgSrc;
-        });
+{{-- Styles Galeri --}}
+@push('styles')
+<style>
+    /* Masonry grid ala Pinterest */
+    .masonry-grid {
+        column-count: 4;
+        column-gap: 1rem;
+    }
+    .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 1200px) { .masonry-grid { column-count: 3; } }
+    @media (max-width: 768px) { .masonry-grid { column-count: 2; } }
+    @media (max-width: 576px) { .masonry-grid { column-count: 1; } }
 
-        // Logika untuk animasi scroll-reveal
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.2
-        });
+    /* Card galeri */
+    .galeri-card {
+        overflow: hidden;
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    .galeri-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .galeri-img {
+        width: 100%;
+        border-radius: 12px 12px 0 0;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    .galeri-card:hover .galeri-img {
+        transform: scale(1.05);
+    }
 
-        revealElements.forEach(el => observer.observe(el));
-    </script>
+    /* Modal */
+    #galleryModal .btn {
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    #galleryModal .btn:hover { opacity: 1; }
+    #modalImage {
+        max-height: 80vh;
+        object-fit: contain;
+    }
+    /* Fade Animations */
+    .fade-out {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .fade-in {
+        opacity: 1;
+        transition: opacity 0.4s ease;
+    }
+     /* Batasi ukuran modal agar lebih kecil dari layar penuh */
+    #galleryModal .modal-dialog {
+        max-width: 900px; /* default xl terlalu besar, kita perkecil */
+    }
+
+    @media (max-width: 992px) {
+        #galleryModal .modal-dialog {
+            max-width: 720px; /* untuk tablet */
+        }
+    }
+
+    @media (max-width: 768px) {
+        #galleryModal .modal-dialog {
+            max-width: 95%; /* hampir full di hp */
+        }
+    }
+
+    #modalImage {
+        max-height: 70vh;   /* biar nggak menutupi layar penuh */
+        object-fit: contain;
+    }
+</style>
 @endpush
+
+{{-- Scripts Galeri --}}
+
+@push('scripts')
+<script>
+    const galleryItems = document.querySelectorAll('.img-gallery');
+    const modalImage   = document.getElementById('modalImage');
+    const modalTitle   = document.getElementById('modalTitle');
+    let currentIndex   = 0;
+
+    function showImage(index) {
+        const img = galleryItems[index];
+        if (!img) return;
+
+        // Tambah animasi fade-out
+        modalImage.classList.add('fade-out');
+
+        setTimeout(() => {
+            modalImage.src = img.dataset.imgSrc;
+            modalTitle.textContent = img.dataset.title || 'Galeri';
+
+            // Setelah gambar diganti → fade-in
+            modalImage.classList.remove('fade-out');
+            modalImage.classList.add('fade-in');
+
+            // Reset animasi setelah selesai
+            setTimeout(() => modalImage.classList.remove('fade-in'), 400);
+
+            currentIndex = index;
+        }, 300); // delay harus sama dengan durasi animasi fade-out
+    }
+
+    // Klik item galeri → tampilkan modal
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', () => showImage(index));
+    });
+
+    // Navigasi kiri/kanan
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+        showImage(currentIndex);
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % galleryItems.length;
+        showImage(currentIndex);
+    });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    revealElements.forEach(el => observer.observe(el));
+</script>
+@endpush
+
+{{-- script Sturuktur Desa --}}
+@push('styles')
+<style>
+    /* Card Struktur Desa */
+.team-member {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+}
+.team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* Foto */
+.team-member .member-img img {
+    transition: transform 0.4s ease, border-color 0.3s ease;
+}
+.team-member:hover .member-img img {
+    transform: scale(1.05);
+    border-color: #0d6efd;
+}
+
+/* Nama & Jabatan */
+.team-member .member-info h5 {
+    font-size: 1.1rem;
+}
+.team-member .member-info p {
+    font-size: 0.9rem;
+}
+
+/* Sosial Media Ikon */
+.social-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.social-icon.twitter { background: #000; }
+.social-icon.facebook { background: #1877F2; }
+.social-icon.instagram {
+    background: radial-gradient(circle at 30% 30%, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+.social-icon:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+</style>
+@endpush
+
