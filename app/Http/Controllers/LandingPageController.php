@@ -57,7 +57,8 @@ class LandingPageController extends Controller
         $berita = Cache::remember('berita_home', 60, function () {
             return Berita::latest()->take(6)->get();
         });
-         // Ambil kategori dari config
+
+        // Ambil kategori dari config
         $kategoriData = config('kategori');
 
         $apbdes = Cache::remember('apbdes_analisis', 60, function () {
@@ -161,7 +162,10 @@ class LandingPageController extends Controller
 
     public function tentangdesa()
     {
-        return view('home.tentang-desa');
+           $strukturDesa = Cache::remember('struktur_desa_all', 60, function () {
+            return StrukturDesa::orderBy('urutan')->get(); // Tambahkan ordering jika ada field urutan
+        });
+        return view('home.tentang-desa', compact('strukturDesa'));
     }
 
     /**
@@ -192,6 +196,7 @@ class LandingPageController extends Controller
         }
     }
 
+
     /**
      * Clear cache untuk berita tertentu
      */
@@ -214,7 +219,7 @@ class LandingPageController extends Controller
     public function profilDesa(Request $request)
     {
         try {
-              $daftarTahun = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun')->toArray();
+            $daftarTahun = Apbdes::select('tahun')->distinct()->orderByDesc('tahun')->pluck('tahun')->toArray();
         $tahunTerpilih = $request->get('tahun', $daftarTahun[0] ?? date('Y'));
 
             // Cache statistik demografis lengkap

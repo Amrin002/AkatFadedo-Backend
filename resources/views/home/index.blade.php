@@ -81,20 +81,51 @@
     <section id="beranda" class="hero-section">
         <div class="container p-4">
             <h1 class="mb-4 display-3 fw-bold reveal">Selamat Datang di Desa Akat Fadedo</h1>
-            <p class="mb-5 lead reveal">Membangun desa yang maju dan harmonis, berlandaskan kearifan lokal serta inovasi demi
-                kesejahteraan masyarakat</p>
-            <!-- Container untuk tombol dengan flexbox -->
+            <p class="mb-5 lead reveal">
+                Membangun desa yang maju dan harmonis, berlandaskan kearifan lokal serta inovasi demi kesejahteraan masyarakat
+            </p>
+
+            <!-- Tombol -->
             <div class="gap-3 d-flex flex-column flex-sm-row justify-content-center align-items-center reveal">
                 <a href="#tentang" class="shadow-sm btn btn-primary btn-lg rounded-pill">
                     <i class="fas fa-compass me-2"></i>Jelajahi Desa
                 </a>
-                <a href="#" class="shadow-sm btn btn-success btn-lg rounded-pill download-app-btn"
-                    data-bs-toggle="modal" data-bs-target="#downloadModal">
-                    <i class="fab fa-android me-2"></i>Download Aplikasi
-                </a>
+
+                @if(isset($latestAppVersion) && $latestAppVersion->full_download_url)
+                    <!-- Kalau ada file -->
+                    <a href="{{ $latestAppVersion->full_download_url }}"
+                    class="shadow-sm btn btn-success btn-lg rounded-pill" target="_blank">
+                        <i class="fab fa-android me-2"></i>Download Aplikasi
+                    </a>
+                @else
+                    <!-- Kalau nggak ada file -->
+                    <button class="shadow-sm btn btn-success btn-lg rounded-pill"
+                            data-bs-toggle="modal" data-bs-target="#downloadModal">
+                        <i class="fab fa-android me-2"></i>Download Aplikasi
+                    </button>
+                @endif
             </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="downloadModalLabel">Pemberitahuan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="text-center modal-body">
+                    <i class="mb-3 fas fa-exclamation-triangle fa-3x text-warning"></i>
+                    <p class="mb-0 fw-bold">Aplikasi Belum Tersedia</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bagian Tentang Desa -->
     <section id="tentang" class="py-5 my-5">

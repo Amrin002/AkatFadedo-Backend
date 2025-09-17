@@ -98,6 +98,117 @@
             transform: translateY(-5px);
         }
 
+        .content-area {
+            flex: 1;
+        }
+
+        .struktur-container {
+            min-height: 70vh;
+        }
+
+        /* Animasi masuk card */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-card {
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Foto */
+        .team-card img {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .team-card:hover img {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Info & Sosial animasi */
+        .team-info,
+        .social-icons {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover .team-info,
+        .team-card:hover .social-icons {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ikon Sosial Media */
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        /* Brand colors resmi */
+        .social-icon.twitter {
+            background: #000000;
+        }
+
+        /* X (Twitter) hitam */
+        .social-icon.facebook {
+            background: #1877F2;
+        }
+
+        /* Biru Facebook */
+        .social-icon.instagram {
+            background: radial-gradient(circle at 30% 30%, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+        }
+
+        /* Instagram gradient */
+        .social-icon.youtube {
+            background: #FF0000;
+        }
+
+        /* Merah YouTube */
+        .social-icon.linkedin {
+            background: #0A66C2;
+        }
+
+        /* Biru LinkedIn */
+        .social-icon.whatsapp {
+            background: #25D366;
+        }
+
+        /* Hijau WhatsApp */
+
+        /* Hover efek */
+        .social-icon:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            text-decoration: none;
+        }
+
         @media (max-width: 768px) {
             .hero-section {
                 min-height: 50vh;
@@ -123,10 +234,10 @@
 @section('content')
     <!-- Hero Section Tentang Desa -->
     <section class="hero-section">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="text-center col-lg-8">
-                    <h1 class="mb-4 display-4 fw-bold">Tentang Desa Akat Fadedo</h1>
+                <div class="col-lg-8">
+                    <h1 class="mb-4 text-center display-4 fw-bold">Tentang Desa Akat Fadedo</h1>
                     <p class="mb-5 lead fs-5">Kenali desa Akat Fadedo lebih dekat</p>
                     <nav aria-label="breadcrumb">
                         <ol class="mb-0 breadcrumb justify-content-center">
@@ -150,13 +261,13 @@
                 <div class="col-lg-6 reveal">
                     <div class="position-relative">
                         <img src="{{ asset('landing/assets/img/ProfilDesa.jpg') }}"
-                             alt="Profil Desa Akat Fadedo"
-                             class="village-image img-fluid w-100"
-                             loading="lazy">
+                            alt="Profil Desa Akat Fadedo"
+                            class="village-image img-fluid w-100"
+                            loading="lazy">
                     </div>
                 </div>
                 <div class="col-lg-6 reveal">
-                    <h2 class="mb-4 text-center section-title text-lg-start">Tentang Desa Akat Fadedo</h2>
+                    <h2 class="mb-4 text-center section-title">Tentang Desa Akat Fadedo</h2>
 
                     <div class="mb-4">
                         <h5 class="mb-3 fw-bold">Visi Desa</h5>
@@ -187,7 +298,7 @@
     </section>
 
     <!-- Bagian Lokasi Desa -->
-    <section class="py-5 my-5 bg-light">
+    <section class="py-5 my-5 bg-white">
         <div class="container">
             <div class="mb-5 row justify-content-center">
                 <div class="text-center col-lg-8">
@@ -256,6 +367,50 @@
             </div>
         </div>
     </section>
+    <section>
+        <h2 class="mb-4 text-center section-title">Struktur Desa</h2>
+        <div class="row gy-4 justify-content-center">
+            @forelse ($strukturDesa as $anggota)
+                <div class="col-lg-3 col-md-6 d-flex" data-aos="zoom-in" data-aos-duration="800"
+                    data-aos-delay="{{ $loop->index * 150 }}">
+                    <div class="text-center border-0 shadow-sm card team-card w-100">
+                        <!-- Foto -->
+                        <div class="card-body">
+                            <img src="{{ asset('storage/' . $anggota->image) }}"
+                            class="mb-3 shadow-sm img-fluid rounded-circle" alt="{{ $anggota->nama }}"
+                            style="width: 160px; height: 160px; object-fit: cover;">
+                            <!-- Nama & Posisi -->
+                            <h5 class="mb-1 fw-bold">{{ $anggota->nama }}</h5>
+                            <p class="text-muted small">{{ $anggota->posisi }}</p>
+                            <!-- Sosial Media -->
+                            <div class="gap-2 mt-3 d-flex justify-content-center">
+                                @if ($anggota->twitter)
+                                    <a href="{{ $anggota->twitter }}" target="_blank" class="social-icon twitter">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </a>
+                                    @endif
+                                    @if ($anggota->facebook)
+                                    <a href="{{ $anggota->facebook }}" target="_blank" class="social-icon facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                    @endif
+                                    @if ($anggota->instagram)
+                                    <a href="{{ $anggota->instagram }}" target="_blank"
+                                        class="social-icon instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12">
+                    <div class="text-center alert alert-info">Belum ada struktur desa yang tersedia.</div>
+                </div>
+            @endforelse
+        </div>
+    </section>
 @endsection
 
 @push('scripts')
@@ -280,5 +435,11 @@
             observer.observe(el);
         });
     });
+
+    <!-- Tambah AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </script>
 @endpush

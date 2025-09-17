@@ -57,7 +57,7 @@ class AppVersionController extends Controller
             $file = $request->file('apk_file');
             $extension = strtolower($file->getClientOriginalExtension());
             $mimeType = $file->getMimeType();
-            
+
             // Allow common APK MIME types
             $allowedMimeTypes = [
                 'application/vnd.android.package-archive',
@@ -65,7 +65,7 @@ class AppVersionController extends Controller
                 'application/zip',
                 'application/x-zip-compressed'
             ];
-            
+
             // Check extension and MIME type
             if ($extension !== 'apk' || !in_array($mimeType, $allowedMimeTypes)) {
                 Log::warning('Invalid APK file:', [
@@ -73,7 +73,7 @@ class AppVersionController extends Controller
                     'mime_type' => $mimeType,
                     'filename' => $file->getClientOriginalName()
                 ]);
-                
+
                 return back()->withErrors([
                     'apk_file' => 'File harus berformat APK! (Detected: ' . $extension . ', MIME: ' . $mimeType . ')'
                 ])->withInput();
@@ -83,7 +83,7 @@ class AppVersionController extends Controller
         // Validasi tambahan: version_code harus lebih besar dari version_code yang sudah ada
         $latestVersionCode = AppVersion::where('platform', $request->platform)
             ->max('version_code');
-            
+
         if ($latestVersionCode && $request->version_code <= $latestVersionCode) {
             return back()->withErrors([
                 'version_code' => 'Version code harus lebih besar dari version code terbaru (' . $latestVersionCode . ')!'
@@ -102,7 +102,7 @@ class AppVersionController extends Controller
             $apkFile = $request->file('apk_file');
             $filename = AppVersion::generateApkFilename($request->version);
             $filePath = $apkFile->storeAs('apk', $filename, 'public');
-            
+
             // Get file size
             $fileSize = $this->formatFileSize($apkFile->getSize());
 
@@ -126,18 +126,18 @@ class AppVersionController extends Controller
             ]);
 
             Log::info('AppVersion berhasil dibuat: ' . $request->version . ' (Code: ' . $request->version_code . ')');
-            
+
             return redirect()->route('app-version.index')
                 ->with('success', "App version {$request->version} (Code: {$request->version_code}) berhasil ditambahkan!");
 
         } catch (\Exception $e) {
             Log::error('Gagal menyimpan AppVersion: ' . $e->getMessage());
-            
+
             // Hapus file yang sudah diupload jika ada error
             if (isset($filePath) && Storage::exists('public/' . $filePath)) {
                 Storage::delete('public/' . $filePath);
             }
-            
+
             return back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data.'])
                 ->withInput();
         }
@@ -149,7 +149,7 @@ class AppVersionController extends Controller
     public function update(Request $request, $id)
     {
         $version = AppVersion::findOrFail($id);
-        
+
         $validator = Validator::make($request->all(), [
             'minimum_version' => 'nullable|string|max:20',
             'minimum_version_code' => 'nullable|integer|min:1',
@@ -171,14 +171,14 @@ class AppVersionController extends Controller
             $file = $request->file('apk_file');
             $extension = strtolower($file->getClientOriginalExtension());
             $mimeType = $file->getMimeType();
-            
+
             $allowedMimeTypes = [
                 'application/vnd.android.package-archive',
                 'application/octet-stream',
                 'application/zip',
                 'application/x-zip-compressed'
             ];
-            
+
             if ($extension !== 'apk' || !in_array($mimeType, $allowedMimeTypes)) {
                 return back()->withErrors([
                     'apk_file' => 'File harus berformat APK!'
@@ -213,7 +213,7 @@ class AppVersionController extends Controller
                 $apkFile = $request->file('apk_file');
                 $filename = AppVersion::generateApkFilename($version->version);
                 $filePath = $apkFile->storeAs('apk', $filename, 'public');
-                
+
                 $updateData['download_url'] = $filePath;
                 $updateData['file_size'] = $this->formatFileSize($apkFile->getSize());
             }
@@ -241,9 +241,9 @@ class AppVersionController extends Controller
     {
         $title = 'Management App Version';
         $halaman = 'App Version Management';
-        
+
         $versions = AppVersion::orderBy('version_code', 'desc')->get();
-        
+
         return view('app-version.index', compact('title', 'halaman', 'versions'));
     }
 
@@ -251,7 +251,7 @@ class AppVersionController extends Controller
     {
         $title = 'Tambah App Version';
         $halaman = 'Tambah Version Baru';
-        
+
         return view('app-version.create', compact('title', 'halaman'));
     }
 
@@ -260,7 +260,7 @@ class AppVersionController extends Controller
         $version = AppVersion::findOrFail($id);
         $title = 'Detail App Version';
         $halaman = "Detail Version {$version->version}";
-        
+
         return view('app-version.show', compact('title', 'halaman', 'version'));
     }
 
@@ -269,7 +269,7 @@ class AppVersionController extends Controller
         $version = AppVersion::findOrFail($id);
         $title = 'Edit App Version';
         $halaman = "Edit Version {$version->version}";
-        
+
         return view('app-version.edit', compact('title', 'halaman', 'version'));
     }
 
@@ -277,7 +277,7 @@ class AppVersionController extends Controller
     {
         try {
             $version = AppVersion::findOrFail($id);
-            
+
             // Hapus file APK
             if ($version->download_url && Storage::exists('public/' . $version->download_url)) {
                 Storage::delete('public/' . $version->download_url);
@@ -299,13 +299,13 @@ class AppVersionController extends Controller
     {
         try {
             $version = AppVersion::findOrFail($id);
-            
+
             if (!$version->is_active) {
                 // Nonaktifkan versi lain di platform yang sama
                 AppVersion::where('platform', $version->platform)
                     ->where('id', '!=', $version->id)
                     ->update(['is_active' => false]);
-                
+
                 $version->update(['is_active' => true]);
                 $message = "Version {$version->version} diaktifkan!";
             } else {
