@@ -148,19 +148,23 @@
     @stack('styles')
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="100">
+<body class="d-flex flex-column min-vh-100" data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="100">
     @include('layouts.header')
-    @yield('content')
+
+    <main class="flex-grow-1">
+        @yield('content')
+    </main>
+
     <!-- Footer -->
-    <footer class="py-4 bg-info text-primary">
+    <footer class="py-4 mt-auto bg-info text-primary">
         <div class="container text-center">
             <p class="mb-0 text-muted">&copy; 2025 Desa Akat Fadedo. Hak Cipta Dilindungi.</p>
         </div>
     </footer>
+
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        crossorigin="anonymous"></script>
     @stack('scripts')
 </body>
 

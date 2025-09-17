@@ -195,6 +195,12 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item {{ request()->is('umkm*') ? 'active' : '' }}">
+                            <a href="{{ url('/umkm') }}">
+                                <i class="fas fa-shop"></i>
+                                <p>Kelola Umkm</p>
+                            </a>
+                        </li>
 
                         <li class="nav-item {{ request()->is('berita*') ? 'active' : '' }}">
                             <a href="{{ url('/berita') }}">

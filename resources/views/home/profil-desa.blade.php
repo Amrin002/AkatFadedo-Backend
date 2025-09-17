@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                       GAYA UNTUK SETIAP SEKSI - Konsisten dengan home.index
-                                                                                                                       ==================== */
+        GAYA UNTUK SETIAP SEKSI - Konsisten dengan home.index
+        ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -15,6 +15,10 @@
             justify-content: center;
             color: white;
             text-align: center;
+        }
+
+        .bg-custom{
+            background-color: #0DCAF0;
         }
 
         .card-potensi,
@@ -45,7 +49,7 @@
         }
 
         .apbdes-card {
-            background: linear-gradient(135deg, #0DCAF0 0%, #3FBBC0 100%);
+            background: #35c7e4;
             color: white;
             border-radius: 1rem;
         }
@@ -72,7 +76,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center">
                     <li class="breadcrumb-item"><a href="/" class="text-white">Beranda</a></li>
-                    <li class="breadcrumb-item active text-white" aria-current="page">Profil Desa</li>
+                    <li class="text-white breadcrumb-item active" aria-current="page">Profil Desa</li>
                 </ol>
             </nav>
         </div>
@@ -84,7 +88,7 @@
             <h2 class="text-center section-title">Demografis Penduduk</h2>
 
             <!-- Statistik Utama - Menggunakan struktur yang sama dengan home -->
-            <div class="text-center row g-4 justify-content-center mb-5">
+            <div class="mb-5 text-center row g-4 justify-content-center">
                 <div class="col-md-6 col-lg-3 d-flex reveal">
                     <div class="p-4 card card-statistik w-100">
                         <div class="card-body">
@@ -130,7 +134,7 @@
                 <div class="col-lg-8">
                     <div class="p-4 shadow-sm card">
                         <div class="mb-4 d-flex align-items-center">
-                            <div class="p-3 me-4 bg-primary bg-opacity-10 d-inline-block rounded">
+                            <div class="p-3 rounded me-4 bg-primary bg-opacity-10 d-inline-block">
                                 <i class="fas fa-chart-pie fa-2x text-primary"></i>
                             </div>
                             <div>
@@ -139,32 +143,32 @@
                             </div>
                         </div>
 
-                        <div class="row text-center">
-                            <div class="col-md-4 mb-3">
-                                <div class="info-card-profil p-3">
-                                    <i class="fas fa-child fa-2x text-info mb-2"></i>
+                        <div class="text-center row">
+                            <div class="mb-3 col-md-4">
+                                <div class="p-3 info-card-profil">
+                                    <i class="mb-2 fas fa-child fa-2x text-info"></i>
                                     <h4 class="fw-bold text-primary">
                                         {{ number_format($statistikDemografi['anak_anak']['jumlah']) }}</h4>
-                                    <p class="text-muted mb-1">Anak-anak (0-14 tahun)</p>
+                                    <p class="mb-1 text-muted">Anak-anak (0-14 tahun)</p>
                                     <span class="badge bg-info">{{ $statistikDemografi['anak_anak']['persentase'] }}%</span>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="info-card-profil p-3">
-                                    <i class="fas fa-user-tie fa-2x text-success mb-2"></i>
+                            <div class="mb-3 col-md-4">
+                                <div class="p-3 info-card-profil">
+                                    <i class="mb-2 fas fa-user-tie fa-2x text-success"></i>
                                     <h4 class="fw-bold text-success">
                                         {{ number_format($statistikDemografi['usia_produktif']['jumlah']) }}</h4>
-                                    <p class="text-muted mb-1">Usia Produktif (15-64 tahun)</p>
+                                    <p class="mb-1 text-muted">Usia Produktif (15-64 tahun)</p>
                                     <span
                                         class="badge bg-success">{{ $statistikDemografi['usia_produktif']['persentase'] }}%</span>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="info-card-profil p-3">
-                                    <i class="fas fa-user-friends fa-2x text-warning mb-2"></i>
+                            <div class="mb-3 col-md-4">
+                                <div class="p-3 info-card-profil">
+                                    <i class="mb-2 fas fa-user-friends fa-2x text-warning"></i>
                                     <h4 class="fw-bold text-warning">
                                         {{ number_format($statistikDemografi['lansia']['jumlah']) }}</h4>
-                                    <p class="text-muted mb-1">Lansia (65+ tahun)</p>
+                                    <p class="mb-1 text-muted">Lansia (65+ tahun)</p>
                                     <span
                                         class="badge bg-warning">{{ $statistikDemografi['lansia']['persentase'] }}%</span>
                                 </div>
@@ -192,7 +196,7 @@
                 <div class="col-lg-4">
                     <div class="p-4 shadow-sm card h-100">
                         <div class="mb-4 d-flex align-items-center">
-                            <div class="p-3 me-4 bg-success bg-opacity-10 d-inline-block rounded">
+                            <div class="p-3 rounded me-4 bg-success bg-opacity-10 d-inline-block">
                                 <i class="fas fa-award fa-2x text-success"></i>
                             </div>
                             <div>
@@ -201,7 +205,7 @@
                             </div>
                         </div>
 
-                        <div class="text-center mb-4">
+                        <div class="mb-4 text-center">
                             <div class="display-4 fw-bold text-success">{{ $analisisIdm['skor'] }}</div>
                             <h5 class="text-success">DESA {{ $analisisIdm['kategori'] }}</h5>
                         </div>
@@ -240,7 +244,7 @@
                 <div class="col-lg-6 col-md-6 reveal">
                     <div class="p-4 shadow-sm card info-card-profil">
                         <div class="mb-3 d-flex align-items-center">
-                            <div class="p-2 me-3 bg-info bg-opacity-10 d-inline-block rounded">
+                            <div class="p-2 rounded me-3 bg-info bg-opacity-10 d-inline-block">
                                 <i class="fas fa-map-marker-alt text-info"></i>
                             </div>
                             <h5 class="mb-0 fw-bold">Dusun Utara</h5>
@@ -260,7 +264,7 @@
                 <div class="col-lg-6 col-md-6 reveal">
                     <div class="p-4 shadow-sm card info-card-profil">
                         <div class="mb-3 d-flex align-items-center">
-                            <div class="p-2 me-3 bg-success bg-opacity-10 d-inline-block rounded">
+                            <div class="p-2 rounded me-3 bg-success bg-opacity-10 d-inline-block">
                                 <i class="fas fa-map-marker-alt text-success"></i>
                             </div>
                             <h5 class="mb-0 fw-bold">Dusun Selatan</h5>
@@ -280,7 +284,7 @@
                 <div class="col-lg-6 col-md-6 reveal">
                     <div class="p-4 shadow-sm card info-card-profil">
                         <div class="mb-3 d-flex align-items-center">
-                            <div class="p-2 me-3 bg-warning bg-opacity-10 d-inline-block rounded">
+                            <div class="p-2 rounded me-3 bg-warning bg-opacity-10 d-inline-block">
                                 <i class="fas fa-map-marker-alt text-warning"></i>
                             </div>
                             <h5 class="mb-0 fw-bold">Dusun Timur</h5>
@@ -300,7 +304,7 @@
                 <div class="col-lg-6 col-md-6 reveal">
                     <div class="p-4 shadow-sm card info-card-profil">
                         <div class="mb-3 d-flex align-items-center">
-                            <div class="p-2 me-3 bg-danger bg-opacity-10 d-inline-block rounded">
+                            <div class="p-2 rounded me-3 bg-danger bg-opacity-10 d-inline-block">
                                 <i class="fas fa-map-marker-alt text-danger"></i>
                             </div>
                             <h5 class="mb-0 fw-bold">Dusun Barat</h5>
@@ -322,193 +326,327 @@
     </section> --}}
 
     <!-- Transparansi APBDes -->
-    <section id="transparansi" class="py-5 my-5">
-        <div class="container">
-            <h2 class="text-center section-title">Transparansi Keuangan Desa</h2>
+<section id="transparansi" class="py-5 my-5">
+    <div class="container">
+        <h2 class="text-center section-title">Transparansi Keuangan Desa</h2>
+        <!-- Filter Tahun -->
+        <div class="mb-4 row justify-content-center">
+            <div class="col-md-4 col-lg-3">
+                <form method="GET" action="{{ url()->current() }}">
+                    <div class="shadow-sm card">
+                        <div class="p-3 card-body">
+                            <label for="tahun" class="form-label fw-bold">
+                                <i class="fas fa-calendar me-2 text-primary"></i>Pilih Tahun
+                            </label>
+                            <select name="tahun" id="tahun" class="form-select" onchange="this.form.submit()">
+                                @php
+                                    $daftarTahun = \App\Models\Apbdes::select('tahun')
+                                        ->distinct()
+                                        ->orderByDesc('tahun')
+                                        ->pluck('tahun')
+                                        ->toArray();
+                                    $tahunTerpilih = request('tahun', $daftarTahun[0] ?? date('Y'));
+                                @endphp
 
-            <!-- Summary APBDes - Menggunakan struktur seperti home -->
-            <div class="text-center row g-4 justify-content-center reveal mb-5">
-                <div class="col-12 col-md-10 col-lg-8 d-flex">
-                    <div class="p-4 apbdes-card w-100">
-                        <div class="row align-items-center">
-                            <div class="col-lg-8">
-                                @if ($apbdes)
-                                    <h3 class="fw-bold mb-2">APBDes Tahun {{ $apbdes->tahun }}</h3>
-                                    <h2 class="display-6 fw-bold">{{ $apbdes->formatRupiah($apbdes->pendapatan) }}</h2>
-                                    <p class="mb-0">Total Anggaran Pendapatan dan Belanja Desa</p>
+                                @forelse($daftarTahun as $tahun)
+                                    <option value="{{ $tahun }}" {{ $tahunTerpilih == $tahun ? 'selected' : '' }}>
+                                        {{ $tahun }}
+                                    </option>
+                                @empty
+                                    <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-                                    @if ($analisisApbdes)
-                                        <small class="d-block mt-2">
-                                            <strong>Realisasi:</strong> {{ $analisisApbdes['persentase_realisasi'] }}%
+        <!-- Summary APBDes - Menggunakan struktur seperti home -->
+        <div class="mb-5 text-center row g-4 justify-content-center reveal">
+            <div class="col-12 col-md-10 col-lg-8 d-flex">
+                <div class="p-4 apbdes-card w-100">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            @if ($apbdes)
+                                <h3 class="mb-2 fw-bold">APBDes Tahun {{ $apbdes->tahun }}</h3>
+                                <h2 class="display-6 fw-bold">{{ $apbdes->formatRupiah($apbdes->pendapatan) }}</h2>
+                                <p class="mb-0">Total Anggaran Pendapatan dan Belanja Desa</p>
+
+                                @if ($analisisApbdes)
+                                    <small class="mt-2 d-block">
+                                        <strong>Realisasi:</strong> {{ $analisisApbdes['persentase_realisasi'] }}%
+                                        <span
+                                            class="badge bg-{{ $analisisApbdes['is_seimbang'] ? 'success' : 'warning' }} ms-2">
+                                            {{ $analisisApbdes['is_seimbang'] ? 'Seimbang' : 'Defisit' }}
+                                        </span>
+                                    </small>
+                                @endif
+                            @else
+                                <h3 class="mb-2 fw-bold">APBDes</h3>
+                                <p class="mb-0">Data APBDes belum tersedia</p>
+                            @endif
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            @if ($apbdes)
+                                <p class="mb-1"><strong>Disahkan oleh:</strong> {{ $apbdes->pejabat }}</p>
+                                <p class="mb-0"><small>Kepala Desa Akat Fadedo</small></p>
+
+                                {{-- @if ($analisisApbdes && $analisisApbdes['tren'])
+                                    <div class="mt-2">
+                                        <small class="text-light">
+                                            vs {{ $analisisApbdes['tren']['tahun_sebelumnya'] }}:
                                             <span
-                                                class="badge bg-{{ $analisisApbdes['is_seimbang'] ? 'success' : 'warning' }} ms-2">
-                                                {{ $analisisApbdes['is_seimbang'] ? 'Seimbang' : 'Defisit' }}
+                                                class="badge bg-{{ $analisisApbdes['tren']['status'] == 'naik' ? 'success' : ($analisisApbdes['tren']['status'] == 'turun' ? 'danger' : 'secondary') }}">
+                                                {{ $analisisApbdes['tren']['persentase_perubahan'] > 0 ? '+' : '' }}{{ $analisisApbdes['tren']['persentase_perubahan'] }}%
                                             </span>
                                         </small>
-                                    @endif
-                                @else
-                                    <h3 class="fw-bold mb-2">APBDes</h3>
-                                    <p class="mb-0">Data APBDes belum tersedia</p>
-                                @endif
-                            </div>
-                            <div class="col-lg-4 text-lg-end">
-                                @if ($apbdes)
-                                    <p class="mb-1"><strong>Disahkan oleh:</strong> {{ $apbdes->pejabat }}</p>
-                                    <p class="mb-0"><small>Kepala Desa Akat Fadedo</small></p>
-
-                                    @if ($analisisApbdes && $analisisApbdes['tren'])
-                                        <div class="mt-2">
-                                            <small class="text-light">
-                                                vs {{ $analisisApbdes['tren']['tahun_sebelumnya'] }}:
-                                                <span
-                                                    class="badge bg-{{ $analisisApbdes['tren']['status'] == 'naik' ? 'success' : ($analisisApbdes['tren']['status'] == 'turun' ? 'danger' : 'secondary') }}">
-                                                    {{ $analisisApbdes['tren']['persentase_perubahan'] > 0 ? '+' : '' }}{{ $analisisApbdes['tren']['persentase_perubahan'] }}%
-                                                </span>
-                                            </small>
-                                        </div>
-                                    @endif
-                                @endif
-                            </div>
+                                    </div>
+                                @endif --}}
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Breakdown APBDes -->
-            @if ($apbdes && $analisisApbdes)
-                <div class="row g-4">
-                    <div class="col-lg-6 col-md-6 d-flex reveal">
-                        <div class="p-4 shadow-sm card w-100">
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="p-3 me-3 bg-info bg-opacity-10 d-inline-block rounded">
-                                    <i class="fas fa-building fa-2x text-info"></i>
+        <!-- Main Content: Breakdown APBDes (Kiri) dan Gambar APBDes (Kanan) -->
+        @if ($apbdes && $analisisApbdes)
+            <div class="row g-4">
+                <!-- Kolom Kiri: Breakdown APBDes -->
+                <div class="col-lg-7 col-xl-8">
+                    <div class="row g-3">
+                        <div class="col-12 reveal">
+                            <div class="p-3 shadow-sm card">
+                                <div class="mb-3 d-flex align-items-center">
+                                    <div class="p-2 rounded me-3 bg-info bg-opacity-10 d-inline-block">
+                                        <i class="fas fa-building fa-lg text-info"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Penyelenggaraan Pemerintahan</h6>
+                                        <h5 class="mb-0 fw-bold text-info">
+                                            {{ $apbdes->formatRupiah($apbdes->penyelenggaraan) }}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-info">{{ $analisisApbdes['persentase_alokasi']['penyelenggaraan'] }}%</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="mb-1 fw-bold">Penyelenggaraan Pemerintahan</h5>
-                                    <h4 class="mb-0 fw-bold text-info">
-                                        {{ $apbdes->formatRupiah($apbdes->penyelenggaraan) }}</h4>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-info"
+                                        style="width: {{ $analisisApbdes['persentase_alokasi']['penyelenggaraan'] }}%"></div>
                                 </div>
                             </div>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-info"
-                                    style="width: {{ $analisisApbdes['persentase_alokasi']['penyelenggaraan'] }}%"></div>
-                            </div>
-                            <small class="text-muted">{{ $analisisApbdes['persentase_alokasi']['penyelenggaraan'] }}% dari
-                                total pengeluaran</small>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6 col-md-6 d-flex reveal">
-                        <div class="p-4 shadow-sm card w-100">
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="p-3 me-3 bg-success bg-opacity-10 d-inline-block rounded">
-                                    <i class="fas fa-hammer fa-2x text-success"></i>
+                        <div class="col-12 reveal">
+                            <div class="p-3 shadow-sm card">
+                                <div class="mb-3 d-flex align-items-center">
+                                    <div class="p-2 rounded me-3 bg-success bg-opacity-10 d-inline-block">
+                                        <i class="fas fa-hammer fa-lg text-success"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Pelaksanaan Pembangunan</h6>
+                                        <h5 class="mb-0 fw-bold text-success">
+                                            {{ $apbdes->formatRupiah($apbdes->pelaksanaan) }}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-success">{{ $analisisApbdes['persentase_alokasi']['pelaksanaan'] }}%</span>
+                                        @if ($analisisApbdes['bidang_terbesar']['bidang'] == 'Pelaksanaan Pembangunan')
+                                            <br><small class="mt-1 badge bg-warning">Alokasi Terbesar</small>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="mb-1 fw-bold">Pelaksanaan Pembangunan</h5>
-                                    <h4 class="mb-0 fw-bold text-success">
-                                        {{ $apbdes->formatRupiah($apbdes->pelaksanaan) }}</h4>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-success"
+                                        style="width: {{ $analisisApbdes['persentase_alokasi']['pelaksanaan'] }}%"></div>
                                 </div>
                             </div>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-success"
-                                    style="width: {{ $analisisApbdes['persentase_alokasi']['pelaksanaan'] }}%"></div>
-                            </div>
-                            <small class="text-muted">{{ $analisisApbdes['persentase_alokasi']['pelaksanaan'] }}% dari
-                                total pengeluaran</small>
-
-                            @if ($analisisApbdes['bidang_terbesar']['bidang'] == 'Pelaksanaan Pembangunan')
-                                <div class="mt-2">
-                                    <span class="badge bg-success">Alokasi Terbesar</span>
-                                </div>
-                            @endif
                         </div>
-                    </div>
 
-                    <div class="col-lg-6 col-md-6 d-flex reveal">
-                        <div class="p-4 shadow-sm card w-100">
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="p-3 me-3 bg-warning bg-opacity-10 d-inline-block rounded">
-                                    <i class="fas fa-users fa-2x text-warning"></i>
+                        <div class="col-12 reveal">
+                            <div class="p-3 shadow-sm card">
+                                <div class="mb-3 d-flex align-items-center">
+                                    <div class="p-2 rounded me-3 bg-warning bg-opacity-10 d-inline-block">
+                                        <i class="fas fa-users fa-lg text-warning"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Pembinaan Kemasyarakatan</h6>
+                                        <h5 class="mb-0 fw-bold text-warning">
+                                            {{ $apbdes->formatRupiah($apbdes->pembinaan) }}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-warning">{{ $analisisApbdes['persentase_alokasi']['pembinaan'] }}%</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="mb-1 fw-bold">Pembinaan Kemasyarakatan</h5>
-                                    <h4 class="mb-0 fw-bold text-warning">{{ $apbdes->formatRupiah($apbdes->pembinaan) }}
-                                    </h4>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-warning"
+                                        style="width: {{ $analisisApbdes['persentase_alokasi']['pembinaan'] }}%"></div>
                                 </div>
                             </div>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-warning"
-                                    style="width: {{ $analisisApbdes['persentase_alokasi']['pembinaan'] }}%"></div>
-                            </div>
-                            <small class="text-muted">{{ $analisisApbdes['persentase_alokasi']['pembinaan'] }}% dari total
-                                pengeluaran</small>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6 col-md-6 d-flex reveal">
-                        <div class="p-4 shadow-sm card w-100">
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="p-3 me-3 bg-secondary bg-opacity-10 d-inline-block rounded">
-                                    <i class="fas fa-hand-holding-heart fa-2x text-secondary"></i>
+                        <div class="col-12 reveal">
+                            <div class="p-3 shadow-sm card">
+                                <div class="mb-3 d-flex align-items-center">
+                                    <div class="p-2 rounded me-3 bg-secondary bg-opacity-10 d-inline-block">
+                                        <i class="fas fa-hand-holding-heart fa-lg text-secondary"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Pemberdayaan Masyarakat</h6>
+                                        <h5 class="mb-0 fw-bold text-secondary">
+                                            {{ $apbdes->formatRupiah($apbdes->pemberdayaan) }}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-secondary">{{ $analisisApbdes['persentase_alokasi']['pemberdayaan'] }}%</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="mb-1 fw-bold">Pemberdayaan Masyarakat</h5>
-                                    <h4 class="mb-0 fw-bold text-secondary">
-                                        {{ $apbdes->formatRupiah($apbdes->pemberdayaan) }}</h4>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-secondary"
+                                        style="width: {{ $analisisApbdes['persentase_alokasi']['pemberdayaan'] }}%"></div>
                                 </div>
                             </div>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-secondary"
-                                    style="width: {{ $analisisApbdes['persentase_alokasi']['pemberdayaan'] }}%"></div>
-                            </div>
-                            <small class="text-muted">{{ $analisisApbdes['persentase_alokasi']['pemberdayaan'] }}% dari
-                                total pengeluaran</small>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 d-flex reveal">
-                        <div class="p-4 shadow-sm card w-100">
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="p-3 me-3 bg-danger bg-opacity-10 d-inline-block rounded">
-                                    <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+
+                        <div class="col-12 reveal">
+                            <div class="p-3 shadow-sm card">
+                                <div class="mb-3 d-flex align-items-center">
+                                    <div class="p-2 rounded me-3 bg-danger bg-opacity-10 d-inline-block">
+                                        <i class="fas fa-exclamation-triangle fa-lg text-danger"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 fw-bold">Penanggulangan Bencana</h6>
+                                        <h5 class="mb-0 fw-bold text-danger">
+                                            {{ $apbdes->formatRupiah($apbdes->penanggulangan) }}
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-danger">{{ $analisisApbdes['persentase_alokasi']['penanggulangan'] }}%</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="mb-1 fw-bold">Penanggulangan Bencana</h5>
-                                    <h4 class="mb-0 fw-bold text-danger">
-                                        {{ $apbdes->formatRupiah($apbdes->penanggulangan) }}</h4>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-danger"
+                                        style="width: {{ $analisisApbdes['persentase_alokasi']['penanggulangan'] }}%"></div>
                                 </div>
                             </div>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-danger"
-                                    style="width: {{ $analisisApbdes['persentase_alokasi']['penanggulangan'] }}%"></div>
-                            </div>
-                            <small class="text-muted">{{ $analisisApbdes['persentase_alokasi']['penanggulangan'] }}% dari
-                                total pengeluaran</small>
                         </div>
                     </div>
                 </div>
 
+                <!-- Kolom Kanan: Gambar APBDes -->
+                <div class="col-lg-5 col-xl-4">
+                    <div class="shadow-sm card h-100 reveal">
+                        <div class="text-white card-header bg-custom">
+                            <h6 class="mb-0 fw-bold">
+                                <i class="fas fa-file-invoice-dollar me-2"></i>
+                                Dokumen APBDes {{ $apbdes->tahun }}
+                            </h6>
+                        </div>
+                        <div class="p-0 card-body">
+                            @if ($apbdes->file)
+                                <!-- Gambar APBDes -->
+                                <div class="text-center">
+                                    <img src="{{ asset('storage/' . $apbdes->file) }}"
+                                         alt="APBDes {{ $apbdes->tahun }}"
+                                         class="img-fluid w-100"
+                                         style="max-height: 500px; object-fit: contain; cursor: pointer;"
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#apbdesImageModal">
+                                </div>
 
-                <!-- Analisis dan Rekomendasi APBDes -->
-                @if ($analisisApbdes['rekomendasi'])
-                    <div class="row mt-4">
-                        <div class="col-12 reveal">
-                            <div class="alert alert-info">
-                                <h6 class="alert-heading">
-                                    <i class="fas fa-lightbulb me-2"></i>Rekomendasi Pengelolaan Anggaran
-                                </h6>
-                                <ul class="mb-0">
-                                    @foreach ($analisisApbdes['rekomendasi'] as $rekomendasi)
-                                        <li>{{ $rekomendasi }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                                <!-- Informasi tambahan di bawah gambar -->
+                                <div class="p-3 border-top bg-light">
+                                    <div class="text-center row">
+                                        <div class="mb-2 col-12">
+                                            <small class="text-muted">Klik gambar untuk melihat ukuran penuh</small>
+                                        </div>
+                                        {{-- <div class="col-6">
+                                            <div class="fw-bold text-primary">{{ $analisisApbdes['persentase_realisasi'] }}%</div>
+                                            <small class="text-muted">Realisasi</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="fw-bold {{ $analisisApbdes['is_seimbang'] ? 'text-success' : 'text-warning' }}">
+                                                {{ $analisisApbdes['is_seimbang'] ? 'Seimbang' : 'Defisit' }}
+                                            </div>
+                                            <small class="text-muted">Status</small>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            @else
+                                <!-- Placeholder jika tidak ada gambar -->
+                                <div class="d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                                    <div class="text-center text-muted">
+                                        <i class="mb-3 fas fa-file-image fa-3x"></i>
+                                        <p class="mb-0">Dokumen APBDes belum tersedia</p>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Download button jika ada file -->
+                        @if ($apbdes->file)
+                        <div class="card-footer">
+                            <a href="{{ asset('storage/' . $apbdes->file) }}"
+                               class="btn btn-primary btn-sm w-100"
+                               target="_blank">
+                                <i class="fas fa-download me-2"></i>Download Dokumen APBDes
+                            </a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal untuk menampilkan gambar dalam ukuran penuh -->
+            @if ($apbdes->file)
+            <div class="modal fade" id="apbdesImageModal" tabindex="-1" aria-labelledby="apbdesImageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="apbdesImageModalLabel">Dokumen APBDes {{ $apbdes->tahun }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="p-0 modal-body">
+                            <img src="{{ asset('storage/' . $apbdes->file) }}"
+                                 alt="APBDes {{ $apbdes->tahun }}"
+                                 class="img-fluid w-100">
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{{ asset('storage/' . $apbdes->file) }}"
+                               class="btn btn-primary"
+                               target="_blank">
+                                <i class="fas fa-external-link-alt me-2"></i>Buka di Tab Baru
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </div>
-                @endif
+                </div>
+            </div>
             @endif
-        </div>
-    </section>
+
+            <!-- Analisis dan Rekomendasi APBDes -->
+            @if ($analisisApbdes['rekomendasi'])
+                <div class="mt-4 row">
+                    <div class="col-12 reveal">
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-lightbulb me-2"></i>Rekomendasi Pengelolaan Anggaran
+                            </h6>
+                            <ul class="mb-0">
+                                @foreach ($analisisApbdes['rekomendasi'] as $rekomendasi)
+                                    <li>{{ $rekomendasi }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endif
+    </div>
+</section>
     <!-- Fasilitas Desa -->
     {{-- <section id="layanan" class="py-5 my-5 bg-white">
         <div class="container">
@@ -578,7 +716,7 @@
                 <div class="col-lg-6 reveal">
                     <div class="p-4 shadow-sm card h-100">
                         <div class="mb-4 d-flex align-items-center">
-                            <div class="p-3 me-4 bg-primary bg-opacity-10 d-inline-block rounded">
+                            <div class="p-3 rounded me-4 bg-primary bg-opacity-10 d-inline-block">
                                 <i class="fas fa-chart-line fa-2x text-primary"></i>
                             </div>
                             <div>
@@ -604,7 +742,7 @@
                 <div class="col-lg-6 reveal">
                     <div class="p-4 shadow-sm card h-100">
                         <div class="mb-4 d-flex align-items-center">
-                            <div class="p-3 me-4 bg-success bg-opacity-10 d-inline-block rounded">
+                            <div class="p-3 rounded me-4 bg-success bg-opacity-10 d-inline-block">
                                 <i class="fas fa-lightbulb fa-2x text-success"></i>
                             </div>
                             <div>
@@ -639,44 +777,24 @@
     </section> --}}
 
     <!-- Download Center -->
-    <section class="py-5 my-5 bg-white">
+    {{-- <section class="py-5 my-5 bg-white">
         <div class="container">
-            <h2 class="text-center section-title">Dokumen & Download</h2>
+            <h2 class="text-center section-title">Download APBDes</h2>
             <div class="row g-4 justify-content-center">
                 <div class="col-lg-4 col-md-6 d-flex reveal">
                     <div class="p-3 text-center card card-layanan w-100">
                         <div class="card-body">
                             <i class="mb-3 fas fa-file-pdf fa-3x text-danger"></i>
-                            <h3 class="mb-2 card-title h4">APBDes 2024</h3>
+                            <h3 class="mb-2 card-title h4">APBDes {{ $apbdes->tahun }}</h3>
                             <p class="card-text text-muted">Dokumen lengkap Anggaran Pendapatan dan Belanja Desa</p>
                             <a href="#" class="mt-3 btn btn-sm btn-danger rounded-pill">Download PDF</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 d-flex reveal">
-                    <div class="p-3 text-center card card-layanan w-100">
-                        <div class="card-body">
-                            <i class="mb-3 fas fa-file-excel fa-3x text-success"></i>
-                            <h3 class="mb-2 card-title h4">Data Demografis</h3>
-                            <p class="card-text text-muted">Data lengkap kependudukan dan statistik desa</p>
-                            <a href="#" class="mt-3 btn btn-sm btn-success rounded-pill">Download Excel</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 d-flex reveal">
-                    <div class="p-3 text-center card card-layanan w-100">
-                        <div class="card-body">
-                            <i class="mb-3 fas fa-file-alt fa-3x text-primary"></i>
-                            <h3 class="mb-2 card-title h4">Profil Lengkap</h3>
-                            <p class="card-text text-muted">Dokumen profil desa dan rencana pembangunan</p>
-                            <a href="#" class="mt-3 btn btn-sm btn-primary rounded-pill">Download DOC</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-@endsection
+@endsection --}}
 
 @push('scripts')
     <script>

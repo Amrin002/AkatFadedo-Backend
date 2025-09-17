@@ -63,11 +63,12 @@ Route::get('/profil-desa', [LandingPageController::class, 'profilDesa'])->name('
 Route::get('/daftar-berita', [LandingPageController::class, 'semua'])->name('home.daftar-berita');
 Route::get('/daftar-galeri', [LandingPageController::class, 'galeri'])->name('home.daftar-galeri');
 Route::get('/daftar-sturktur-desa', [LandingPageController::class, 'struktur'])->name('home.daftar-sturktur-desa');
+Route::get('/tentang-desa', [LandingPageController::class, 'tentangdesa'])->name('home.tentang-desa');
 Route::get('/berita/{slug}', [LandingPageController::class, 'show'])
     ->where('slug', '^(?!create$|[0-9]+).*')
     ->name('home.berita');
 
-Route::get('/apbdes-view', [ApbdesController::class, 'tampilUntukUser'])->name('apbdes.view');
+Route::get('/apbdes', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');
 Route::delete('/apbdes/{id}', [ApbdesController::class, 'destroy'])->name('apbdes.destroy');
 Route::get('/apbdes-view', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');
 Route::patch('/apbdes/{id}', [ApbdesController::class, 'update'])->name('apbdes.update');
