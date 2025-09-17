@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -306,10 +306,24 @@
                         <p class="card-text text-muted">Informasi ini mencakup rincian alokasi dana untuk pembangunan,
                             pemberdayaan, dan penyelenggaraan pemerintahan desa.</p>
                         <ul class="mb-4 list-unstyled text-start">
-                            <li class="mb-1 text-muted"><i class="fas fa-user-tie me-2 text-info"></i> Disahkan oleh:
-                                AHMAD BUGIS</li>
-                            <li class="text-muted"><i class="far fa-calendar-alt me-2 text-info"></i> Terakhir
-                                diperbarui: 2 weeks ago</li>
+                            <li class="mb-1 text-muted">
+                                <i class="fas fa-user-tie me-2 text-info"></i>
+                                Disahkan oleh:
+                                @if ($apbdes && $apbdes->pejabat)
+                                    {{ $apbdes->pejabat }}
+                                @else
+                                    <span class="text-secondary">Belum diset</span>
+                                @endif
+                            </li>
+                            <li class="text-muted">
+                                <i class="far fa-calendar-alt me-2 text-info"></i>
+                                Terakhir diperbarui:
+                                @if ($apbdes && $apbdes->updated_at)
+                                    {{ $apbdes->updated_at->locale('id')->diffForHumans() }}
+                                @else
+                                    <span class="text-secondary">-</span>
+                                @endif
+                            </li>
                         </ul>
                         <a href="{{ route('home.profil-desa') }}#transparansi"
                             class="px-4 btn btn-outline-primary rounded-pill align-self-end">
