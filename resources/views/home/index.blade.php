@@ -179,7 +179,7 @@
                         <div class="info-item">
                             <i class="fas fa-map-marked-alt me-2 text-info"></i>
                             <div>
-                                <strong>Luas Wilayah:</strong> 15.000 km²
+                                <strong>Luas Wilayah:</strong> 500 m²
                             </div>
                         </div>
 
