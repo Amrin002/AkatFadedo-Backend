@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\SuratKtmApiController;
 use App\Http\Controllers\Api\SuratKtuApiController;
 use App\Http\Controllers\Api\ApiKeluhanController;
 use App\Http\Controllers\Api\ApbdesApiController;
+use App\Http\Controllers\Api\UmkmApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,13 +33,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('app-version')->group(function () {
     // Cek apakah ada update tersedia
     Route::post('/check', [AppVersionApiController::class, 'checkVersion']);
-    
+
     // Mendapatkan informasi versi terbaru
     Route::get('/latest', [AppVersionApiController::class, 'getLatestVersion']);
-    
+
     // Mendapatkan riwayat versi (optional)
     Route::get('/history', [AppVersionApiController::class, 'getVersionHistory']);
 });
+Route::prefix('umkm-public')->group(function () {
+    Route::get('/', [UmkmApiController::class, 'publicIndex']);
+    Route::get('/{id}', [UmkmApiController::class, 'publicShow']);
+});
+
+// ✅ TAMBAHAN: UMKM Options Route
+Route::get('/umkm-options', [UmkmApiController::class, 'getOptions']);
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/users', [AuthController::class, 'index']);
@@ -119,6 +128,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{keluhan}', [ApiKeluhanController::class, 'destroy']);
         Route::post('/{keluhan}/tanggapi', [ApiKeluhanController::class, 'tanggapi']);
         Route::post('/{keluhan}/selesaikan', [ApiKeluhanController::class, 'selesaikan']);
+    });
+    // TAMBAHAN: UMKM API (authenticated routes)
+    Route::prefix('umkm')->group(function () {
+        Route::get('/', [UmkmApiController::class, 'index']);
+        Route::post('/', [UmkmApiController::class, 'store']);
+        Route::get('/{id}', [UmkmApiController::class, 'show']);
+        Route::put('/{id}', [UmkmApiController::class, 'update']);
+        // TAMBAHAN: Route POST untuk update dengan file upload
+        Route::post('/{id}/update', [UmkmApiController::class, 'updateWithFile']);
+
+        Route::delete('/{id}', [UmkmApiController::class, 'destroy']);
     });
 
     // APBDes API

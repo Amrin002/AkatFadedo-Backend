@@ -4,6 +4,7 @@
 use App\Http\Controllers\AppVersionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SuratKptController;
+use App\Http\Controllers\UmkmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -50,24 +51,24 @@ Route::fallback(function () {
     return response()->view('Errors.404', [], 404);
 });
 
-Route::get('/download/apk', [LandingPageController::class, 'downloadApk'])->name('download.apk');
-
-// Route untuk cek ketersediaan aplikasi (AJAX)
-Route::get('/api/check-app-availability', [LandingPageController::class, 'checkAppAvailability'])->name('check.app.availability');
-
+// Public routes untuk UMKM
+Route::get('/daftar-umkm', [UmkmController::class, 'publicIndex'])->name('umkm.public.index');
+Route::get('/daftar-umkm/{id}', [UmkmController::class, 'publicShow'])->name('umkm.public.show');
 
 Route::get('/privacy', [LandingPageController::class, 'privacy']);
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 // Route::get('/berita-desa', [LandingPageController::class, 'berita'])->name('home');
 // routes/web.php
+Route::get('/profil-desa', [LandingPageController::class, 'profilDesa'])->name('home.profil-desa');
 Route::get('/daftar-berita', [LandingPageController::class, 'semua'])->name('home.daftar-berita');
 Route::get('/daftar-galeri', [LandingPageController::class, 'galeri'])->name('home.daftar-galeri');
 Route::get('/daftar-sturktur-desa', [LandingPageController::class, 'struktur'])->name('home.daftar-sturktur-desa');
+Route::get('/tentang-desa', [LandingPageController::class, 'tentangdesa'])->name('home.tentang-desa');
 Route::get('/berita/{slug}', [LandingPageController::class, 'show'])
     ->where('slug', '^(?!create$|[0-9]+).*')
     ->name('home.berita');
 
-Route::get('/apbdes-view', [ApbdesController::class, 'tampilUntukUser'])->name('apbdes.view');
+Route::get('/apbdes', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');
 Route::delete('/apbdes/{id}', [ApbdesController::class, 'destroy'])->name('apbdes.destroy');
 Route::get('/apbdes-view', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');
 Route::patch('/apbdes/{id}', [ApbdesController::class, 'update'])->name('apbdes.update');
@@ -142,6 +143,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Route export PDF untuk Surat KPT
     Route::get('/suratkpt/export/pdf/{id}', [SuratKptController::class, 'exportPdf'])->name('suratkpt.export.pdf');
+
     // route arsip
     // Export route - HARUS sebelum resource
     Route::get('/arsip/export/csv', [ArsipSuratController::class, 'exportCsv'])->name('arsip.export.csv');
@@ -158,6 +160,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('/{id}', [AppVersionController::class, 'destroy'])->name('destroy');
         Route::patch('/{id}/toggle-active', [AppVersionController::class, 'toggleActive'])->name('toggle-active');
     });
+
+    // Routes untuk admin (dalam middleware admin)
+    Route::resource('umkm', UmkmController::class);
+    Route::post('umkm/{id}/approve', [UmkmController::class, 'approve'])->name('umkm.approve');
+    Route::post('umkm/{id}/reject', [UmkmController::class, 'reject'])->name('umkm.reject');
+    Route::post('umkm/{id}/reset', [UmkmController::class, 'resetToPending'])->name('umkm.reset');
+
 });
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
