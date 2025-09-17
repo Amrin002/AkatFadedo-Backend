@@ -333,4 +333,15 @@ class AppVersionController extends Controller
             return $bytes . ' bytes';
         }
     }
+    public function downloadApk($versionId)
+    {
+        $version = AppVersion::findOrFail($versionId);
+        $filePath = storage_path('app/public/' . $version->download_url);
+
+        if (!file_exists($filePath)) {
+            abort(404, 'File tidak ditemukan');
+        }
+
+        return response()->download($filePath, 'desaku-' . $version->version . '.apk');
+    }
 }

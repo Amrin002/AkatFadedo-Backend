@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -94,8 +94,8 @@
 
                 @if (isset($latestAppVersion) && $latestAppVersion->full_download_url)
                     <!-- Kalau ada file -->
-                    <a href="{{ $latestAppVersion->full_download_url }}"
-                        class="shadow-sm btn btn-success btn-lg rounded-pill" target="_blank">
+                    <a href="{{ route('download.apk', $latestAppVersion->id) }}"
+                        class="shadow-sm btn btn-success btn-lg rounded-pill">
                         <i class="fab fa-android me-2"></i>Download Aplikasi
                     </a>
                 @else

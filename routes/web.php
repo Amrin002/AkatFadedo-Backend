@@ -50,6 +50,7 @@ use Illuminate\Support\Facades\Log;
 Route::fallback(function () {
     return response()->view('Errors.404', [], 404);
 });
+Route::get('/download-app/{version}', [AppVersionController::class, 'downloadApk'])->name('download.apk');
 
 // Public routes untuk UMKM
 Route::get('/daftar-umkm', [UmkmController::class, 'publicIndex'])->name('umkm.public.index');
