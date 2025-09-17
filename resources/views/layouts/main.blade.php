@@ -15,7 +15,15 @@
         xintegrity="sha512-SnH5WK+bZxgPHs44uWp/i9Fw9z9c1F1+c1a2d1e+4y5K5z5F5z5+1z5b5b5c5d5e5f5g5h5i5j5k5l5m5n5o5p5q5r5s5t5u5v5w5x5y5z5A5B5C5D5E5F5G5H5I5J5K5L5M5N5O5P5Q5R5S5T5U5V5W5X5Y5Z5a5b5c5d5e5f5g5h5i5j5k5l5m5n5o5p5q5r5s5t5u5v5w5x5y5z5"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <!-- Bootstrap Icons -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo2.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo2.png') }}">
+
+    <!-- Favicon untuk berbagai ukuran -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo2.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/logo2.png') }}">
+
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 
