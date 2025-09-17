@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -383,7 +383,7 @@
 
             <!-- Tombol Selengkapnya -->
             <div class="mt-5 text-center reveal">
-                <a href="{{ route('home.daftar-sturktur-desa') }}" class="px-4 btn btn-outline-primary rounded-pill">
+                <a href="{{ route('home.tentang-desa') }}" class="px-4 btn btn-outline-primary rounded-pill">
                     <i class="fas fa-sitemap me-1"></i> Lihat Struktur Desa Lebih Banyak
                 </a>
             </div>
@@ -733,10 +733,10 @@
             <div class="row g-4 reveal">
                 <div class="text-center col-12">
                     <h5 class="fw-bold">Informasi Kontak</h5>
-                    <p class="text-white"><i class="fas fa-map-marker-alt me-2 text-info"></i> Jalan Desa No. 123,
-                        Kecamatan, Kabupaten, Provinsi</p>
-                    <p class="text-white"><i class="fas fa-envelope me-2 text-info"></i> info@desamaju.go.id</p>
-                    <p class="text-white"><i class="fas fa-phone-alt me-2 text-info"></i> (021) 123-4567</p>
+                    <p class="text-white"><i class="fas fa-map-marker-alt me-2 text-info"></i> Akat Fadedo, Kec. Seram
+                        Tim., Kabupaten Seram Bagian Timur, Maluku</p>
+                    <p class="text-white"><i class="fas fa-envelope me-2 text-info"></i> admindesa@akatfadedo.com</p>
+                    <p class="text-white"><i class="fas fa-phone-alt me-2 text-info"></i> (+62)82223607709</p>
                 </div>
             </div>
         </div>
