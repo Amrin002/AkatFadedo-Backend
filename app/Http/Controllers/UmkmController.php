@@ -92,13 +92,19 @@ class UmkmController extends Controller
         ]);
 
         // Cek apakah nama usaha sudah ada untuk NIK yang sama
-        $existingUmkm = Umkm::where('nik', $request->nik)
+        // Cek duplikasi: NIK + nama_usaha + nama_produk
+        $user = $request->user();
+        $existingUmkm = Umkm::where('nik', $user->nik)
             ->where('nama_usaha', $request->nama_usaha)
+            ->where('nama_produk', $request->nama_produk)
             ->whereIn('status', ['pending', 'approved'])
             ->first();
 
         if ($existingUmkm) {
-            return redirect()->back()->with('error', 'Nama usaha "' . $request->nama_usaha . '" sudah terdaftar untuk NIK ini!');
+            return response()->json([
+                'success' => false,
+                'message' => 'Produk "' . $request->nama_produk . '" sudah terdaftar untuk usaha "' . $request->nama_usaha . '"!',
+            ], 422);
         }
 
         // Rest of the code remains the same...

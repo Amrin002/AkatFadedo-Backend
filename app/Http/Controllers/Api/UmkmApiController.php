@@ -89,15 +89,17 @@ class UmkmApiController extends Controller
         }
 
         // Cek apakah user sudah memiliki usaha dengan nama yang sama
-        $existingUmkm = Umkm::where('user_id', $user->id)
+        // BARU (BENAR)
+        $existingUmkm = Umkm::where('nik', $user->nik)
             ->where('nama_usaha', $request->nama_usaha)
+            ->where('nama_produk', $request->nama_produk)
             ->whereIn('status', ['pending', 'approved'])
             ->first();
 
         if ($existingUmkm) {
             return response()->json([
                 'success' => false,
-                'message' => 'Anda sudah memiliki usaha dengan nama "' . $request->nama_usaha . '"!',
+                'message' => 'Produk "' . $request->nama_produk . '" sudah terdaftar untuk usaha "' . $request->nama_usaha . '"!',
             ], 422);
         }
 
@@ -185,16 +187,17 @@ class UmkmApiController extends Controller
         }
 
         // Cek apakah nama usaha sudah digunakan oleh UMKM lain milik user yang sama (kecuali yang sedang diedit)
-        $existingUmkm = Umkm::where('user_id', $user->id)
+        $existingUmkm = Umkm::where('nik', $user->nik)
             ->where('nama_usaha', $request->nama_usaha)
+            ->where('nama_produk', $request->nama_produk)
             ->whereIn('status', ['pending', 'approved'])
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $id) // Kecuali record yang sedang diedit
             ->first();
 
         if ($existingUmkm) {
             return response()->json([
                 'success' => false,
-                'message' => 'Anda sudah memiliki usaha dengan nama "' . $request->nama_usaha . '"!',
+                'message' => 'Produk "' . $request->nama_produk . '" sudah terdaftar untuk usaha "' . $request->nama_usaha . '"!',
             ], 422);
         }
 
