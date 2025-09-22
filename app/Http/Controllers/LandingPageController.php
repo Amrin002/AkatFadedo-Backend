@@ -46,7 +46,9 @@ class LandingPageController extends Controller
 
         // Caching struktur desa untuk homepage
         $strukturDesa = Cache::remember('struktur_desa_home', 60, function () {
-            return StrukturDesa::latest()->take(6)->get();
+             return StrukturDesa::orderBy('created_at', 'asc') // ASC = paling lama tampil duluan
+                      ->take(6)
+                      ->get();
         });
 
         // Caching galeri desa untuk homepage - gunakan Eloquent
