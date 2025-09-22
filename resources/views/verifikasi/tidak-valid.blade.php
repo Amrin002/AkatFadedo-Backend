@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <section id="verification" class="verification section-bg">
+    <section id="verification" class="verification section-bg" style="margin-top: 100px; margin-bottom: 100px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -35,7 +35,6 @@
                                             Kemungkinan penyebab dokumen tidak valid:
                                             <ul class="text-start mt-2 mb-0">
                                                 <li>Dokumen telah dibatalkan oleh pihak desa</li>
-                                                <li>Masa berlaku dokumen telah habis</li>
                                                 <li>Kode QR atau token verifikasi tidak terdaftar</li>
                                                 <li>Dokumen sedang dalam proses perubahan status</li>
                                             </ul>

@@ -165,11 +165,6 @@
             @yield('content')
         </main>
 
-
-        <main class="flex-grow-1">
-            @yield('content')
-        </main>
-
         <!-- Footer -->
         <footer class="py-4 mt-auto bg-info text-primary">
             <footer class="py-4 mt-auto bg-info text-primary">

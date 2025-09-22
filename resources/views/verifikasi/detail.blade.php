@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <section id="verification" class="verification section-bg">
+    <section id="verification" class="verification section-bg" style="margin-top: 100px; margin-bottom: 100px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
