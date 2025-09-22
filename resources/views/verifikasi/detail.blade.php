@@ -38,6 +38,16 @@
                                             <div class="col-md-8">
                                                 @if ($verifikasi->status == 'Approve' || $verifikasi->status == 'TERVERIFIKASI')
                                                     <span class="badge bg-success">TERVERIFIKASI</span>
+
+                                                    <p class="mt-2 mb-0 small">
+                                                        Surat ini diterbitkan melalui sistem digital dan dinyatakan sah
+                                                        secara hukum.
+                                                        <br>
+                                                        <a href="{{ asset('SK_Keaslian_Surat_Desaku.pdf') }}"
+                                                            target="_blank" class="fw-bold">
+                                                            Lihat Surat Keputusan Kepala Desa
+                                                        </a>
+                                                    </p>
                                                 @else
                                                     <span class="badge bg-danger">TIDAK AKTIF</span>
                                                 @endif
@@ -82,46 +92,44 @@
 
                                     <div class="verification-info">
                                         <h5 class="mb-3 fw-bold">Informasi</h5>
-
                                         <div class="mb-3 row">
                                             <div class="col-md-4 fw-bold">Tanggal Terbit</div>
                                             <div class="col-md-8">
                                                 {{ \Carbon\Carbon::parse($verifikasi->tanggal_terbit)->locale('id')->isoFormat('D MMMM Y') }}
                                             </div>
                                         </div>
-
                                         <div class="mb-3 row">
                                             <div class="col-md-4 fw-bold">Penandatanganan</div>
                                             <div class="col-md-8">
                                                 Muhamad Arsad Talahatu
                                             </div>
                                         </div>
-
                                         <div class="mb-3 row">
                                             <div class="col-md-4 fw-bold">Waktu Verifikasi</div>
                                             <div class="col-md-8">
                                                 {{ \Carbon\Carbon::now()->locale('id')->isoFormat('HH:mm:ss') }}
                                             </div>
                                         </div>
-
                                         <div class="mb-3 row">
                                             <div class="col-md-4 fw-bold">Dikeluarkan oleh</div>
                                             <div class="col-md-8">
                                                 Kantor Desa Akat Fadedo
                                             </div>
                                         </div>
-
                                     </div>
 
+                                    <div class="mt-5 text-center">
+                                        <hr>
+                                        <h5 class="mt-4 mb-3 fw-bold">Tindakan Lanjutan</h5>
 
-                                    <div class="mt-4 text-center">
-                                        <p class="mb-0">Untuk penjelasan lebih lanjut, silahkan menghubungi Kantor Desa
+                                        <div class="d-grid gap-2 col-md-8 mx-auto">
+                                            <a href="#" class="shadow-sm btn btn-success btn-lg" target="_blank">
+                                                <i class="bi bi-download me-2"></i>Simpan Salinan Digital Dokumen Ini (PDF)
+                                            </a>
+                                        </div>
+
+                                        <p class="mt-5 mb-0">Untuk penjelasan lebih lanjut, silahkan menghubungi Kantor Desa
                                             Akat Fadedo</p>
-
-                                        <a href="#"
-                                        class="shadow-sm btn btn-success btn-lg rounded-pill" target="_blank">
-                                            <i class="fab fa-android me-2"></i>Download Surat Keterangan
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +137,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 @endsection
