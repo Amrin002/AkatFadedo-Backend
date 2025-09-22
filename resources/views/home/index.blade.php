@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -210,9 +210,12 @@
                         <div class="mt-4">
                             <h5 class="mb-3 fw-bold text-dark">Kondisi Topografi</h5>
                             <p class="text-justify-custom text-muted">
-                                Desa Akat Fadedo memiliki topografi yang bervariasi, didominasi oleh dataran
-                                rendah dan perbukitan yang subur, ideal untuk pertanian dan perkebunan.
-                                Ketinggiannya berkisar antara 100 hingga 300 meter di atas permukaan laut.
+                                Kondisi topografi Desa Akat Fadedo dicirikan oleh lanskap yang bervariasi, terbentang dari
+                                pesisir hingga ke area pedalaman. Wilayahnya secara umum didominasi oleh kombinasi antara
+                                dataran rendah yang subur di dekat garis pantai serta kawasan perbukitan landai dengan
+                                ketinggian berkisar antara 100 hingga 300 meter di atas permukaan laut. Kondisi alam yang
+                                subur ini menjadikan sebagian besar wilayah desa sangat ideal untuk dikembangkan sebagai
+                                lahan pertanian dan perkebunan.
                             </p>
                         </div>
                     </div>
