@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ==================== */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       GAYA UNTUK SETIAP SEKSI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -751,7 +751,7 @@
                 <div class="text-center col-12">
                     <h5 class="fw-bold">Informasi Kontak</h5>
                     <p class="text-white"><i class="fas fa-map-marker-alt me-2 text-info"></i> Akat Fadedo, Kec. Seram
-                        Tim., Kabupaten Seram Bagian Timur, Maluku</p>
+                        Timur, Kabupaten Seram Bagian Timur, Maluku</p>
                     <p class="text-white"><i class="fas fa-envelope me-2 text-info"></i> admindesa@akatfadedo.com</p>
                     <p class="text-white"><i class="fas fa-phone-alt me-2 text-info"></i> (+62)82223607709</p>
                 </div>
