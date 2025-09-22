@@ -174,7 +174,7 @@
                                     <li class="nav-item {{ request()->is('suratkpt*') ? 'active' : '' }}">
                                         <a href="{{ url('/suratkpt') }}">
                                             <span class="sub-item">
-                                                <p>Surat Keterangan Perhasilan Tetap</p>
+                                                <p>Surat Keterangan Penghasilan Tetap</p>
                                             </span>
                                         </a>
                                     </li>
@@ -401,7 +401,7 @@
                 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
                     <div class="container-fluid">
                         {{-- <nav
-                            class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+                            class="p-0 navbar navbar-header-left navbar-expand-lg navbar-form nav-search d-none d-lg-flex">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button type="submit" class="btn btn-search pe-1">
@@ -529,7 +529,7 @@
                                                         </div>
                                                     </a>
                                                 @empty
-                                                    <div class="text-center text-muted py-2">
+                                                    <div class="py-2 text-center text-muted">
                                                         Tidak ada notifikasi baru.
                                                     </div>
                                                 @endforelse
@@ -551,13 +551,13 @@
                                 </a>
                                 <div class="dropdown-menu quick-actions animated fadeIn">
                                     <div class="quick-actions-header">
-                                        <span class="title mb-1">Quick Actions</span>
+                                        <span class="mb-1 title">Quick Actions</span>
                                         <span class="subtitle op-7">Shortcuts</span>
                                     </div>
                                     <div class="quick-actions-scroll scrollbar-outer">
                                         <div class="quick-actions-items">
-                                            <div class="row m-0">
-                                                <a class="col-6 col-md-4 p-0" href="#">
+                                            <div class="m-0 row">
+                                                <a class="p-0 col-6 col-md-4" href="#">
                                                     <div class="quick-actions-item">
                                                         <div class="avatar-item bg-danger rounded-circle">
                                                             <i class="far fa-calendar-alt"></i>
@@ -565,7 +565,7 @@
                                                         <span class="text">Calendar</span>
                                                     </div>
                                                 </a>
-                                                <a class="col-6 col-md-4 p-0" href="#">
+                                                <a class="p-0 col-6 col-md-4" href="#">
                                                     <div class="quick-actions-item">
                                                         <div class="avatar-item bg-warning rounded-circle">
                                                             <i class="fas fa-map"></i>
@@ -573,7 +573,7 @@
                                                         <span class="text">Maps</span>
                                                     </div>
                                                 </a>
-                                                <a class="col-6 col-md-4 p-0" href="#">
+                                                <a class="p-0 col-6 col-md-4" href="#">
                                                     <div class="quick-actions-item">
                                                         <div class="avatar-item bg-info rounded-circle">
                                                             <i class="fas fa-file-excel"></i>
@@ -581,7 +581,7 @@
                                                         <span class="text">Reports</span>
                                                     </div>
                                                 </a>
-                                                <a class="col-6 col-md-4 p-0" href="#">
+                                                <a class="p-0 col-6 col-md-4" href="#">
                                                     <div class="quick-actions-item">
                                                         <div class="avatar-item bg-success rounded-circle">
                                                             <i class="fas fa-envelope"></i>
@@ -589,7 +589,7 @@
                                                         <span class="text">Emails</span>
                                                     </div>
                                                 </a>
-                                                <a class="col-6 col-md-4 p-0" href="#">
+                                                <a class="p-0 col-6 col-md-4" href="#">
                                                     <div class="quick-actions-item">
                                                         <div class="avatar-item bg-primary rounded-circle">
                                                             <i class="fas fa-file-invoice-dollar"></i>
@@ -597,7 +597,7 @@
                                                         <span class="text">Invoice</span>
                                                     </div>
                                                 </a>
-                                                <a class="col-6 col-md-4 p-0" href="#">
+                                                <a class="p-0 col-6 col-md-4" href="#">
                                                     <div class="quick-actions-item">
                                                         <div class="avatar-item bg-secondary rounded-circle">
                                                             <i class="fas fa-credit-card"></i>
@@ -631,7 +631,7 @@
                                                 <div class="avatar-lg">
                                                     <img src="{{ asset('admin/assets/img/profile.jpg') }}" <img
                                                         src="{{ asset('admin/assets/img/profile.jpg') }}"
-                                                        alt="image profile" class="avatar-img rounded" />
+                                                        alt="image profile" class="rounded avatar-img" />
                                                 </div>
                                                 <div class="u-text">
                                                     <h4>{{ $user->name }}</h4>
