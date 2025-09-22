@@ -139,105 +139,108 @@ class UmkmApiController extends Controller
     }
     // PUT /api/umkm/{id}
     public function update(Request $request, $id)
-    {
-        $user = $request->user();
-        $umkm = Umkm::find($id);
+{
+    $user = $request->user();
+    $umkm = Umkm::find($id);
 
-        if (!$umkm) {
-            return response()->json([
-                'success' => false,
-                'message' => 'UMKM tidak ditemukan',
-            ], 404);
-        }
-
-        if ($umkm->user_id !== $user->id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Anda tidak memiliki izin untuk mengubah UMKM ini',
-            ], 403);
-        }
-
-        // Cegah editing data yang sudah approved
-        if ($umkm->status === 'approved') {
-            return response()->json([
-                'success' => false,
-                'message' => 'UMKM yang sudah disetujui tidak dapat diubah',
-            ], 422);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'nama_usaha' => 'required|string|max:255',
-            'kategori' => 'required|in:makanan,jasa,kerajinan,pertanian,perdagangan,lainnya',
-            'nama_produk' => 'required|string|max:255',
-            'deskripsi_produk' => 'required|string',
-            'harga_produk' => 'nullable|numeric|min:0|max:999999999999.99',
-            'foto_produk' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'nomor_telepon' => 'required|string|max:20',
-            'link_facebook' => 'nullable|url|max:500',
-            'link_instagram' => 'nullable|url|max:500',
-            'link_tiktok' => 'nullable|url|max:500',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        // Cek apakah nama usaha sudah digunakan oleh UMKM lain milik user yang sama (kecuali yang sedang diedit)
-        $existingUmkm = Umkm::where('nik', $user->nik)
-            ->where('nama_usaha', $request->nama_usaha)
-            ->where('nama_produk', $request->nama_produk)
-            ->whereIn('status', ['pending', 'approved'])
-            ->where('id', '!=', $id) // Kecuali record yang sedang diedit
-            ->first();
-
-        if ($existingUmkm) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Produk "' . $request->nama_produk . '" sudah terdaftar untuk usaha "' . $request->nama_usaha . '"!',
-            ], 422);
-        }
-
-        // Handle foto produk
-        $fotoPath = $umkm->foto_produk;
-        if ($request->hasFile('foto_produk')) {
-            // Hapus foto lama jika ada
-            if ($umkm->foto_produk && Storage::disk('public')->exists($umkm->foto_produk)) {
-                Storage::disk('public')->delete($umkm->foto_produk);
-            }
-
-            $foto = $request->file('foto_produk');
-            $timestamp = now()->format('YmdHis');
-            $filename = $timestamp . '_' . uniqid() . '.' . $foto->getClientOriginalExtension();
-            $fotoPath = $foto->storeAs('umkm', $filename, 'public');
-        }
-
-        // Update data UMKM (hanya untuk status pending/rejected)
-        $umkm->update([
-            'nama_usaha' => $request->nama_usaha,
-            'kategori' => $request->kategori,
-            'nama_produk' => $request->nama_produk,
-            'deskripsi_produk' => $request->deskripsi_produk,
-            'harga_produk' => $request->harga_produk,
-            'foto_produk' => $fotoPath,
-            'nomor_telepon' => $request->nomor_telepon,
-            'link_facebook' => $request->link_facebook,
-            'link_instagram' => $request->link_instagram,
-            'link_tiktok' => $request->link_tiktok,
-        ]);
-
-        // Load relasi untuk response
-        $umkm->load(['penduduk', 'approvedBy']);
-
+    if (!$umkm) {
         return response()->json([
-            'success' => true,
-            'message' => 'Data UMKM berhasil diperbarui',
-            'data' => $umkm
-        ]);
+            'success' => false,
+            'message' => 'UMKM tidak ditemukan',
+        ], 404);
     }
+
+    if ($umkm->user_id !== $user->id) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Anda tidak memiliki izin untuk mengubah UMKM ini',
+        ], 403);
+    }
+
+    // Cegah editing data yang sudah approved
+    if ($umkm->status === 'approved') {
+        return response()->json([
+            'success' => false,
+            'message' => 'UMKM yang sudah disetujui tidak dapat diubah',
+        ], 422);
+    }
+
+    $validator = Validator::make($request->all(), [
+        'nama_usaha' => 'required|string|max:255',
+        'kategori' => 'required|in:makanan,jasa,kerajinan,pertanian,perdagangan,lainnya',
+        'nama_produk' => 'required|string|max:255',
+        'deskripsi_produk' => 'required|string',
+        'harga_produk' => 'nullable|numeric|min:0|max:999999999999.99',
+        'foto_produk' => 'nullable|image|mimes:jpg,png,jpeg|max:5096',
+        'nomor_telepon' => 'required|string|max:20',
+        'link_facebook' => 'nullable|url|max:500',
+        'link_instagram' => 'nullable|url|max:500',
+        'link_tiktok' => 'nullable|url|max:500',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validasi gagal',
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    // Cek duplikasi nama usaha dan produk
+    $existingUmkm = Umkm::where('nik', $user->nik)
+        ->where('nama_usaha', $request->nama_usaha)
+        ->where('nama_produk', $request->nama_produk)
+        ->whereIn('status', ['pending', 'approved'])
+        ->where('id', '!=', $id)
+        ->first();
+
+    if ($existingUmkm) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Produk "' . $request->nama_produk . '" sudah terdaftar untuk usaha "' . $request->nama_usaha . '"!',
+        ], 422);
+    }
+
+    // Siapkan data update (IKUTI PATTERN KELUHAN CONTROLLER)
+    $updateData = [
+        'nama_usaha' => $request->input('nama_usaha'),
+        'kategori' => $request->input('kategori'),
+        'nama_produk' => $request->input('nama_produk'),
+        'deskripsi_produk' => $request->input('deskripsi_produk'),
+        'harga_produk' => $request->input('harga_produk'),
+        'nomor_telepon' => $request->input('nomor_telepon'),
+        'link_facebook' => $request->input('link_facebook'),
+        'link_instagram' => $request->input('link_instagram'),
+        'link_tiktok' => $request->input('link_tiktok'),
+    ];
+
+    // Handle foto produk (IKUTI PATTERN KELUHAN CONTROLLER)
+    if ($request->hasFile('foto_produk')) {
+        // Hapus foto lama jika ada
+        if ($umkm->foto_produk && Storage::disk('public')->exists($umkm->foto_produk)) {
+            Storage::disk('public')->delete($umkm->foto_produk);
+        }
+
+        // Upload foto baru dengan naming yang konsisten
+        $foto = $request->file('foto_produk');
+        $timestamp = now()->format('YmdHis');
+        $filename = $timestamp . '_' . uniqid() . '.' . $foto->getClientOriginalExtension();
+        $fotoPath = $foto->storeAs('umkm', $filename, 'public');
+        $updateData['foto_produk'] = $fotoPath;
+    }
+
+    // Update data UMKM
+    $umkm->update($updateData);
+
+    // Load relasi untuk response
+    $umkm->load(['penduduk', 'approvedBy']);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Data UMKM berhasil diperbarui',
+        'data' => $umkm
+    ]);
+}
 
     // GET /api/umkm/{id}
     public function show(Request $request, $id)

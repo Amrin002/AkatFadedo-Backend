@@ -1,4 +1,4 @@
-@extends('layouts.landing')
+@extends('layouts.main')
 
 @section('content')
     <section id="verification" class="verification section-bg">

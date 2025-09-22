@@ -135,9 +135,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [UmkmApiController::class, 'store']);
         Route::get('/{id}', [UmkmApiController::class, 'show']);
         Route::put('/{id}', [UmkmApiController::class, 'update']);
-        // TAMBAHAN: Route POST untuk update dengan file upload
-        Route::post('/{id}/update', [UmkmApiController::class, 'updateWithFile']);
-
+         Route::post('/{id}', [UmkmApiController::class, 'update']);
         Route::delete('/{id}', [UmkmApiController::class, 'destroy']);
     });
 
