@@ -550,11 +550,11 @@
                                 <!-- Gambar APBDes -->
                                 <div class="text-center">
                                     <img src="{{ asset('storage/' . $apbdes->file) }}"
-                                         alt="APBDes {{ $apbdes->tahun }}"
-                                         class="img-fluid w-100"
-                                         style="max-height: 500px; object-fit: contain; cursor: pointer;"
-                                         data-bs-toggle="modal"
-                                         data-bs-target="#apbdesImageModal">
+                                        alt="APBDes {{ $apbdes->tahun }}"
+                                        class="img-fluid w-100"
+                                        style="max-height: 500px; object-fit: contain; cursor: pointer;"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#apbdesImageModal">
                                 </div>
 
                                 <!-- Informasi tambahan di bawah gambar -->
@@ -590,8 +590,8 @@
                         @if ($apbdes->file)
                         <div class="card-footer">
                             <a href="{{ asset('storage/' . $apbdes->file) }}"
-                               class="btn btn-primary btn-sm w-100"
-                               target="_blank">
+                                class="btn btn-primary btn-sm w-100"
+                                target="_blank">
                                 <i class="fas fa-download me-2"></i>Download Dokumen APBDes
                             </a>
                         </div>
