@@ -342,6 +342,11 @@ class AppVersionController extends Controller
             abort(404, 'File tidak ditemukan');
         }
 
-        return response()->download($filePath, 'desaku-' . $version->version . '.apk');
+        // Tentukan MIME type APK secara eksplisit
+        $headers = [
+            'Content-Type' => 'application/vnd.android.package-archive',
+        ];
+
+        return response()->download($filePath, 'desaku-' . $version->version . '.apk', $headers);
     }
 }
