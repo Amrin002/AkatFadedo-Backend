@@ -10,8 +10,8 @@
                             <h5>Struktur Desa</h5>
                         </div>
                         <div class="card-body">
-                            <button class="btn btn-success mb-3" data-toggle="modal" data-target="#exampleModalCenter">
-                                <i class="fas fa-plus-circle"></i> Tambah Anggota Struktur Desa
+                            <button class="mb-3 btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                                <i class="fas fa-plus-circle"></i>Tambah Anggota Struktur Desa
                             </button>
 
                             {{-- Modal Tambah Data --}}
@@ -67,7 +67,7 @@
                                                         id="image" name="image" accept="image/png, image/jpeg"
                                                         data-target="previewProfil">
                                                     <img id="previewProfil" src="" alt="Preview Foto Profil"
-                                                        class="img-thumbnail mt-2" width="100" style="display: none;">
+                                                        class="mt-2 img-thumbnail" width="100" style="display: none;">
                                                 </div>
 
 
@@ -110,7 +110,7 @@
                                                         width="100" height="100" style="border-radius: 10%"></td>
                                                 <td>
 
-                                                    <div class="d-flex align-items-center gap-2">
+                                                    <div class="gap-2 d-flex align-items-center">
                                                         <button type="button" class="btn btn-warning btn-sm"
                                                             data-toggle="modal"
                                                             data-target="#editModal{{ $row->id }}">
@@ -229,11 +229,11 @@
                                                                     <img id="edit_previewProfil_{{ $row->id }}"
                                                                         src="{{ asset('storage/' . $row->image) }}"
                                                                         alt="Preview Foto Profil"
-                                                                        class="img-thumbnail mt-2" width="100">
+                                                                        class="mt-2 img-thumbnail" width="100">
 
                                                                     @if ($row->image)
                                                                         <img src="{{ asset('storage/' . $row->image) }}"
-                                                                            alt="Foto" class="img-thumbnail mt-2"
+                                                                            alt="Foto" class="mt-2 img-thumbnail"
                                                                             width="100">
                                                                     @endif
                                                                 </div>

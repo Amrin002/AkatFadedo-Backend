@@ -371,14 +371,22 @@
         <h2 class="mb-4 text-center section-title">Struktur Desa</h2>
         <div class="row gy-4 justify-content-center">
             @forelse ($strukturDesa as $anggota)
-                <div class="col-lg-3 col-md-6 d-flex" data-aos="zoom-in" data-aos-duration="800"
+                <div class="mb-5 col-lg-3 col-md-6 d-flex" data-aos="zoom-in" data-aos-duration="800"
                     data-aos-delay="{{ $loop->index * 150 }}">
                     <div class="text-center border-0 shadow-sm card team-card w-100">
                         <!-- Foto -->
                         <div class="card-body">
-                            <img src="{{ asset('storage/' . $anggota->image) }}"
-                            class="mb-3 shadow-sm img-fluid rounded-circle" alt="{{ $anggota->nama }}"
-                            style="width: 160px; height: 160px; object-fit: cover;">
+                            @if (!empty($anggota->image))
+                                <img src="{{ asset('storage/' . $anggota->image) }}"
+                                    alt="{{ $anggota->nama }}"
+                                    class="shadow-sm img-fluid rounded-circle"
+                                    style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #fff;">
+                            @else
+                                <img src="{{ asset('images/strukturdesa_default.png') }}"
+                                    alt="Foto Default"
+                                    class="shadow-sm img-fluid rounded-circle"
+                                    style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #fff;">
+                            @endif
                             <!-- Nama & Posisi -->
                             <h5 class="mb-1 fw-bold">{{ $anggota->nama }}</h5>
                             <p class="text-muted small">{{ $anggota->posisi }}</p>
@@ -405,7 +413,7 @@
                     </div>
                 </div>
                 @empty
-                <div class="col-12">
+                <div class="mb-5 col-12">
                     <div class="text-center alert alert-info">Belum ada struktur desa yang tersedia.</div>
                 </div>
             @endforelse

@@ -356,9 +356,17 @@
 
                             <!-- Foto -->
                             <div class="mt-4 member-img position-relative">
-                                <img src="{{ asset('storage/' . $anggota->image) }}" alt="{{ $anggota->nama }}"
-                                    class="shadow-sm img-fluid rounded-circle"
-                                    style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #fff;">
+                                @if (!empty($anggota->image))
+                                    <img src="{{ asset('storage/' . $anggota->image) }}"
+                                        alt="{{ $anggota->nama }}"
+                                        class="shadow-sm img-fluid rounded-circle"
+                                        style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #fff;">
+                                @else
+                                    <img src="{{ asset('images/strukturdesa_default.png') }}"
+                                        alt="Foto Default"
+                                        class="shadow-sm img-fluid rounded-circle"
+                                        style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #fff;">
+                                @endif
                             </div>
 
                             <!-- Info Anggota -->
