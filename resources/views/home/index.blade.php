@@ -2,8 +2,8 @@
 @push('styles')
     <style>
         /* ====================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       GAYA UNTUK SETIAP SEKSI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ==================== */
+                        GAYA UNTUK SETIAP SEKSI
+                       ==================== */
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('landing/assets/img/hero-carousel/hero-carousel.jpg') }}');
             background-size: cover;
@@ -938,6 +938,50 @@
         });
 
         revealElements.forEach(el => observer.observe(el));
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Deteksi device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
+                .userAgent);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+
+            // Handle download APK untuk mobile
+            const downloadLinks = document.querySelectorAll('a[href*="download-app"]');
+
+            downloadLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (isMobile && isAndroid) {
+                        e.preventDefault();
+
+                        // Buat temporary link dengan attribute download yang tepat
+                        const tempLink = document.createElement('a');
+                        tempLink.href = this.href;
+                        tempLink.download = 'desaku.apk'; // Nama sederhana tanpa version
+                        tempLink.style.display = 'none';
+
+                        // Trigger download
+                        document.body.appendChild(tempLink);
+                        tempLink.click();
+                        document.body.removeChild(tempLink);
+
+                        // Show notification
+                        if (typeof bootstrap !== 'undefined') {
+                            // Jika menggunakan Bootstrap toast
+                            showToast('Download dimulai...', 'success');
+                        } else {
+                            alert('Download dimulai...');
+                        }
+                    }
+                });
+            });
+
+            // Function untuk show toast notification
+            function showToast(message, type = 'info') {
+                // Implementasi toast notification jika diperlukan
+                console.log(type + ': ' + message);
+            }
+        });
     </script>
 @endpush
 
