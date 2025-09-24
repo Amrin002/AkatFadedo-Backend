@@ -43,7 +43,7 @@
                                                         Surat ini diterbitkan melalui sistem digital dan dinyatakan sah
                                                         secara hukum.
                                                         <br>
-                                                        <a href="{{ asset('SK_Keaslian_Surat_Desaku.pdf') }}"
+                                                        <a href="{{ asset('SK_Fadedo.pdf') }}"
                                                             target="_blank" class="fw-bold">
                                                             Lihat Surat Keputusan Kepala Desa
                                                         </a>
@@ -122,7 +122,7 @@
                                         <hr>
                                         <h5 class="mt-4 mb-3 fw-bold">Tindakan Lanjutan</h5>
 
-                                        <div class="d-grid gap-2 col-md-8 mx-auto">
+                                        <div class="gap-2 mx-auto d-grid col-md-8">
                                             <a href="#" class="shadow-sm btn btn-success btn-lg" target="_blank">
                                                 <i class="bi bi-download me-2"></i>Simpan Salinan Digital Dokumen Ini (PDF)
                                             </a>
