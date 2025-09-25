@@ -1,0 +1,210 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Umkm;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class UmkmSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        // Data sample UMKM
+        $umkmData = [
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Warung Makan Bu Sari',
+                'kategori' => Umkm::KATEGORI_MAKANAN,
+                'nama_produk' => 'Nasi Gudeg Jogja',
+                'deskripsi_produk' => 'Nasi gudeg authentic Jogja dengan cita rasa tradisional. Disajikan dengan ayam kampung, telur, dan sambal krecek yang gurih. Cocok untuk sarapan dan makan siang.',
+                'harga_produk' => 15000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '081234567890',
+                'link_facebook' => 'https://facebook.com/warungbusari',
+                'link_instagram' => 'https://instagram.com/warung_bu_sari',
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_APPROVED,
+                'catatan_admin' => null,
+                'approved_at' => now()->subDays(5),
+                'approved_by' => 1,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Kerajinan Bambu Pak Joko',
+                'kategori' => Umkm::KATEGORI_KERAJINAN,
+                'nama_produk' => 'Keranjang Bambu Anyaman',
+                'deskripsi_produk' => 'Keranjang bambu berkualitas tinggi dengan anyaman yang rapi dan kuat. Cocok untuk tempat sayuran, buah, atau dekorasi rumah. Ramah lingkungan dan tahan lama.',
+                'harga_produk' => 75000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '082345678901',
+                'link_facebook' => null,
+                'link_instagram' => 'https://instagram.com/bambu_pakjoko',
+                'link_tiktok' => 'https://tiktok.com/@bambu_pakjoko',
+                'status' => Umkm::STATUS_APPROVED,
+                'catatan_admin' => null,
+                'approved_at' => now()->subDays(3),
+                'approved_by' => 1,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Jasa Cuci Motor Bersih',
+                'kategori' => Umkm::KATEGORI_JASA,
+                'nama_produk' => 'Cuci Motor Premium',
+                'deskripsi_produk' => 'Jasa cuci motor dengan layanan premium menggunakan shampoo khusus dan wax. Melayani cuci biasa, cuci steam, dan salon motor. Hasil bersih mengkilap.',
+                'harga_produk' => 10000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '083456789012',
+                'link_facebook' => 'https://facebook.com/cucimotorbersih',
+                'link_instagram' => null,
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_PENDING,
+                'catatan_admin' => null,
+                'approved_at' => null,
+                'approved_by' => null,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Tani Organik Sejahtera',
+                'kategori' => Umkm::KATEGORI_PERTANIAN,
+                'nama_produk' => 'Sayuran Organik Segar',
+                'deskripsi_produk' => 'Sayuran organik segar tanpa pestisida. Tersedia berbagai jenis sayuran seperti kangkung, bayam, tomat, cabai, dan timun. Dipetik langsung dari kebun.',
+                'harga_produk' => 5000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '084567890123',
+                'link_facebook' => null,
+                'link_instagram' => 'https://instagram.com/tani_organik',
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_APPROVED,
+                'catatan_admin' => null,
+                'approved_at' => now()->subDays(7),
+                'approved_by' => 1,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Kios Kelontong Makmur',
+                'kategori' => Umkm::KATEGORI_PERDAGANGAN,
+                'nama_produk' => 'Sembako dan Kebutuhan Sehari-hari',
+                'deskripsi_produk' => 'Menjual berbagai kebutuhan sehari-hari seperti beras, minyak goreng, gula, sabun, deterjen, dan makanan ringan. Melayani pembelian eceran dan grosir.',
+                'harga_produk' => 2000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '085678901234',
+                'link_facebook' => 'https://facebook.com/kiosmakmur',
+                'link_instagram' => null,
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_REJECTED,
+                'catatan_admin' => 'Mohon lengkapi data izin usaha dan foto produk.',
+                'approved_at' => null,
+                'approved_by' => 1,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Es Krim Artisan Nikmat',
+                'kategori' => Umkm::KATEGORI_MAKANAN,
+                'nama_produk' => 'Es Krim Homemade',
+                'deskripsi_produk' => 'Es krim homemade dengan berbagai rasa unik seperti durian, kelapa muda, cokelat premium, dan vanilla madagascar. Dibuat tanpa pengawet dengan bahan-bahan pilihan.',
+                'harga_produk' => 8000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '086789012345',
+                'link_facebook' => null,
+                'link_instagram' => 'https://instagram.com/eskrim_artisan',
+                'link_tiktok' => 'https://tiktok.com/@eskrimnikmat',
+                'status' => Umkm::STATUS_PENDING,
+                'catatan_admin' => null,
+                'approved_at' => null,
+                'approved_by' => null,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Bengkel Las Jaya',
+                'kategori' => Umkm::KATEGORI_JASA,
+                'nama_produk' => 'Jasa Las dan Fabrikasi',
+                'deskripsi_produk' => 'Melayani jasa las listrik, las karbit, pembuatan pagar, kanopi, teralis jendela, dan berbagai keperluan fabrikasi logam. Dikerjakan oleh tukang berpengalaman.',
+                'harga_produk' => 50000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '087890123456',
+                'link_facebook' => 'https://facebook.com/bengkellasjaya',
+                'link_instagram' => null,
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_APPROVED,
+                'catatan_admin' => null,
+                'approved_at' => now()->subDays(2),
+                'approved_by' => 1,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Batik Tulis Nusantara',
+                'kategori' => Umkm::KATEGORI_KERAJINAN,
+                'nama_produk' => 'Kemeja Batik Tulis Premium',
+                'deskripsi_produk' => 'Kemeja batik tulis dengan motif tradisional Jawa. Dikerjakan oleh pengrajin berpengalaman dengan pewarna alami. Tersedia berbagai ukuran dan motif.',
+                'harga_produk' => 250000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '088901234567',
+                'link_facebook' => null,
+                'link_instagram' => 'https://instagram.com/batik_nusantara',
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_PENDING,
+                'catatan_admin' => null,
+                'approved_at' => null,
+                'approved_by' => null,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Laundry Express Cepat',
+                'kategori' => Umkm::KATEGORI_JASA,
+                'nama_produk' => 'Cuci Setrika Kiloan',
+                'deskripsi_produk' => 'Jasa laundry kiloan dengan layanan cuci, setrika, dan lipat. Menggunakan deterjen berkualitas dan pewangi yang tahan lama. Selesai dalam 24 jam.',
+                'harga_produk' => 4000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '089012345678',
+                'link_facebook' => 'https://facebook.com/laundryexpress',
+                'link_instagram' => 'https://instagram.com/laundry_express',
+                'link_tiktok' => null,
+                'status' => Umkm::STATUS_APPROVED,
+                'catatan_admin' => null,
+                'approved_at' => now()->subDays(1),
+                'approved_by' => 1,
+            ],
+            [
+                'user_id' => 1,
+                'nik' => '1234567890098765',
+                'nama_usaha' => 'Catering Sehat Bergizi',
+                'kategori' => Umkm::KATEGORI_LAINNYA,
+                'nama_produk' => 'Paket Catering Harian',
+                'deskripsi_produk' => 'Layanan catering sehat dengan menu bergizi seimbang. Tersedia paket harian untuk kantor, rumah sakit, dan acara. Menu bervariasi setiap hari dengan gizi terjamin.',
+                'harga_produk' => 25000.00,
+                'foto_produk' => null,
+                'nomor_telepon' => '081123456789',
+                'link_facebook' => 'https://facebook.com/cateringsehat',
+                'link_instagram' => 'https://instagram.com/catering_sehat',
+                'link_tiktok' => 'https://tiktok.com/@cateringbergizi',
+                'status' => Umkm::STATUS_APPROVED,
+                'catatan_admin' => null,
+                'approved_at' => now()->subDays(4),
+                'approved_by' => 1,
+            ]
+        ];
+
+        // Insert data menggunakan DB transaction untuk performa yang lebih baik
+        DB::transaction(function () use ($umkmData) {
+            foreach ($umkmData as $data) {
+                Umkm::create($data);
+            }
+        });
+
+        $this->command->info('UMKM seeder completed successfully! Created ' . count($umkmData) . ' UMKM records.');
+    }
+}
