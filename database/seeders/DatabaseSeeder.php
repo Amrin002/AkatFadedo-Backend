@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             GaleriDesaSeeder::class,
             BeritaSeeder::class,
             ApbdesSeeder::class,
+            UmkmSeeder::class
         ]);
     }
 }
