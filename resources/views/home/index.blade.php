@@ -2,8 +2,8 @@
 @push("styles")
 				<style>
 								/* ====================
-																																GAYA UNTUK SETIAP SEKSI
-																															==================== */
+																																																																																																																																												GAYA UNTUK SETIAP SEKSI
+																																																																																																																																								==================== */
 								.hero-section {
 												background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset("landing/assets/img/hero-carousel/hero-carousel.jpg") }}');
 												background-size: cover;
@@ -466,7 +466,7 @@
 																								<!-- Kiri -->
 																								<div class="p-3 rounded col-md-6 text-light"
 																												style="background: url('{{ asset("images/background2.png") }}') no-repeat center center;
-                                    background-size: cover; position: relative; overflow: hidden;">
+                                        background-size: cover; position: relative; overflow: hidden;">
 
 																												<div class="row position-relative" style="z-index: 2;">
 																																<div class="d-flex justify-content-center align-items-center">
@@ -753,7 +753,7 @@
 																				<p class="text-white"><i class="fas fa-map-marker-alt me-2 text-info"></i> Akat Fadedo, Kec. Seram
 																								Timur, Kabupaten Seram Bagian Timur, Maluku</p>
 																				<p class="text-white"><i class="fas fa-envelope me-2 text-info"></i> admindesa@akatfadedo.com</p>
-																				<p class="text-white"><i class="fas fa-phone-alt me-2 text-info"></i> (+62)822-2360-7709</p>
+																				<p class="text-white"><i class="fas fa-phone-alt me-2 text-info"></i> (+62)823-2360-7709</p>
 																</div>
 												</div>
 								</div>
