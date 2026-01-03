@@ -11,6 +11,11 @@ class GaleriDesa extends Model
     use HasFactory;
     protected $fillable = [
         'nama_kegiatan',
-        'image'
+        'image',
+        'kegiatan_desa_id',
     ];
+    public function kegiatan()
+    {
+        return $this->belongsTo(KegiatanDesa::class, 'kegiatan_desa_id');
+    }
 }
