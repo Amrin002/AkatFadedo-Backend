@@ -2,8 +2,8 @@
 @push("styles")
 				<style>
 								/* ====================
-																																																																																																																																																GAYA UNTUK SETIAP SEKSI
-																																																																																																																																												==================== */
+																																																																																																																																																																												GAYA UNTUK SETIAP SEKSI
+																																																																																																																																																																								==================== */
 								.hero-section {
 												background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset("landing/assets/img/hero-carousel/hero-carousel.jpg") }}');
 												background-size: cover;

@@ -27,6 +27,7 @@ use App\Http\Controllers\SuratPindahController;
 use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\ApbdesController;
 use App\Http\Controllers\ArsipSuratController;
+use App\Http\Controllers\KegiatanDesaController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SuratVerifikasiController;
 use App\Http\Controllers\WhatsappController;
@@ -123,6 +124,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/fasilitas', FasilitasDesaController::class);
     Route::resource('/struktur', StrukturDesaController::class);
     Route::resource('/galeri', GaleriDesaController::class);
+    Route::resource('kegiatan', KegiatanDesaController::class);
     Route::resource('/berita', BeritaController::class);
     Route::resource('/keluhan', KeluhanController::class);
     Route::get('/keluhan/{id}/edit', [KeluhanController::class, 'edit'])->name('keluhan.edit');
@@ -167,7 +169,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('umkm/{id}/approve', [UmkmController::class, 'approve'])->name('umkm.approve');
     Route::post('umkm/{id}/reject', [UmkmController::class, 'reject'])->name('umkm.reject');
     Route::post('umkm/{id}/reset', [UmkmController::class, 'resetToPending'])->name('umkm.reset');
-
 });
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
