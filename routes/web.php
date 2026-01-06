@@ -70,6 +70,10 @@ Route::get('/berita/{slug}', [LandingPageController::class, 'show'])
     ->where('slug', '^(?!create$|[0-9]+).*')
     ->name('home.berita');
 
+Route::get('/galeri/kegiatan/{id}', [GaleriDesaController::class, 'byKegiatan'])
+    ->name('galeri.kegiatan');
+
+
 Route::get('/apbdes', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');
 Route::delete('/apbdes/{id}', [ApbdesController::class, 'destroy'])->name('apbdes.destroy');
 Route::get('/apbdes-view', [ApbdesController::class, 'viewUser'])->name('apbdes.viewUser');

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kegiatan_desas', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
+            $table->string('judul')->unique();
             $table->text('deskripsi')->nullable();
             $table->date('tanggal')->nullable();
             $table->timestamps();
