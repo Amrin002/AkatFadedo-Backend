@@ -13,6 +13,8 @@ class GaleriDesa extends Model
         'nama_kegiatan',
         'image',
         'kegiatan_desa_id',
+        'tanggal',
+        'keterangan'
     ];
     public function kegiatan()
     {

@@ -12,7 +12,7 @@ class KegiatanDesa extends Model
     protected $fillable = [
         'judul',
         'deskripsi',
-        'tanggal',
+
     ];
 
     public function fotos()
