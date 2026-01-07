@@ -25,18 +25,16 @@
 																																												<td>: {{ $kegiatan->judul }}</td>
 																																								</tr>
 																																								<tr>
-																																												<th>Tanggal</th>
-																																												<td>:
-																																																{{ $kegiatan->tanggal ? \Carbon\Carbon::parse($kegiatan->tanggal)->format("d F Y") : "-" }}
-																																												</td>
-																																								</tr>
-																																								<tr>
 																																												<th>Deskripsi</th>
 																																												<td>: {{ $kegiatan->deskripsi ?: "-" }}</td>
 																																								</tr>
 																																								<tr>
 																																												<th>Jumlah Foto</th>
-																																												<td>: {{ $kegiatan->fotos->count() }} foto</td>
+																																												<td>:
+																																																<span class="badge badge-info">
+																																																				<i class="fas fa-images"></i> {{ $kegiatan->fotos->count() }} foto
+																																																</span>
+																																												</td>
 																																								</tr>
 																																				</table>
 																																</div>
@@ -46,21 +44,35 @@
 
 																				{{-- Card Grid Foto --}}
 																				<div class="card">
-																								<div class="card-header">
-																												<h5>Galeri Foto Kegiatan</h5>
+																								<div class="card-header d-flex justify-content-between align-items-center">
+																												<h5 class="mb-0">Galeri Foto Kegiatan</h5>
+																												<a href="{{ route("galeri.index") }}" class="btn btn-sm btn-success">
+																																<i class="fas fa-plus"></i> Tambah Foto
+																												</a>
 																								</div>
 																								<div class="card-body">
 																												@if ($kegiatan->fotos->count() > 0)
 																																<div class="row">
 																																				@foreach ($kegiatan->fotos as $foto)
 																																								<div class="col-md-3 col-sm-6 mb-4">
-																																												<div class="card h-100">
+																																												<div class="card h-100 shadow-sm">
 																																																<img src="{{ asset("storage/" . $foto->image) }}" class="card-img-top"
 																																																				alt="{{ $foto->nama_kegiatan }}"
 																																																				style="height: 200px; object-fit: cover; cursor: pointer;"
 																																																				data-toggle="modal" data-target="#fotoModal{{ $foto->id }}">
 																																																<div class="card-body p-2">
-																																																				<p class="card-text small mb-0">{{ $foto->nama_kegiatan }}</p>
+																																																				<h6 class="card-title small mb-1">{{ $foto->nama_kegiatan }}</h6>
+																																																				@if ($foto->tanggal)
+																																																								<p class="card-text small text-muted mb-1">
+																																																												<i class="far fa-calendar"></i>
+																																																												{{ \Carbon\Carbon::parse($foto->tanggal)->format("d M Y") }}
+																																																								</p>
+																																																				@endif
+																																																				@if ($foto->keterangan)
+																																																								<p class="card-text small text-muted mb-0">
+																																																												{{ Str::limit($foto->keterangan, 60) }}
+																																																								</p>
+																																																				@endif
 																																																</div>
 																																												</div>
 
@@ -70,14 +82,39 @@
 																																																<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 																																																				<div class="modal-content">
 																																																								<div class="modal-header">
-																																																												<h5 class="modal-title">{{ $foto->nama_kegiatan }}</h5>
+																																																												<div>
+																																																																<h5 class="modal-title">{{ $foto->nama_kegiatan }}</h5>
+																																																																@if ($foto->tanggal)
+																																																																				<small class="text-muted">
+																																																																								<i class="far fa-calendar"></i>
+																																																																								{{ \Carbon\Carbon::parse($foto->tanggal)->format("d F Y") }}
+																																																																				</small>
+																																																																@endif
+																																																												</div>
 																																																												<button type="button" class="close" data-dismiss="modal">
 																																																																<span>&times;</span>
 																																																												</button>
 																																																								</div>
 																																																								<div class="modal-body text-center">
 																																																												<img src="{{ asset("storage/" . $foto->image) }}"
-																																																																class="img-fluid" alt="{{ $foto->nama_kegiatan }}">
+																																																																class="img-fluid rounded" alt="{{ $foto->nama_kegiatan }}">
+																																																												@if ($foto->keterangan)
+																																																																<div class="mt-3 p-3 bg-light rounded">
+																																																																				<p class="mb-0 text-muted">
+																																																																								<i class="fas fa-info-circle"></i>
+																																																																								{{ $foto->keterangan }}
+																																																																				</p>
+																																																																</div>
+																																																												@endif
+																																																								</div>
+																																																								<div class="modal-footer">
+																																																												<small class="text-muted mr-auto">
+																																																																Ditambahkan: {{ $foto->created_at->format("d M Y, H:i") }}
+																																																												</small>
+																																																												<button type="button" class="btn btn-secondary"
+																																																																data-dismiss="modal">
+																																																																Tutup
+																																																												</button>
 																																																								</div>
 																																																				</div>
 																																																</div>
@@ -89,8 +126,10 @@
 																																<div class="alert alert-info text-center">
 																																				<i class="fas fa-info-circle"></i> Belum ada foto untuk kegiatan ini.
 																																				<br>
-																																				<small>Anda dapat menambahkan foto melalui halaman Galeri Desa dan pilih kegiatan ini
-																																								sebagai label.</small>
+																																				<small>Anda dapat menambahkan foto melalui halaman
+																																								<a href="{{ route("galeri.index") }}" class="alert-link">Galeri Desa</a>
+																																								dan pilih kegiatan "{{ $kegiatan->judul }}" sebagai label.
+																																				</small>
 																																</div>
 																												@endif
 																								</div>

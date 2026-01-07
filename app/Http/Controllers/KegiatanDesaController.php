@@ -17,7 +17,9 @@ class KegiatanDesaController extends Controller
         $halaman = 'Kegiatan Desa';
         $user = $request->user();
 
-        $kegiatan = KegiatanDesa::latest()->get();
+        $kegiatan = KegiatanDesa::withCount('fotos')
+            ->latest()
+            ->get();
 
         return view('kegiatan.index', compact(
             'title',
@@ -46,13 +48,11 @@ class KegiatanDesaController extends Controller
         $request->validate([
             'judul'     => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'tanggal'   => 'nullable|date',
         ]);
 
         KegiatanDesa::create([
             'judul'     => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'tanggal'   => $request->tanggal,
         ]);
 
         return redirect()
@@ -66,7 +66,11 @@ class KegiatanDesaController extends Controller
      */
     public function show($id)
     {
-        $kegiatan = KegiatanDesa::with('fotos')->findOrFail($id);
+        $kegiatan = KegiatanDesa::with(['fotos' => function ($query) {
+            $query->orderBy('tanggal', 'desc')
+                ->orderBy('created_at', 'desc');
+        }])
+            ->findOrFail($id);
 
         $title = $kegiatan->judul;
         $halaman = 'Detail Kegiatan';
@@ -84,7 +88,6 @@ class KegiatanDesaController extends Controller
     public function edit($id)
     {
         $kegiatan = KegiatanDesa::findOrFail($id);
-
         $title = 'Edit Kegiatan Desa';
         $halaman = 'Edit Kegiatan';
 
@@ -103,7 +106,6 @@ class KegiatanDesaController extends Controller
         $request->validate([
             'judul'     => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'tanggal'   => 'nullable|date',
         ]);
 
         $kegiatan = KegiatanDesa::findOrFail($id);
@@ -111,7 +113,6 @@ class KegiatanDesaController extends Controller
         $kegiatan->update([
             'judul'     => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'tanggal'   => $request->tanggal,
         ]);
 
         return redirect()
@@ -126,7 +127,15 @@ class KegiatanDesaController extends Controller
     {
         $kegiatan = KegiatanDesa::findOrFail($id);
 
-        // Foto tidak dihapus (aman)
+        // Cek apakah ada foto terkait
+        $jumlahFoto = $kegiatan->fotos()->count();
+
+        if ($jumlahFoto > 0) {
+            return redirect()
+                ->route('kegiatan.index')
+                ->with('error', "Tidak dapat menghapus kegiatan. Masih ada {$jumlahFoto} foto terkait.");
+        }
+
         $kegiatan->delete();
 
         return redirect()

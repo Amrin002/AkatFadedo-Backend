@@ -29,21 +29,20 @@
 																																												<form action="{{ route("kegiatan.store") }}" method="POST">
 																																																@csrf
 																																																<div class="form-group">
-																																																				<label for="judul">Judul Kegiatan</label>
+																																																				<label for="judul">Judul Kegiatan <span
+																																																												class="text-danger">*</span></label>
 																																																				<input type="text" class="form-control" id="judul" name="judul"
 																																																								value="{{ old("judul") }}" required>
 																																																</div>
 																																																<div class="form-group">
 																																																				<label for="deskripsi">Deskripsi</label>
-																																																				<textarea class="form-control" id="deskripsi" name="deskripsi" rows="4">{{ old("deskripsi") }}</textarea>
+																																																				<textarea class="form-control" id="deskripsi" name="deskripsi" rows="4"
+																																																				    placeholder="Deskripsi kegiatan (opsional)">{{ old("deskripsi") }}</textarea>
 																																																</div>
 																																																<div class="form-group">
-																																																				<label for="tanggal">Tanggal Kegiatan</label>
-																																																				<input type="date" class="form-control" id="tanggal" name="tanggal"
-																																																								value="{{ old("tanggal") }}">
-																																																</div>
-																																																<div class="form-group">
-																																																				<button type="submit" class="btn btn-primary">Simpan</button>
+																																																				<button type="submit" class="btn btn-primary">
+																																																								<i class="fas fa-save"></i> Simpan
+																																																				</button>
 																																																</div>
 																																												</form>
 																																								</div>
@@ -60,7 +59,7 @@
 																																												<th scope="col">No</th>
 																																												<th scope="col">Judul Kegiatan</th>
 																																												<th scope="col">Deskripsi</th>
-																																												<th scope="col">Tanggal</th>
+																																												<th scope="col">Jumlah Foto</th>
 																																												<th scope="col">Action</th>
 																																								</tr>
 																																				</thead>
@@ -70,7 +69,10 @@
 																																																<td>{{ $loop->iteration }}</td>
 																																																<td>{{ $row->judul }}</td>
 																																																<td>{{ Str::limit($row->deskripsi, 50) }}</td>
-																																																<td>{{ $row->tanggal ? \Carbon\Carbon::parse($row->tanggal)->format("d/m/Y") : "-" }}
+																																																<td>
+																																																				<span class="badge badge-info">
+																																																								<i class="fas fa-images"></i> {{ $row->fotos_count ?? 0 }} foto
+																																																				</span>
 																																																</td>
 																																																<td>
 																																																				<div class="d-flex align-items-center gap-2">
@@ -110,6 +112,13 @@
 																																																												<div class="modal-body">
 																																																																Apakah Anda yakin ingin menghapus Kegiatan
 																																																																"{{ $row->judul }}"?
+																																																																@if (($row->fotos_count ?? 0) > 0)
+																																																																				<div class="alert alert-warning mt-2">
+																																																																								<i class="fas fa-exclamation-triangle"></i>
+																																																																								Kegiatan ini memiliki {{ $row->fotos_count }} foto.
+																																																																								Hapus foto terlebih dahulu!
+																																																																				</div>
+																																																																@endif
 																																																												</div>
 																																																												<div class="modal-footer">
 																																																																<button type="button" class="btn btn-secondary"
@@ -120,7 +129,8 @@
 																																																																				method="POST">
 																																																																				@csrf
 																																																																				@method("DELETE")
-																																																																				<button type="submit" class="btn btn-danger">
+																																																																				<button type="submit" class="btn btn-danger"
+																																																																								{{ ($row->fotos_count ?? 0) > 0 ? "disabled" : "" }}>
 																																																																								Ya, Hapus
 																																																																				</button>
 																																																																</form>
@@ -148,23 +158,21 @@
 																																																																				@csrf
 																																																																				@method("PUT")
 																																																																				<div class="form-group">
-																																																																								<label for="judul_edit">Judul Kegiatan</label>
+																																																																								<label for="judul_edit{{ $row->id }}">Judul
+																																																																												Kegiatan <span
+																																																																																class="text-danger">*</span></label>
 																																																																								<input type="text" class="form-control"
-																																																																												id="judul_edit" name="judul"
-																																																																												value="{{ $row->judul }}" required>
+																																																																												id="judul_edit{{ $row->id }}"
+																																																																												name="judul" value="{{ $row->judul }}"
+																																																																												required>
 																																																																				</div>
 																																																																				<div class="form-group">
-																																																																								<label for="deskripsi_edit">Deskripsi</label>
-																																																																								<textarea class="form-control" id="deskripsi_edit" name="deskripsi" rows="4">{{ $row->deskripsi }}</textarea>
-																																																																				</div>
-																																																																				<div class="form-group">
-																																																																								<label for="tanggal_edit">Tanggal Kegiatan</label>
-																																																																								<input type="date" class="form-control"
-																																																																												id="tanggal_edit" name="tanggal"
-																																																																												value="{{ $row->tanggal }}">
+																																																																								<label
+																																																																												for="deskripsi_edit{{ $row->id }}">Deskripsi</label>
+																																																																								<textarea class="form-control" id="deskripsi_edit{{ $row->id }}" name="deskripsi" rows="4">{{ $row->deskripsi }}</textarea>
 																																																																				</div>
 																																																																				<button type="submit" class="btn btn-primary">
-																																																																								Simpan Perubahan
+																																																																								<i class="fas fa-save"></i> Simpan Perubahan
 																																																																				</button>
 																																																																</form>
 																																																												</div>
