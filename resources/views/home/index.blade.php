@@ -615,66 +615,151 @@
 				</section>
 
 				<!-- Bagian Galeri Foto -->
-				<section id="galeri" class="py-5 my-5 bg-light">
-								<div class="container">
-												<h2 class="mb-4 text-center fw-bold section-title">Galeri Foto</h2>
+<section id="galeri" class="py-5 my-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4 text-center fw-bold section-title">Galeri Foto</h2>
 
-												@if ($galeri->isEmpty())
-																<p class="text-center text-muted">Galeri foto belum tersedia.</p>
-												@else
-																<div class="masonry-grid">
-																				@foreach ($galeri as $item)
-																								<div class="masonry-item">
-																												<div class="border-0 shadow-sm card galeri-card">
-																																<img src="{{ asset("storage/" . $item->image) }}" alt="{{ $item->nama_kegiatan }}"
-																																				class="galeri-img img-gallery" data-bs-toggle="modal" data-bs-target="#galleryModal"
-																																				data-img-src="{{ asset("storage/" . $item->image) }}"
-																																				data-title="{{ $item->nama_kegiatan }}">
-																																<div class="p-2 text-center">
-																																				<h6 class="mt-2 mb-0 fw-semibold">{{ $item->nama_kegiatan }}</h6>
-																																</div>
-																												</div>
-																								</div>
-																				@endforeach
-																</div>
-												@endif
+        @if ($galeri->isEmpty())
+            <p class="text-center text-muted">Galeri foto belum tersedia.</p>
+        @else
+            {{-- Filter berdasarkan Label Kegiatan --}}
+            @php
+                $kegiatanGroups = $galeri->groupBy('kegiatan_desa_id');
+            @endphp
 
-												<!-- Tombol Selengkapnya -->
-												<div class="mt-5 text-center reveal">
-																<a href="{{ route("home.daftar-galeri") }}" class="px-4 btn btn-outline-primary rounded-pill">
-																				<i class="fas fa-images me-1"></i> Lihat Semua Galeri
-																</a>
-												</div>
-								</div>
-				</section>
+            {{-- @if ($kegiatanGroups->count() > 1)
+                <div class="mb-4 text-center">
+                    <div class="btn-group flex-wrap" role="group">
+                        <button type="button" class="btn btn-outline-primary active filter-btn" data-filter="all">
+                            Semua
+                        </button>
+                        @foreach ($kegiatanGroups as $kegiatanId => $items)
+                            @if ($kegiatanId && $items->first()->kegiatan)
+                                <button type="button" class="btn btn-outline-primary filter-btn" data-filter="kegiatan-{{ $kegiatanId }}">
+                                    {{ $items->first()->kegiatan->judul }}
+                                </button>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            @endif --}}
 
-				<!-- Modal Galeri -->
-				<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered modal-xl">
-												<div class="overflow-hidden text-white border-0 shadow-lg modal-content bg-dark rounded-4">
-																<div class="p-0 modal-body position-relative">
-																				<!-- Gambar -->
-																				<img id="modalImage" src="" alt="Gambar Galeri"
-																								class="img-fluid w-100 d-block animate__animated animate__zoomIn">
+            <div class="masonry-grid">
+                @foreach ($galeri as $item)
+                    <div class="masonry-item galeri-item" data-category="{{ $item->kegiatan_desa_id ? 'kegiatan-' . $item->kegiatan_desa_id : 'tanpa-label' }}">
+                        <div class="border-0 shadow-sm card galeri-card h-100">
+                            <img src="{{ asset('storage/' . $item->image) }}" 
+                                 alt="{{ $item->nama_kegiatan }}"
+                                 class="galeri-img img-gallery" 
+                                 data-bs-toggle="modal" 
+                                 data-bs-target="#galleryModal"
+                                 data-img-src="{{ asset('storage/' . $item->image) }}"
+                                 data-title="{{ $item->nama_kegiatan }}">
+                            <div class="p-3">
+                                <h6 class="mb-2 fw-semibold">{{ $item->nama_kegiatan }}</h6>
+                                @if ($item->kegiatan)
+                                    <span class="badge bg-primary">
+                                        <i class="fas fa-tag me-1"></i>{{ $item->kegiatan->judul }}
+                                    </span>
+                                @else
+                                    <span class="badge bg-secondary">
+                                        <i class="fas fa-image me-1"></i>Tanpa Label
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
 
-																				<!-- Caption -->
-																				<div class="bottom-0 p-3 bg-opacity-75 bg-dark position-absolute start-0 w-100">
-																								<h5 id="modalTitle" class="mb-0 text-center fw-semibold"></h5>
-																				</div>
+        <!-- Tombol Selengkapnya -->
+        <div class="mt-5 text-center reveal">
+            <a href="{{ route('home.daftar-galeri') }}" class="px-4 btn btn-outline-primary rounded-pill">
+                <i class="fas fa-images me-1"></i> Lihat Semua Galeri
+            </a>
+        </div>
+    </div>
+</section>
 
-																				<!-- Tombol Tutup -->
-																				<button type="button" class="top-0 m-3 btn-close btn-close-white position-absolute end-0"
-																								data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal Galeri -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="overflow-hidden text-white border-0 shadow-lg modal-content bg-dark rounded-4">
+            <div class="p-0 modal-body position-relative">
+                <!-- Gambar -->
+                <img id="modalImage" src="" alt="Gambar Galeri"
+                    class="img-fluid w-100 d-block animate__animated animate__zoomIn">
 
-																				<!-- Navigasi -->
-																				<button class="btn btn-dark btn-lg position-absolute top-50 start-0 translate-middle-y"
-																								id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-																				<button class="btn btn-dark btn-lg position-absolute top-50 end-0 translate-middle-y"
-																								id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-																</div>
-												</div>
-								</div>
-				</div>
+                <!-- Caption -->
+                <div class="bottom-0 p-3 bg-opacity-75 bg-dark position-absolute start-0 w-100">
+                    <h5 id="modalTitle" class="mb-0 text-center fw-semibold"></h5>
+                </div>
+
+                <!-- Tombol Tutup -->
+                <button type="button" class="top-0 m-3 btn-close btn-close-white position-absolute end-0"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <!-- Navigasi -->
+                <button class="btn btn-dark btn-lg position-absolute top-50 start-0 translate-middle-y"
+                    id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="btn btn-dark btn-lg position-absolute top-50 end-0 translate-middle-y"
+                    id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@push('scripts')
+<script>
+    // Filter Galeri berdasarkan Label
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const filterBtns = document.querySelectorAll('.filter-btn');
+    //     const galeriItems = document.querySelectorAll('.galeri-item');
+
+    //     filterBtns.forEach(btn => {
+    //         btn.addEventListener('click', function() {
+    //             // Update active button
+    //             filterBtns.forEach(b => b.classList.remove('active'));
+    //             this.classList.add('active');
+
+    //             const filterValue = this.getAttribute('data-filter');
+
+    //             galeriItems.forEach(item => {
+    //                 if (filterValue === 'all') {
+    //                     item.style.display = 'block';
+    //                     setTimeout(() => {
+    //                         item.style.opacity = '1';
+    //                         item.style.transform = 'scale(1)';
+    //                     }, 10);
+    //                 } else {
+    //                     if (item.getAttribute('data-category') === filterValue) {
+    //                         item.style.display = 'block';
+    //                         setTimeout(() => {
+    //                             item.style.opacity = '1';
+    //                             item.style.transform = 'scale(1)';
+    //                         }, 10);
+    //                     } else {
+    //                         item.style.opacity = '0';
+    //                         item.style.transform = 'scale(0.8)';
+    //                         setTimeout(() => {
+    //                             item.style.display = 'none';
+    //                         }, 300);
+    //                     }
+    //                 }
+    //             });
+    //         });
+    //     });
+
+        // Add transition styles
+        galeriItems.forEach(item => {
+            item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        });
+    });
+</script>
+@endpush
 
 				<!-- Bagian Berita -->
 				<section id="berita" class="py-5 my-5 bg-white">
