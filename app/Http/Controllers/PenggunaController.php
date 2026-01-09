@@ -18,11 +18,12 @@ class PenggunaController extends Controller
         $halaman = 'Pengguna';
         $user = $request->user();
 
-        // Mengambil semua pengguna tanpa filter devisi atau staf
+        // Mengambil semua pengguna kecuali yang bernama "Admin Desa"
         $users = DB::table('users')
-            ->where('role', 'user') // Hanya ambil pengguna dengan role "user"
+            ->where('name', '!=', 'Admin Desa') // Sembunyikan yang namanya "Admin Desa"
             ->orderByDesc('id')
             ->get();
+
         return view('pengguna.index', compact('title', 'halaman', 'users', 'user'));
     }
 
