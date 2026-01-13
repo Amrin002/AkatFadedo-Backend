@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -83,119 +84,119 @@ class ApiKeluhanController extends Controller
 
 
     // GET: /api/keluhan/{id}
-public function show($id)
-{
-    $keluhan = Keluhan::findOrFail($id);
-    
-    if ($keluhan->user_id !== Auth::id()) {
+    public function show($id)
+    {
+        $keluhan = Keluhan::findOrFail($id);
+
+        if ($keluhan->user_id !== Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak diizinkan',
+            ], 403);
+        }
+
         return response()->json([
-            'success' => false,
-            'message' => 'Tidak diizinkan',
-        ], 403);
+            'success' => true,
+            'message' => 'Detail keluhan',
+            'data'    => $keluhan->load('user')
+        ]);
     }
 
-    return response()->json([
-        'success' => true,
-        'message' => 'Detail keluhan',
-        'data'    => $keluhan->load('user')
-    ]);
-}
 
 
-    
 
-public function update(Request $request, $id)
-{
-    $user = $request->user();
-    $keluhan = Keluhan::find($id);
-    
-    if (!$keluhan) {
+    public function update(Request $request, $id)
+    {
+        $user = $request->user();
+        $keluhan = Keluhan::find($id);
+
+        if (!$keluhan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Keluhan tidak ditemukan',
+            ], 404);
+        }
+
+        if ($keluhan->user_id !== $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda tidak memiliki izin untuk mengubah keluhan ini',
+            ], 403);
+        }
+
+        // Log untuk debug
+        Log::info('Raw request data:', $request->all());
+        Log::info('Has judul: ' . $request->has('judul'));
+        Log::info('Has isi: ' . $request->has('isi'));
+
+        $validator = Validator::make($request->all(), [
+            'judul'  => 'required|string|max:255',
+            'isi'    => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Siapkan data update
+        $updateData = [
+            'judul' => $request->input('judul'),
+            'isi' => $request->input('isi'),
+        ];
+
+        // Handle gambar jika ada
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
+                Storage::disk('public')->delete($keluhan->gambar);
+            }
+
+            // Upload gambar baru
+            $path = $request->file('gambar')->store('keluhan', 'public');
+            $updateData['gambar'] = $path;
+        }
+
+        // Update keluhan
+        $keluhan->update($updateData);
+
+        // Load relasi user
+        $keluhan->load('user');
+
         return response()->json([
-            'success' => false,
-            'message' => 'Keluhan tidak ditemukan',
-        ], 404);
+            'success' => true,
+            'message' => 'Keluhan berhasil diperbarui',
+            'data' => $keluhan
+        ]);
     }
-    
-    if ($keluhan->user_id !== $user->id) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Anda tidak memiliki izin untuk mengubah keluhan ini',
-        ], 403);
-    }
-    
-    // Log untuk debug
-    \Log::info('Raw request data:', $request->all());
-    \Log::info('Has judul: ' . $request->has('judul'));
-    \Log::info('Has isi: ' . $request->has('isi'));
-    
-    $validator = Validator::make($request->all(), [
-        'judul'  => 'required|string|max:255',
-        'isi'    => 'required|string',
-        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-    ]);
-    
-    if ($validator->fails()) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Validasi gagal',
-            'errors' => $validator->errors()
-        ], 422);
-    }
-    
-    // Siapkan data update
-    $updateData = [
-        'judul' => $request->input('judul'),
-        'isi' => $request->input('isi'),
-    ];
-    
-    // Handle gambar jika ada
-    if ($request->hasFile('gambar')) {
-        // Hapus gambar lama jika ada
+
+
+
+    // DELETE: /api/keluhan/{id}
+    public function destroy($id)
+    {
+        $keluhan = Keluhan::findOrFail($id);
+
+        if ($keluhan->user_id !== Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak diizinkan',
+            ], 403);
+        }
+
         if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
             Storage::disk('public')->delete($keluhan->gambar);
         }
-        
-        // Upload gambar baru
-        $path = $request->file('gambar')->store('keluhan', 'public');
-        $updateData['gambar'] = $path;
-    }
-    
-    // Update keluhan
-    $keluhan->update($updateData);
-    
-    // Load relasi user
-    $keluhan->load('user');
-    
-    return response()->json([
-        'success' => true,
-        'message' => 'Keluhan berhasil diperbarui',
-        'data' => $keluhan
-    ]);
-}
-   
 
+        $keluhan->delete();
 
-   // DELETE: /api/keluhan/{id}
-public function destroy($id)
-{
-    $keluhan = Keluhan::findOrFail($id);
-    
-    if ($keluhan->user_id !== Auth::id()) {
         return response()->json([
-            'success' => false,
-            'message' => 'Tidak diizinkan',
-        ], 403);
+            'success' => true,
+            'message' => 'Keluhan berhasil dihapus',
+        ]);
     }
-
-    if ($keluhan->gambar && Storage::disk('public')->exists($keluhan->gambar)) {
-        Storage::disk('public')->delete($keluhan->gambar);
-    }
-
-    $keluhan->delete();
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Keluhan berhasil dihapus',
-    ]);
-}
 }
